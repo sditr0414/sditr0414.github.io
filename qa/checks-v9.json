@@ -1,0 +1,102 @@
+{
+  "changed_article_ids": [
+    "robot",
+    "thesis"
+  ],
+  "unchanged_css": true,
+  "unchanged_javascript": true,
+  "unchanged_assets": true,
+  "screen_checks": [
+    {
+      "id": "robot",
+      "width": 360,
+      "viewportOverflow": false,
+      "bodyBottom": 1143.75,
+      "footerTop": 1167.75,
+      "titleRight": 271.921875,
+      "slideWidth": 336,
+      "title": "일주일 만에 완성한 이동형 로봇",
+      "role": "5인 팀의 조장을 맡아 로봇팔을 제작·제어하고 주행·로봇팔 펌웨어를 통합했습니다. 통신 규격과 주요 설정을 팀원들과 먼저 맞춘 뒤 앱 조정에 참여했습니다."
+    },
+    {
+      "id": "thesis",
+      "width": 360,
+      "viewportOverflow": false,
+      "bodyBottom": 1061.484375,
+      "footerTop": 1085.484375,
+      "titleRight": 271.921875,
+      "slideWidth": 336,
+      "title": "노크한 위치를 진동 신호로 구분하기",
+      "role": "연구 방향과 데이터 처리·모델 비교를 주도했습니다. MATLAB으로 전처리·특징 추출·실시간 탐지 프로그램을 구현했습니다."
+    },
+    {
+      "id": "robot",
+      "width": 390,
+      "viewportOverflow": false,
+      "bodyBottom": 1052.46875,
+      "footerTop": 1076.46875,
+      "titleRight": 319.5625,
+      "slideWidth": 366,
+      "title": "일주일 만에 완성한 이동형 로봇",
+      "role": "5인 팀의 조장을 맡아 로봇팔을 제작·제어하고 주행·로봇팔 펌웨어를 통합했습니다. 통신 규격과 주요 설정을 팀원들과 먼저 맞춘 뒤 앱 조정에 참여했습니다."
+    },
+    {
+      "id": "thesis",
+      "width": 390,
+      "viewportOverflow": false,
+      "bodyBottom": 1035.28125,
+      "footerTop": 1059.28125,
+      "titleRight": 271.921875,
+      "slideWidth": 366,
+      "title": "노크한 위치를 진동 신호로 구분하기",
+      "role": "연구 방향과 데이터 처리·모델 비교를 주도했습니다. MATLAB으로 전처리·특징 추출·실시간 탐지 프로그램을 구현했습니다."
+    },
+    {
+      "id": "robot",
+      "width": 768,
+      "viewportOverflow": false,
+      "bodyBottom": 576.546875,
+      "footerTop": 598.546875,
+      "titleRight": 374.828125,
+      "slideWidth": 724,
+      "title": "일주일 만에 완성한 이동형 로봇",
+      "role": "5인 팀의 조장을 맡아 로봇팔을 제작·제어하고 주행·로봇팔 펌웨어를 통합했습니다. 통신 규격과 주요 설정을 팀원들과 먼저 맞춘 뒤 앱 조정에 참여했습니다."
+    },
+    {
+      "id": "thesis",
+      "width": 768,
+      "viewportOverflow": false,
+      "bodyBottom": 576.546875,
+      "footerTop": 598.546875,
+      "titleRight": 423.828125,
+      "slideWidth": 724,
+      "title": "노크한 위치를 진동 신호로 구분하기",
+      "role": "연구 방향과 데이터 처리·모델 비교를 주도했습니다. MATLAB으로 전처리·특징 추출·실시간 탐지 프로그램을 구현했습니다."
+    },
+    {
+      "id": "robot",
+      "width": 1440,
+      "viewportOverflow": false,
+      "bodyBottom": 570.5,
+      "footerTop": 584.5,
+      "titleRight": 384.828125,
+      "slideWidth": 1120,
+      "title": "일주일 만에 완성한 이동형 로봇",
+      "role": "5인 팀의 조장을 맡아 로봇팔을 제작·제어하고 주행·로봇팔 펌웨어를 통합했습니다. 통신 규격과 주요 설정을 팀원들과 먼저 맞춘 뒤 앱 조정에 참여했습니다."
+    },
+    {
+      "id": "thesis",
+      "width": 1440,
+      "viewportOverflow": false,
+      "bodyBottom": 570.5,
+      "footerTop": 584.5,
+      "titleRight": 433.828125,
+      "slideWidth": 1120,
+      "title": "노크한 위치를 진동 신호로 구분하기",
+      "role": "연구 방향과 데이터 처리·모델 비교를 주도했습니다. MATLAB으로 전처리·특징 추출·실시간 탐지 프로그램을 구현했습니다."
+    }
+  ],
+  "print_slide_count": 13,
+  "print_handout_count": 7,
+  "browser_errors": []
+}

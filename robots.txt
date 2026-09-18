@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://sditr0414.github.io/sitemap.xml

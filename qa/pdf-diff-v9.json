@@ -1,0 +1,26 @@
+{
+  "slides.pdf": {
+    "before_pages": 13,
+    "after_pages": 13,
+    "changed_render_pages": [
+      3,
+      10
+    ],
+    "changed_text_pages": [
+      3,
+      10
+    ]
+  },
+  "handout.pdf": {
+    "before_pages": 7,
+    "after_pages": 7,
+    "changed_render_pages": [
+      2,
+      5
+    ],
+    "changed_text_pages": [
+      2,
+      5
+    ]
+  }
+}
