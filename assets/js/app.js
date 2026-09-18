@@ -7,6 +7,17 @@
   const title = $('#dialog-title');
   const controls = $('#gallery-controls');
   const imageSizeToggle = $('#image-size-toggle');
+  const fullscreenButton = $('#video-fullscreen');
+  fullscreenButton.addEventListener('click', async () => {
+    const video = $('video', media);
+    if (!video) return;
+    try {
+      if (video.requestFullscreen) await video.requestFullscreen();
+      else if (video.webkitEnterFullscreen) video.webkitEnterFullscreen();
+    } catch {
+      notify('전체 화면을 열지 못했습니다. 영상의 재생 컨트롤을 이용해 주세요.');
+    }
+  });
   function resetImageSize(show = true) {
     media.classList.remove('is-actual-size');
     imageSizeToggle.hidden = !show;
@@ -19,10 +30,10 @@
     imageSizeToggle.setAttribute('aria-pressed',String(actual));
   });
   const gallery = [
-    ['assets/cad-assembly.webp','SolidWorks 어셈블리 모델링 · 전공 실습'],
-    ['assets/cad-train.webp','SolidWorks 파트·어셈블리 모델링 · 전공 실습'],
-    ['assets/cae-structure.webp','Ansys 구조 해석 · 전공 실습'],
-    ['assets/cae-modal.webp','Ansys 진동 해석 · 전공 실습']
+    ['assets/images/cad-assembly.webp','SolidWorks 어셈블리 모델링 · 전공 실습'],
+    ['assets/images/cad-train.webp','SolidWorks 파트·어셈블리 모델링 · 전공 실습'],
+    ['assets/images/cae-structure.webp','Ansys 구조 해석 · 전공 실습'],
+    ['assets/images/cae-modal.webp','Ansys 진동 해석 · 전공 실습']
   ];
   let galleryIndex = 0, lastFocus = null;
   function openDialog(label) {
@@ -32,6 +43,8 @@
     $('#dialog-close').focus();
   }
   function showImage(src, label, isGallery = false) {
+    dialog.classList.remove('is-video');
+    fullscreenButton.hidden = true;
     resetImageSize();
     media.replaceChildren();
     const img = new Image(); img.src = src; img.alt = label;
@@ -48,9 +61,22 @@
   }));
   $$('main [data-video]').forEach(button => button.addEventListener('click', () => {
     controls.hidden = true; resetImageSize(false); media.replaceChildren();
+    dialog.classList.add('is-video');
     const video = document.createElement('video');
     video.src = button.dataset.video; video.controls = true; video.playsInline = true;
+    fullscreenButton.hidden = !(document.fullscreenEnabled && video.requestFullscreen || video.webkitEnterFullscreen);
     video.preload = 'metadata'; video.setAttribute('aria-label',button.dataset.title);
+    video.addEventListener('error', () => {
+      fullscreenButton.hidden = true;
+      const message = document.createElement('p');
+      message.className = 'video-error';
+      message.textContent = '영상을 재생하지 못했습니다. ';
+      const link = document.createElement('a');
+      link.href = button.dataset.video;
+      link.textContent = '영상 파일 직접 열기';
+      link.target = '_blank'; link.rel = 'noopener noreferrer';
+      message.append(link); media.replaceChildren(message);
+    }, {once:true});
     media.append(video); openDialog(button.dataset.title);
     video.play().catch(() => {});
   }));
@@ -61,6 +87,8 @@
   $('#gallery-next').addEventListener('click', () => { galleryIndex=(galleryIndex+1)%gallery.length; updateGallery(); });
   $('#dialog-close').addEventListener('click', () => dialog.close());
   dialog.addEventListener('close', () => {
+    dialog.classList.remove('is-video');
+    fullscreenButton.hidden = true;
     resetImageSize(false);
     const video = $('video', media);
     if (video) { video.pause(); video.removeAttribute('src'); video.load(); }

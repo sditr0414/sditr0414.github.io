@@ -57,7 +57,7 @@ def geometry_script(selector):
 def main():
     ap=argparse.ArgumentParser(description=__doc__);ap.add_argument('--browser');ap.add_argument('--review',type=Path)
     args=ap.parse_args()
-    review=args.review or ROOT/'qa';review.mkdir(parents=True,exist_ok=True)
+    review=args.review or ROOT/'work'/'qa';review.mkdir(parents=True,exist_ok=True)
     html=build_preview(include_pdfs=False)
     with sync_playwright() as pw:
         browser=pw.chromium.launch(executable_path=args.browser or shutil.which('chromium') or shutil.which('google-chrome'),headless=True,args=['--no-sandbox'])

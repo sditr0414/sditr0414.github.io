@@ -1,61 +1,52 @@
-# 정승호 포트폴리오
+# 정승호 | 포트폴리오
 
-공개 주소: [https://sditr0414.github.io/](https://sditr0414.github.io/)
+기계공학을 전공하고 로봇 개발을 배우고 있습니다. 로봇 제작과 제어, 영상 인식, 신호 분석 프로젝트에서 맡은 일과 문제를 해결한 과정을 담았습니다.
 
-QR: [PNG](portfolio-qr.png) · [SVG](portfolio-qr.svg)
+**[포트폴리오 보기 →](https://sditr0414.github.io/)**
 
-기존 v9 디자인과 자료를 바탕으로 GitHub Pages에 게시합니다.
+[슬라이드 PDF](slides.pdf) · [A4 인쇄용 PDF](handout.pdf) · [이메일](mailto:3095069@naver.com) · [GitHub](https://github.com/sditr0414)
 
-사진, 학력·교육, 프로젝트 5개를 담은 정적 웹사이트입니다. 16:9 슬라이드 13장과 A4 세로 두 슬라이드 인쇄를 지원합니다.
+## 프로젝트
 
-## 이번 수정
+| 프로젝트 | 주요 경험 | 사용 기술 |
+| --- | --- | --- |
+| [원격 물품 회수·운반 로봇](https://sditr0414.github.io/#robot) | 1주·5인 팀 프로젝트. 조장으로 로봇팔 제작·제어와 펌웨어 통합 담당 | C, STM32, FreeRTOS, Bluetooth |
+| [AI 기반 보행 보조 장치](https://sditr0414.github.io/#vision) | 데이터 라벨 통합, 모델 학습·변환, ROI와 알림 판단 로직 구성 | Python, OpenCV, YOLO, TFLite |
+| [PLC 기반 창고 적재 제어](https://sditr0414.github.io/#plc) | 병렬 처리 로직과 HMI 작성, 메모리 상태에 따른 오동작 수정 | Mitsubishi Q PLC, GX Works2, GT Designer3 |
+| [노크 위치 탐지 연구](https://sditr0414.github.io/#thesis) | 진동 신호 전처리·특징 추출, 모델 비교와 실시간 탐지 프로그램 구현 | MATLAB, FFT, K-NN, SVM, ANN |
+| [Travel Visualizer](https://sditr0414.github.io/#travel) | 여행 사진과 이동 기록을 연결하는 웹앱 기획, Codex를 활용한 구현과 개선 | React, TypeScript, MapLibre, Node.js |
 
-이동형 로봇 소개(3페이지)의 제목을 ‘일주일 만에 완성한 이동형 로봇’으로 바꿨습니다. 하단에는 ‘제작 기간 · 팀 구성 / 1주 · 5인 팀’을 표시했습니다. 팀 프로젝트라는 점과 본인 담당 범위는 유지합니다.
+각 프로젝트의 상세 페이지에서 제작물, 담당 범위와 구현 결과를 확인할 수 있습니다. 로봇·보행 보조·PLC·노크 위치 탐지 프로젝트는 시연 영상도 제공합니다.
 
-졸업논문 소개(10페이지)에서 팀원들이 자료 정리·하드웨어 구성을 도왔다는 문장을 삭제했습니다. 연구 방향 설정, 데이터 처리·모델 비교, MATLAB 프로그램 구현 등 본인이 맡은 내용과 ‘6인 공동 연구’ 표기는 유지합니다.
+## 학력·교육
 
-표지, 색상, 폰트 크기, 레이아웃 규칙, 사진·영상, 플로팅 목차는 변경하지 않았습니다. 웹과 두 PDF에 같은 내용을 반영했습니다.
+- 순천향대학교 기계공학과 졸업 · 2026.02
+- 대한상공회의소 서울기술교육센터 AI융합 로봇 SW개발자 3기 · 2026.04–11, 교육 중
 
-## 파일
+*2026년 9월 기준*
 
-- `index.html`, `styles.css`, `app.js`: 웹사이트
-- `assets/`: 사진, 화면, 무음 시연 영상
-- `slides.pdf`: 16:9 슬라이드 13쪽
-- `handout.pdf`: A4 세로 2슬라이드 7쪽
-- `DESIGN.md`: 공통 디자인 원본 규칙
-- `REVIEW.md`: 이번 문구 변경과 검수 범위
-- `qa/`: 실제 렌더링과 동작 검사 결과
-- `scripts/export_pdf.py`: 현재 웹 디자인으로 PDF 다시 만들기
-- `scripts/make_preview.py`: 파일 하나로 실행하는 HTML 만들기
+## 포트폴리오 보기
 
-## 실행과 게시
+웹에서는 PC와 모바일 화면에 맞춰 내용을 볼 수 있고, 프로젝트 이미지를 누르면 확대됩니다. PDF는 16:9 슬라이드 13쪽과 A4 세로 2슬라이드 형식 7쪽으로 제공합니다.
 
-폴더의 `index.html`을 브라우저에서 열거나, 이 폴더에서 `python -m http.server 8000`을 실행한 뒤 `http://localhost:8000`으로 접속합니다. 별도 npm 설치나 빌드가 필요하지 않습니다.
+<a href="https://sditr0414.github.io/"><img src="portfolio-qr.png" alt="정승호 포트폴리오 접속 QR 코드" width="160" height="160"></a>
 
-GitHub Pages에는 `index.html`이 저장소 최상위에 오도록 폴더 내용을 업로드합니다. Pages의 배포 원본을 `main` 브랜치와 `/(root)`로 설정합니다. `.nojekyll`을 포함하며 사이트 파일은 모두 상대 경로를 사용합니다. 현재 저장소의 `main` 브랜치 루트에서 GitHub Pages로 배포합니다.
+QR 다운로드: [PNG](portfolio-qr.png) · [SVG](portfolio-qr.svg)
 
-## PDF와 인쇄
+## 저장소 구성
 
-상단 ‘PDF 저장’은 현재 브라우저의 인쇄 창을 열고 16:9 페이지를 준비합니다. 대상을 ‘PDF로 저장’으로 선택하세요. 배경 그래픽은 켜고 머리글·바닥글은 끕니다. 하단에는 미리 생성한 PDF의 다운로드 링크도 있습니다.
-
-상단 ‘인쇄 · 2슬라이드’와 Ctrl/Cmd+P는 A4 세로 두 슬라이드 출력을 준비합니다. **A4 / 세로 / 용지당 1페이지 / 배율 100%**로 둡니다. 이미 두 장을 배치했으므로 인쇄창에서 용지당 2페이지를 다시 선택하지 않습니다. 마지막 용지는 13번 슬라이드와 메모 공간입니다.
-
-모바일에서는 웹 내용이 세로로 재배치되지만 PDF는 데스크톱의 16:9 원본을 사용합니다. 화면과 PDF가 모든 브라우저에서 픽셀 단위로 동일하다는 뜻은 아닙니다. 글꼴 렌더링과 프린터 여백은 환경별로 달라질 수 있습니다.
-
-## 화면 확대
-
-이미지를 누르면 확대 창이 열립니다. ‘원본 크기’는 작은 글자를 읽기 위해 소스 이미지의 실제 크기로 보여주고, ‘화면에 맞춤’으로 돌아갈 수 있습니다. 모바일에서도 닫기 버튼과 확대 버튼이 보이도록 배치했습니다. 원본 이미지를 생성형 도구로 재제작하거나 해상도를 보정하지 않았습니다.
-
-## PDF 재생성
-
-Python과 Chromium, 한국어 표시가 가능한 설치 글꼴이 필요합니다. 폰트 파일은 배포하지 않습니다.
-
-```sh
-pip install -r requirements-export.txt
-python scripts/export_pdf.py --browser /path/to/chromium
-python scripts/make_preview.py preview.html
+```text
+index.html         포트폴리오 페이지
+assets/
+  css/             화면·인쇄 스타일
+  js/              목차, 자료 확대, PDF 출력
+  images/          프로필과 프로젝트 이미지
+  videos/          프로젝트 시연 영상
+docs/              디자인 기준과 관리 안내
+scripts/           PDF·단일 HTML 생성 도구
+slides.pdf         16:9 슬라이드 PDF
+handout.pdf        A4 인쇄용 PDF
+portfolio-qr.*     사이트 접속 QR
 ```
 
-## 공개 범위
-
-본인 사진과 이메일은 포함합니다. 주소·생년월일·휴대폰 번호는 포함하지 않습니다. 팀의 기능과 개인의 담당 범위는 각 페이지에서 구분합니다. Travel Visualizer의 여행 사진은 앱 실행 화면이 아니라고 표시했습니다.
+사이트는 GitHub Pages로 배포합니다. 실행·출력 방법은 [관리 안내](docs/MAINTENANCE.md), 화면 구성 원칙은 [디자인 기준](docs/DESIGN.md)에 정리했습니다.

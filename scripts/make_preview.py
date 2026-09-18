@@ -15,23 +15,23 @@ def build_preview(*, offline_fonts: bool=False, include_pdfs: bool=True) -> str:
         if ROOT not in path.parents or not path.is_file(): raise FileNotFoundError(path)
         mime=mimetypes.guess_type(path)[0] or 'application/octet-stream'
         return f'data:{mime};base64,'+base64.b64encode(path.read_bytes()).decode('ascii')
-    images={str(path.relative_to(ROOT)):data_uri(path) for path in (ROOT/'assets').iterdir() if path.is_file()}
+    images={str(path.relative_to(ROOT)):data_uri(path) for path in (ROOT/'assets').rglob('*') if path.is_file() and path.suffix.lower() in {'.png', '.jpg', '.jpeg', '.webp', '.mp4'}}
     for link in soup.find_all('link',rel='stylesheet'):
-        if link.get('href')=='styles.css':
-            style=soup.new_tag('style');style.string=(ROOT/'styles.css').read_text(encoding='utf-8');link.replace_with(style)
+        if link.get('href')=='assets/css/styles.css':
+            style=soup.new_tag('style');style.string=(ROOT/'assets/css/styles.css').read_text(encoding='utf-8');link.replace_with(style)
         elif offline_fonts: link.decompose()
     for el in soup.find_all(True):
         for attr in ('src','data-image','data-video'):
             value=el.get(attr,'')
-            if value.startswith('assets/'):
+            if value.startswith(('assets/images/', 'assets/videos/')):
                 if value not in images:raise FileNotFoundError(value)
                 el[attr]=images[value]
         if include_pdfs and el.get('href') in ('slides.pdf','handout.pdf'):
             el['href']=data_uri(ROOT/el['href'])
-    app=(ROOT/'app.js').read_text(encoding='utf-8')
+    app=(ROOT/'assets/js/app.js').read_text(encoding='utf-8')
     for name,uri in images.items():
         app=app.replace("'"+name+"'","'"+uri+"'").replace('"'+name+'"','"'+uri+'"')
-    script=soup.find('script',src='app.js')
+    script=soup.find('script',src='assets/js/app.js')
     replacement=soup.new_tag('script');replacement.string=app;script.replace_with(replacement)
     return str(soup)
 
