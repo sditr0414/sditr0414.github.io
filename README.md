@@ -2,10 +2,10 @@
 
 기계공학을 전공하고 로봇 개발을 배우고 있습니다.  
 로봇 제작과 제어, 영상 인식, 신호 분석 프로젝트에서 맡은 일과 문제를 해결한 과정을 담았습니다.
-
-**[포트폴리오 보기 →](https://sditr0414.github.io/)**
-
-[슬라이드 PDF](slides.pdf) · [A4 인쇄용 PDF](handout.pdf) · [이메일](mailto:3095069@naver.com) · [GitHub](https://github.com/sditr0414)
+  
+**[포트폴리오 보기](https://sditr0414.github.io/)**
+  
+[이메일](mailto:3095069@naver.com)
 
 ## 프로젝트
 
@@ -29,12 +29,9 @@
 
 ## 포트폴리오 보기
 
-웹에서는 PC와 모바일 화면에 맞춰 내용을 볼 수 있고, 프로젝트 이미지를 누르면 확대됩니다.  
-PDF는 16:9 슬라이드 13쪽과 A4 세로 2슬라이드 형식 7쪽으로 제공합니다.
-
 <a href="https://sditr0414.github.io/"><img src="portfolio-qr.png" alt="정승호 포트폴리오 접속 QR 코드" width="160" height="160"></a>
 
-QR 다운로드: [PNG](portfolio-qr.png) · [SVG](portfolio-qr.svg)
+<details><summary>그 외</summary>
 
 ## 저장소 구성
 
@@ -53,3 +50,4 @@ portfolio-qr.*     사이트 접속 QR
 ```
 
 사이트는 GitHub Pages로 배포합니다. 실행·출력 방법은 [관리 안내](docs/MAINTENANCE.md), 화면 구성 원칙은 [디자인 기준](docs/DESIGN.md)에 정리했습니다.
+</details>
