@@ -189,8 +189,8 @@
   }
   let requestedMode='handout';
   async function printPortfolio(mode='handout') {
-    const button=mode==='slides'?$('#pdf-button'):$('#print-button');
-    button.disabled=true;
+    const button=mode==='slides'?$('#pdf-button'):null;
+    if(button)button.disabled=true;
     try {
       if(dialog.open)dialog.close();closeNav();requestedMode=mode;
       await document.fonts.ready;
@@ -202,10 +202,9 @@
       window.print();
     }catch(error){
       console.error(error);notify('인쇄창을 열지 못했습니다. 페이지 아래의 완성된 PDF를 내려받아 주세요.');
-    }finally{button.disabled=false;}
+    }finally{if(button)button.disabled=false;}
   }
   $('#pdf-button').addEventListener('click',()=>printPortfolio('slides'));
-  $('#print-button').addEventListener('click',()=>printPortfolio('handout'));
   document.addEventListener('keydown',event=>{
     if((event.ctrlKey||event.metaKey)&&event.key.toLowerCase()==='p'){
       event.preventDefault();printPortfolio('handout');
