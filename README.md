@@ -15,7 +15,7 @@
 | [원격 물품<br>회수·운반 로봇](https://sditr0414.github.io/#robot) | 1주·5인 팀 프로젝트. 조장으로 로봇팔 제작·제어와 펌웨어 통합 담당 | C, STM32, FreeRTOS, Bluetooth |
 | [AI 기반<br>보행 보조 장치](https://sditr0414.github.io/#vision) | 데이터 라벨 통합, 모델 학습·변환, ROI와 알림 판단 로직 구성 | Python, OpenCV, YOLO, TFLite |
 | [PLC 기반<br>창고 적재 제어](https://sditr0414.github.io/#plc) | 병렬 처리 로직과 HMI 작성, 메모리 상태에 따른 오동작 수정 | Mitsubishi Q PLC, GX Works2, GT Designer3 |
-| [노크 위치 탐지 연구](https://sditr0414.github.io/#thesis) | 진동 신호 전처리·특징 추출, 모델 비교, 실시간 탐지 프로그램 구현 | MATLAB, FFT, K-NN, SVM, ANN |
+| [노크 위치<br>탐지 연구](https://sditr0414.github.io/#thesis) | 진동 신호 전처리·특징 추출, 모델 비교, 실시간 탐지 프로그램 구현 | MATLAB, FFT, K-NN, SVM, ANN |
 | [Travel Visualizer](https://sditr0414.github.io/#travel) | 여행 사진과 이동 기록을 연결하는 웹앱 기획, Codex를 활용한 구현·개선 | React, TypeScript, MapLibre, Node.js |
 
 ## 학력·교육
