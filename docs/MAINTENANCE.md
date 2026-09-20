@@ -17,10 +17,12 @@ python3 -m http.server 8000
 - 목차·이미지 확대·출력 동작: `assets/js/app.js`
 - 사진·화면 캡처: `assets/images/`
 - 시연 영상: `assets/videos/`
+- 다운로드용 PDF: `assets/pdf/`
+- 사이트 접속 QR: `assets/qr/`
 
 `main` 브랜치의 루트에서 GitHub Pages로 배포합니다. `.nojekyll`을 유지하며 파일 경로는 대소문자를 구분합니다.
 
-사이트 주소는 `https://sditr0414.github.io/`입니다. 기존 다운로드 링크를 유지하기 위해 PDF와 QR 파일은 루트에 둡니다. 주소가 바뀌지 않으면 내용을 수정해도 QR을 다시 만들 필요가 없습니다.
+사이트 주소는 `https://sditr0414.github.io/`입니다. QR은 이 주소로 연결되므로 파일 위치나 포트폴리오 내용이 바뀌어도 다시 만들 필요가 없습니다.
 
 ## PDF와 인쇄
 
@@ -42,7 +44,7 @@ python3 -m venv .venv
 .venv/bin/python scripts/make_preview.py preview.html
 ```
 
-설치된 Chromium을 지정하려면 `export_pdf.py --browser /path/to/chromium`을 사용합니다. PDF는 루트에, 검사 결과는 `work/qa/`에 저장됩니다. `preview.html`은 이미지·영상·PDF를 포함한 단일 HTML입니다. 임시 출력과 가상 환경은 Git에서 제외합니다.
+설치된 Chromium을 지정하려면 `export_pdf.py --browser /path/to/chromium`을 사용합니다. PDF는 `assets/pdf/`에, 검사 결과는 `work/qa/`에 저장됩니다. `preview.html`은 이미지·영상·PDF를 포함한 단일 HTML입니다. 임시 출력과 가상 환경은 Git에서 제외합니다.
 
 ## 변경 확인
 

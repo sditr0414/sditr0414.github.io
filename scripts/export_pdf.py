@@ -17,6 +17,7 @@ from playwright.sync_api import sync_playwright
 from make_preview import build_preview
 
 ROOT=Path(__file__).resolve().parent.parent
+PDF_DIR=ROOT/'assets'/'pdf'
 WIDTH,HEIGHT=1120,630
 
 def finalize(path:Path,items:list[dict],handout:bool=False)->None:
@@ -58,6 +59,7 @@ def main():
     ap=argparse.ArgumentParser(description=__doc__);ap.add_argument('--browser');ap.add_argument('--review',type=Path)
     args=ap.parse_args()
     review=args.review or ROOT/'work'/'qa';review.mkdir(parents=True,exist_ok=True)
+    PDF_DIR.mkdir(parents=True,exist_ok=True)
     html=build_preview(include_pdfs=False)
     with sync_playwright() as pw:
         browser=pw.chromium.launch(executable_path=args.browser or shutil.which('chromium') or shutil.which('google-chrome'),headless=True,args=['--no-sandbox'])
@@ -82,14 +84,14 @@ def main():
             for item in items:
                 loc=page.locator('#'+item['id']);loc.scroll_into_view_if_needed();page.wait_for_timeout(100)
                 loc.screenshot(path=str(review/f"canonical-{item['id']}.png"))
-        page.pdf(path=str(ROOT/'slides.pdf'),width=f'{WIDTH}px',height=f'{HEIGHT}px',print_background=True,prefer_css_page_size=True,display_header_footer=False,tagged=True)
+        page.pdf(path=str(PDF_DIR/'slides.pdf'),width=f'{WIDTH}px',height=f'{HEIGHT}px',print_background=True,prefer_css_page_size=True,display_header_footer=False,tagged=True)
         # Browser two-up uses exactly the same cloned slide, with proportional outer zoom only.
         page.evaluate('Portfolio.setExportMode(false);Portfolio.setOutputMode("handout")')
         page.emulate_media(media='print');page.evaluate('document.fonts.ready')
-        page.pdf(path=str(ROOT/'handout.pdf'),prefer_css_page_size=True,print_background=True,display_header_footer=False,tagged=True)
+        page.pdf(path=str(PDF_DIR/'handout.pdf'),prefer_css_page_size=True,print_background=True,display_header_footer=False,tagged=True)
         browser.close()
-    for filename,handout in [('slides.pdf',False),('handout.pdf',True)]:finalize(ROOT/filename,items,handout)
-    with fitz.open(ROOT/'slides.pdf') as one,fitz.open(ROOT/'handout.pdf') as two:
+    for filename,handout in [('slides.pdf',False),('handout.pdf',True)]:finalize(PDF_DIR/filename,items,handout)
+    with fitz.open(PDF_DIR/'slides.pdf') as one,fitz.open(PDF_DIR/'handout.pdf') as two:
         assert len(one)==len(items),(len(one),len(items))
         assert len(two)==(len(one)+1)//2
         chars=lambda t:Counter(re.sub(r'\s+','',t))

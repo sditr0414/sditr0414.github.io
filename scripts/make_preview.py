@@ -27,7 +27,7 @@ def build_preview(*, offline_fonts: bool=False, include_pdfs: bool=True) -> str:
             if value.startswith(('assets/images/', 'assets/videos/')):
                 if value not in images:raise FileNotFoundError(value)
                 el[attr]=images[value]
-        if include_pdfs and el.get('href') in ('slides.pdf','handout.pdf'):
+        if include_pdfs and el.get('href') in ('assets/pdf/slides.pdf','assets/pdf/handout.pdf'):
             el['href']=data_uri(ROOT/el['href'])
     app=(ROOT/'assets/js/app.js').read_text(encoding='utf-8')
     for name,uri in images.items():

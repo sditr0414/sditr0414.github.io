@@ -53,7 +53,3 @@
 - [Brittany Chiang](https://brittanychiang.com/): 고정 목차와 현재 위치 표시, 소개·기술·프로젝트의 정보 위계.
 - [Yufeng Wu](https://www.yufengwu.com/): 기계 엔지니어의 실제 제작물과 프로젝트 사진 중심 구성.
 - [21st.dev Project Showcase](https://21st.dev/@jatin-yadav05/components/project-showcase): 구분선을 이용한 간결한 프로젝트 목록. 미리보기와 메타데이터만 참고했으며 움직이는 미리보기나 컴포넌트 코드는 사용하지 않았습니다.
-
-## 이전 버전
-
-개편 전 버전은 Git 태그 [`portfolio-before-ui-2026-09-20`](https://github.com/sditr0414/sditr0414.github.io/tree/portfolio-before-ui-2026-09-20)에 보관했습니다. 당시 웹 파일, 미디어와 PDF를 그대로 확인할 수 있습니다.
