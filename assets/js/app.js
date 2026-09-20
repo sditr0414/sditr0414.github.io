@@ -107,7 +107,7 @@
     }
   });
 
-  // A quiet floating index keeps the current project visible without repeating its page header.
+  // Keep the full project index and page position in sync with the visible artboard.
   const slides = $$('main .page-shell > .slide');
   const nav = $('#project-nav');
   const navLinks = $$('nav a[data-section]', nav);
@@ -153,7 +153,9 @@
       a.setAttribute('aria-label', a.dataset.label+(active && group.length>1?` · ${part}/${group.length} 페이지`:''));
     });
     $('#mobile-current').textContent = `${current.dataset.title}${group.length>1?` · ${part}/${group.length}`:''}`;
-    $('#mobile-count').textContent=`${String(index).padStart(2,'0')} / ${slides.length}`;
+    const pagePosition = `${String(index).padStart(2,'0')} / ${slides.length}`;
+    $('#mobile-count').textContent = pagePosition;
+    $('#nav-count').textContent = pagePosition;
   }
   let scheduled=false;
   window.addEventListener('scroll',()=>{

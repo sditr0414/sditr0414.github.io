@@ -5,6 +5,7 @@ import argparse
 import base64
 import mimetypes
 from pathlib import Path
+from urllib.parse import urlsplit
 from bs4 import BeautifulSoup
 ROOT=Path(__file__).resolve().parent.parent
 
@@ -17,7 +18,7 @@ def build_preview(*, offline_fonts: bool=False, include_pdfs: bool=True) -> str:
         return f'data:{mime};base64,'+base64.b64encode(path.read_bytes()).decode('ascii')
     images={str(path.relative_to(ROOT)):data_uri(path) for path in (ROOT/'assets').rglob('*') if path.is_file() and path.suffix.lower() in {'.png', '.jpg', '.jpeg', '.webp', '.mp4'}}
     for link in soup.find_all('link',rel='stylesheet'):
-        if link.get('href')=='assets/css/styles.css':
+        if urlsplit(link.get('href','')).path=='assets/css/styles.css':
             style=soup.new_tag('style');style.string=(ROOT/'assets/css/styles.css').read_text(encoding='utf-8');link.replace_with(style)
         elif offline_fonts: link.decompose()
     for el in soup.find_all(True):
@@ -31,7 +32,7 @@ def build_preview(*, offline_fonts: bool=False, include_pdfs: bool=True) -> str:
     app=(ROOT/'assets/js/app.js').read_text(encoding='utf-8')
     for name,uri in images.items():
         app=app.replace("'"+name+"'","'"+uri+"'").replace('"'+name+'"','"'+uri+'"')
-    script=soup.find('script',src='assets/js/app.js')
+    script=next(el for el in soup.find_all('script',src=True) if urlsplit(el['src']).path=='assets/js/app.js')
     replacement=soup.new_tag('script');replacement.string=app;script.replace_with(replacement)
     return str(soup)
 
