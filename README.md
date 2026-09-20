@@ -3,7 +3,7 @@
 기계공학을 전공하고 로봇 개발을 배우고 있습니다.  
 로봇 제작과 제어, 영상 인식, 신호 분석 프로젝트에서 맡은 일과 문제를 해결한 과정을 담았습니다.
 
-**[포트폴리오 보기](https://sditr0414.github.io/)** · [슬라이드 PDF](assets/pdf/slides.pdf) · [인쇄용 PDF](assets/pdf/handout.pdf) · [이메일](mailto:3095069@naver.com)
+**[포트폴리오 보기](https://sditr0414.github.io/)** · [슬라이드 PDF](docs/assets/pdf/slides.pdf) · [인쇄용 PDF](docs/assets/pdf/handout.pdf) · [이메일](mailto:3095069@naver.com)
 
 ## 프로젝트
 
@@ -29,4 +29,4 @@
 
 QR 코드를 스캔하면 포트폴리오로 이동합니다.
 
-<a href="https://sditr0414.github.io/"><img src="assets/qr/portfolio-qr.png" alt="정승호 포트폴리오 접속 QR 코드" width="160" height="160"></a>
+<a href="https://sditr0414.github.io/"><img src="docs/assets/qr/portfolio-qr.png" alt="정승호 포트폴리오 접속 QR 코드" width="160" height="160"></a>

@@ -7,7 +7,7 @@ import mimetypes
 from pathlib import Path
 from urllib.parse import urlsplit
 from bs4 import BeautifulSoup
-ROOT=Path(__file__).resolve().parent.parent
+ROOT=Path(__file__).resolve().parents[2]/'docs'
 
 def build_preview(*, offline_fonts: bool=False, include_pdfs: bool=True) -> str:
     soup=BeautifulSoup((ROOT/'index.html').read_text(encoding='utf-8'),'html.parser')

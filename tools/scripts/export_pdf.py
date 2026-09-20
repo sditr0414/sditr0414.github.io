@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Export the actual web artboards, not a second print design.
 
-python scripts/export_pdf.py [--browser /path/to/chromium]
+python tools/scripts/export_pdf.py [--browser /path/to/chromium]
 The browser must have a Korean font installed. No font files are distributed.
 """
 from __future__ import annotations
@@ -16,8 +16,8 @@ import fitz
 from playwright.sync_api import sync_playwright
 from make_preview import build_preview
 
-ROOT=Path(__file__).resolve().parent.parent
-PDF_DIR=ROOT/'assets'/'pdf'
+ROOT=Path(__file__).resolve().parents[2]
+PDF_DIR=ROOT/'docs'/'assets'/'pdf'
 WIDTH,HEIGHT=1120,630
 
 def finalize(path:Path,items:list[dict],handout:bool=False)->None:
