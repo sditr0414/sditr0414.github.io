@@ -3,7 +3,7 @@
 기계공학을 전공하고 로봇 개발을 배우고 있습니다.<br>
 로봇 제작·제어, 영상 인식, 신호 분석 프로젝트에서 맡은 역할과 문제를 해결한 과정을 담았습니다.
 
-**[포트폴리오 보기](https://sditr0414.github.io/)** &emsp; · &emsp; [이메일](mailto:3095069@naver.com)
+**[포트폴리오 보기](https://sditr0414.github.io/)** &emsp; │ &emsp; [이메일](mailto:3095069@naver.com)
 
 ## 프로젝트
 
