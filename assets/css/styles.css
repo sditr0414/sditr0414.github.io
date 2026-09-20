@@ -211,7 +211,7 @@ h1,h2,h3,h4{font-weight:600;letter-spacing:-.045em}
 .app-detail-slide .slide-header{margin:16px 0 15px}
 .app-case-layout{grid-template-columns:1.26fr 1fr}
 .screen-labels{margin-bottom:8px}.screen-labels>span{padding-top:4px}
-.app-cases{gap:11px}.app-cases section{padding-bottom:11px}
+.app-cases{gap:10px}.app-cases section{padding-bottom:8px}
 .cover::after{content:"";position:absolute;right:0;top:0;width:292px;height:397px;background:#eaf1ef;z-index:-1}
 .dialog-actions{display:flex;align-items:center;gap:8px}.dialog-actions button{font-size:12px}
 #dialog-content.is-actual-size{display:block;overflow:auto;text-align:left}
@@ -236,6 +236,7 @@ html{scroll-padding-top:0}
 :root{
   --ink:#1e2d3d;--muted:#596777;--accent:#315b7d;--deep:#18344d;
   --line:#d9dfe5;--paper:#ffffff;--wash:#eef1f4;--tint:#f3f5f7;
+  --feature:#355674;--feature-panel:#2b4760;
 }
 ::selection{background:#ccdfef;color:#18344d}
 body{background:var(--wash);color:var(--ink)}
@@ -248,7 +249,7 @@ h1,h2,h3,h4{color:var(--ink)}
 .pdf-button:hover{background:#294e6c}
 #nav-toggle{border-color:var(--line);min-height:42px;border-radius:3px}
 #nav-toggle:hover{background:var(--tint)}
-.page-layout{max-width:1400px;grid-template-columns:minmax(0,1120px) 208px;gap:24px;padding-top:32px}
+.page-layout{max-width:1400px;grid-template-columns:minmax(0,1120px) 176px;gap:56px;padding-top:32px}
 .page-shell{outline-color:#d5dce3;box-shadow:none}
 .page-shell+.page-shell{margin-top:36px}
 .slide,.project-opening{background:var(--paper)}
@@ -268,21 +269,14 @@ h1,h2,h3,h4{color:var(--ink)}
 .slide-footer{color:var(--muted);border-color:var(--line)}
 .part-number{color:var(--accent)}
 .slide-count{letter-spacing:.06em;font-variant-numeric:tabular-nums}
-/* A readable, numbered index retains every full project name. */
-.project-nav{width:208px;right:max(24px,calc((100vw - 1400px)/2 + 24px));top:108px;transform:none;max-height:calc(100dvh - 132px);padding:0 0 0 6px}
-.nav-heading{display:flex;align-items:center;justify-content:space-between;padding:6px 10px 14px;border-bottom:1px solid #ccd5de;margin-bottom:10px}
-.nav-heading strong{font-size:12px;font-weight:600}
-.nav-heading span{color:var(--muted);font-size:10px;font-variant-numeric:tabular-nums;letter-spacing:.02em}
-.project-nav nav{border:0;gap:4px}
-.project-nav nav a{grid-template-columns:20px minmax(0,1fr) 22px;gap:7px;padding:12px 9px;min-height:46px;color:#536273;font-size:13px;line-height:1.65;border-radius:3px}
-.project-nav nav a.active{background:#e0e7ee;color:#18344d;font-weight:600}
-.project-nav nav a::before{top:12px;bottom:12px;transform:none;height:auto;left:0;background:var(--deep)}
-.project-nav nav a:hover{color:var(--ink);background:#e5ebf0}
-.nav-index{font-size:10px;color:#607285;font-variant-numeric:tabular-nums}
+/* Quiet floating index: full names, a fine rule and a current-position marker. */
+.project-nav{width:176px;right:max(24px,calc((100vw - 1400px)/2 + 24px));top:calc(50% + 24px);transform:translateY(-50%);max-height:calc(100dvh - 150px);padding:0;background:transparent}
+.project-nav nav{border-left:1px solid #c7d2dd;gap:2px}
+.project-nav nav a{grid-template-columns:minmax(0,1fr) 22px;gap:6px;padding:8px 0 8px 13px;min-height:36px;color:#596b7e;font-size:13px;line-height:1.65;border-radius:0;background:transparent}
+.project-nav nav a.active{background:transparent;color:var(--deep);font-weight:600}
+.project-nav nav a::before{top:50%;bottom:auto;transform:translateY(-50%);height:18px;left:-1px;background:var(--accent)}
+.project-nav nav a:hover{color:var(--ink);background:transparent}
 .project-nav nav small{color:var(--muted);font-size:10px}
-.nav-contact{display:flex;gap:18px;margin:18px 9px 0;padding-top:16px;border-top:1px solid #ccd5de;font-size:11px;color:var(--muted)}
-.nav-contact a{text-decoration:none;min-height:28px}
-.nav-contact a:hover{text-decoration:underline}
 /* Put the physical work first; keep role, stack and demo together. */
 .main-figure img,.robot-figure img{height:256px}
 .vision-figure img,.plc-figure img,.thesis-figure img{height:288px}
@@ -315,11 +309,11 @@ h1,h2,h3,h4{color:var(--ink)}
 .screen-labels{color:#475b6e}
 .screen-labels>span{border-color:var(--line)}
 /* Navy cover, one clean portrait, an unboxed technical summary. */
-.cover{--ink:#f4f7fb;--muted:#c1ccd7;background:#18344d;color:var(--ink)}
-.cover::after{width:278px;height:377px;background:#142c42}
-.cover .slide-top,.cover .slide-footer,.cover .skills-band,.cover .skill-grid section{border-color:#4c6378}
-.cover .project-identity b,.cover .intro-label{color:#bacddd}
-.cover .edition,.cover .name-english,.cover .slide-footer{color:#bac9d7}
+.cover{--ink:#f4f7fb;--muted:#d0dce7;background:var(--feature);color:var(--ink)}
+.cover::after{width:278px;height:377px;background:var(--feature-panel)}
+.cover .slide-top,.cover .slide-footer,.cover .skills-band,.cover .skill-grid section{border-color:#6b8398}
+.cover .project-identity b,.cover .intro-label{color:#d0dce7}
+.cover .edition,.cover .name-english,.cover .slide-footer{color:#cbd9e5}
 .cover .slide-body{padding-top:26px}
 .hero-grid{grid-template-columns:1fr 202px;gap:64px}
 .hero-copy h1{font-size:50px;line-height:1.14;font-weight:700;color:#fff;gap:22px}
@@ -337,7 +331,7 @@ h1,h2,h3,h4{color:var(--ink)}
 .skill-grid{gap:24px}
 .skill-grid h3{font-size:15px;font-weight:600}
 .skill-grid p{color:#d9e3ed}
-.skill-grid small,.skill-index{color:#bfcedc}
+.skill-grid small,.skill-index{color:#d0dce7}
 .cover a:focus-visible{outline-color:#d5e5f4}
 /* Supporting evidence uses the same neutral paper and fine rules. */
 .section-label{color:var(--accent);border-color:#acbac7;font-size:13px}
@@ -359,12 +353,12 @@ h1,h2,h3,h4{color:var(--ink)}
 .result-table .highlight{background:#e7eef4;color:#18344d}
 .result-note,.photo-disclosure{color:var(--muted)}
 .travel-photos .image-open{background:#edf1f4;border-radius:2px}
-.workflow{background:var(--deep);color:#e8eef5;border:0;border-radius:2px}
-.workflow section{border-color:#496075}
+.workflow{background:var(--feature);color:#e8eef5;border:0;border-radius:2px}
+.workflow section{border-color:#6b8398}
 .workflow span{color:#c0d3e3}
 .workflow h3{color:#fff}
 .workflow p{color:#d3deea}
-.workflow section:not(:last-child)::after{background:var(--deep);color:#d4e1ec}
+.workflow section:not(:last-child)::after{background:var(--feature);color:#e1ebf3}
 .site-footer{max-width:1400px;color:var(--muted)}
 .mobile-context{background:#e6ecf2;color:#41596d;border-color:#d1dbe4}
 dialog{background:#fff;color:var(--ink);border-radius:4px}
@@ -382,6 +376,9 @@ dialog::backdrop{background:rgba(13,27,41,.86)}
 .is-video #dialog-content video{display:block;width:100%;height:auto;max-height:calc(94dvh - 90px);object-fit:contain}
 .video-error{padding:32px 20px;color:#fff;font-size:16px}
 .video-error a{text-decoration:underline}
+@container artboard (min-width:721px) and (max-width:1119px){
+  .slide{height:auto;min-height:630px}
+}
 @container artboard (max-width:1030px){
   .hero-grid{gap:36px}.cover::after{width:250px;height:395px}
   .overview{grid-template-columns:1.08fr 1fr;gap:26px}
@@ -409,15 +406,15 @@ dialog::backdrop{background:rgba(13,27,41,.86)}
   .cover .hero-line{grid-column:1/-1;grid-row:3;font-size:22px;margin:2px 0 0;line-height:1.6}
   .cover .hero-description{grid-column:1/-1;grid-row:4;font-size:15px}
   .cover .contact-links{grid-column:1/-1;grid-row:5;margin:0;gap:18px;font-size:12px;min-height:28px}
-  .cover .skill-grid section{border-bottom:1px solid #4c6378;border-right:0}
+  .cover .skill-grid section{border-bottom:1px solid #6b8398;border-right:0}
   .cover .skill-grid section:last-child{border:0}
   .skills-band{margin-top:26px}
-  .workflow section{border-color:#496075}
+  .workflow section{border-color:#6b8398}
   .stage-nav a{min-height:36px}
 }
 @media screen and (max-width:1230px){
   .page-layout{max-width:1120px;display:block;padding:26px 22px 0}
-  .project-nav{width:min(326px,calc(100vw - 32px));top:116px;right:16px;max-height:calc(100dvh - 138px);background:#fff;border:1px solid #cdd7e0;border-radius:4px;padding:14px;box-shadow:0 8px 24px rgba(22,42,63,.12)}
+  .project-nav{width:min(300px,calc(100vw - 32px));top:116px;right:16px;transform:none;max-height:calc(100dvh - 138px);background:#fff;border:1px solid #cdd7e0;border-radius:4px;padding:14px;box-shadow:0 8px 24px rgba(22,42,63,.12)}
   .project-nav nav a{font-size:13px;min-height:44px;padding-block:10px}
   .mobile-context{top:72px}
   .slide{scroll-margin-top:130px}

@@ -155,7 +155,6 @@
     $('#mobile-current').textContent = `${current.dataset.title}${group.length>1?` · ${part}/${group.length}`:''}`;
     const pagePosition = `${String(index).padStart(2,'0')} / ${slides.length}`;
     $('#mobile-count').textContent = pagePosition;
-    $('#nav-count').textContent = pagePosition;
   }
   let scheduled=false;
   window.addEventListener('scroll',()=>{
