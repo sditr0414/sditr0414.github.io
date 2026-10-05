@@ -562,4 +562,9 @@ dialog::backdrop{background:rgba(13,27,41,.86)}
   .workflow section{padding:26px 26px 28px}
   .travel-cases{margin-top:40px}
 }
-.cover .name-english{font-weight:300}
+/* Cover title block: room between label, name and headline */
+@container artboard (min-width:721px){
+  .cover .intro-label{margin-bottom:18px}
+  .cover .hero-copy h1{gap:18px;line-height:1.1}
+  .cover .hero-line{margin:24px 0 16px;line-height:1.5}
+}
