@@ -16,7 +16,7 @@ def build_preview(*, offline_fonts: bool=False, include_pdfs: bool=True) -> str:
         if ROOT not in path.parents or not path.is_file(): raise FileNotFoundError(path)
         mime=mimetypes.guess_type(path)[0] or 'application/octet-stream'
         return f'data:{mime};base64,'+base64.b64encode(path.read_bytes()).decode('ascii')
-    images={str(path.relative_to(ROOT)):data_uri(path) for path in (ROOT/'assets').rglob('*') if path.is_file() and path.suffix.lower() in {'.png', '.jpg', '.jpeg', '.webp', '.mp4'}}
+    images={path.relative_to(ROOT).as_posix():data_uri(path) for path in (ROOT/'assets').rglob('*') if path.is_file() and path.suffix.lower() in {'.png', '.jpg', '.jpeg', '.webp', '.mp4'}}
     for link in soup.find_all('link',rel='stylesheet'):
         if urlsplit(link.get('href','')).path=='assets/css/styles.css':
             style=soup.new_tag('style');style.string=(ROOT/'assets/css/styles.css').read_text(encoding='utf-8');link.replace_with(style)

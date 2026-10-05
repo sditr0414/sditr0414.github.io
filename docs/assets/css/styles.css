@@ -433,3 +433,133 @@ dialog::backdrop{background:rgba(13,27,41,.86)}
 }
 /* Preserve contiguous artboards when rendering the two PDF formats. */
 .exporting .page-shell+.page-shell{margin-top:0}
+/* Revision 2026-10 · wording kept, structure strengthened.
+   Keeps the original wording, labels and type scale; strengthens section
+   structure and moves tables to a blue tint that matches the navy theme. */
+:root{--blue-tint:#eaf1f8;--blue-head:#dde8f3;--blue-line:#cad8e6}
+
+/* Slide frame */
+.slide-top{min-height:34px;padding-bottom:10px}
+.project-identity{font-size:14px;font-weight:600;gap:12px}
+.project-identity .project-number{width:auto;height:auto;padding:0 14px 0 0;background:none;border-right:2px solid var(--accent);color:var(--deep);font-size:21px;font-weight:800;line-height:1;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.stage-nav{gap:18px}
+.stage-nav a{font-size:13px}
+.stage-nav a.current{font-weight:700}
+.slide-header{margin:19px 0 20px}
+.slide-header h2{font-size:30px;font-weight:700;letter-spacing:-.045em}
+.deck{font-size:16px;line-height:1.6}
+.slide-footer{font-size:12px}
+.slide-count{letter-spacing:.04em}
+
+/* Body text keeps the original 16px scale */
+.summary,.role-block p,.text-stack p,.case-grid p,.travel-copy p,.method-text{font-size:16px;line-height:1.7;color:#394b5d}
+.text-stack{gap:14px}
+.text-stack>section{padding:2px 0 2px 16px;border:0;border-left:3px solid var(--accent)}
+.text-stack>section:last-child{border-left:3px solid var(--accent);padding-bottom:2px}
+.text-stack>section::before{content:none}
+.text-stack h3{font-size:18px;font-weight:700;margin-bottom:6px;color:var(--deep)}
+
+/* Role and stack */
+.role-block{border-left:2px solid #9dabb8;padding-left:15px;margin:16px 0 13px}
+.role-block h3{font-size:13px;font-weight:700;color:var(--accent);margin-bottom:6px}
+.tags span{font-size:12px;padding:3px 9px}
+
+/* Key facts: original equal columns, blue tint */
+.specs{background:var(--blue-tint)}
+.specs>div,.specs>div:last-child{border-color:var(--blue-line)}
+.specs dt{font-size:12px}
+.specs dd{font-size:15px;font-weight:700}
+
+/* Figures */
+.slide figcaption,.main-figure figcaption{font-size:12px;color:var(--muted)}
+.fig-no{margin-right:3px;font-weight:700;color:var(--ink)}
+.screen-labels{font-size:13px}
+.app-showcase figcaption{display:block}
+
+/* Cover */
+.intro-label{font-size:14px;color:#d0dce7}
+.hero-line{font-size:25px;line-height:1.45;font-weight:600}
+.hero-description{font-size:16px}
+.contact-links{font-size:14px}
+.skills-heading h2{font-size:14px;font-weight:700}
+.skills-heading .text-link{font-size:12px}
+.skill-index{font-size:13px;font-weight:700;color:#e3ecf5}
+.skill-grid h3{font-size:16px;font-weight:700;margin-bottom:6px}
+.skill-grid p{font-size:15px;line-height:1.7}
+.skill-grid small{font-size:12px}
+
+/* Resume */
+.section-label{font-size:15px;font-weight:700;color:var(--deep);padding-bottom:8px;border-bottom:2px solid var(--deep)}
+.resume-entry h4{font-size:19px}
+.resume-entry time{font-size:13px}
+.resume-sub{font-size:15px}
+.credential-list{background:var(--blue-tint)}
+.credential-list>div{border-color:var(--blue-line)}
+.credential-list dt{font-size:16px;font-weight:700}
+.credential-list dd{font-size:13px}
+
+/* Problem / improvement table (robot) */
+.issue-table{width:100%;border-collapse:collapse;border-top:2px solid var(--deep)}
+.issue-table thead th{padding:8px 12px;background:var(--blue-head);border-bottom:1px solid var(--blue-line);text-align:left;font-size:13px;font-weight:700;color:var(--deep)}
+.issue-table tbody th,.issue-table td{padding:10px 12px;border-bottom:1px solid var(--blue-line);text-align:left;vertical-align:top}
+.issue-table tbody th{width:140px;background:var(--blue-tint);font-size:16px;font-weight:700;line-height:1.5;color:var(--ink)}
+.issue-table tbody th small{display:block;margin-top:4px;font-size:12px;font-weight:500;color:var(--accent)}
+.issue-table td{font-size:15px;line-height:1.65;color:#394b5d}
+
+/* Problem → fix → integration → lesson (PLC) */
+.process-list{margin:0;border-top:2px solid var(--deep)}
+.process-list>div{display:grid;grid-template-columns:92px 1fr;border-bottom:1px solid var(--blue-line)}
+.process-list dt{padding:12px;background:var(--blue-tint);font-size:14px;font-weight:700;color:var(--deep);line-height:1.65}
+.process-list dd{margin:0;padding:12px 10px 12px 16px;font-size:16px;line-height:1.65;color:#394b5d}
+
+/* Results */
+.result-table thead{background:var(--blue-head);color:var(--deep)}
+.result-table .highlight{background:var(--blue-tint)}
+.result-table tbody th,.result-table td{border-color:var(--blue-line)}
+
+/* Travel: light flow band instead of the heavy navy block */
+.workflow{background:var(--blue-tint);color:var(--ink);border:0;border-top:2px solid var(--deep);border-radius:0}
+.workflow section{padding:15px 22px 17px;border-right:0}
+.workflow section+section,.workflow section:last-child{border-left:1px solid var(--blue-line)}
+.workflow section:first-child{border-left:0}
+.workflow span{color:var(--accent);font-weight:700}
+.workflow h3{margin:4px 0 6px;font-size:17px;font-weight:700;color:var(--deep)}
+.workflow p{font-size:14px;color:#394b5d}
+.workflow section:not(:last-child)::after{background:var(--blue-tint);color:var(--accent)}
+.travel-cases{margin-top:20px}
+.case-grid section{border-top:2px solid var(--accent);padding-top:12px}
+.case-grid h3{font-size:17px;font-weight:700;margin:0 0 6px;color:var(--deep)}
+.photo-disclosure{font-size:12px}
+
+/* Robot problem slide */
+
+/* Floating index */
+.project-nav nav small{font-size:12px}
+
+@container artboard (max-width:720px){
+  .project-identity .project-number{font-size:18px}
+  .cover .hero-line{font-size:20px}
+  .issue-table tbody th{width:118px}
+  .issue-table thead th{padding-inline:8px}
+  .workflow section+section,.workflow section:last-child{border-left:0;border-top:1px solid var(--blue-line)}
+}
+/* Round 4 */
+.hero-line{font-weight:500}
+.cover .name-english{font-size:16px;letter-spacing:.08em;font-weight:500}
+.process-list dd strong{font-weight:700;color:var(--deep)}
+/* Fill space left by removed notes so each slide ends near the footer */
+@container artboard (min-width:721px){
+  #vision-detail .text-stack{gap:26px}
+  #vision-detail .roi-figure img,.roi-figure img{height:318px;max-height:none;width:100%;object-fit:contain}
+  .travel-photos img{height:226px}
+  .travel-copy{margin-top:24px}
+  .workflow section{padding:20px 24px 22px}
+  .travel-cases{margin-top:30px}
+  .results-layout .acquisition-figure img{height:220px;object-fit:contain}
+  .app-case-layout{align-items:center}
+  #vision-detail .split{flex:1;align-items:center}
+  .results-layout .result-table tbody th,.results-layout .result-table td{padding-block:24px}
+  .workflow section{padding:26px 26px 28px}
+  .travel-cases{margin-top:40px}
+}
+.cover .name-english{font-weight:300}
