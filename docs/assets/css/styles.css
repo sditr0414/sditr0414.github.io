@@ -568,3 +568,98 @@ dialog::backdrop{background:rgba(13,27,41,.86)}
   .cover .hero-copy h1{gap:18px;line-height:1.1}
   .cover .hero-line{margin:24px 0 16px;line-height:1.5}
 }
+
+/* Presentation navigation · October 2026 */
+/* Full-viewport presentation. The original 1120 × 630 artboard stays intact. */
+@media screen {
+  html:has(body.deck-ready:not(.exporting)) { overflow: hidden; scroll-behavior: auto; scroll-padding: 0; }
+  body.deck-ready:not(.exporting) { height: 100dvh; overflow: hidden; }
+  .deck-ready:not(.exporting) .page-layout { display: block; width: 100%; max-width: none; height: 100dvh; margin: 0; padding: 0; }
+  .deck-ready:not(.exporting) #main {
+    height: 100dvh; overflow-x: hidden; overflow-y: auto;
+    scroll-snap-type: y mandatory; scroll-behavior: auto; scrollbar-width: none;
+    overscroll-behavior-y: contain;
+  }
+  .deck-ready #main::-webkit-scrollbar { display: none; }
+  /* Programmatic reading targets keep focus without a browser-default frame. */
+  .deck-ready #main:focus,
+  .deck-ready .slide[tabindex="-1"]:focus { outline: none; }
+  .deck-ready:not(.exporting) .deck-frame { position: relative; width: 100%; height: 100dvh; scroll-snap-align: start; scroll-snap-stop: always; }
+  .deck-ready.deck-moving #main { scroll-snap-type: none; }
+  .deck-ready:not(.exporting) .deck-frame > .page-shell {
+    position: absolute; top: 0; left: 0; width: 1120px; height: 630px;
+    margin: 0; transform-origin: 0 0;
+    outline: 1px solid #aebdcb; box-shadow: 0 3px 12px rgba(25, 48, 70, .08);
+    transform: translate(var(--deck-x), var(--deck-y)) scale(var(--deck-scale));
+  }
+  .deck-ready:not(.exporting) .deck-frame > .page-shell > .slide {
+    width: 1120px; height: 630px; min-height: 630px; scroll-margin: 0;
+  }
+  .deck-ready:not(.exporting) .deck-frame:last-child > .page-shell {
+    transform: translate(var(--deck-last-x), var(--deck-last-y)) scale(var(--deck-last-scale));
+  }
+  .deck-ready:not(.exporting) .site-header {
+    position: fixed; inset: 0 0 auto; height: 64px; z-index: 70;
+    padding-inline: 24px;
+  }
+  .deck-ready .site-header:focus-within { transform: translateY(0); }
+  .deck-ready .mobile-context { display: none; }
+  .deck-progress {
+    position: fixed; top: 64px; left: 0; right: 0; height: 3px;
+    z-index: 80; pointer-events: none; background: #dbe4ec;
+  }
+  .deck-progress-fill { display: block; height: 100%; background: var(--accent); transform-origin: left; transform: scaleX(var(--deck-progress, .076923)); transition: transform 240ms ease; }
+  .deck-ready .project-nav { display: block; top: calc(50% + 32px); left: var(--deck-nav-x); right: auto; transform: translateY(-50%); width: 176px; max-height: calc(100dvh - 100px); padding: 0; background: transparent; border: 0; box-shadow: none; z-index: 60; }
+  .deck-ready .project-nav nav { position: relative; }
+  .deck-ready .project-nav nav a::before { opacity: 0; }
+  .deck-ready #nav-toggle { display: none; }
+  .motion-nav-marker { position: absolute; left: -1px; top: 0; width: 2px; height: 18px; background: var(--accent); pointer-events: none; opacity: 0; transition: transform 320ms cubic-bezier(.16,1,.3,1), opacity 120ms ease; }
+  .deck-ready .project-nav nav a { transition: color 160ms ease; }
+  .deck-ready:not(.exporting) .site-footer {
+    position: absolute; left: var(--deck-footer-x); right: auto; top: var(--deck-footer-y); bottom: auto;
+    width: var(--deck-footer-width); max-width: none; margin: 0; padding: 0; border: 0;
+    display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  }
+  .deck-ready .site-footer strong { display: none; }
+  .deck-ready .site-footer nav { margin: 0; }
+  .deck-ready .site-footer a[href="#profile"] {
+    display: inline-flex; align-items: center; justify-content: center;
+    min-height: 44px; padding: 10px 18px; border: 1px solid var(--deep);
+    border-radius: 4px; background: var(--deep); color: #fff;
+    font-size: 13px; font-weight: 600; text-decoration: none;
+  }
+  .deck-ready .site-footer a[href="#profile"]:hover { background: var(--accent); }
+
+  [data-motion="reduced"] .site-header,
+  [data-motion="reduced"] .motion-nav-marker,
+  [data-motion="reduced"] .deck-progress-fill { transition: none; }
+  @media (max-width:1699px) {
+    .deck-ready #nav-toggle { display: inline-flex; }
+    .deck-ready .project-nav { display: none; top: 76px; left: auto; right: 16px; transform: none; width: min(300px, calc(100vw - 32px)); max-height: calc(100dvh - 96px); padding: 14px; background: #fff; border: 1px solid var(--line); border-radius: 4px; box-shadow: 0 8px 24px rgba(22,42,63,.12); }
+    .deck-ready .project-nav.is-open { display: block; }
+  }
+  /* Readable small screens: tall slides can be read fully before the next one. */
+  .deck-ready.deck-reading:not(.exporting) #main { scroll-snap-type: y proximity; }
+  .deck-ready.deck-reading:not(.exporting) .deck-frame { height: auto; min-height: 100dvh; padding: 82px 12px 24px; }
+  .deck-ready.deck-reading:not(.exporting) .deck-frame > .page-shell { position: relative; width: 100%; height: auto; transform: none; transition: none; }
+  .deck-ready.deck-reading:not(.exporting) .deck-frame > .page-shell > .slide { width: 100%; height: auto; min-height: calc(100dvh - 106px); }
+  .deck-ready.deck-reading:not(.exporting) .site-footer { position: static; width: auto; display: flex; flex-wrap: wrap; gap: 12px; margin-top: 20px; padding-inline: 8px; }
+  @media (max-width:600px) {
+    .deck-progress { top: 60px; }
+    .deck-ready:not(.exporting) .site-header { height: 60px; padding-inline: 12px; }
+    .deck-ready .brand span { display: none; }
+    .deck-ready .header-actions { gap: 5px; }
+    .deck-ready .project-nav { top: 70px; }
+    .deck-ready.deck-reading:not(.exporting) .deck-frame { padding-top: 76px; }
+  }
+  @media (max-width:420px) {
+    .deck-ready #pdf-button { width: 40px; padding: 8px; }
+    .deck-ready #pdf-button span { display: none; }
+  }
+}
+@media print { [data-motion-only] { display: none !important; } }
+.exporting [data-motion-only] { display: none !important; }
+
+.exporting .deck-frame { break-after: page; }
+.exporting .deck-frame:last-child { break-after: auto; }
+.exporting .deck-frame .site-footer { display: none !important; }

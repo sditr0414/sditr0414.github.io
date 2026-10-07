@@ -32,7 +32,7 @@ GitHub Pages의 배포 소스는 `main` 브랜치의 `/docs` 폴더입니다. `d
 
 Ctrl/Cmd+P는 A4 세로 두 슬라이드 출력을 준비합니다. **A4 / 세로 / 용지당 1페이지 / 배율 100%**로 설정합니다. 한 페이지에 두 슬라이드가 이미 배치되어 있으므로 용지당 2페이지를 다시 선택하지 않습니다.
 
-미리 생성한 PDF는 웹페이지 하단에서 내려받을 수 있습니다. 본문이나 슬라이드 디자인을 수정하면 다운로드용 PDF도 다시 생성합니다.
+미리 생성한 PDF 파일은 `docs/assets/pdf/`에 보관하며 하단 다운로드 링크는 표시하지 않습니다. 본문이나 슬라이드 디자인을 수정하면 보관용 PDF도 다시 생성합니다.
 
 ## 출력 파일 생성
 
@@ -46,8 +46,8 @@ python3 -m venv .venv
 .venv/bin/python tools/scripts/make_preview.py preview.html
 ```
 
-설치된 Chromium을 지정하려면 `export_pdf.py --browser /path/to/chromium`을 사용합니다. PDF는 `docs/assets/pdf/`에, 검사 결과는 `work/qa/`에 저장됩니다. `preview.html`은 이미지·영상·PDF를 포함한 단일 HTML입니다. 임시 출력과 가상 환경은 Git에서 제외합니다.
+설치된 Chromium을 지정하려면 `export_pdf.py --browser /path/to/chromium`을 사용합니다. PDF는 `docs/assets/pdf/`에, 검사 결과는 `work/qa/`에 저장됩니다. `preview.html`은 이미지·영상과 현재 화면 동작을 포함한 단일 HTML입니다. 임시 출력과 가상 환경은 Git에서 제외합니다.
 
 ## 변경 확인
 
-PC와 모바일에서 내용 넘침, 목차 이동, 이미지 확대, 갤러리, 시연 영상과 PDF 링크를 확인합니다. 공개 사이트의 사진과 문서는 누구나 접근할 수 있으므로 공개할 자료만 포함합니다.
+PC와 모바일에서 내용 넘침, 목차 이동, 이미지 확대, 갤러리, 시연 영상과 상단 PDF 저장를 확인합니다. 공개 사이트의 사진과 문서는 누구나 접근할 수 있으므로 공개할 자료만 포함합니다.

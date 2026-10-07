@@ -67,6 +67,8 @@ def main():
         page.set_content(html,wait_until='load');page.evaluate('document.fonts.ready')
         page.evaluate('Promise.all([...document.images].map(i=>i.decode()))')
         items=page.evaluate("()=>Portfolio.slides.map(s=>({id:s.id,project:s.dataset.project,title:s.querySelector('h2')?.textContent||'정승호 소개'}))")
+        # Compare canonical artboards independently of the presentation viewport scale.
+        page.add_style_tag(content='.deck-ready{--deck-scale:1!important;--deck-last-scale:1!important}')
         before=page.evaluate(geometry_script('main .slide'))
         if args.review:
             page.screenshot(path=str(review/'web-desktop.png'))

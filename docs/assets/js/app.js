@@ -230,7 +230,7 @@
         :'A4 세로 · 용지당 1페이지 · 배율 100%로 인쇄하세요. 두 슬라이드가 이미 배치되어 있습니다.');
       window.print();
     }catch(error){
-      console.error(error);notify('인쇄창을 열지 못했습니다. 페이지 아래의 완성된 PDF를 내려받아 주세요.');
+      console.error(error);notify('인쇄창을 열지 못했습니다. 브라우저의 인쇄 메뉴에서 다시 시도해 주세요.');
     }finally{if(button)button.disabled=false;}
   }
   $('#pdf-button').addEventListener('click',()=>printPortfolio('slides'));
@@ -251,6 +251,222 @@
       closeNav();
     }
   }
-  window.Portfolio={preparePrint,printPortfolio,setExportMode,
+  window.Portfolio={markActive,get current(){return current;},preparePrint,printPortfolio,setExportMode,
     setOutputMode(mode){requestedMode=mode;return preparePrint(mode);},get slides(){return slides;}};
+})();
+
+// Presentation navigation
+'use strict';
+(() => {
+  const body = document.body;
+  const main = document.querySelector('#main');
+  const header = document.querySelector('.site-header');
+  const nav = document.querySelector('#project-nav');
+  const navList = nav.querySelector('nav');
+  const slides = [...window.Portfolio.slides];
+  const footer = document.querySelector('.site-footer');
+  const desktop = matchMedia('(min-width:1000px) and (min-height:540px)');
+  const frames = slides.map(slide => {
+    const shell = slide.parentElement;
+    const frame = document.createElement('section');
+    frame.className = 'deck-frame';
+    shell.before(frame); frame.append(shell);
+    return frame;
+  });
+  frames.at(-1).append(footer);
+  body.classList.add('deck-ready');
+  main.setAttribute('tabindex', '-1');
+
+  const make = (tag, className, parent) => {
+    const node = document.createElement(tag);
+    node.className = className; node.dataset.motionOnly = ''; parent.append(node); return node;
+  };
+  const progress = make('div', 'deck-progress', body);
+  progress.setAttribute('role', 'progressbar');
+  progress.setAttribute('aria-label', '포트폴리오 진행도');
+  progress.setAttribute('aria-valuemin', '1');
+  progress.setAttribute('aria-valuemax', String(slides.length));
+  make('span', 'deck-progress-fill', progress);
+  document.querySelector('#pdf-button').setAttribute('aria-label', 'PDF 저장');
+  const marker = make('span', 'motion-nav-marker', navList);
+  marker.setAttribute('aria-hidden', 'true');
+
+  let active = 0;
+  let target = 0;
+  let renderFrame = 0;
+  let animations = [];
+  let moving = false;
+  let resizeTimer;
+  let wheelAt = 0, wheelSum = 0, wheelDirection = 0, wheelStepAt = -Infinity;
+  let pendingWheel = 0;
+  let exporting = body.classList.contains('exporting');
+  const enabled = () => true;
+  const clamp = i => Math.max(0, Math.min(slides.length - 1, i));
+
+  function fit() {
+    if (exporting) return;
+    body.classList.toggle('deck-reading', !desktop.matches);
+    const rail = innerWidth >= 1700 ? 248 : 0;
+    const gap = innerWidth < 1400 ? 16 : 24;
+    const top = header.offsetHeight + 16;
+    const width = Math.max(1, main.clientWidth - rail - gap * 2);
+    const height = Math.max(1, main.clientHeight - top - 16);
+    const scale = Math.min(1.1, width / 1120, height / 630);
+    const lastHeight = Math.max(1, height - footer.offsetHeight - 16);
+    const lastScale = Math.min(1.1, width / 1120, lastHeight / 630);
+    const vars = {
+      '--deck-rail': `${rail}px`, '--deck-scale': scale,
+      '--deck-nav-x': `${gap + (width - 1120 * scale) / 2 + 1120 * scale + 64}px`,
+      '--deck-footer-x': `${gap + (width - 1120 * lastScale) / 2}px`,
+      '--deck-footer-width': `${1120 * lastScale}px`,
+      '--deck-footer-y': `${top + (lastHeight - 630 * lastScale) / 2 + 630 * lastScale + 16}px`,
+      '--deck-x': `${gap + (width - 1120 * scale) / 2}px`,
+      '--deck-y': `${top + (height - 630 * scale) / 2}px`,
+      '--deck-last-scale': lastScale,
+      '--deck-last-x': `${gap + (width - 1120 * lastScale) / 2}px`,
+      '--deck-last-y': `${top + (lastHeight - 630 * lastScale) / 2}px`
+    };
+    for (const [key, value] of Object.entries(vars)) body.style.setProperty(key, String(value));
+  }
+  function syncPreference() {
+    body.dataset.motion = enabled() ? 'full' : 'reduced';
+
+  }
+  function update() {
+    renderFrame = 0;
+    window.Portfolio.markActive();
+    active = Math.max(0, slides.indexOf(window.Portfolio.current));
+    if (!moving) target = active;
+    const label = `${String(active + 1).padStart(2, '0')} / ${slides.length}`;
+    if (progress.getAttribute('aria-valuenow') !== String(active + 1)) {
+      progress.setAttribute('aria-valuenow', String(active + 1));
+      progress.setAttribute('aria-valuetext', `${label} · ${slides[active].dataset.title}`);
+      body.style.setProperty('--deck-progress', String((active + 1) / slides.length));
+    }
+    const link = navList.querySelector('[aria-current="location"]');
+    if (link && nav.getClientRects().length) {
+      const a = link.getBoundingClientRect(), b = navList.getBoundingClientRect();
+      marker.style.transform = `translateY(${a.top - b.top + (a.height - 18) / 2}px)`;
+      marker.style.opacity = '1';
+    }
+  }
+  function schedule() { if (!renderFrame) renderFrame = requestAnimationFrame(update); }
+  function cancelMove() {
+    const pending = animations;
+    animations = []; moving = false; pendingWheel = 0;
+    for (const effect of pending) effect.cancel();
+    body.classList.remove('deck-moving');
+  }
+  function goTo(index, {historyMode = 'replace'} = {}) {
+    index = clamp(index);
+    const previous = target;
+    cancelMove();
+    target = index;
+    if (historyMode && location.hash !== `#${slides[index].id}`) {
+      history[historyMode === 'push' ? 'pushState' : 'replaceState'](null, '', `#${slides[index].id}`);
+    }
+    const finish = () => {
+      moving = false; animations = [];
+      body.classList.remove('deck-moving');
+      update();
+      const nextDirection = performance.now() - wheelAt < 160 ? pendingWheel : 0;
+      pendingWheel = 0;
+      if (nextDirection && clamp(target + nextDirection) !== target) {
+        wheelStepAt = performance.now();
+        goTo(target + nextDirection);
+        return;
+      }
+      if (!header.contains(document.activeElement) && !document.querySelector('dialog[open]')) {
+        slides[index].setAttribute('tabindex', '-1');
+        slides[index].focus({preventScroll: true});
+      }
+    };
+    body.classList.add('deck-moving');
+    moving = true;
+    const end = frames[index].offsetTop;
+    main.scrollTo({top: end, behavior: 'instant'});
+    if (!enabled() || !desktop.matches || previous === index) {finish(); return;}
+    const distance = Math.sign(index - previous) * main.clientHeight;
+    const origin = end - frames[previous].offsetTop;
+    const options = {duration: 280, easing: 'cubic-bezier(.22,.68,.25,1)'};
+    // Only the outgoing and incoming frames animate; no per-frame scroll or layout reads.
+    const outgoing = frames[previous].animate([
+      {transform: `translateY(${origin}px)`},
+      {transform: `translateY(${origin - distance}px)`}
+    ], options);
+    const incoming = frames[index].animate([
+      {transform: `translateY(${distance}px)`}, {transform: 'translateY(0)'}
+    ], options);
+    animations = [outgoing, incoming];
+    Promise.all(animations.map(effect => effect.finished)).then(finish).catch(() => {});
+  }
+  main.addEventListener('scroll', () => {if (!moving) schedule();}, {passive: true});
+
+  function nestedScroll(element) {
+    for (let node = element instanceof Element ? element : null; node && node !== main; node = node.parentElement) {
+      if (node.matches('input,textarea,select,[contenteditable="true"]')) return true;
+      if (/(auto|scroll)/.test(getComputedStyle(node).overflowY) && node.scrollHeight > node.clientHeight + 1) return true;
+    }
+    return false;
+  }
+  document.addEventListener('wheel', event => {
+    if (!desktop.matches || exporting || event.defaultPrevented || !event.cancelable || event.ctrlKey || event.metaKey || event.shiftKey ||
+        Math.abs(event.deltaX) > Math.abs(event.deltaY) || document.querySelector('dialog[open]') || nav.contains(event.target) || nestedScroll(event.target)) return;
+    if (!event.deltaY) return;
+    event.preventDefault();
+    const now = performance.now(), direction = Math.sign(event.deltaY);
+    if (now - wheelAt > 160 || direction !== wheelDirection) {wheelSum = 0; pendingWheel = 0;}
+    wheelAt = now; wheelDirection = direction;
+    wheelSum += Math.abs(event.deltaY) * (event.deltaMode === 1 ? 16 : event.deltaMode === 2 ? main.clientHeight : 1);
+    if (wheelSum < 36) return;
+    wheelSum = 0;
+    // Retain at most one recent request while the current slide finishes.
+    if (moving) {pendingWheel = direction; return;}
+    if (now - wheelStepAt < 180) return;
+    wheelStepAt = now;
+    goTo(target + direction);
+  }, {passive: false});
+
+  document.addEventListener('click', event => {
+    const link = event.target.closest('a[href^="#"]');
+    if (!link || event.ctrlKey || event.metaKey || event.shiftKey || event.altKey || event.button) return;
+    const index = slides.findIndex(slide => `#${slide.id}` === link.getAttribute('href'));
+    if (index < 0) return;
+    event.preventDefault();
+    if (nav.contains(link)) {
+      nav.classList.remove('is-open');
+      document.querySelector('#nav-toggle').setAttribute('aria-expanded', 'false');
+    }
+    goTo(index, {historyMode: 'push'});
+  }, true);
+  document.addEventListener('keydown', event => {
+    if (!desktop.matches || exporting || event.defaultPrevented || event.ctrlKey || event.metaKey || event.altKey || document.querySelector('dialog[open]') ||
+        event.target.closest('button,input,textarea,select,[contenteditable="true"]')) return;
+    const steps = {ArrowDown: 1, PageDown: 1, ' ': event.shiftKey ? -1 : 1, ArrowUp: -1, PageUp: -1};
+    if (!(event.key in steps) && event.key !== 'Home' && event.key !== 'End') return;
+    event.preventDefault();
+    if (event.repeat && moving) return;
+    goTo(event.key === 'Home' ? 0 : event.key === 'End' ? slides.length - 1 : target + steps[event.key]);
+  });
+  main.addEventListener('pointerdown', () => {cancelMove(); body.classList.remove('deck-moving');}, {passive: true});
+  new MutationObserver(schedule).observe(nav, {attributes: true, attributeFilter: ['class']});
+  const fromHash = () => Math.max(0, slides.findIndex(slide => `#${slide.id}` === location.hash));
+  addEventListener('popstate', () => goTo(fromHash(), {historyMode: null}));
+  addEventListener('hashchange', () => goTo(fromHash(), {historyMode: null}));
+  addEventListener('resize', () => {
+    clearTimeout(resizeTimer); cancelMove(); body.classList.remove('deck-moving');
+    resizeTimer = setTimeout(() => {fit(); main.scrollTo({top: frames[target].offsetTop, behavior: 'instant'}); update();}, 100);
+  });
+  const settle = () => {if (moving) {cancelMove(); main.scrollTo({top: frames[target].offsetTop, behavior: 'instant'}); body.classList.remove('deck-moving');}};
+  addEventListener('beforeprint', settle);
+  document.addEventListener('visibilitychange', () => {if (document.hidden) settle();});
+  new MutationObserver(() => {
+    const next = body.classList.contains('exporting');
+    if (next === exporting) return;
+    exporting = next; settle();
+    if (!next) {fit(); main.scrollTo({top: frames[target].offsetTop, behavior: 'instant'}); update();}
+  }).observe(body, {attributes: true, attributeFilter: ['class']});
+  syncPreference(); fit();
+  target = fromHash(); main.scrollTo({top: frames[target].offsetTop, behavior: 'instant'}); update();
+  document.fonts.ready.then(() => {fit(); schedule();});
 })();
