@@ -714,3 +714,10 @@ dialog::backdrop{background:rgba(13,27,41,.86)}
    page edge so viewers do not show a light seam on the right and bottom. */
 html:has(body.exporting), body.exporting { background: transparent; }
 .exporting .slide.cover { box-shadow: 0 0 0 4px var(--feature); }
+
+/* A4 two-up: one frame drawn above each slide so all four edges show evenly,
+   including on the navy cover (the clipped outline only showed right and bottom). */
+.print-slot { position: relative; outline: 0; }
+.print-slot::after { content: ""; position: absolute; inset: 0; z-index: 2; border: .25mm solid #c3cfda; pointer-events: none; }
+.print-slot > .page-shell { outline: 0; box-shadow: none; }
+.print-slot:has(.cover)::after { display: none; }

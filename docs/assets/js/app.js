@@ -197,7 +197,7 @@
       for(let i=0;i<slides.length;i+=2){
         const page=document.createElement('section');page.className='handout';
         const heading=document.createElement('header');heading.className='handout-heading';
-        heading.innerHTML='<strong>정승호 · 포트폴리오</strong><span>A4 · 2슬라이드</span>';
+        heading.innerHTML='<strong>정승호 · 포트폴리오</strong>';
         const pair=document.createElement('div');pair.className='handout-slots';
         slides.slice(i,i+2).forEach(slide=>{
           const slot=document.createElement('div');slot.className='print-slot';
