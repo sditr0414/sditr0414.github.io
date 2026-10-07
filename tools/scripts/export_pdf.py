@@ -25,8 +25,10 @@ def finalize(path:Path,items:list[dict],handout:bool=False)->None:
     lookup={item['id']:n for n,item in enumerate(items)}
     for pg in doc:
         if not handout:
-            # Chromium can round physical paper size up by <1px. Crop only its blank bottom edge.
-            pg.set_cropbox(fitz.Rect(0,0,WIDTH*.75,HEIGHT*.75))
+            # Chromium can round physical paper size up by <1px. Trim the page box itself to the
+            # artboard so viewers never show the blank strip (mediabox is in PDF bottom-up units).
+            top=pg.mediabox.y1
+            pg.set_mediabox(fitz.Rect(0,top-HEIGHT*.75,WIDTH*.75,top))
         for lnk in pg.get_links():
             dest=lnk.get('nameddest','')
             if dest in lookup:

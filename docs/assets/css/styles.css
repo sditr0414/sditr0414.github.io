@@ -647,7 +647,8 @@ dialog::backdrop{background:rgba(13,27,41,.86)}
   @media (max-width:600px) {
     .deck-progress { top: 60px; }
     .deck-ready:not(.exporting) .site-header { height: 60px; padding-inline: 12px; }
-    .deck-ready .brand span { display: none; }
+    .deck-ready .brand { gap: 8px; }
+    .deck-ready .brand span { padding-left: 8px; font-size: 12px; }
     .deck-ready .header-actions { gap: 5px; }
     .deck-ready .project-nav { top: 70px; }
   }
@@ -658,7 +659,6 @@ dialog::backdrop{background:rgba(13,27,41,.86)}
   @media (max-height:539px) and (orientation:landscape) {
     .deck-ready:not(.exporting) .site-header { height: 44px; padding-inline: max(12px, env(safe-area-inset-left)); }
     .deck-ready .brand strong { font-size: 16px; }
-    .deck-ready .brand span { display: none; }
     .deck-ready:not(.exporting) .site-header .header-actions button,
     .deck-ready:not(.exporting) .header-actions #nav-toggle { min-height: 34px; padding: 4px 10px; font-size: 12px; }
     .deck-progress { top: 44px; height: 2px; }
@@ -671,19 +671,18 @@ dialog::backdrop{background:rgba(13,27,41,.86)}
 /* PDF download choice */
 .pdf-menu { position: relative; }
 .pdf-options {
-  position: absolute; top: calc(100% + 8px); right: 0; z-index: 90; width: 236px;
+  position: absolute; top: calc(100% + 8px); right: 0; z-index: 90; width: 210px;
   padding: 8px; background: #fff; border: 1px solid var(--line); border-radius: 4px;
   box-shadow: 0 10px 28px rgba(22, 42, 63, .16);
 }
 .pdf-options[hidden] { display: none; }
-.pdf-options p { margin: 2px 8px 6px; font-size: 12px; color: var(--muted); }
 .pdf-options a {
-  display: grid; grid-template-columns: 44px 1fr; align-items: center; min-height: 48px;
-  padding: 6px 8px; border-radius: 3px; color: var(--ink); text-decoration: none;
+  display: flex; align-items: baseline; justify-content: space-between; gap: 12px; min-height: 44px;
+  padding: 10px 10px; border-radius: 3px; color: var(--ink); text-decoration: none;
 }
 .pdf-options a + a { margin-top: 2px; }
 .pdf-options a:hover, .pdf-options a:focus-visible { background: var(--blue-tint, #eaf1f8); outline: none; }
-.pdf-options b { font-size: 16px; font-weight: 700; color: var(--deep); }
+.pdf-options b { font-size: 14px; font-weight: 600; color: var(--ink); }
 .pdf-options span { font-size: 13px; color: var(--muted); }
 @media print { [data-motion-only] { display: none !important; } }
 .exporting [data-motion-only] { display: none !important; }
@@ -710,3 +709,8 @@ dialog::backdrop{background:rgba(13,27,41,.86)}
   .deck-ready:not(.exporting) .issue-table td { padding: 12px; font-size: 16px; }
   .deck-ready:not(.exporting) .issue-table tbody th small { display: inline; margin-left: 8px; }
 }
+
+/* PDF export: no white page layer under the artboards, and the navy cover bleeds past the
+   page edge so viewers do not show a light seam on the right and bottom. */
+html:has(body.exporting), body.exporting { background: transparent; }
+.exporting .slide.cover { box-shadow: 0 0 0 4px var(--feature); }
