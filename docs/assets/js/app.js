@@ -233,7 +233,26 @@
       console.error(error);notify('인쇄창을 열지 못했습니다. 브라우저의 인쇄 메뉴에서 다시 시도해 주세요.');
     }finally{if(button)button.disabled=false;}
   }
-  $('#pdf-button').addEventListener('click',()=>printPortfolio('slides'));
+  // PDF menu: pick one or two slides per page, then download the prepared file.
+  const pdfButton=$('#pdf-button'), pdfOptions=$('#pdf-options');
+  function setPdfMenu(open,{returnFocus=false}={}){
+    pdfOptions.hidden=!open;pdfButton.setAttribute('aria-expanded',String(open));
+    if(open){closeNav();$('a',pdfOptions).focus();}
+    else if(returnFocus)pdfButton.focus();
+  }
+  pdfButton.addEventListener('click',()=>setPdfMenu(pdfOptions.hidden));
+  pdfOptions.addEventListener('click',event=>{if(event.target.closest('a'))setPdfMenu(false);});
+  document.addEventListener('click',event=>{
+    if(!pdfOptions.hidden&&!event.target.closest('.pdf-menu'))setPdfMenu(false);
+  });
+  document.addEventListener('keydown',event=>{
+    if(pdfOptions.hidden)return;
+    if(event.key==='Escape'){event.preventDefault();setPdfMenu(false,{returnFocus:true});return;}
+    if(event.key!=='ArrowDown'&&event.key!=='ArrowUp')return;
+    const links=$$('a',pdfOptions),i=links.indexOf(document.activeElement);
+    event.preventDefault();event.stopPropagation();
+    links[(i+(event.key==='ArrowDown'?1:-1)+links.length)%links.length].focus();
+  },true);
   document.addEventListener('keydown',event=>{
     if((event.ctrlKey||event.metaKey)&&event.key.toLowerCase()==='p'){
       event.preventDefault();printPortfolio('handout');
@@ -265,7 +284,9 @@
   const navList = nav.querySelector('nav');
   const slides = [...window.Portfolio.slides];
   const footer = document.querySelector('.site-footer');
-  const desktop = matchMedia('(min-width:1000px) and (min-height:540px)');
+  // Large screens and phones held sideways show one whole slide per screen.
+  const desktop = matchMedia('(min-width:1000px) and (min-height:540px), (orientation:landscape) and (min-width:560px) and (max-height:539px)');
+  const compact = matchMedia('(max-height:539px)');
   const frames = slides.map(slide => {
     const shell = slide.parentElement;
     const frame = document.createElement('section');
@@ -308,19 +329,20 @@
     body.classList.toggle('deck-reading', !desktop.matches);
     body.style.setProperty('--reading-top', `${header.offsetHeight + 16}px`);
     const rail = innerWidth >= 1700 ? 248 : 0;
-    const gap = innerWidth < 1400 ? 16 : 24;
-    const top = header.offsetHeight + 16;
+    const gap = innerWidth < 1400 ? (compact.matches ? 12 : 16) : 24;
+    const edge = compact.matches ? 8 : 16;
+    const top = header.offsetHeight + edge;
     const width = Math.max(1, main.clientWidth - rail - gap * 2);
-    const height = Math.max(1, main.clientHeight - top - 16);
+    const height = Math.max(1, main.clientHeight - top - edge);
     const scale = Math.min(1.1, width / 1120, height / 630);
-    const lastHeight = Math.max(1, height - footer.offsetHeight - 16);
+    const lastHeight = Math.max(1, height - footer.offsetHeight - edge);
     const lastScale = Math.min(1.1, width / 1120, lastHeight / 630);
     const vars = {
       '--deck-rail': `${rail}px`, '--deck-scale': scale,
       '--deck-nav-x': `${gap + (width - 1120 * scale) / 2 + 1120 * scale + 64}px`,
       '--deck-footer-x': `${gap + (width - 1120 * lastScale) / 2}px`,
       '--deck-footer-width': `${1120 * lastScale}px`,
-      '--deck-footer-y': `${top + (lastHeight - 630 * lastScale) / 2 + 630 * lastScale + 16}px`,
+      '--deck-footer-y': `${top + (lastHeight - 630 * lastScale) / 2 + 630 * lastScale + edge}px`,
       '--deck-x': `${gap + (width - 1120 * scale) / 2}px`,
       '--deck-y': `${top + (height - 630 * scale) / 2}px`,
       '--deck-last-scale': lastScale,
