@@ -639,10 +639,10 @@ dialog::backdrop{background:rgba(13,27,41,.86)}
     .deck-ready .project-nav.is-open { display: block; }
   }
   /* Readable small screens: tall slides can be read fully before the next one. */
-  .deck-ready.deck-reading:not(.exporting) #main { scroll-snap-type: y proximity; }
-  .deck-ready.deck-reading:not(.exporting) .deck-frame { height: auto; min-height: 100dvh; padding: 82px 12px 24px; }
+  .deck-ready.deck-reading:not(.exporting) #main { scroll-snap-type: none; padding-top: var(--reading-top); scroll-padding-top: var(--reading-top); }
+  .deck-ready.deck-reading:not(.exporting) .deck-frame { height: auto; min-height: 0; padding: 0 12px 24px; scroll-snap-align: none; }
   .deck-ready.deck-reading:not(.exporting) .deck-frame > .page-shell { position: relative; width: 100%; height: auto; transform: none; transition: none; }
-  .deck-ready.deck-reading:not(.exporting) .deck-frame > .page-shell > .slide { width: 100%; height: auto; min-height: calc(100dvh - 106px); }
+  .deck-ready.deck-reading:not(.exporting) .deck-frame > .page-shell > .slide { width: 100%; height: auto; min-height: 0; }
   .deck-ready.deck-reading:not(.exporting) .site-footer { position: static; width: auto; display: flex; flex-wrap: wrap; gap: 12px; margin-top: 20px; padding-inline: 8px; }
   @media (max-width:600px) {
     .deck-progress { top: 60px; }
@@ -650,11 +650,9 @@ dialog::backdrop{background:rgba(13,27,41,.86)}
     .deck-ready .brand span { display: none; }
     .deck-ready .header-actions { gap: 5px; }
     .deck-ready .project-nav { top: 70px; }
-    .deck-ready.deck-reading:not(.exporting) .deck-frame { padding-top: 76px; }
   }
   @media (max-width:420px) {
-    .deck-ready #pdf-button { width: 40px; padding: 8px; }
-    .deck-ready #pdf-button span { display: none; }
+    .deck-ready #pdf-button { width: auto; padding: 8px 10px; }
   }
 }
 @media print { [data-motion-only] { display: none !important; } }
@@ -663,3 +661,22 @@ dialog::backdrop{background:rgba(13,27,41,.86)}
 .exporting .deck-frame { break-after: page; }
 .exporting .deck-frame:last-child { break-after: auto; }
 .exporting .deck-frame .site-footer { display: none !important; }
+
+/* Mobile reading: comfortable touch targets and stacked comparison rows. */
+@media screen and (max-width:999px) {
+  .deck-ready:not(.exporting) .stage-nav a,
+  .deck-ready:not(.exporting) .contact-links a,
+  .deck-ready:not(.exporting) .project-actions a { min-height: 44px; display: inline-flex; align-items: center; }
+  .deck-ready:not(.exporting) .site-header button,
+  .deck-ready:not(.exporting) #nav-toggle { min-height: 44px; }
+  .deck-ready:not(.exporting) .hero-description { font-size: 16px; }
+  .deck-ready:not(.exporting) .site-footer { padding-bottom: max(8px, env(safe-area-inset-bottom)); }
+}
+@media screen and (max-width:420px) {
+  .deck-ready:not(.exporting) .issue-table thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+  .deck-ready:not(.exporting) .issue-table tbody { display: block; }
+  .deck-ready:not(.exporting) .issue-table tr { display: grid; grid-template-columns: minmax(0, 1fr); }
+  .deck-ready:not(.exporting) .issue-table tbody th { width: auto; padding: 12px; }
+  .deck-ready:not(.exporting) .issue-table td { padding: 12px; font-size: 16px; }
+  .deck-ready:not(.exporting) .issue-table tbody th small { display: inline; margin-left: 8px; }
+}

@@ -306,6 +306,7 @@
   function fit() {
     if (exporting) return;
     body.classList.toggle('deck-reading', !desktop.matches);
+    body.style.setProperty('--reading-top', `${header.offsetHeight + 16}px`);
     const rail = innerWidth >= 1700 ? 248 : 0;
     const gap = innerWidth < 1400 ? 16 : 24;
     const top = header.offsetHeight + 16;
@@ -357,6 +358,7 @@
     for (const effect of pending) effect.cancel();
     body.classList.remove('deck-moving');
   }
+  const frameTop = index => Math.max(0, frames[index].offsetTop - (desktop.matches ? 0 : header.offsetHeight + 16));
   function goTo(index, {historyMode = 'replace'} = {}) {
     index = clamp(index);
     const previous = target;
@@ -383,7 +385,7 @@
     };
     body.classList.add('deck-moving');
     moving = true;
-    const end = frames[index].offsetTop;
+    const end = frameTop(index);
     main.scrollTo({top: end, behavior: 'instant'});
     if (!enabled() || !desktop.matches || previous === index) {finish(); return;}
     const distance = Math.sign(index - previous) * main.clientHeight;
@@ -454,19 +456,25 @@
   addEventListener('popstate', () => goTo(fromHash(), {historyMode: null}));
   addEventListener('hashchange', () => goTo(fromHash(), {historyMode: null}));
   addEventListener('resize', () => {
-    clearTimeout(resizeTimer); cancelMove(); body.classList.remove('deck-moving');
-    resizeTimer = setTimeout(() => {fit(); main.scrollTo({top: frames[target].offsetTop, behavior: 'instant'}); update();}, 100);
+    const wasReading = body.classList.contains('deck-reading');
+    clearTimeout(resizeTimer); cancelMove();
+    resizeTimer = setTimeout(() => {
+      fit();
+      // Mobile browser chrome resizes the viewport while reading: retain the position.
+      if (!wasReading || desktop.matches) main.scrollTo({top: frameTop(target), behavior: 'instant'});
+      update();
+    }, 100);
   });
-  const settle = () => {if (moving) {cancelMove(); main.scrollTo({top: frames[target].offsetTop, behavior: 'instant'}); body.classList.remove('deck-moving');}};
+  const settle = () => {if (moving) {cancelMove(); main.scrollTo({top: frameTop(target), behavior: 'instant'}); body.classList.remove('deck-moving');}};
   addEventListener('beforeprint', settle);
   document.addEventListener('visibilitychange', () => {if (document.hidden) settle();});
   new MutationObserver(() => {
     const next = body.classList.contains('exporting');
     if (next === exporting) return;
     exporting = next; settle();
-    if (!next) {fit(); main.scrollTo({top: frames[target].offsetTop, behavior: 'instant'}); update();}
+    if (!next) {fit(); main.scrollTo({top: frameTop(target), behavior: 'instant'}); update();}
   }).observe(body, {attributes: true, attributeFilter: ['class']});
   syncPreference(); fit();
-  target = fromHash(); main.scrollTo({top: frames[target].offsetTop, behavior: 'instant'}); update();
+  target = fromHash(); main.scrollTo({top: frameTop(target), behavior: 'instant'}); update();
   document.fonts.ready.then(() => {fit(); schedule();});
 })();
