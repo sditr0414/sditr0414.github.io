@@ -585,7 +585,7 @@ dialog::backdrop{background:rgba(13,27,41,.86)}
   .deck-ready #main:focus,
   .deck-ready .slide[tabindex="-1"]:focus { outline: none; }
   .deck-ready:not(.exporting) .deck-frame { position: relative; width: 100%; height: 100dvh; scroll-snap-align: start; scroll-snap-stop: always; }
-  .deck-ready.deck-moving #main { scroll-snap-type: none; }
+  .deck-ready.deck-moving #main, .deck-ready.deck-fast #main { scroll-snap-type: none; }
   .deck-ready:not(.exporting) .deck-frame > .page-shell {
     position: absolute; top: 0; left: 0; width: 1120px; height: 630px;
     margin: 0; transform-origin: 0 0;

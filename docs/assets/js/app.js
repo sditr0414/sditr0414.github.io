@@ -320,6 +320,9 @@
   let resizeTimer;
   let wheelAt = 0, wheelSum = 0, wheelDirection = 0, wheelStepAt = -Infinity;
   let pendingWheel = 0;
+  let wheelSamples = [];
+  let fastScrolling = false, fastSettling = false;
+  let fastIdleTimer, fastEndTimer;
   let exporting = body.classList.contains('exporting');
   const enabled = () => true;
   const clamp = i => Math.max(0, Math.min(slides.length - 1, i));
@@ -381,7 +384,8 @@
     body.classList.remove('deck-moving');
   }
   const frameTop = index => Math.max(0, frames[index].offsetTop - (desktop.matches ? 0 : header.offsetHeight + 16));
-  function goTo(index, {historyMode = 'replace'} = {}) {
+  function goTo(index, {historyMode = 'replace', animate = true} = {}) {
+    stopFastScroll();
     index = clamp(index);
     const previous = target;
     cancelMove();
@@ -409,7 +413,7 @@
     moving = true;
     const end = frameTop(index);
     main.scrollTo({top: end, behavior: 'instant'});
-    if (!enabled() || !desktop.matches || previous === index) {finish(); return;}
+    if (!animate || !enabled() || !desktop.matches || previous === index) {finish(); return;}
     const distance = Math.sign(index - previous) * main.clientHeight;
     const origin = end - frames[previous].offsetTop;
     const options = {duration: 280, easing: 'cubic-bezier(.22,.68,.25,1)'};
@@ -425,6 +429,39 @@
     Promise.all(animations.map(effect => effect.finished)).then(finish).catch(() => {});
   }
   main.addEventListener('scroll', () => {if (!moving) schedule();}, {passive: true});
+  // Rapid wheel input uses continuous scrolling; settle on one slide after release.
+  function stopFastScroll() {
+    clearTimeout(fastIdleTimer); clearTimeout(fastEndTimer);
+    fastScrolling = false; fastSettling = false;
+    body.classList.remove('deck-fast');
+  }
+  function finishFastScroll() {
+    if (!fastSettling) return;
+    const index = clamp(Math.round(main.scrollTop / main.clientHeight));
+    goTo(index, {animate: false});
+  }
+  function scrollFast(delta) {
+    if (!fastScrolling) {
+      // Preserve the visible position when interrupting a single-slide animation.
+      const matrix = new DOMMatrixReadOnly(getComputedStyle(frames[target]).transform);
+      const visualTop = main.scrollTop - matrix.m42;
+      body.classList.add('deck-fast');
+      cancelMove();
+      main.scrollTo({top: Math.max(0, visualTop), behavior: 'instant'});
+      fastScrolling = true;
+    }
+    clearTimeout(fastIdleTimer); clearTimeout(fastEndTimer);
+    fastSettling = false;
+    main.scrollTo({top: main.scrollTop + delta * 2.4, behavior: 'instant'});
+    fastIdleTimer = setTimeout(() => {
+      fastSettling = true;
+      const index = clamp(Math.round(main.scrollTop / main.clientHeight));
+      main.scrollTo({top: frameTop(index), behavior: 'smooth'});
+      fastEndTimer = setTimeout(finishFastScroll, 600);
+    }, 160);
+  }
+  main.addEventListener('scrollend', finishFastScroll);
+
 
   function nestedScroll(element) {
     for (let node = element instanceof Element ? element : null; node && node !== main; node = node.parentElement) {
@@ -439,6 +476,16 @@
     if (!event.deltaY) return;
     event.preventDefault();
     const now = performance.now(), direction = Math.sign(event.deltaY);
+    const delta = event.deltaY * (event.deltaMode === 1 ? 16 : event.deltaMode === 2 ? main.clientHeight : 1);
+    if (direction !== wheelDirection) wheelSamples = [];
+    wheelSamples = wheelSamples.filter(sample => now - sample.time < 180);
+    wheelSamples.push({time: now, amount: Math.min(Math.abs(delta), 120)});
+    const rapid = wheelSamples.length >= 3 && wheelSamples.reduce((sum, sample) => sum + sample.amount, 0) >= 240;
+    if (fastScrolling || rapid) {
+      wheelAt = now; wheelDirection = direction; wheelSum = 0;
+      scrollFast(delta);
+      return;
+    }
     if (now - wheelAt > 160 || direction !== wheelDirection) {wheelSum = 0; pendingWheel = 0;}
     wheelAt = now; wheelDirection = direction;
     wheelSum += Math.abs(event.deltaY) * (event.deltaMode === 1 ? 16 : event.deltaMode === 2 ? main.clientHeight : 1);
@@ -472,14 +519,14 @@
     if (event.repeat && moving) return;
     goTo(event.key === 'Home' ? 0 : event.key === 'End' ? slides.length - 1 : target + steps[event.key]);
   });
-  main.addEventListener('pointerdown', () => {cancelMove(); body.classList.remove('deck-moving');}, {passive: true});
+  main.addEventListener('pointerdown', () => {stopFastScroll(); cancelMove(); body.classList.remove('deck-moving');}, {passive: true});
   new MutationObserver(schedule).observe(nav, {attributes: true, attributeFilter: ['class']});
   const fromHash = () => Math.max(0, slides.findIndex(slide => `#${slide.id}` === location.hash));
   addEventListener('popstate', () => goTo(fromHash(), {historyMode: null}));
   addEventListener('hashchange', () => goTo(fromHash(), {historyMode: null}));
   addEventListener('resize', () => {
     const wasReading = body.classList.contains('deck-reading');
-    clearTimeout(resizeTimer); cancelMove();
+    clearTimeout(resizeTimer); stopFastScroll(); cancelMove();
     resizeTimer = setTimeout(() => {
       fit();
       // Mobile browser chrome resizes the viewport while reading: retain the position.
@@ -487,7 +534,7 @@
       update();
     }, 100);
   });
-  const settle = () => {if (moving) {cancelMove(); main.scrollTo({top: frameTop(target), behavior: 'instant'}); body.classList.remove('deck-moving');}};
+  const settle = () => {if (fastScrolling) {stopFastScroll(); goTo(clamp(Math.round(main.scrollTop / main.clientHeight)), {animate: false});} if (moving) {cancelMove(); main.scrollTo({top: frameTop(target), behavior: 'instant'}); body.classList.remove('deck-moving');}};
   addEventListener('beforeprint', settle);
   document.addEventListener('visibilitychange', () => {if (document.hidden) settle();});
   new MutationObserver(() => {
