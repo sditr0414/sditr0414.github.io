@@ -235,7 +235,7 @@ html{scroll-padding-top:0}
 /* Engineering portfolio · shared screen and PDF design. */
 :root{
   --ink:#1e2d3d;--muted:#596777;--accent:#315b7d;--deep:#18344d;
-  --line:#d9dfe5;--paper:#ffffff;--wash:#eef1f4;--tint:#f3f5f7;
+  --line:#d9dfe5;--paper:#ffffff;--wash:#dce5ee;--tint:#f3f5f7;
   --feature:#355674;--feature-panel:#2b4760;
 }
 ::selection{background:#ccdfef;color:#18344d}
