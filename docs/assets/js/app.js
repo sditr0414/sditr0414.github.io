@@ -322,7 +322,9 @@
   let pendingWheel = 0;
   let wheelSamples = [];
   let fastScrolling = false, fastSettling = false;
-  let fastIdleTimer, fastEndTimer;
+  let fastIdleTimer;
+  let fastTarget = 0, fastDirection = 0;
+  let fastFrame = 0, fastFrameAt = 0, fastUiAt = 0;
   let exporting = body.classList.contains('exporting');
   const enabled = () => true;
   const clamp = i => Math.max(0, Math.min(slides.length - 1, i));
@@ -428,17 +430,37 @@
     animations = [outgoing, incoming];
     Promise.all(animations.map(effect => effect.finished)).then(finish).catch(() => {});
   }
-  main.addEventListener('scroll', () => {if (!moving) schedule();}, {passive: true});
+  main.addEventListener('scroll', () => {
+    const now = performance.now();
+    if (!moving && (!fastScrolling || now - fastUiAt >= 80)) {fastUiAt = now; schedule();}
+  }, {passive: true});
   // Rapid wheel input uses continuous scrolling; settle on one slide after release.
   function stopFastScroll() {
-    clearTimeout(fastIdleTimer); clearTimeout(fastEndTimer);
-    fastScrolling = false; fastSettling = false;
+    clearTimeout(fastIdleTimer);
+    cancelAnimationFrame(fastFrame); fastFrame = 0; fastFrameAt = 0;
+    fastScrolling = false; fastSettling = false; fastDirection = 0;
     body.classList.remove('deck-fast');
   }
   function finishFastScroll() {
     if (!fastSettling) return;
     const index = clamp(Math.round(main.scrollTop / main.clientHeight));
     goTo(index, {animate: false});
+  }
+  function animateFastScroll(time) {
+    fastFrame = 0;
+    if (!fastScrolling) return;
+    const dt = fastFrameAt ? Math.min(32, time - fastFrameAt) : 16;
+    fastFrameAt = time;
+    const currentTop = main.scrollTop, distance = fastTarget - currentTop;
+    if (Math.abs(distance) <= 1) {
+      main.scrollTo({top: fastTarget, behavior: 'instant'});
+      fastFrameAt = 0;
+      if (fastSettling) finishFastScroll();
+      return;
+    }
+    const step = Math.sign(distance) * Math.max(1, Math.abs(distance) * (1 - Math.exp(-dt / 55)));
+    main.scrollTo({top: currentTop + step, behavior: 'instant'});
+    fastFrame = requestAnimationFrame(animateFastScroll);
   }
   function scrollFast(delta) {
     if (!fastScrolling) {
@@ -448,19 +470,25 @@
       body.classList.add('deck-fast');
       cancelMove();
       main.scrollTo({top: Math.max(0, visualTop), behavior: 'instant'});
-      fastScrolling = true;
+      fastScrolling = true; fastTarget = main.scrollTop;
     }
-    clearTimeout(fastIdleTimer); clearTimeout(fastEndTimer);
-    fastSettling = false;
-    main.scrollTo({top: main.scrollTop + delta * 2.4, behavior: 'instant'});
+    clearTimeout(fastIdleTimer);
+    const direction = Math.sign(delta);
+    if (fastSettling || (fastDirection && direction !== fastDirection)) fastTarget = main.scrollTop;
+    fastSettling = false; fastDirection = direction;
+    const currentTop = main.scrollTop;
+    const lead = main.clientHeight * .75;
+    fastTarget = Math.max(0, Math.min(main.scrollHeight - main.clientHeight,
+      Math.max(currentTop - lead, Math.min(currentTop + lead, fastTarget + delta * 2.4))));
+    // A short, frame-rate independent follow keeps fast input fluid without queuing pages.
+    if (!fastFrame) fastFrame = requestAnimationFrame(animateFastScroll);
     fastIdleTimer = setTimeout(() => {
       fastSettling = true;
-      const index = clamp(Math.round(main.scrollTop / main.clientHeight));
-      main.scrollTo({top: frameTop(index), behavior: 'smooth'});
-      fastEndTimer = setTimeout(finishFastScroll, 600);
+      const index = clamp(Math.round(fastTarget / main.clientHeight));
+      fastTarget = frameTop(index);
+      if (!fastFrame) fastFrame = requestAnimationFrame(animateFastScroll);
     }, 160);
   }
-  main.addEventListener('scrollend', finishFastScroll);
 
 
   function nestedScroll(element) {
