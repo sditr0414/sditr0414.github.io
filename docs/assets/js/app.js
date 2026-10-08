@@ -333,18 +333,19 @@
     if (exporting) return;
     body.classList.toggle('deck-reading', !desktop.matches);
     body.style.setProperty('--reading-top', `${header.offsetHeight + 16}px`);
-    const rail = innerWidth >= 1700 ? 248 : 0;
+    const rail = innerWidth >= 1700 ? 280 : 0;
     const gap = innerWidth < 1400 ? (compact.matches ? 12 : 16) : 24;
     const edge = compact.matches ? 8 : 16;
     const top = header.offsetHeight + edge;
     const width = Math.max(1, main.clientWidth - rail - gap * 2);
     const height = Math.max(1, main.clientHeight - top - edge);
-    const scale = Math.min(1.1, width / 1120, height / 630);
+    const preferredScale = 1.1 * 1.15; // Approved: 115% of the previous preview size.
+    const scale = Math.min(preferredScale, width / 1120, height / 630);
     const lastHeight = Math.max(1, height - footer.offsetHeight - edge);
-    const lastScale = Math.min(1.1, width / 1120, lastHeight / 630);
+    const lastScale = Math.min(preferredScale, width / 1120, lastHeight / 630);
     const vars = {
       '--deck-rail': `${rail}px`, '--deck-scale': scale,
-      '--deck-nav-x': `${gap + (width - 1120 * scale) / 2 + 1120 * scale + 64}px`,
+      '--deck-nav-x': `${gap + (width - 1120 * scale) / 2 + 1120 * scale + 76}px`,
       '--deck-footer-x': `${gap + (width - 1120 * lastScale) / 2}px`,
       '--deck-footer-width': `${1120 * lastScale}px`,
       '--deck-footer-y': `${top + (lastHeight - 630 * lastScale) / 2 + 630 * lastScale + edge}px`,

@@ -609,7 +609,7 @@ dialog::backdrop{background:rgba(13,27,41,.86)}
     z-index: 80; pointer-events: none; background: #dbe4ec;
   }
   .deck-progress-fill { display: block; height: 100%; background: var(--accent); transform-origin: left; transform: scaleX(var(--deck-progress, .076923)); transition: transform 240ms ease; }
-  .deck-ready .project-nav { display: block; top: calc(50% + 32px); left: var(--deck-nav-x); right: auto; transform: translateY(-50%); width: 176px; max-height: calc(100dvh - 100px); padding: 0; background: transparent; border: 0; box-shadow: none; z-index: 60; }
+  .deck-ready .project-nav { display: block; top: calc(50% + 32px); left: var(--deck-nav-x); right: auto; transform: translateY(-50%); width: 196px; max-height: calc(100dvh - 100px); padding: 0; background: transparent; border: 0; box-shadow: none; z-index: 60; }
   .deck-ready .project-nav nav { position: relative; }
   .deck-ready .project-nav nav a::before { opacity: 0; }
   .deck-ready #nav-toggle { display: none; }
@@ -727,4 +727,52 @@ html:has(body.exporting), body.exporting { background: transparent; }
   body.deck-ready:not(.exporting) {
     background: linear-gradient(135deg, #dce1e7 0%, #d6dde5 100%);
   }
+}
+
+/* Larger desktop index, and a full-width reading layout on portrait phones. */
+@media screen {
+  .deck-ready .project-nav nav a { font-size: 15px; line-height: 1.6; padding-block: 10px; }
+  .deck-ready .project-nav nav small { font-size: 13px; }
+}
+@media screen and (max-width:700px) {
+  .deck-ready.deck-reading:not(.exporting) .deck-frame { padding: 0 0 20px; }
+  .deck-ready.deck-reading:not(.exporting) .page-shell { outline: none; box-shadow: none; }
+  .deck-ready.deck-reading:not(.exporting) .slide { padding: 22px 20px 18px; }
+  .deck-ready.deck-reading .slide-top { gap: 10px; padding-bottom: 12px; }
+  .deck-ready.deck-reading .edition { display: none; }
+  .deck-ready.deck-reading .project-identity { font-size: 14px; }
+  .deck-ready.deck-reading .slide-header { margin: 22px 0; }
+  .deck-ready.deck-reading .slide-header h2 { font-size: 26px; line-height: 1.4; }
+  .deck-ready.deck-reading .deck { font-size: 16px; line-height: 1.75; }
+  .deck-ready.deck-reading .stage-nav { display: flex; width: 100%; gap: 8px; }
+  .deck-ready.deck-reading .stage-nav a { flex: 1; justify-content: center; padding: 7px 4px; font-size: 13px; text-align: center; }
+  .deck-ready.deck-reading .stage-nav a.current { background: var(--blue-tint); border-bottom: 2px solid var(--accent); }
+  .deck-ready.deck-reading .cover .slide-body { padding-top: 22px; }
+  .deck-ready.deck-reading .cover .hero-grid { grid-template-columns: minmax(0, 1fr) 90px; gap: 18px; }
+  .deck-ready.deck-reading .cover .portrait { width: 90px; }
+  .deck-ready.deck-reading .cover .portrait img { width: 90px; height: 113px; }
+  .deck-ready.deck-reading .cover .hero-line { font-size: 22px; line-height: 1.6; }
+  .deck-ready.deck-reading .cover .hero-description { font-size: 16px; line-height: 1.8; }
+  .deck-ready.deck-reading .skills-band { margin: 22px 0 0; padding: 20px 0 0; }
+  .deck-ready.deck-reading .skills-heading { margin-bottom: 16px; }
+  .deck-ready.deck-reading .skill-grid { gap: 18px; }
+  .deck-ready.deck-reading .skill-grid p { font-size: 16px; }
+  .deck-ready.deck-reading .main-figure img { height: auto; max-height: 300px; object-fit: contain; }
+  .deck-ready.deck-reading .robot-figure img { height: 250px; }
+  .deck-ready.deck-reading .app-showcase img { height: auto; width: 100%; }
+  .deck-ready.deck-reading .specs { gap: 16px; padding: 16px; }
+  .deck-ready.deck-reading .slide-footer { font-size: 11px; gap: 12px; line-height: 1.6; }
+  .deck-ready.deck-reading .site-footer { padding: 0 20px 12px; }
+  .deck-ready.deck-reading .project-nav { left: 12px; right: 12px; width: auto; max-height: calc(100dvh - 88px); }
+  .deck-ready.deck-reading .project-nav nav a { min-height: 48px; }
+  .deck-ready.deck-reading .contact-links { gap: 16px; }
+}
+@media screen and (max-width:360px) {
+  .deck-ready .brand span { font-size: 11px; }
+  .deck-ready:not(.exporting) .site-header { padding-inline: 10px; }
+  .deck-ready #pdf-button { padding-inline: 8px; }
+  .deck-ready.deck-reading .slide-header h2 { font-size: 24px; }
+  .deck-ready.deck-reading .cover .hero-grid { grid-template-columns: minmax(0,1fr) 80px; gap: 14px; }
+  .deck-ready.deck-reading .cover .portrait { width: 80px; }
+  .deck-ready.deck-reading .cover .portrait img { width: 80px; height: 101px; }
 }
