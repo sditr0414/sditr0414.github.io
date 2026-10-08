@@ -235,7 +235,7 @@ html{scroll-padding-top:0}
 /* Engineering portfolio · shared screen and PDF design. */
 :root{
   --ink:#1e2d3d;--muted:#596777;--accent:#315b7d;--deep:#18344d;
-  --line:#d9dfe5;--paper:#ffffff;--wash:#dce5ee;--tint:#f3f5f7;
+  --line:#d9dfe5;--paper:#ffffff;--wash:#dce1e7;--tint:#f3f5f7;
   --feature:#355674;--feature-panel:#2b4760;
 }
 ::selection{background:#ccdfef;color:#18344d}
@@ -721,3 +721,10 @@ html:has(body.exporting), body.exporting { background: transparent; }
 .print-slot::after { content: ""; position: absolute; inset: 0; z-index: 2; border: .25mm solid #c3cfda; pointer-events: none; }
 .print-slot > .page-shell { outline: 0; box-shadow: none; }
 .print-slot:has(.cover)::after { display: none; }
+
+/* Subtle neutral canvas approved for the portfolio. */
+@media screen {
+  body.deck-ready:not(.exporting) {
+    background: linear-gradient(135deg, #dce1e7 0%, #d6dde5 100%);
+  }
+}
