@@ -1409,3 +1409,79 @@ html body header.top .brand span { font-size: 15.5px; }
   .page-fragment .page-unit th, .page-fragment .page-unit td { padding-top: 5px; padding-bottom: 5px; }
   .page-part-count { top: 10px; right: 14px; }
 }
+
+/* 2026-10-21: lighter, bluer boxes (user: the grey-blue read too dark and grey) */
+:root { --box: #e6eef8; --box-line: #c8d6e6; }
+.ds-body tbody tr:nth-child(even) td, .ds-body tbody tr:nth-child(even) th { background: #f1f6fb; }
+.ds-body .heat-table tbody th { background: #f1f6fb; }
+.svg-fig .sv-jig { fill: #d3e0ee; }
+@media (max-width: 680px) { .ds-body .issue-table.cols3 tbody tr:nth-child(even) { background: #f1f6fb; } }
+/* step cards that read left to right: content centred in each card */
+@media (min-width: 681px) {
+  .ds-body .flow:not(.lanes) > li { text-align: center; }
+  .ds-body .flow:not(.lanes) > li > span { width: fit-content; margin-inline: auto; }
+  .ds-body .flow:not(.lanes) > li .dots { display: inline-block; text-align: left; }
+}
+/* app screens keep their size; if the card is too tall the explanation table moves to the next page instead */
+.ds.page-media-fit .app-screen img { width: auto; max-width: 100%; max-height: max(calc(var(--page-video-max) - 100px), 200px); margin-inline: auto; }
+@media (max-height: 520px) and (orientation: landscape) {
+  .ds.page-media-fit .app-screen img { max-height: calc(var(--page-video-max) - 10px); }
+}
+
+/* SO-101 case study: one decision per page, with compact media and readable evidence. */
+.robot-study .ds { padding: 26px 32px; }
+.robot-study .ds-body { margin-top: 18px; }
+.robot-study .ds-head .ds-no { margin-bottom: 12px; padding-bottom: 12px; }
+.robot-study .ds-head h3 { line-height: 1.4; }
+.robot-study .ds-deck { margin-top: 7px; }
+.study-pair { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 24px; align-items: center; }
+.study-pair > * { min-width: 0; }
+.robot-study .ds-body figure img, .robot-study .ds-body .inline-demo video {
+  width: auto; max-width: 100%; height: auto;
+  max-height: min(280px, 30svh); object-fit: contain; margin-inline: auto;
+}
+.robot-study .ds-body .inline-demo { width: fit-content; max-width: 100%; margin-inline: auto; aspect-ratio: auto; }
+.robot-study .ds-body .study-chart img, .robot-study .study-charts img { width: 100%; max-height: none; background: transparent; }
+.robot-study #opencv-2 figure img { max-height: 170px; }
+.robot-study .study-charts h4 { text-align: center; }
+.robot-study .study-charts figcaption { text-align: center; }
+.robot-study .study-transform svg { display: block; width: min(100%, 640px); height: auto; max-height: 180px; margin-inline: auto; }
+.robot-study .study-takeaway { margin-top: 16px; color: var(--navy); font-size: 17px; font-weight: 600; line-height: 1.6; }
+.robot-study .ds-body .study-note { margin-top: 16px; color: var(--muted); font-size: 14px; line-height: 1.55; }
+.robot-study .ds-body .study-summary { margin-top: 18px; line-height: 1.6; }
+.robot-study .ds-body .study-table { width: 100%; font-size: 15px; line-height: 1.5; }
+.study-table caption { text-align: left; color: var(--ink); font-size: 15px; font-weight: 600; margin-bottom: 10px; }
+.robot-study .study-table th, .robot-study .study-table td { padding: 9px 10px; vertical-align: middle; }
+.robot-study .study-table th:first-child { width: auto; }
+.robot-study .study-table td { text-align: right; font-variant-numeric: tabular-nums; }
+.robot-study .study-table tr.study-selected > * { background: var(--box); font-weight: 600; }
+.robot-study .case-grid { margin-top: 18px; }
+.robot-study .case-grid p { font-size: 15px; line-height: 1.6; }
+.robot-study .flow > li { padding: 12px 14px; }
+.robot-study .flow > li p { font-size: 15px; }
+.robot-study .page-fragment { padding: 18px 24px; }
+@media (max-width: 680px) {
+  .robot-study .ds { padding: 18px 16px; }
+  .robot-study .ds-body { margin-top: 14px; }
+  .robot-study .study-pair { grid-template-columns: 1fr; gap: 18px; }
+  .robot-study #opencv-2 .study-pair { grid-template-columns: 1fr 1fr; gap: 12px; }
+  .robot-study .ds-body figure img, .robot-study .ds-body .inline-demo video { max-height: 190px; }
+  .robot-study .ds-body .study-chart img, .robot-study .study-charts img { max-height: none; }
+  .robot-study .study-table th, .robot-study .study-table td { padding: 8px 5px; }
+  .robot-study .ds-body .study-table { font-size: 14px; }
+  .robot-study .ds-body .study-note { font-size: 14px; margin-top: 12px; }
+  .robot-study .study-takeaway { font-size: 16px; margin-top: 12px; }
+  .robot-study .study-transform svg { max-height: 130px; }
+  .robot-study #opencv-6 .inline-demo video { max-height: 150px; }
+  .robot-study #opencv-9 .case-grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 12px; }
+}
+@media (max-height: 520px) and (orientation: landscape) {
+  .robot-study .ds { padding: 12px 18px; }
+  .robot-study .ds-head .ds-no { padding-bottom: 5px; margin-bottom: 5px; }
+  .robot-study .ds-head h3 { font-size: 20px; }
+  .robot-study .ds-body { margin-top: 10px; }
+  .robot-study .ds-body figure img, .robot-study .ds-body .inline-demo video { max-height: 100px; }
+  .robot-study .ds-body .study-chart img, .robot-study .study-charts img { width: auto; max-height: calc(100svh - 250px); }
+  .robot-study #opencv-2 figure img { max-height: 100px; }
+  .robot-study .ds-body .flow.row4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}

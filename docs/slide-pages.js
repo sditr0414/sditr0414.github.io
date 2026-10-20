@@ -31,8 +31,10 @@ function createSlidePages(sheet) {
       const rows = [...table.tBodies].flatMap(body => [...body.rows]);
       if (rows.length > 1) {
         const originalHead = table.tHead, headCopy = originalHead && cleanClone(originalHead);
+        const originalCaption = table.caption, captionCopy = originalCaption && cleanClone(originalCaption);
         return rows.map((row, i) => {
           const t = shell(table), tbody = document.createElement('tbody');
+          if (originalCaption) t.append(i === 0 ? originalCaption : cleanClone(captionCopy));
           if (originalHead) t.append(i === 0 ? originalHead : cleanClone(headCopy));
           tbody.append(row); t.append(tbody);
           const wrapper = node === table ? t : shell(node);

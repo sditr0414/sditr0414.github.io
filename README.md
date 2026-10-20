@@ -15,7 +15,7 @@
 
 | 프로젝트 | 담당 역할 | 사용 기술 |
 | --- | --- | --- |
-| [OpenCV 기반<br>로봇팔 티칭](https://sditr0414.github.io/#opencv) | SO-101 로봇팔 2대의 비전 보정·티칭·Raspberry Pi 실행 연동, MuJoCo 자세·경로 미리보기 | Python, OpenCV, FK·IK, ROS2, MuJoCo, SO-101, Raspberry Pi |
+| [비전 기반<br>로봇팔 티칭·검사](https://sditr0414.github.io/#opencv) | 로봇팔 2대의 비전 보정·티칭·Pi 연동, 학습 데이터·모델·검사 방식 비교 | Python, OpenCV, YOLO, NCNN, FK·IK, ROS2, MuJoCo, Raspberry Pi |
 | [원격 물품<br>회수·운반 로봇](https://sditr0414.github.io/#robot) | 로봇팔 제작·제어와 STM32 펌웨어 구축·통합 | C, C++, STM32, FreeRTOS, Bluetooth |
 | [AI 기반<br>보행 보조 장치](https://sditr0414.github.io/#vision) | 데이터 라벨 통합, 모델 학습·변환, ROI와 알림 판단 로직 구성 | Python, OpenCV, YOLO, TFLite |
 | [PLC 기반<br>창고 적재 제어](https://sditr0414.github.io/#plc) | 병렬 처리 로직과 HMI 작성, 메모리 상태에 따른 오동작 수정 | Mitsubishi Q PLC, GX Works2, GT Designer3 |

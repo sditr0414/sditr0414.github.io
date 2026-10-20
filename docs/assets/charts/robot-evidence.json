@@ -1,0 +1,59 @@
+{
+  "date": "2026-10-21",
+  "training_s": {
+    "model": "YOLO26s, NCNN FP16",
+    "values": [
+      94.77427227184856,
+      94.7641185480343
+    ],
+    "source": "SO101_synthetic/benchmarks/yolo26s_9way_20261016/results/",
+    "metric": "Ultralytics mask mAP50-95"
+  },
+  "training_x": {
+    "model": "YOLO26x, TensorRT FP16",
+    "values": [
+      98.93154156606727,
+      97.19654483922474
+    ],
+    "source": "SO101_synthetic/benchmarks/yolo26x_seg_vs_sam3_20261017/comparison/",
+    "metric": "recorded common-protocol mask AP50-95"
+  },
+  "quantization": [
+    {
+      "variant": "mixed_original",
+      "mask_map": 94.77177737471486,
+      "seconds": 4.141856272500263
+    },
+    {
+      "variant": "mixed_fp16",
+      "mask_map": 94.7641185480343,
+      "seconds": 1.222968428499371
+    },
+    {
+      "variant": "mixed_int8",
+      "mask_map": 95.20424404990426,
+      "seconds": 1.9590787910010476
+    }
+  ],
+  "size": {
+    "s": {
+      "seconds": 1.0732269834988983,
+      "mask_map": 94.7641185480343
+    },
+    "n": {
+      "seconds": 0.4686000800138572,
+      "mask_map": 95.79387971419916
+    }
+  },
+  "pallet_yield": [
+    79.2982456140351,
+    80.7017543859649,
+    99.64912280701755
+  ],
+  "limitations": [
+    "Training comparisons use separate model/runtime/evaluation protocols; do not rank across the two panels.",
+    "Model test: 31 real photos, one captured environment; AP is not simple accuracy.",
+    "Pi timings exclude camera, transport, UI and robot motion.",
+    "Jig comparison includes all 304 development photos, including train/val/test; not unseen-test accuracy."
+  ]
+}
