@@ -1237,6 +1237,11 @@ html body header.top .brand span { font-size: 15.5px; }
 .ds-body .split.stretch .text-stack ul.dots li + li { margin-top: 18px; }
 .ds-body .split.stretch .text-stack h4 { margin-bottom: 18px; }
 .ds-body .split + .flow, .ds-body .split + ol.flow { margin-top: 26px; }
+.ds-body > figure:has(+ .flow) figcaption { margin-top: 12px; }
+.ds-body > figure + .flow { margin-top: 24px; }
+@media (max-width: 680px) {
+  .ds-body > figure + .flow { margin-top: 16px; }
+}
 @media (min-width: 681px) {
   .ds-body .split.stretch > .col > .text-stack > section { justify-content: flex-start; padding-top: 30px; padding-bottom: 30px; }
   .ds-body .split.stretch .text-stack ul.dots { flex: 1; display: flex; flex-direction: column; justify-content: space-evenly; margin: 0; }
