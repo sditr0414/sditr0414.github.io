@@ -1427,3 +1427,19 @@ html body header.top .brand span { font-size: 15.5px; }
 @media (max-height: 520px) and (orientation: landscape) {
   .ds.page-media-fit .app-screen img { max-height: calc(var(--page-video-max) - 10px); }
 }
+/* 2026-10-21: left-aligned box text gets more room from the box edge */
+.ds-body .case-grid section, .ds-body .workflow section { padding: 18px 26px 20px; }
+.ds-body .text-stack > section { padding: 16px 24px; }
+.ds-body .specs div { padding: 14px 24px; }
+.ds-note, .ds-body .note { padding: 14px 22px; }
+@media (max-width: 680px) {
+  .ds-body .case-grid section, .ds-body .workflow section { padding: 14px 18px 16px; }
+  .ds-body .text-stack > section { padding: 14px 18px; }
+  .ds-body .specs div { padding: 12px 18px; }
+  .ds-note, .ds-body .note { padding: 12px 18px; }
+}
+/* 2026-10-21: boxes one step lighter still (user: the info table read too dark) */
+:root { --box: #edf3fa; --box-line: #cfdcec; }
+.ds-body tbody tr:nth-child(even) td, .ds-body tbody tr:nth-child(even) th { background: #f4f8fc; }
+.ds-body .heat-table tbody th { background: #f4f8fc; }
+@media (max-width: 680px) { .ds-body .issue-table.cols3 tbody tr:nth-child(even) { background: #f4f8fc; } }
