@@ -1443,3 +1443,16 @@ html body header.top .brand span { font-size: 15.5px; }
 .ds-body tbody tr:nth-child(even) td, .ds-body tbody tr:nth-child(even) th { background: #f4f8fc; }
 .ds-body .heat-table tbody th { background: #f4f8fc; }
 @media (max-width: 680px) { .ds-body .issue-table.cols3 tbody tr:nth-child(even) { background: #f4f8fc; } }
+/* 2026-10-21: table and box colours follow the submission portfolio
+   (tint #eaf1f8, head #dde8f3, lines #cad8e6, white rows, dark head text) */
+:root { --box: #eaf1f8; --box-line: #cad8e6; }
+.ds-body table:not(.heat-table) thead th { background: #dde8f3; color: #18344d; font-weight: 700; border-bottom: 1px solid #cad8e6; }
+.ds-body table:not(.heat-table) tbody tr:nth-child(n) td { background: #fff; }
+.ds-body table:not(.heat-table) tbody tr:nth-child(n) th { background: #eaf1f8; }
+.ds-body table:not(.heat-table) tbody th, .ds-body table:not(.heat-table) td { border-bottom: 1px solid #cad8e6; }
+.ds-body table:not(.heat-table) tbody tr.highlight td, .ds-body table:not(.heat-table) tbody tr.highlight th { background: #eaf1f8 !important; color: var(--navy); font-weight: 700; }
+.ds-body .heat-table thead th { background: #dde8f3; color: #18344d; font-weight: 700; }
+.ds-body .heat-table thead tr.grp th { background: #eaf1f8; color: #315b7d; border-left: 1px solid #cad8e6; }
+.ds-body .heat-table thead th.grp-f, .ds-body .heat-table thead th.grp-d { border-left: 1px solid #cad8e6; }
+.ds-body .heat-table tbody tr:nth-child(n) th { background: #eaf1f8; }
+@media (max-width: 680px) { .ds-body .issue-table.cols3 tbody tr:nth-child(even) { background: #fff; } }
