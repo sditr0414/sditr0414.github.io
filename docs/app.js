@@ -261,6 +261,7 @@ document.addEventListener('visibilitychange', () => { if (document.hidden) $$('v
 
 /* project detail sheet, driven by the URL hash */
 const sheet = $('#sheet'), sheetTitle = $('#sheet-title'), articles = $$('.dv');
+const slidePages = createSlidePages(sheet);
 const centeredSheet = matchMedia('(min-width: 1000px) and (min-height: 700px)');
 const slidePosition = sec => {
   const r = sec.getBoundingClientRect();
@@ -509,6 +510,7 @@ function route() {
     articles.forEach(a => a.hidden = a !== art);
     sheet.hidden = false; document.body.classList.add('lock');
     sheetWheelStop(); swSamples = []; swDirection = 0;
+    slidePages.prepare(art);
     openAnim(id, prevId);
     sheet.scrollTop = 0; sheet.classList.remove('scrolled', 'bar-off'); lastTop = 0;
     const h = art.querySelector('h2');
@@ -553,8 +555,9 @@ $$('.dv-toc').forEach(toc => {
     }
   }));
   if (hasIO) {
-    const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) mark(e.target.id); }), { root: sheet, rootMargin: '-130px 0px -60% 0px' });
-    links.forEach(a => { const t = document.getElementById(a.dataset.to); if (t) io.observe(t); });
+    const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) mark(e.target.dataset.pageOrigin || e.target.id); }), { root: sheet, rootMargin: '-130px 0px -60% 0px' });
+    const observePages = () => { io.disconnect(); $$('section.ds[id]', toc.closest('.dv')).forEach(t => io.observe(t)); };
+    observePages(); sheet.addEventListener('detailpageschange', observePages);
   }
   mark(links[0].dataset.to);
 });
@@ -673,8 +676,9 @@ const anchorOf = (inSheet) => {
   let cover = null;
   for (const el of list) {
     const r = el.getBoundingClientRect(), t = r.top - top0, bt = r.bottom - top0;
-    if (t >= -4 && t < vh * .6) return { el, off: t };                                  // a block starting near the top: keep its top there
-    if (!cover && t < 0 && bt > 8) cover = { el, ratio: -t / Math.max(1, r.height) };     // otherwise: how far into the block we are
+    const content = inSheet ? el.querySelector('.ds-body p, .ds-body li, .ds-body td, .ds-body dd, .ds-body img, .ds-body video') : null;
+    if (t >= -4 && t < vh * .6) return { el, content, off: t };                           // keep the original content when its page changes
+    if (!cover && t < 0 && bt > 8) cover = { el, content, ratio: -t / Math.max(1, r.height) };
   }
   return cover;
 };
@@ -683,12 +687,20 @@ const noteAnchor = () => { if (resizing) return; if (!keepRaf) keepRaf = request
 addEventListener('scroll', noteAnchor, { passive: true });
 sheet.addEventListener('scroll', noteAnchor, { passive: true });
 addEventListener('resize', () => {
-  const k = keepAt; if (!k || !k.a) return;
+  const k = keepAt;
+  if (!k || !k.a) { requestAnimationFrame(() => slidePages.prepare(articles.find(a => !a.hidden))); return; }
   clearTimeout(resizing);
   resizing = setTimeout(() => { resizing = 0; }, 400);
   requestAnimationFrame(() => {
-    if (k.sheet !== !!open || !k.a.el.isConnected) return;
-    const r = k.a.el.getBoundingClientRect(), want = 'off' in k.a ? k.a.off : -k.a.ratio * r.height;
+    if (k.sheet !== !!open) return;
+    let anchor = k.a.el;
+    if (k.sheet) {
+      const origin = anchor.dataset.pageOrigin || anchor.id;
+      slidePages.prepare(articles.find(a => !a.hidden));
+      anchor = k.a.content?.closest('section.ds') || (anchor.isConnected ? anchor : document.getElementById(origin));
+    }
+    if (!anchor?.isConnected) return;
+    const r = anchor.getBoundingClientRect(), want = 'off' in k.a ? k.a.off : -k.a.ratio * r.height;
     if (k.sheet) { sheetGl.stop(); sheet.scrollTop += (r.top - sheet.getBoundingClientRect().top) - want; }
     else { stopGlide(); scrollTo({ top: scrollY + r.top - want, behavior: 'instant' }); followScroll(); }
   });
