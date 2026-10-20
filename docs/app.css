@@ -1409,3 +1409,21 @@ html body header.top .brand span { font-size: 15.5px; }
   .page-fragment .page-unit th, .page-fragment .page-unit td { padding-top: 5px; padding-bottom: 5px; }
   .page-part-count { top: 10px; right: 14px; }
 }
+
+/* 2026-10-21: lighter, bluer boxes (user: the grey-blue read too dark and grey) */
+:root { --box: #e6eef8; --box-line: #c8d6e6; }
+.ds-body tbody tr:nth-child(even) td, .ds-body tbody tr:nth-child(even) th { background: #f1f6fb; }
+.ds-body .heat-table tbody th { background: #f1f6fb; }
+.svg-fig .sv-jig { fill: #d3e0ee; }
+@media (max-width: 680px) { .ds-body .issue-table.cols3 tbody tr:nth-child(even) { background: #f1f6fb; } }
+/* step cards that read left to right: content centred in each card */
+@media (min-width: 681px) {
+  .ds-body .flow:not(.lanes) > li { text-align: center; }
+  .ds-body .flow:not(.lanes) > li > span { width: fit-content; margin-inline: auto; }
+  .ds-body .flow:not(.lanes) > li .dots { display: inline-block; text-align: left; }
+}
+/* app screens keep their size; if the card is too tall the explanation table moves to the next page instead */
+.ds.page-media-fit .app-screen img { width: auto; max-width: 100%; max-height: max(calc(var(--page-video-max) - 100px), 200px); margin-inline: auto; }
+@media (max-height: 520px) and (orientation: landscape) {
+  .ds.page-media-fit .app-screen img { max-height: calc(var(--page-video-max) - 10px); }
+}
