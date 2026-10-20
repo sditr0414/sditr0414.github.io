@@ -10,8 +10,21 @@ let followScroll = () => {};
 /* a scroll position that moves by one continuous curve: a new target keeps the current speed,
    so the motion never jerks, and it settles without a long creeping tail */
 function makeGlider(read, write) {
-  let raf = 0, p0 = 0, v0 = 0, p1 = 0, T = 1, t0 = 0, pos = 0, vel = 0, last = 0;
+  let raf = 0, p0 = 0, v0 = 0, p1 = 0, T = 1, t0 = 0, pos = 0, vel = 0, last = 0, following = false;
   const frame = now => {
+    if (following) {
+      // Submission deck's 55ms, frame-rate independent wheel follow.
+      // Keep fractional position and the same frame loop across repeated input.
+      const dt = last ? Math.min(32, now - last) : 16;
+      last = now;
+      const distance = p1 - pos;
+      const step = distance * (1 - Math.exp(-dt / 55));
+      pos += step; vel = dt ? step / dt : 0;
+      if (Math.abs(p1 - pos) < .5) { pos = p1; vel = 0; }
+      write(pos);
+      raf = pos === p1 ? 0 : requestAnimationFrame(frame);
+      return;
+    }
     last = now;
     const t = Math.min(1, Math.max(0, (now - t0) / T)), t2 = t * t, t3 = t2 * t;
     pos = (2 * t3 - 3 * t2 + 1) * p0 + (t3 - 2 * t2 + t) * T * v0 + (-2 * t3 + 3 * t2) * p1;
@@ -22,10 +35,11 @@ function makeGlider(read, write) {
   };
   return {
     to(y, ms) {
+      following = false;
       if (!raf) { pos = read(); vel = 0; }
       const d = y - pos;
       /* time from the last drawn frame, so the very next frame already moves */
-      p0 = pos; p1 = y; T = Math.max(60, ms); t0 = raf ? last : performance.now() - 8;
+      p0 = pos; p1 = y; T = Math.max(60, ms); t0 = raf && last ? last : performance.now() - 8;
       if (Math.abs(d) < .5) { cancelAnimationFrame(raf); raf = 0; vel = 0; write(y); return; }
       /* start briskly, keep any speed already in the same direction, never overshoot */
       let v = vel * d > 0 ? vel : 0;
@@ -34,8 +48,14 @@ function makeGlider(read, write) {
       v0 = v;
       if (!raf) raf = requestAnimationFrame(frame);
     },
-    stop() { cancelAnimationFrame(raf); raf = 0; vel = 0; },
+    follow(y) {
+      if (!raf) { pos = read(); vel = 0; last = 0; }
+      p1 = y; following = true;
+      if (!raf) raf = requestAnimationFrame(frame);
+    },
+    stop() { cancelAnimationFrame(raf); raf = 0; vel = 0; following = false; },
     get active() { return !!raf; },
+    get following() { return following && !!raf; },
     get target() { return p1; }
   };
 }
@@ -89,13 +109,14 @@ addEventListener('wheel', e => {
   if (mainGl.active && stepTarget !== null && d * (stepTarget - scrollY) > 0) return;
   if (snapOK()) {
     const py = projY();
-    if (d > 0 && scrollY < py - 4) { cueProjects(py); glideTo(py, 280, true); return; }
-    if (d < 0 && scrollY > 0 && scrollY <= py + 4) { glideTo(0, 280, true); return; }
+    if (d > 0 && scrollY < py - 4) { cueProjects(py); glideTo(py, 340, true); return; }
+    if (d < 0 && scrollY > 0 && scrollY <= py + 4) { glideTo(0, 340, true); return; }
   }
   stepTarget = null;
   // A direction change starts from the visible position, not an old queued target.
   const from = mainGl.active && d * (mainGl.target - scrollY) > 0 ? mainGl.target : scrollY;
-  mainGl.to(Math.max(0, Math.min(maxY(), from + d)), 160);
+  const lead = innerHeight * .75;
+  mainGl.follow(Math.max(0, Math.min(maxY(), Math.max(scrollY - lead, Math.min(scrollY + lead, from + d)))));
 }, { passive: false });
 let stepTarget = null;
 /* cubic-bezier(.3, 0, .12, 1): a soft start, most of the travel early, a long settle */
@@ -120,7 +141,7 @@ $$('a.brand, .top nav a[href^="#"], .scroll-cue, .skip, .to-top').forEach(a => a
   const y = id === 'home' ? 0 : docTop(el) - (id === 'projects' ? 40 : 72);
   history.replaceState(null, '', '#' + id);
   if (id === 'projects' && scrollY < y - 4) cueProjects(y);
-  glideTo(Math.max(0, y), Math.abs(y - scrollY) < innerHeight * 1.3 ? 280 : 0, true);
+  glideTo(Math.max(0, y), Math.abs(y - scrollY) < innerHeight * 1.3 ? 340 : 0, true);
 }));
 
 /* header: mark the section being read */
@@ -241,19 +262,32 @@ document.addEventListener('visibilitychange', () => { if (document.hidden) $$('v
 /* project detail sheet, driven by the URL hash */
 const sheet = $('#sheet'), sheetTitle = $('#sheet-title'), articles = $$('.dv');
 /* mouse wheel in the detail sheet: quick but eased follow toward where the wheel points */
-let swStart = 0, swLast = 0, swSnap = 0;
+let swStart = 0, swLast = 0, swSnap = 0, swDirection = 0, swSamples = [];
 const sheetGl = makeGlider(() => sheet.scrollTop, y => { sheet.scrollTop = y; });
 const sheetWheelStop = () => { sheetGl.stop(); clearTimeout(swSnap); };
 function sheetWheel(d) {
-  if (performance.now() - swLast > 220) swStart = sheet.scrollTop;
-  swLast = performance.now();
-  const from = sheetGl.active ? sheetGl.target : sheet.scrollTop;
-  sheetGl.to(Math.max(0, Math.min(sheet.scrollHeight - sheet.clientHeight, from + d)), 380);
-  clearTimeout(swSnap); swSnap = setTimeout(softSnap, 150);
+  const now = performance.now(), direction = Math.sign(d), previousDirection = swDirection;
+  if (!direction) return;
+  if (now - swLast > 220 || direction !== previousDirection) swStart = sheet.scrollTop;
+  if (direction !== previousDirection) swSamples = [];
+  swSamples = swSamples.filter(sample => now - sample.time < 180);
+  swSamples.push({ time: now, amount: Math.min(Math.abs(d), 120) });
+  const rapid = swSamples.length >= 3 && swSamples.reduce((sum, sample) => sum + sample.amount, 0) >= 240;
+  swLast = now; swDirection = direction;
+  if (!rapid && sheetGl.active && !sheetGl.following && direction === previousDirection) return;
+  const from = sheetGl.active && d * (sheetGl.target - sheet.scrollTop) > 0 ? sheetGl.target : sheet.scrollTop;
+  const lead = sheet.clientHeight * .75;
+  sheetGl.follow(Math.max(0, Math.min(sheet.scrollHeight - sheet.clientHeight,
+    Math.max(sheet.scrollTop - lead, Math.min(sheet.scrollTop + lead, from + d)))));
+  clearTimeout(swSnap);
+  // Like the submission deck: one deliberate step, or continuous rapid scrolling.
+  // Choose the resting position immediately so a single notch never moves in two stages.
+  if (rapid) swSnap = setTimeout(softSnap, 120);
+  else softSnap();
 }
 /* free scrolling while the wheel turns; when it rests, the nearest slide snaps into place:
    a slide that fits is centred, a tall one meets the screen at its top or bottom (never pulled away mid-read) */
-function snapTo(y) { sheetGl.to(y, Math.min(360, 220 + Math.abs(y - sheet.scrollTop) * .4)); }
+function snapTo(y) { sheetGl.to(y, 280); }
 function softSnap() {
   const art = articles.find(a => !a.hidden); if (!art || !open) return;
   /* judge from where the wheel was heading, then take over from the current position */
@@ -265,7 +299,7 @@ function softSnap() {
   /* only places ahead of where the gesture began count, so a small turn moves on instead of being pulled back */
   const offer = y => {
     y = Math.max(0, Math.min(max, Math.round(y)));
-    if (dir && (y - swStart) * dir <= 8) return;
+    if (dir && ((y - swStart) * dir <= 8 || (y - cur) * dir < -2)) return;
     const d = Math.abs(y - dest); if (d < vh * .75 && (!best || d < best.d)) best = { y, d };
   };
   $$('section.ds[id]', art).forEach(sec => {
