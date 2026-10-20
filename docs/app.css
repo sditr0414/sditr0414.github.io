@@ -1382,8 +1382,8 @@ html body header.top .brand span { font-size: 15.5px; }
 
 /* Only cards that exceed the available reading height receive media limits or continuations. */
 .ds.page-media-fit img, .ds.page-media-fit video, .ds.page-media-fit svg { max-height: var(--page-media-max); object-fit: contain; }
-.ds.page-media-fit .inline-demo { aspect-ratio: auto; }
-.ds.page-media-fit .inline-demo video { position: static; height: auto; aspect-ratio: auto; }
+.ds.page-media-fit .inline-demo { width: fit-content; max-width: 100%; margin-inline: auto; aspect-ratio: auto; }
+.ds.page-media-fit .inline-demo video { position: static; width: auto; max-width: 100%; height: auto; max-height: var(--page-video-max); aspect-ratio: auto; }
 .ds.page-media-fit .app-screen img { width: auto; max-width: 100%; height: auto; max-height: min(var(--page-media-max), 220px); margin-inline: auto; }
 .ds.page-fragment { position: relative; padding: 18px 24px; }
 .page-fragment .ds-body { margin-top: 14px; }

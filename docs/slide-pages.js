@@ -80,6 +80,7 @@ function createSlidePages(sheet) {
       sec.classList.add('page-media-fit');
       const headerHeight = sec.querySelector('.ds-head') ? height(sec.querySelector('.ds-head')) : 0;
       sec.style.setProperty('--page-media-max', Math.max(72, Math.min(440, limit - headerHeight - 130)) + 'px');
+      sec.style.setProperty('--page-video-max', Math.max(72, limit - headerHeight - 90) + 'px');
       if (height(sec) <= limit + 1) continue;
       sec.classList.add('page-fragment');
       if (height(sec) <= limit + 1) continue;
