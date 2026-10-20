@@ -1,5 +1,7 @@
 # 포트폴리오 관리 안내
 
+> 2026-10-20: 공개 사이트를 소개·프로젝트 카드와 상세 화면으로 전환했습니다. 현재 원본은 `docs/index.html`, `docs/app.css`, `docs/app.js`입니다. 제출용 16쪽 슬라이드와 PDF 생성은 별도 [portfolio-submission 저장소](https://github.com/sditr0414/portfolio-submission)에서 관리합니다. 이 저장소의 PDF는 제출용 저장소에서 검증한 결과를 복사하며, 아래 기존 슬라이드 출력·전체 발표자료 안내는 전환 전 기록입니다. 기존 `export_pdf.py`를 새 공개 사이트 HTML에 실행하지 않습니다.
+
 ## 로컬 실행
 
 저장소 루트에서 실행합니다. 웹사이트 실행에는 npm 설치나 빌드가 필요하지 않습니다.
@@ -13,8 +15,8 @@ python3 -m http.server 8000 --directory docs
 ## 파일 수정과 배포
 
 - 내용: `docs/index.html`
-- 스타일: `docs/assets/css/styles.css`
-- 목차·이미지 확대·출력 동작: `docs/assets/js/app.js`
+- 스타일: `docs/app.css`
+- 화면 전환·목차·이미지 확대·영상 동작: `docs/app.js`
 - 사진·화면 캡처: `docs/assets/images/`
 - 시연 영상: `docs/assets/videos/`
 - 다운로드용 PDF: `docs/assets/pdf/`

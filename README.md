@@ -9,12 +9,14 @@
 
 프로젝트별 제작물·담당 범위·구현 결과 확인<br>
 각 프로젝트 첫 페이지에서 시연 영상 확인<br>
-OpenCV·운반 로봇·보행 보조·PLC·노크 연구는 ‘전체 발표자료’에서 발표 슬라이드 확인 및 PDF 다운로드 가능
+프로젝트 카드에서 상세 설명을 열고, 상단 ‘제출용 PDF’에서 제출용 슬라이드 다운로드 가능
+
+[제출용 포트폴리오 사이트](https://sditr0414.github.io/portfolio-submission/) · [제출용 저장소](https://github.com/sditr0414/portfolio-submission)
 
 | 프로젝트 | 담당 역할 | 사용 기술 |
 | --- | --- | --- |
-| [OpenCV 기반<br>로봇팔 티칭](https://sditr0414.github.io/#opencv) | 2026.09–11·6인 최종 프로젝트. 팔 2·3 비전 보정·티칭·Pi 실행 연동, MuJoCo 자세·경로 미리보기 | Python, OpenCV, FK·IK, ROS2, MuJoCo, SO-101, Raspberry Pi |
-| [원격 물품<br>회수·운반 로봇](https://sditr0414.github.io/#robot) | 1주·5인 팀 프로젝트. 조장으로 로봇팔 제작·제어와 STM32 펌웨어 구축·통합 | C, C++(기초), STM32, FreeRTOS, Bluetooth |
+| [OpenCV 기반<br>로봇팔 티칭](https://sditr0414.github.io/#opencv) | SO-101 로봇팔 2대의 비전 보정·티칭·Raspberry Pi 실행 연동, MuJoCo 자세·경로 미리보기 | Python, OpenCV, FK·IK, ROS2, MuJoCo, SO-101, Raspberry Pi |
+| [원격 물품<br>회수·운반 로봇](https://sditr0414.github.io/#robot) | 로봇팔 제작·제어와 STM32 펌웨어 구축·통합 | C, C++, STM32, FreeRTOS, Bluetooth |
 | [AI 기반<br>보행 보조 장치](https://sditr0414.github.io/#vision) | 데이터 라벨 통합, 모델 학습·변환, ROI와 알림 판단 로직 구성 | Python, OpenCV, YOLO, TFLite |
 | [PLC 기반<br>창고 적재 제어](https://sditr0414.github.io/#plc) | 병렬 처리 로직과 HMI 작성, 메모리 상태에 따른 오동작 수정 | Mitsubishi Q PLC, GX Works2, GT Designer3 |
 | [노크 위치<br>탐지 연구](https://sditr0414.github.io/#thesis) | 진동 신호 전처리·특징 추출, 모델 비교, 실시간 탐지 프로그램 구현 | MATLAB, FFT, K-NN, SVM, ANN |
