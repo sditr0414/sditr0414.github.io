@@ -1456,3 +1456,12 @@ html body header.top .brand span { font-size: 15.5px; }
 .ds-body .heat-table thead th.grp-f, .ds-body .heat-table thead th.grp-d { border-left: 1px solid #cad8e6; }
 .ds-body .heat-table tbody tr:nth-child(n) th { background: #eaf1f8; }
 @media (max-width: 680px) { .ds-body .issue-table.cols3 tbody tr:nth-child(even) { background: #fff; } }
+/* 2026-10-21: back to the lighter tint (#edf3fa) the user preferred; table layout stays submission-style */
+:root { --box: #edf3fa; --box-line: #cfdcec; }
+.ds-body table:not(.heat-table) thead th { background: #e3ecf6; border-bottom-color: #cfdcec; }
+.ds-body table:not(.heat-table) tbody tr:nth-child(n) th { background: #edf3fa; }
+.ds-body table:not(.heat-table) tbody th, .ds-body table:not(.heat-table) td { border-bottom-color: #cfdcec; }
+.ds-body table:not(.heat-table) tbody tr.highlight td, .ds-body table:not(.heat-table) tbody tr.highlight th { background: #edf3fa !important; }
+.ds-body .heat-table thead th { background: #e3ecf6; }
+.ds-body .heat-table thead tr.grp th { background: #edf3fa; border-left-color: #cfdcec; }
+.ds-body .heat-table tbody tr:nth-child(n) th { background: #edf3fa; }
