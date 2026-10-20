@@ -261,44 +261,30 @@ document.addEventListener('visibilitychange', () => { if (document.hidden) $$('v
 
 /* project detail sheet, driven by the URL hash */
 const sheet = $('#sheet'), sheetTitle = $('#sheet-title'), articles = $$('.dv');
-const fittedSheet = matchMedia('(min-width: 1000px) and (min-height: 700px)');
+const centeredSheet = matchMedia('(min-width: 1000px) and (min-height: 700px)');
 const slidePosition = sec => {
   const r = sec.getBoundingClientRect();
   const bar = $('.sheet-bar', sheet).offsetHeight;
-  const top = fittedSheet.matches ? Math.max(bar + 16, bar + (sheet.clientHeight - bar - r.height) / 2) : (parseFloat(getComputedStyle(sec).scrollMarginTop) || 0);
+  const top = centeredSheet.matches ? Math.max(bar + 16, bar + (sheet.clientHeight - bar - r.height) / 2) : (parseFloat(getComputedStyle(sec).scrollMarginTop) || 0);
   return Math.max(0, Math.round(sheet.scrollTop + r.top - sheet.getBoundingClientRect().top - top));
 };
-function fitSlides(art) {
-  if (!art || art.hidden) return;
-  const sections = $$('section.ds[id]', art);
-  sections.forEach(sec => sec.style.removeProperty('--fit-media-height'));
-  if (!fittedSheet.matches) return;
-  const available = sheet.clientHeight - 96;
-  // Size only media when needed; text keeps its established readable font size.
-  for (const sec of sections) {
-    const media = $$('figure img, figure video, figure svg', sec);
-    if (!media.length || sec.getBoundingClientRect().height <= available + 1) continue;
-    let low = 100, high = Math.max(...media.map(el => el.getBoundingClientRect().height));
-    const originalHeight = sec.getBoundingClientRect().height;
-    sec.style.setProperty('--fit-media-height', low + 'px');
-    if (sec.getBoundingClientRect().height >= originalHeight - 1) {
-      sec.style.removeProperty('--fit-media-height');
-      continue;
-    }
-    // Find the largest uncropped media size that leaves room for all text.
-    for (let pass = 0; pass < 8 && high - low > 1; pass++) {
-      const mid = (low + high) / 2;
-      sec.style.setProperty('--fit-media-height', mid + 'px');
-      if (sec.getBoundingClientRect().height <= available + .5) low = mid;
-      else high = mid;
-    }
-    sec.style.setProperty('--fit-media-height', Math.floor(low) + 'px');
-  }
-}
 const alignedStops = () => {
   const art = articles.find(a => !a.hidden); if (!art) return [0];
   const max = sheet.scrollHeight - sheet.clientHeight;
-  return [...new Set([0, ...$$('section.ds[id]', art).map(slidePosition), max].map(y => Math.min(max, Math.max(0, y))))].sort((a, b) => a - b);
+  const stops = [0];
+  const bar = $('.sheet-bar', sheet).offsetHeight;
+  const available = sheet.clientHeight - bar - 32;
+  for (const sec of $$('section.ds[id]', art)) {
+    const start = slidePosition(sec), r = sec.getBoundingClientRect();
+    stops.push(start);
+    if (r.height > available) {
+      // Keep long slides at their original size and let every part remain readable.
+      const end = sheet.scrollTop + r.bottom - sheet.getBoundingClientRect().top - sheet.clientHeight + 16;
+      const steps = Math.max(1, Math.ceil((end - start) / (available * .8)));
+      for (let i = 1; i <= steps; i++) stops.push(start + (end - start) * i / steps);
+    }
+  }
+  return [...new Set([...stops, max].map(y => Math.round(Math.min(max, Math.max(0, y)))))].sort((a, b) => a - b);
 };
 const nextAlignedStop = (direction, current) => {
   const stops = alignedStops();
@@ -319,7 +305,7 @@ function sheetWheel(d) {
   const rapid = swSamples.length >= 3 && swSamples.reduce((sum, sample) => sum + sample.amount, 0) >= 240;
   swLast = now; swDirection = direction;
   if (!rapid && sheetGl.active && !sheetGl.following && direction === previousDirection) return;
-  if (fittedSheet.matches && !rapid) {
+  if (centeredSheet.matches && !rapid) {
     clearTimeout(swSnap);
     snapTo(nextAlignedStop(direction, sheet.scrollTop));
     return;
@@ -339,7 +325,7 @@ function sheetWheel(d) {
 function snapTo(y) { sheetGl.to(y, 280); }
 function softSnap() {
   const art = articles.find(a => !a.hidden); if (!art || !open) return;
-  if (fittedSheet.matches) {
+  if (centeredSheet.matches) {
     const dest = sheetGl.active ? sheetGl.target : sheet.scrollTop;
     const direction = Math.sign(dest - swStart);
     const stops = alignedStops().filter(y => !direction || (y - sheet.scrollTop) * direction >= -2);
@@ -523,7 +509,6 @@ function route() {
     articles.forEach(a => a.hidden = a !== art);
     sheet.hidden = false; document.body.classList.add('lock');
     sheetWheelStop(); swSamples = []; swDirection = 0;
-    fitSlides(art);
     openAnim(id, prevId);
     sheet.scrollTop = 0; sheet.classList.remove('scrolled', 'bar-off'); lastTop = 0;
     const h = art.querySelector('h2');
@@ -628,7 +613,7 @@ addEventListener('keydown', e => { if (e.key === 'Escape' && !lb.hidden) { e.sto
 let kbAim = null;
 const sheetGlide = y => { clearTimeout(swSnap); sheetGl.to(y, SLIDE_MS + 40); };
 const sheetStops = () => {
-  if (fittedSheet.matches) return alignedStops();
+  if (centeredSheet.matches) return alignedStops();
   const art = articles.find(a => !a.hidden); if (!art) return [0];
   const base = sheet.scrollTop - sheet.getBoundingClientRect().top;
   const ys = $$('section.ds[id]', art).map(sec => base + sec.getBoundingClientRect().top - (parseFloat(getComputedStyle(sec).scrollMarginTop) || 0));
@@ -670,7 +655,7 @@ addEventListener('keydown', e => {
   if (open) {
     const max = sheet.scrollHeight - sheet.clientHeight;
     const now = sheetGl.active ? sheetGl.target : sheet.scrollTop;
-    const y = dir === -2 ? 0 : dir === 2 ? max : fittedSheet.matches ? nextAlignedStop(dir, now) : kbStep(dir, now, max, sheetStops());
+    const y = dir === -2 ? 0 : dir === 2 ? max : centeredSheet.matches ? nextAlignedStop(dir, now) : kbStep(dir, now, max, sheetStops());
     kbAim = y; sheetGlide(y);
   } else {
     const max = maxY();
@@ -680,9 +665,6 @@ addEventListener('keydown', e => {
     kbAim = y; glideTo(y, SLIDE_MS, 'slide');
   }
 });
-addEventListener('resize', () => fitSlides(articles.find(a => !a.hidden)), { passive: true });
-sheet.addEventListener('load', e => { if (e.target.matches('img, video')) fitSlides(e.target.closest('.dv')); }, true);
-if (document.fonts) document.fonts.ready.then(() => fitSlides(articles.find(a => !a.hidden)));
 /* rotating the phone or resizing the window keeps the reader on the same block, at the same spot */
 const anchorOf = (inSheet) => {
   const list = inSheet ? $$('section.ds[id]', articles.find(a => !a.hidden) || document) : [$('.hero'), $('.about'), ...$$('#projects .pc'), $('p.end')].filter(Boolean);

@@ -46,8 +46,8 @@ p { margin: 0; }
 .top nav a.cur { opacity: 1; font-weight: 600; }
 .top nav a.cur::after { transform: scaleX(1); }
 .top nav a:hover { opacity: 1; }
-.top nav .pdf { font-weight: 600; opacity: 1; margin-left: 34px; border-bottom: 1px solid currentColor; padding-inline: 2px; min-height: 0; padding-block: 2px; }
-.top nav .pdf::before { content: ""; position: absolute; left: -18px; top: 50%; width: 1px; height: 16px; margin-top: -8px; background: currentColor; opacity: .3; }
+.top nav .pdf { margin-left: 18px; border-bottom: 0; }
+.top nav .pdf::before { content: ""; position: absolute; left: -10px; top: 50%; width: 1px; height: 16px; margin-top: -8px; background: currentColor; opacity: .3; }
 
 /* cover */
 .hero { color: #fff; background: linear-gradient(150deg, var(--cover) 0%, var(--deep) 100%); padding: calc(100px + env(safe-area-inset-top, 0px)) var(--gut) 96px; }
@@ -168,7 +168,7 @@ p { margin: 0; }
 .sheet-bar .back::before { content: ""; width: 7px; height: 7px; border-left: 1.5px solid currentColor; border-bottom: 1.5px solid currentColor; transform: rotate(45deg); }
 .sheet-title { flex: 1; min-width: 0; text-align: center; font-weight: 600; font-size: 14px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; opacity: 0; transition: opacity .3s; }
 .sheet.scrolled .sheet-title { opacity: 1; }
-.sheet-bar .pdf { font-size: 13px; border-bottom: 1px solid rgba(255,255,255,.5); white-space: nowrap; }
+.sheet-bar .pdf { font-size: 13px; border-bottom: 0; white-space: nowrap; display: inline-flex; align-items: center; min-height: 38px; padding: 8px 12px; }
 .sheet-in { max-width: 960px; margin: 0 auto; padding: 0 20px 64px; }
 .dv-head { padding: 36px 0 4px; }
 .dv-cat { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; color: var(--link); font-weight: 600; font-size: 13px; }
@@ -1360,54 +1360,4 @@ html body header.top .brand span { font-size: 15.5px; }
   .ds-body figure img, .ds-body figure video { max-width: 100%; height: auto; }
 }
 
-
-/* Desktop reading frames: each detail fits the space below the fixed toolbar.
-   Media remains uncropped and opens at its original size. Phones keep normal flow. */
-@media (min-width: 1000px) and (min-height: 700px) {
-  .sheet { --detail-frame-height: calc(100dvh - 96px); }
-  .sheet.bar-off .sheet-bar { transform: none; }
-  .dv .ds { min-height: var(--detail-frame-height); padding: 22px 30px 24px; display: flex; flex-direction: column; justify-content: center; scroll-margin-top: 74px; }
-  .dv .ds-body { margin-top: 16px; }
-  .dv .ds-first .ds-body { margin-top: 0; }
-  .dv .ds-body .split { gap: 24px; }
-  .dv .ds-body figure img, .dv .ds-body figure video { max-height: var(--fit-media-height, min(390px, calc(100dvh - 310px))); width: 100%; height: auto; object-fit: contain; }
-  .dv .ds-body .inline-demo { aspect-ratio: auto; }
-  .dv .ds-body .inline-demo video { position: static; max-height: var(--fit-media-height, min(390px, calc(100dvh - 310px))); aspect-ratio: auto; }
-  .dv .ds-body figure svg { max-height: var(--fit-media-height, 230px); }
-  .dv .ds-body .text-stack > section, .dv .ds-body .split.stretch > .col > .text-stack > section { padding: 10px 14px; }
-  .dv .ds-body .text-stack h4 { margin-bottom: 6px; }
-  .dv .ds-body .text-stack > section + section { margin-top: 10px; }
-  .dv .ds-body .flow > li { padding: 10px 12px; }
-  .dv .ds-body .split + .flow, .dv .ds-body ol.flow.lanes { margin-top: 16px; }
-  .dv .ds-body .case-grid section, .dv .ds-body .workflow section { padding: 10px 14px; }
-  .dv .ds-body table td, .dv .ds-body table th { padding: 8px 12px; }
-  .dv .ds-body .heat-table th, .dv .ds-body .heat-table td { padding: 4px 10px; }
-  .dv .ds-body .ds-note { margin-top: 12px; }
-  #robot-2 .split { grid-template-columns: .85fr 1.15fr; }
-  #robot-2 .text-stack { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-  #robot-2 .text-stack > section + section { margin: 0; }
-  #robot-9 .app-screens { padding: 10px 14px; gap: 18px; }
-  #robot-9 .app-screen img { max-height: min(var(--fit-media-height, 230px), 230px, 29vh); }
-  #plc-5 .ds-body { display: grid; grid-template-columns: .85fr 1.15fr; gap: 16px 22px; }
-  #plc-5 .ds-body > figure { align-self: center; }
-  #plc-5 .ds-body > .flow { grid-column: 2; grid-row: 1 / span 2; grid-template-columns: 1fr 1fr; margin: 0; align-self: start; }
-  #plc-5 .ds-body > .case-grid { grid-column: 1; grid-row: 2; grid-template-columns: 1fr; gap: 8px; margin-top: 0; }
-  #plc-5 .case-grid section { padding: 6px 12px; }
-  #plc-5 .flow > li::after { display: none; }
-  #thesis-3 .col figure img { max-height: min(var(--fit-media-height, 190px), 190px, 24vh); }
-}
-
-@media (min-width: 1000px) and (min-height: 700px) {
-  #robot-2 .flow > li > span, #plc-5 .flow > li > span { float: left; margin: 4px 8px 0 0; }
-  #robot-2 .flow > li > h4, #plc-5 .flow > li > h4 { margin-top: 0; }
-}
-@media (min-width: 1000px) and (min-height: 700px) and (max-height: 740px) {
-  .dv .ds { padding: 12px 26px; }
-  .dv .ds-head .ds-no { padding-bottom: 8px; margin-bottom: 8px; }
-  .dv .ds-head h3 { line-height: 1.4; }
-  .dv .ds-body { margin-top: 12px; }
-  .dv .ds-body p, .dv .ds-body .dots, .dv .ds-body .dots li { line-height: 1.5; }
-  .dv .ds-body .text-stack > section { padding: 8px 12px; }
-  .dv .ds-body .specs div { padding-top: 8px; padding-bottom: 8px; }
-  .dv .ds-body .specs dd { line-height: 1.5; }
-}
+.end a[href="https://sditr0414.github.io/portfolio-submission/"] { border-bottom: 0; }
