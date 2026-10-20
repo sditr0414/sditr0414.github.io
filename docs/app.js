@@ -58,7 +58,7 @@ if (document.fonts && document.fonts.ready) document.fonts.ready.then(fit);
 if (cue) addEventListener('scroll', () => cue.classList.toggle('away', scrollY > 60), { passive: true });
 
 
-/* in-page jumps glide with a long ease instead of the browser's quick smooth scroll */
+/* short, interruptible main-page jumps */
 const mainGl = makeGlider(() => scrollY, y => { scrollTo({ top: y, behavior: 'instant' }); followScroll(); });
 const stopGlide = () => mainGl.stop();
 addEventListener('touchstart', stopGlide, { passive: true });
@@ -85,16 +85,19 @@ addEventListener('wheel', e => {
   e.preventDefault();
   const d = e.deltaY * (e.deltaMode === 1 ? 40 : e.deltaMode === 2 ? innerHeight : 1);
   /* on a one-screen cover, a wheel turn moves between the cover and the projects as one step */
-  if (performance.now() < glideEnd + 60) return;
+  // Keep one cover step per wheel burst, but let the opposite direction take over immediately.
+  if (mainGl.active && stepTarget !== null && d * (stepTarget - scrollY) > 0) return;
   if (snapOK()) {
     const py = projY();
-    if (d > 0 && scrollY < py - 4) { cueProjects(py); glideTo(py, 420, true); return; }
-    if (d < 0 && scrollY > 0 && scrollY <= py + 4) { glideTo(0, 420, true); return; }
+    if (d > 0 && scrollY < py - 4) { cueProjects(py); glideTo(py, 280, true); return; }
+    if (d < 0 && scrollY > 0 && scrollY <= py + 4) { glideTo(0, 280, true); return; }
   }
-  const from = mainGl.active ? mainGl.target : scrollY;
-  mainGl.to(Math.max(0, Math.min(maxY(), from + d)), 420);
+  stepTarget = null;
+  // A direction change starts from the visible position, not an old queued target.
+  const from = mainGl.active && d * (mainGl.target - scrollY) > 0 ? mainGl.target : scrollY;
+  mainGl.to(Math.max(0, Math.min(maxY(), from + d)), 160);
 }, { passive: false });
-let glideEnd = 0;
+let stepTarget = null;
 /* cubic-bezier(.3, 0, .12, 1): a soft start, most of the travel early, a long settle */
 const bez = (x1, y1, x2, y2) => {
   const cx = 3 * x1, bx = 3 * (x2 - x1) - cx, ax = 1 - cx - bx, cy = 3 * y1, by = 3 * (y2 - y1) - cy, ay = 1 - cy - by;
@@ -105,8 +108,8 @@ const stepEase = bez(.3, 0, .2, 1);
 const slideEase = bez(.22, .68, .25, 1), SLIDE_MS = 280;
 function glideTo(y, ms, quick) {
   const dist = y - scrollY;
-  const dur = ms || Math.min(900, Math.max(550, Math.abs(dist) * .75));
-  glideEnd = performance.now() + dur;
+  const dur = ms || Math.min(420, Math.max(240, Math.abs(dist) * .3));
+  stepTarget = y;
   mainGl.to(y, dur);
 }
 const docTop = el => { let y = 0; for (let n = el; n; n = n.offsetParent) y += n.offsetTop; return y; };
@@ -117,7 +120,7 @@ $$('a.brand, .top nav a[href^="#"], .scroll-cue, .skip, .to-top').forEach(a => a
   const y = id === 'home' ? 0 : docTop(el) - (id === 'projects' ? 40 : 72);
   history.replaceState(null, '', '#' + id);
   if (id === 'projects' && scrollY < y - 4) cueProjects(y);
-  glideTo(Math.max(0, y), Math.abs(y - scrollY) < innerHeight * 1.3 ? 420 : 0, true);
+  glideTo(Math.max(0, y), Math.abs(y - scrollY) < innerHeight * 1.3 ? 280 : 0, true);
 }));
 
 /* header: mark the section being read */
@@ -581,7 +584,7 @@ addEventListener('keydown', e => {
     const now = mainGl.active ? mainGl.target : scrollY;
     const y = dir === -2 ? 0 : dir === 2 ? max : kbStep(dir, now, max, mainStops());
     if (y > scrollY && scrollY < projY() - 4 && y >= projY() - 4) cueProjects(y);
-    kbAim = y; glideTo(y, SLIDE_MS + 40, 'slide');
+    kbAim = y; glideTo(y, SLIDE_MS, 'slide');
   }
 });
 /* rotating the phone or resizing the window keeps the reader on the same block, at the same spot */

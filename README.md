@@ -9,7 +9,7 @@
 
 프로젝트별 제작물·담당 범위·구현 결과 확인<br>
 각 프로젝트 첫 페이지에서 시연 영상 확인<br>
-프로젝트 카드에서 상세 설명을 열고, 상단 ‘제출용 PDF’에서 제출용 슬라이드 다운로드 가능
+프로젝트 카드에서 상세 설명을 열고, 상단 ‘제출용 저장소’에서 제출용 사이트와 슬라이드 PDF 확인 가능
 
 [제출용 포트폴리오 사이트](https://sditr0414.github.io/portfolio-submission/) · [제출용 저장소](https://github.com/sditr0414/portfolio-submission)
 

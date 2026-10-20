@@ -860,8 +860,8 @@ body:not(.lock) .side-nav { display: none !important; }
 
 
 /* calmer motion everywhere: short distances, no zoom, quick settle */
-.js .reveal { transform: translateY(18px); transition-duration: .45s; }
-.js .pc.reveal { transform: translateY(22px); transition: opacity .42s var(--ease-out), transform .48s var(--ease-out), box-shadow .3s var(--ease-out), border-color .2s; transition-delay: var(--d, 0ms); }
+.js .reveal { transform: translateY(18px); transition-duration: .28s; }
+.js .pc.reveal { transform: translateY(22px); transition: opacity .26s var(--ease-out), transform .3s var(--ease-out), box-shadow .3s var(--ease-out), border-color .2s; transition-delay: var(--d, 0ms); }
 .js .reveal.above { transform: translateY(-18px); }
 .js .pc.reveal.above { transform: translateY(-22px); }
 .js .reveal.in, .js .pc.reveal.in { transform: none; }
