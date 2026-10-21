@@ -133,7 +133,7 @@
 <div><dt>구현</dt><dd>지그에 맞춘 목표 자세 갱신, AI 부품 <x-nw>구분·CAD</x-nw> 안착 검사, ROS2 작업 요청과 결과 반환</dd></div>
 </dl>
 </header>
-<nav class="dv-toc" aria-label="상세 목차"><ol><li><a href="#opencv-1" data-to="opencv-1"><b>01</b><x-nw>개요·시연</x-nw></a></li><li><a href="#opencv-2" data-to="opencv-2"><b>02</b>작업 흐름</a></li><li><a href="#opencv-3" data-to="opencv-3"><b>03</b>지그 위치 채택</a></li><li><a href="#opencv-4" data-to="opencv-4"><b>04</b>목표 자세 보정</a></li><li><a href="#opencv-5" data-to="opencv-5"><b>05</b>티칭 GUI</a></li><li><a href="#opencv-6" data-to="opencv-6"><b>06</b><x-nw>부품·안착</x-nw> 검사</a></li><li><a href="#opencv-7" data-to="opencv-7"><b>07</b>운반용 지그 채택</a></li><li><a href="#opencv-8" data-to="opencv-8"><b>08</b>팔레트 <x-nw>찾기·채택</x-nw></a></li><li><a href="#opencv-9" data-to="opencv-9"><b>09</b>학습 데이터</a></li><li><a href="#opencv-10" data-to="opencv-10"><b>10</b>학습 방식 비교</a></li><li><a href="#opencv-11" data-to="opencv-11"><b>11</b><x-nw>양자화·실행</x-nw> 형식</a></li><li><a href="#opencv-12" data-to="opencv-12"><b>12</b>최종 모델 검증</a></li><li><a href="#opencv-13" data-to="opencv-13"><b>13</b>작업 로그·오류 추적</a></li></ol></nav>
+<nav class="dv-toc" aria-label="상세 목차"><ol><li><a href="#opencv-1" data-to="opencv-1"><b>01</b><x-nw>개요·시연</x-nw></a></li><li><a href="#opencv-2" data-to="opencv-2"><b>02</b>작업 흐름</a></li><li><a href="#opencv-3" data-to="opencv-3"><b>03</b>지그 위치 채택</a></li><li><a href="#opencv-4" data-to="opencv-4"><b>04</b>목표 자세 보정</a></li><li><a href="#opencv-5" data-to="opencv-5"><b>05</b>티칭 GUI</a></li><li><a href="#opencv-6" data-to="opencv-6"><b>06</b><x-nw>부품·안착</x-nw> 검사</a></li><li><a href="#opencv-7" data-to="opencv-7"><b>07</b>운반용 지그 채택</a></li><li><a href="#opencv-8" data-to="opencv-8"><b>08</b>팔레트 <x-nw>찾기·채택</x-nw></a></li><li><a href="#opencv-9" data-to="opencv-9"><b>09</b>학습 데이터</a></li><li><a href="#opencv-10" data-to="opencv-10"><b>10</b>학습 방식 비교</a></li><li><a href="#opencv-11" data-to="opencv-11"><b>11</b><x-nw>양자화·실행</x-nw> 형식</a></li><li><a href="#opencv-12" data-to="opencv-12"><b>12</b>Pi 모델 선택</a></li><li><a href="#opencv-13" data-to="opencv-13"><b>13</b>작업 로그·오류 추적</a></li></ol></nav>
 
 <section class="ds ds-first" id="opencv-1" aria-label="개요·시연">
 <div class="ds-body"><div class="split overview">
@@ -238,15 +238,14 @@
 </div></section>
 
 <section class="ds" id="opencv-12">
-<div class="ds-head"><p class="ds-no">12<span>최종 모델 검증</span></p><h3>경계를 보정한 YOLO26n을 PC와 Pi에 적용</h3><p class="ds-deck">10월 21일 최종 모델 · NCNN FP16 · 입력 960 · 4스레드</p></div>
+<div class="ds-head"><p class="ds-no">12<span>Pi 모델 선택</span></p><h3>작은 n 모델로 처리 비용을 더 줄임</h3><p class="ds-deck">10월 18일 모델 크기 비교 · 혼합 학습 · 입력 960 · FP16</p></div>
 <div class="ds-body"><div class="study-pair">
-<figure class="study-chart"><h4>실물 마스크 평균 IoU · Pi 5</h4><img src="assets/charts/robot-final-iou.svg" width="640" height="240" alt="Pi5 마스크 평균 IoU: 기존 96.52%, 최종 97.75%"><figcaption>실물 테스트 31장·169개 객체 · confidence 0.5</figcaption></figure>
-<div><table class="study-table"><caption>Pi 5 처리 시간 중앙값 · 초</caption><thead><tr><th scope="col">처리 범위</th><th scope="col">기존</th><th scope="col">최종</th></tr></thead><tbody>
-<tr><th scope="row">모델 추론</th><td>0.483</td><td>0.502</td></tr>
-<tr><th scope="row">전·후처리 포함</th><td>0.523</td><td>0.545</td></tr>
-<tr><th scope="row">통신 왕복 포함</th><td>0.862</td><td>0.887</td></tr>
-</tbody></table><p class="study-takeaway">마스크 평균 IoU +1.23%p<br>기존·최종 모두 오검출 0개·누락 0개</p></div>
-</div><p class="study-note">시간: 모델별 62회 측정 · 통신 왕복은 SSH·이미지 전송 포함, 카메라·GUI 제외</p></div></section>
+<figure class="study-chart"><img src="assets/charts/robot-model-size.svg" width="640" height="240" alt="Pi5 처리 시간 중앙값: YOLO26s 1.073초, YOLO26n 0.469초"><figcaption>처리 시간 중앙값(초) · Pi5 · 모델별 24회 별도 측정</figcaption></figure>
+<div><table class="study-table"><caption>실물 테스트와 Pi 메모리 비교</caption><thead><tr><th scope="col">모델</th><th scope="col">마스크 mAP50–95</th><th scope="col">최대 메모리</th></tr></thead><tbody>
+<tr><th scope="row">YOLO26s</th><td>94.76</td><td>428.4MiB</td></tr>
+<tr class="study-selected"><th scope="row">YOLO26n</th><td>95.79</td><td>272.7MiB</td></tr>
+</tbody></table><p class="study-takeaway">이 비교에서 n은 약 2.29배 빠르고, 실물 마스크 성능도 낮아지지 않음</p></div>
+</div></div></section>
 
 <section class="ds study-logs" id="opencv-13">
 <div class="ds-head"><p class="ds-no">13<span>작업 로그·오류 추적</span></p><h3>오안착 원인을 실행 기록과 판정 영상으로 확인</h3></div>
