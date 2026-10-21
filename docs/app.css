@@ -1635,3 +1635,16 @@ html body header.top .brand span { font-size: 15.5px; }
 .episode-metrics .episode-saving { border-top: 4px solid var(--navy); }
 .robot-study .episode-footnote { font-size: 16px; color: var(--muted); line-height: 1.6; margin-top: 20px; }
 @media (max-width: 680px) { .episode-metrics { grid-template-columns: 1fr; gap: 12px; } .episode-metrics > div { padding: 18px 22px; } .episode-metrics strong { font-size: 40px; } }
+
+/* Project 01: match the body text sizes of the other projects on wide screens */
+@media (min-width: 681px) {
+  .robot-study .case-grid p,
+  .robot-study .flow > li p,
+  .robot-study .ds-body .study-table { font-size: 16.5px; }
+  .robot-study .study-takeaway { font-size: 16.5px; }
+  .robot-study .process-step h4 { font-size: 18px; }
+  .robot-study .process-step figcaption { font-size: 15.5px; }
+}
+@media (max-width: 680px) {
+  .robot-study .process-step figcaption { font-size: 14px; }
+}
