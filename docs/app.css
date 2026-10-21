@@ -1550,3 +1550,17 @@ html body header.top .brand span { font-size: 15.5px; }
 /* Equipment wraps between components, never within a module specification. */
 .robot-study .spec-item { display: block; }
 .robot-study .spec-unit { display: inline-block; white-space: nowrap; }
+/* 2026-10-21 review: knock rig and acquisition screen side by side, same height */
+.ds-body .rig-pair { align-items: start; }
+.ds-body .rig-pair img { width: 100%; height: clamp(200px, 34vh, 330px); object-fit: contain; background: #f4f7fb; }
+.ds-body .rig-pair + .specs { margin-top: 20px; }
+@media (max-width: 680px) { .ds-body .rig-pair { grid-template-columns: 1fr; } .ds-body .rig-pair img { height: auto; } }
+/* learning-data photos: larger when the screen has room */
+@media (min-width: 1100px) and (min-height: 740px) { .robot-study .study-data figure img { max-height: 240px; } }
+@media (min-width: 1100px) and (min-height: 860px) { .robot-study .study-data figure img { max-height: 300px; } }
+/* short laptop screens (≈1366×768): keep a few dense slides on one page */
+@media (min-width: 1100px) and (max-height: 820px) {
+  #plc-5 figure.wide img { max-height: 340px; width: auto; max-width: 100%; margin-inline: auto; display: block; }
+  #robot-2 .split figure img { max-height: 280px; width: auto; max-width: 100%; margin-inline: auto; display: block; }
+  #robot-2 .text-stack > section { padding-top: 12px; padding-bottom: 12px; }
+}
