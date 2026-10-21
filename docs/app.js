@@ -493,7 +493,7 @@ const fillToc = () => {
 let tocHoverT = 0, tocLeaveT = 0, tocHoverAt = 0;
 const showToc = () => { fillToc(); tocPanel.hidden = false; tocBtn.setAttribute('aria-expanded', 'true'); };
 if (matchMedia('(hover: hover) and (pointer: fine)').matches) {
-  tocBtn.addEventListener('pointerenter', () => { clearTimeout(tocLeaveT); if (tocPanel.hidden) tocHoverT = setTimeout(() => { showToc(); tocHoverAt = Date.now(); }, 450); });
+  tocBtn.addEventListener('pointerenter', () => { clearTimeout(tocLeaveT); if (tocPanel.hidden) tocHoverT = setTimeout(() => { showToc(); tocHoverAt = Date.now(); }, 300); });
   const leave = () => { clearTimeout(tocHoverT); if (tocHoverAt) tocLeaveT = setTimeout(() => { if (!tocBtn.matches(':hover') && !tocPanel.matches(':hover')) { closeToc(); tocHoverAt = 0; } }, 350); };
   tocBtn.addEventListener('pointerleave', leave);
   tocPanel.addEventListener('pointerleave', leave);

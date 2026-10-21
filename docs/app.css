@@ -1863,3 +1863,5 @@ html body .pc-lead .pc-body .pc-more { font-size: 15px; }
 .sheet-end .to-main + .to-top { margin-left: 22px; }
 .sheet-end .end-nav { margin-left: auto; display: inline-flex; align-items: center; gap: 22px; white-space: nowrap; }
 .sheet-end .end-nav .to-main, .sheet-end .end-nav .to-top { margin-left: 0; }
+/* footer line (main and detail sheet): content kept a little in from the edges */
+@media (min-width: 681px) { .end { padding-left: 24px; padding-right: 24px; } }
