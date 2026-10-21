@@ -1739,3 +1739,6 @@ x-nw { white-space: nowrap; }
 }
 @media (min-width: 681px) { .adoption-flow li { text-align: center; } }
 @media (min-width: 681px) { .robot-study .adoption-compact .adoption-after { text-align: center; } }
+@media (min-width: 681px) {
+  .hero-in { column-gap: clamp(88px, 10vw, 180px); }
+}
