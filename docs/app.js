@@ -729,11 +729,14 @@ addEventListener('hashchange', route); route();
   const sh = document.getElementById('sheet'), fab = document.querySelector('.fab-stack');
   if (!sh || !fab) return;
   const mq = matchMedia('(max-width: 680px), (max-height: 520px)');
-  let last = sh.scrollTop;
+  let last = sh.scrollTop, userAt = 0;
+  /* only a scroll the reader makes hides the buttons; jumps from the contents list or the top button do not */
+  ['touchmove', 'wheel'].forEach(t => sh.addEventListener(t, () => { userAt = performance.now(); }, { passive: true }));
+  addEventListener('keydown', () => { userAt = performance.now(); }, { passive: true });
   sh.addEventListener('scroll', () => {
     const y = sh.scrollTop, open = fab.querySelector('[aria-expanded="true"]');
-    const nearEnd = y + sh.clientHeight >= sh.scrollHeight - 48;
-    if (!mq.matches || open || y < 120 || nearEnd) fab.classList.remove('fab-away');
+    const nearEnd = y + sh.clientHeight >= sh.scrollHeight - 48, byUser = performance.now() - userAt < 700;
+    if (!mq.matches || open || y < 120 || nearEnd || !byUser) fab.classList.remove('fab-away');
     else if (y > last + 4) fab.classList.add('fab-away');
     else if (y < last - 4) fab.classList.remove('fab-away');
     last = y;
