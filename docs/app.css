@@ -1779,3 +1779,32 @@ x-nw { white-space: nowrap; }
 .log-evidence time { white-space: nowrap; font-variant-numeric: tabular-nums; }
 .robot-study .log-evidence .log-failure td { background: #fff0e9; color: #873d25; font-weight: 600; }
 .robot-study .log-source { font-size: 16px; color: var(--muted); margin-top: 10px; }
+
+/* ---- unity pass ---- */
+/* home: "자세히 보기" looks the same on the lead card as on the others */
+.pc-lead .pc-more { width: 100%; border-top: 1px solid var(--line); padding-top: 10px; margin-top: auto; font-size: inherit; }
+html body .pc-lead .pc-body .pc-more { font-size: 15px; }
+.pc-lead .pc-body { display: flex; flex-direction: column; }
+/* home: 자격·어학 uses the same label + value rows as 기술 */
+.ab-cert dd { white-space: normal; }
+
+/* project 01: slide 13 uses the shared table, caption, takeaway and arrow styles */
+@media (min-width: 681px) {
+  .robot-study .log-evidence .study-table { font-size: 16.5px; }
+  .robot-study .log-evidence figcaption { font-size: 15.5px; }
+  .robot-study .adoption-compact .adoption-after { font-size: 16.5px; }
+}
+.robot-study .log-source { font-size: 15.5px; }
+.robot-study .log-reason { font-size: 16.5px; margin-top: 16px; padding: 12px 20px; border: 1px solid var(--box-line); border-left: 4px solid var(--navy); border-radius: 0 6px 6px 0; }
+.robot-study .log-summary { font-size: 16.5px; padding: 12px 20px; border: 1px solid var(--box-line); border-left: 4px solid var(--navy); border-radius: 0 6px 6px 0; }
+.log-link span { width: 30px; height: 30px; margin: 0 auto 6px; border-radius: 50%; background: var(--navy); box-shadow: 0 2px 6px rgba(10,22,34,.18); font-size: 0; position: relative; }
+.log-link span::after { content: ""; position: absolute; left: 50%; top: 50%; width: 8px; height: 8px; margin: -4px 0 0 -6px; border-right: 2px solid #fff; border-top: 2px solid #fff; transform: rotate(45deg); }
+.log-link b { font-size: 14px; color: var(--navy); }
+@media (max-width: 680px) {
+  .log-link span::after { content: ""; margin: -6px 0 0 -4px; transform: rotate(135deg); font-size: 0; }
+}
+.robot-study .log-evidence .study-table th:nth-child(2), .robot-study .log-evidence .study-table td:nth-child(2) { text-align: left; }
+/* number columns are centered in every project's result tables, like project 01 */
+.ds-body .result-table td, .ds-body .result-table thead th:not(:first-child) { text-align: center; font-variant-numeric: tabular-nums; }
+.ds-body .result-table td:last-child, .ds-body .result-table thead th:last-child { text-align: center; }
+.robot-study .log-evidence .study-table td:first-child { text-align: left; }
