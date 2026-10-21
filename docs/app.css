@@ -1826,3 +1826,4 @@ html body .pc-lead .pc-body .pc-more { font-size: 15px; }
 .robot-study .log-summary code { font-family: inherit; font-size: inherit; font-weight: 700; letter-spacing: .01em; background: none; padding: 0; color: var(--navy); }
 /* slide 13: the failure row uses the same emphasis as highlighted rows in other tables */
 .robot-study .log-evidence .log-failure td { background: var(--box) !important; color: var(--ink); font-weight: 700; }
+.dv-code + .dv-code { margin-left: 8px; }
