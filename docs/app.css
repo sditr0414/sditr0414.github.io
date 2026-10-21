@@ -116,7 +116,7 @@ p { margin: 0; }
 .pc-meta em { font-style: normal; margin-left: auto; white-space: nowrap; }
 .pc h3 { font-size: 19px; font-weight: 700; letter-spacing: -.02em; line-height: 1.4; }
 .pc-sum { color: #24364a; font-size: 15px; line-height: 1.65; text-wrap: pretty; }
-.nw { white-space: nowrap; }
+.nw, x-nw { white-space: nowrap; }
 .pc-role { font-size: 13.5px; color: var(--muted); display: flex; gap: 8px; align-items: baseline; }
 .pc-role b { flex: none; font-size: 12px; color: var(--link); font-weight: 700; }
 .pc-tech { margin-top: auto; padding-top: 6px; font-size: 13px; color: var(--link); font-weight: 500; }
@@ -1665,3 +1665,77 @@ html body header.top .brand span { font-size: 15.5px; }
 @media (min-width: 681px) {
   .adoption-flow li + li::before { top: 0; line-height: 28px; }
 }
+
+/* keep "A·B" word pairs together without invisible joiner characters */
+x-nw { white-space: nowrap; }
+
+/* three-step photo strips: photo sized to its own shape (no grey side bands), centered, arrows between steps */
+.process-strip { gap: 48px; }
+.robot-study .process-step { position: relative; display: grid; justify-content: center; align-content: start; }
+.robot-study .process-step svg { width: auto; max-width: 100%; height: 270px; aspect-ratio: 420 / 450; background: none; }
+.robot-study .pallet-process .process-step svg { height: 210px; aspect-ratio: 195 / 200; }
+.robot-study .process-step h4, .robot-study .process-step figcaption { width: 0; min-width: 100%; }
+.robot-study .process-step + .process-step::before {
+  content: ""; position: absolute; left: -24px; top: calc(41px + 135px); width: 30px; height: 30px; margin: -15px 0 0 -15px;
+  border-radius: 50%; background: var(--navy);
+  -webkit-mask: none; box-shadow: 0 2px 6px rgba(10,22,34,.18);
+}
+.robot-study .process-step + .process-step::after {
+  content: ""; position: absolute; left: -24px; top: calc(41px + 135px); width: 8px; height: 8px; margin: -4px 0 0 -6px;
+  border-right: 2px solid #fff; border-top: 2px solid #fff; transform: rotate(45deg);
+}
+.robot-study .pallet-process .process-step + .process-step::before,
+.robot-study .pallet-process .process-step + .process-step::after { top: calc(41px + 105px); }
+@media (max-width: 680px) {
+  .process-strip { gap: 44px; }
+  .robot-study .process-step svg { height: 300px; }
+  .robot-study .pallet-process .process-step svg { height: 260px; }
+  .robot-study .process-step + .process-step::before,
+  .robot-study .pallet-process .process-step + .process-step::before { left: 50%; top: -22px; }
+  .robot-study .process-step + .process-step::after,
+  .robot-study .pallet-process .process-step + .process-step::after { left: 50%; top: -22px; margin: -6px 0 0 -4px; transform: rotate(135deg); }
+}
+
+/* adoption flow: arrows centered in the gap between steps, level with the step titles */
+@media (min-width: 681px) {
+  .adoption-flow { gap: 44px; }
+  .adoption-flow li + li::before { left: -22px; top: 0; transform: translateX(-50%); line-height: 28px; font-size: 24px; }
+}
+
+/* slide 13: before/after bars make the reduction visible */
+.episode-compare { display: grid; gap: 16px; padding: 26px 28px; background: var(--box); border: 1px solid var(--box-line); border-radius: 6px; }
+.ec-row { display: grid; grid-template-columns: 220px minmax(0, 1fr) 150px; align-items: center; gap: 20px; }
+.ec-label { font-size: 18px; color: var(--ink); }
+.ec-track { height: 22px; background: #fff; border: 1px solid var(--box-line); border-radius: 4px; overflow: hidden; }
+.ec-track i { display: block; height: 100%; background: #a5bbd0; }
+.ec-now .ec-track i { background: var(--navy); min-width: 6px; }
+.ec-row strong { font-size: 34px; line-height: 1.1; color: var(--navy); text-align: right; }
+.ec-row strong small { font-size: 18px; margin-left: 4px; }
+.ec-saving { display: flex; align-items: center; justify-content: flex-end; gap: 12px; margin: 4px 0 0; padding-top: 16px; border-top: 1px solid var(--box-line); font-size: 18px; color: var(--ink); }
+.ec-saving b { font-size: 24px; color: var(--navy); }
+.ec-arrow { display: inline-grid; place-items: center; width: 32px; height: 32px; border-radius: 50%; background: var(--navy); color: #fff; font-size: 18px; font-weight: 700; }
+@media (max-width: 680px) {
+  .episode-compare { padding: 18px; gap: 14px; }
+  .ec-row { grid-template-columns: minmax(0, 1fr) auto; gap: 6px 12px; }
+  .ec-label { grid-column: 1 / -1; font-size: 16px; }
+  .ec-row strong { font-size: 28px; }
+  .ec-saving { justify-content: flex-start; flex-wrap: wrap; font-size: 16px; }
+  .ec-saving b { font-size: 20px; }
+}
+
+/* hero: photo and text centered as one group so the cover does not lean left */
+@media (min-width: 681px) {
+  .hero-in { grid-template-columns: auto minmax(0, max-content); justify-content: center; }
+}
+/* project 01 overview: the square demo video and the facts sit together in the middle, no wide gap */
+@media (min-width: 681px) {
+  #opencv-1 .split.overview:not(.stack) { grid-template-columns: auto minmax(0, 520px); justify-content: center; gap: 56px; align-items: center; }
+  #opencv-1 .overview > figure { width: 480px; max-width: 100%; }
+}
+@media (min-width: 681px) and (max-height: 820px) {
+  .robot-study .pallet-process .process-step svg { height: 180px; }
+  .robot-study .pallet-process .process-step + .process-step::before,
+  .robot-study .pallet-process .process-step + .process-step::after { top: calc(41px + 90px); }
+}
+@media (min-width: 681px) { .adoption-flow li { text-align: center; } }
+@media (min-width: 681px) { .robot-study .adoption-compact .adoption-after { text-align: center; } }
