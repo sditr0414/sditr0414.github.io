@@ -214,26 +214,26 @@
 <div class="ds-head"><p class="ds-no">10<span>학습 방식 비교</span></p><h3>전체 클래스의 성능 균형을 보고 혼합 학습 선택</h3></div>
 <div class="ds-body">
 <div class="study-pair study-charts">
-<div><table class="study-table"><caption>실물만 ↔ 혼합 · YOLO26s · FP16</caption><thead><tr><th scope="col">마스크 mAP50–95</th><th scope="col">실물만</th><th scope="col">혼합</th></tr></thead><tbody>
-<tr><th scope="row">평균</th><td>94.77</td><td>94.76</td></tr>
-<tr class="study-selected"><th scope="row">최저 클래스</th><td>84.11</td><td>86.76</td></tr>
-<tr class="study-selected"><th scope="row">클래스 간 편차</th><td>5.08</td><td>4.34</td></tr>
+<div><table class="study-table"><caption>실물만 ↔ 혼합 · YOLO26n · FP16</caption><thead><tr><th scope="col">마스크 mAP50–95</th><th scope="col">실물만</th><th scope="col">혼합</th></tr></thead><tbody>
+<tr><th scope="row">평균</th><td>96.26</td><td>97.10</td></tr>
+<tr class="study-selected"><th scope="row">최저 클래스</th><td>85.66</td><td>86.55</td></tr>
+<tr class="study-selected"><th scope="row">클래스 간 편차</th><td>3.93</td><td>3.54</td></tr>
 </tbody></table></div>
-<figure><h4>혼합 ↔ 순차 학습 · YOLO26x 추가 비교</h4><img src="assets/charts/robot-training-x.svg" width="640" height="240" alt="YOLO26x FP16의 실물 테스트 마스크 mAP50–95: 혼합 98.93, 가상 학습 후 실물 추가 학습 97.20"><figcaption>순차: 가상 데이터로 학습 후 실물로 추가 학습 · 실물 마스크 mAP50–95</figcaption></figure>
+<figure><h4>혼합 ↔ 순차 학습 · YOLO26n</h4><img src="assets/charts/robot-training-n-sequential.svg" width="640" height="240" alt="YOLO26n FP16의 실물 테스트 마스크 mAP50–95: 혼합 97.10, 가상 학습 후 실물 추가 학습 95.98"><figcaption>순차: 가상 데이터로 학습 후 실물로 추가 학습 · 실물 마스크 mAP50–95</figcaption></figure>
 </div>
-<p class="study-takeaway">일부 클래스는 하락했지만, 낮았던 클래스의 성능을 보완함<br>전체 균형을 기준으로 혼합 학습을 선택함</p>
+<p class="study-takeaway">동일한 학습 설정·조기 종료 기준으로 비교<br>혼합 학습이 평균 성능과 클래스 간 균형에서 가장 유리함</p>
 </div></section>
 
 <section class="ds" id="opencv-11">
-<div class="ds-head"><p class="ds-no">11<span><x-nw>양자화·실행</x-nw> 형식</span></p><h3>Pi에서 빠른 실행 형식을 선택</h3><p class="ds-deck">혼합 학습 YOLO26s · 입력 960</p></div>
+<div class="ds-head"><p class="ds-no">11<span><x-nw>양자화·실행</x-nw> 형식</span></p><h3>Pi에서 빠른 실행 형식을 선택</h3><p class="ds-deck">혼합 학습 YOLO26n · 입력 960</p></div>
 <div class="ds-body">
 <div class="study-pair">
-<figure class="study-chart"><img src="assets/charts/robot-quantization.svg" width="640" height="300" alt="처리 시간 중앙값: 원본 4.142초, FP16 1.223초, INT8 혼합 1.959초"><figcaption>처리 시간 중앙값(초) · 예열 3회 후 12회 측정</figcaption></figure>
-<div><table class="study-table"><caption>실물 테스트 마스크 mAP50–95</caption><thead><tr><th scope="col">저장 형식</th><th scope="col">점수</th></tr></thead><tbody>
-<tr><th scope="row">원본</th><td>94.77</td></tr>
-<tr class="study-selected"><th scope="row">FP16</th><td>94.76</td></tr>
-<tr><th scope="row">INT8 혼합</th><td>95.20</td></tr>
-</tbody></table><p class="study-takeaway">FP16: 마스크 성능을 유지하며<br>원본 대비 처리 시간 약 70% 감소 · INT8 혼합보다도 빠름</p></div>
+<figure class="study-chart"><img src="assets/charts/robot-quantization.svg?v=nconsistent" width="640" height="300" alt="처리 시간 중앙값: 원본 1.608초, FP16 0.524초, INT8 혼합 0.907초"><figcaption>처리 시간 중앙값(초) · Pi5 · 형식별 24회 측정</figcaption></figure>
+<div><table class="study-table"><caption>실물 테스트 마스크 mAP50–95</caption><thead><tr><th scope="col">실행 형식</th><th scope="col">점수</th></tr></thead><tbody>
+<tr><th scope="row">원본</th><td>97.10</td></tr>
+<tr class="study-selected"><th scope="row">FP16</th><td>97.10</td></tr>
+<tr><th scope="row">INT8 혼합</th><td>96.78</td></tr>
+</tbody></table><p class="study-takeaway">FP16: 마스크 성능을 유지하며<br>원본 대비 처리 시간 약 67% 감소 · INT8 혼합보다도 빠름</p></div>
 </div>
 </div></section>
 

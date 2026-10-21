@@ -53,32 +53,23 @@ def bars(name, labels, values, maximum, unit, decimals=2, highlight=None):
 
 
 base = "SO101_synthetic/benchmarks/"
-nine = base + "yolo26s_9way_20261016/results/"
-variants = {k: read(nine + k + ".json") for k in
-            ["real_fp16", "mixed_original", "mixed_fp16", "mixed_int8"]}
-mask = lambda d: d["domains"]["real"]["metrics"]["metrics/mAP50-95(M)"] * 100
-s_training = [mask(variants[k]) for k in ["real_fp16", "mixed_fp16"]]
-# Class-level balance explains the mixed-data choice beyond mean mAP.
-class_scores = {k: {label: values["mask_map50_95"] * 100
-                    for label, values in variants[k]["domains"]["real"]["per_class"].items()}
-                for k in ["real_fp16", "mixed_fp16"]}
-assert class_scores["real_fp16"].keys() == class_scores["mixed_fp16"].keys()
+comparison_base = base + "portfolio_consistent_20261022/"
+training = read(comparison_base + "stage10_complete.json")["variants"]
+quantization = read(comparison_base + "stage11_complete.json")
+mask = lambda d: d["metrics"]["metrics/mAP50-95(M)"] * 100
+training_values = {k: mask(v) for k, v in training.items()}
+class_scores = {k: {label: score * 100 for label, score in v["per_class_mask_ap"].items()}
+                for k, v in training.items()}
 class_summary = {k: {"mean": mean(scores.values()), "minimum": min(scores.values()),
                      "population_stddev": pstdev(scores.values())}
                  for k, scores in class_scores.items()}
-class_deltas = {label: class_scores["mixed_fp16"][label] - value
-                for label, value in class_scores["real_fp16"].items()}
-class_changes = {"improved": sum(v > 1e-8 for v in class_deltas.values()),
-                 "declined": sum(v < -1e-8 for v in class_deltas.values()),
-                 "unchanged": sum(abs(v) <= 1e-8 for v in class_deltas.values())}
-xbase = base + "yolo26x_seg_vs_sam3_20261017/comparison/"
-x_training = [read(xbase + k + "/test/metrics_summary.json")["dedup"]["mask"]["mask_ap50_95"] * 100
-              for k in ["yolo_trt_fp16", "yolo_synthetic_then_real_uncapped_fp16"]]
-bars("robot-training-s", ["실물만", "혼합"], s_training, 100, "실물 테스트 마스크 mAP50–95 · 높을수록 좋음")
-bars("robot-training-x", ["혼합", "순차"], x_training, 100, "실물 테스트 마스크 AP50–95 · 높을수록 좋음", highlight=0)
-quant_keys = ["mixed_original", "mixed_fp16", "mixed_int8"]
-quant_time = [variants[k]["pi"]["total_ms_median"] / 1000 for k in quant_keys]
-bars("robot-quantization", ["원본", "FP16", "INT8 혼합"], quant_time, 5,
+assert all(scores.keys() == class_scores["n_real"].keys() for scores in class_scores.values())
+bars("robot-training-n-sequential", ["혼합", "순차"],
+     [training_values[k] for k in ["n_mixed", "n_sequential"]], 100,
+     "실물 테스트 마스크 mAP50–95 · 높을수록 좋음", highlight=0)
+quant_keys = ["original", "fp16", "int8"]
+quant_time = [quantization["pi"][k]["seconds"] for k in quant_keys]
+bars("robot-quantization", ["원본", "FP16", "INT8 혼합"], quant_time, 2,
      "Pi 5 처리 시간 중앙값 · 초 · 짧을수록 좋음", 3, highlight=1)
 sizes = read(base + "yolo26n_vs_s_mixed_fp16_20261018/comparison.json")
 current_sizes = json.loads((output / "robot-size-current-evidence.json").read_text())["models"]
@@ -94,22 +85,23 @@ yield_values = [jigs[k]["targets"]["pallet"]["roi_yield"] * 100
 bars("robot-pallet-yield", ["OpenCV", "AI + OpenCV", "AI + CAD"], yield_values, 100,
      "저장 사진에서 팔레트 위치 확보율 · %", 1, highlight=2)
 evidence = {
-    "date": "2026-10-21",
-    "training_s": {"model": "YOLO26s, NCNN FP16", "values": s_training,
-                   "source": nine, "metric": "Ultralytics mask mAP50-95"},
-    "training_s_class_balance": {"metric": "real-test class mask AP50-95",
-                                 "scores": class_scores, "summary": class_summary,
-                                 "changes": class_changes, "deltas": class_deltas,
-                                 "source": nine},
-    "training_x": {"model": "YOLO26x, TensorRT FP16", "values": x_training,
-                   "source": xbase, "metric": "recorded common-protocol mask AP50-95"},
-    "quantization": [{"variant": k, "mask_map": mask(variants[k]), "seconds": quant_time[i]}
+    "date": "2026-10-22",
+    "training_n": {"model": "YOLO26n, NCNN FP16", "values": training_values,
+                   "scores": class_scores, "summary": class_summary,
+                   "source": comparison_base + "stage10_complete.json",
+                   "metric": "Ultralytics mask mAP50-95",
+                   "protocol": "Same training settings and early stopping per stage; sequential trains synthetic then real; actual epochs and total training exposure may differ.",
+                   "model_hashes": {k: v["model_sha256"] for k, v in training.items()}},
+    "quantization": [{"variant": k, "model": "YOLO26n", "mask_map": mask(quantization["variants"][k]),
+                      "seconds": quant_time[i], "runs": quantization["pi"][k]["runs"],
+                      "source": comparison_base + "stage11_complete.json",
+                      "model_hashes": quantization["variants"][k]["model_sha256"]}
                      for i, k in enumerate(quant_keys)],
     "size": {k: {field: current_sizes[k][field] for field in ["seconds", "mask_map", "peak_rss_mib"]}
              for k in ["s", "n"]},
     "pallet_yield": yield_values,
     "limitations": [
-        "Training comparisons use separate model/runtime/evaluation protocols; do not rank across the two panels.",
+        "Training panels use the same nano model and NCNN FP16 evaluation; early-stopping criteria match, but stage counts and total training duration differ.",
         "Model test: 31 real photos, one captured environment; AP is not simple accuracy.",
         "Pi timings exclude camera, transport, UI and robot motion.",
         "Jig comparison includes all 304 development photos, including train/val/test; not unseen-test accuracy."

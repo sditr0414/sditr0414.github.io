@@ -1,106 +1,132 @@
 {
-  "date": "2026-10-21",
-  "training_s": {
-    "model": "YOLO26s, NCNN FP16",
-    "values": [
-      94.77427227184856,
-      94.7641185480343
-    ],
-    "source": "SO101_synthetic/benchmarks/yolo26s_9way_20261016/results/",
-    "metric": "Ultralytics mask mAP50-95"
-  },
-  "training_s_class_balance": {
-    "metric": "real-test class mask AP50-95",
+  "date": "2026-10-22",
+  "training_n": {
+    "model": "YOLO26n, NCNN FP16",
+    "values": {
+      "n_real": 96.26242653780854,
+      "n_mixed": 97.10072360733652,
+      "n_sequential": 95.98496328059886
+    },
     "scores": {
-      "real_fp16": {
-        "carrier_jig": 99.07619047619048,
-        "pallet": 91.66614107202922,
-        "linear_jig": 96.3684857635893,
-        "A_lower": 98.15555555555555,
-        "A_middle": 85.40714285714286,
-        "A_upper": 95.07249999999999,
-        "B_lower": 91.11238095238095,
-        "B_middle": 84.10714285714288,
-        "B_upper": 98.10000000000001,
+      "n_real": {
+        "carrier_jig": 99.49999999999999,
+        "pallet": 96.0483870967742,
+        "linear_jig": 97.19649122807017,
+        "A_lower": 98.4,
+        "A_middle": 91.23333333333333,
+        "A_upper": 95.08571428571429,
+        "B_lower": 94.41904761904763,
+        "B_middle": 85.65714285714286,
+        "B_upper": 95.87142857142858,
         "A_lower_middle": 99.49999999999999,
         "B_lower_middle": 99.49999999999999,
-        "A_complete": 94.5,
+        "A_complete": 99.49999999999999,
         "B_complete": 99.49999999999999
       },
-      "mixed_fp16": {
-        "carrier_jig": 99.00952380952381,
-        "pallet": 92.95319759700568,
-        "linear_jig": 94.49891495601173,
+      "n_mixed": {
+        "carrier_jig": 99.49999999999999,
+        "pallet": 94.51567673664447,
+        "linear_jig": 97.73261904761907,
         "A_lower": 99.49999999999999,
-        "A_middle": 86.75833333333334,
-        "A_upper": 92.0875,
-        "B_lower": 91.58857142857144,
-        "B_middle": 88.3125,
-        "B_upper": 96.7,
+        "A_middle": 95.06666666666665,
+        "A_upper": 98.3,
+        "B_lower": 95.24444444444443,
+        "B_middle": 86.55000000000001,
+        "B_upper": 97.89999999999999,
         "A_lower_middle": 99.49999999999999,
         "B_lower_middle": 99.49999999999999,
-        "A_complete": 92.025,
+        "A_complete": 99.49999999999999,
+        "B_complete": 99.49999999999999
+      },
+      "n_sequential": {
+        "carrier_jig": 99.49999999999999,
+        "pallet": 95.48772401433693,
+        "linear_jig": 96.92342561757542,
+        "A_lower": 98.27777777777777,
+        "A_middle": 86.98392857142858,
+        "A_upper": 94.75833333333334,
+        "B_lower": 96.43333333333335,
+        "B_middle": 83.74000000000002,
+        "B_upper": 97.7,
+        "A_lower_middle": 99.49999999999999,
+        "B_lower_middle": 99.49999999999999,
+        "A_complete": 99.49999999999999,
         "B_complete": 99.49999999999999
       }
     },
     "summary": {
-      "real_fp16": {
-        "mean": 94.77427227184856,
-        "minimum": 84.10714285714288,
-        "population_stddev": 5.078642476187571
+      "n_real": {
+        "mean": 96.26242653780854,
+        "minimum": 85.65714285714286,
+        "population_stddev": 3.9281657201879394
       },
-      "mixed_fp16": {
-        "mean": 94.7641185480343,
-        "minimum": 86.75833333333334,
-        "population_stddev": 4.343893136415717
+      "n_mixed": {
+        "mean": 97.1007236073365,
+        "minimum": 86.55000000000001,
+        "population_stddev": 3.5366102593632003
+      },
+      "n_sequential": {
+        "mean": 95.98496328059888,
+        "minimum": 83.74000000000002,
+        "population_stddev": 4.833911712041176
       }
     },
-    "changes": {
-      "improved": 5,
-      "declined": 5,
-      "unchanged": 3
-    },
-    "deltas": {
-      "carrier_jig": -0.06666666666666288,
-      "pallet": 1.2870565249764638,
-      "linear_jig": -1.869570807577574,
-      "A_lower": 1.3444444444444343,
-      "A_middle": 1.3511904761904816,
-      "A_upper": -2.984999999999985,
-      "B_lower": 0.4761904761904958,
-      "B_middle": 4.205357142857125,
-      "B_upper": -1.4000000000000057,
-      "A_lower_middle": 0.0,
-      "B_lower_middle": 0.0,
-      "A_complete": -2.4749999999999943,
-      "B_complete": 0.0
-    },
-    "source": "SO101_synthetic/benchmarks/yolo26s_9way_20261016/results/"
-  },
-  "training_x": {
-    "model": "YOLO26x, TensorRT FP16",
-    "values": [
-      98.93154156606727,
-      97.19654483922474
-    ],
-    "source": "SO101_synthetic/benchmarks/yolo26x_seg_vs_sam3_20261017/comparison/",
-    "metric": "recorded common-protocol mask AP50-95"
+    "source": "SO101_synthetic/benchmarks/portfolio_consistent_20261022/stage10_complete.json",
+    "metric": "Ultralytics mask mAP50-95",
+    "protocol": "Same training settings and early stopping per stage; sequential trains synthetic then real; actual epochs and total training exposure may differ.",
+    "model_hashes": {
+      "n_real": {
+        "metadata.yaml": "9aa43bf48338b1115e47f9e8cc90d22ff42d3dae7e78b8328fefef0a30c25d09",
+        "model.ncnn.bin": "23b79e8f16df127e012fe0537671a01968f995b2a8cf468f9cda2523b287d6bf",
+        "model.ncnn.param": "e8037ba3faebb6fd713e9495888daf78a4b52950d93e885741e4ea0ebe51132c"
+      },
+      "n_mixed": {
+        "metadata.yaml": "6d2b76803eb0217e9fffeac26a6326976857c7a9d35d82304a4416827282df13",
+        "model.ncnn.bin": "ef5c9ee1829682a68193fe4a5d49987167873b84e5bea2e1eac5dda17d302e21",
+        "model.ncnn.param": "e8037ba3faebb6fd713e9495888daf78a4b52950d93e885741e4ea0ebe51132c"
+      },
+      "n_sequential": {
+        "metadata.yaml": "50b537dc13101edb251007cb0cb0b807a17f1606984a64479f557f0004ecd546",
+        "model.ncnn.bin": "32785927ca1a9f8ddb8bf2e7a442fa6bd4c3ac354abf63bcaf2c050ddc740ada",
+        "model.ncnn.param": "e8037ba3faebb6fd713e9495888daf78a4b52950d93e885741e4ea0ebe51132c"
+      }
+    }
   },
   "quantization": [
     {
-      "variant": "mixed_original",
-      "mask_map": 94.77177737471486,
-      "seconds": 4.141856272500263
+      "variant": "original",
+      "model": "YOLO26n",
+      "mask_map": 97.10072360733652,
+      "seconds": 1.6078692935006984,
+      "runs": 24,
+      "source": "SO101_synthetic/benchmarks/portfolio_consistent_20261022/stage11_complete.json",
+      "model_hashes": {
+        "model.pt": "4f3e8a701b9fa2038fef71e92ccbd495b23a1dcdbe470d0ca4c5c4470b16a598"
+      }
     },
     {
-      "variant": "mixed_fp16",
-      "mask_map": 94.7641185480343,
-      "seconds": 1.222968428499371
+      "variant": "fp16",
+      "model": "YOLO26n",
+      "mask_map": 97.10072360733652,
+      "seconds": 0.523781774998497,
+      "runs": 24,
+      "source": "SO101_synthetic/benchmarks/portfolio_consistent_20261022/stage11_complete.json",
+      "model_hashes": {
+        "metadata.yaml": "6d2b76803eb0217e9fffeac26a6326976857c7a9d35d82304a4416827282df13",
+        "model.ncnn.bin": "ef5c9ee1829682a68193fe4a5d49987167873b84e5bea2e1eac5dda17d302e21",
+        "model.ncnn.param": "e8037ba3faebb6fd713e9495888daf78a4b52950d93e885741e4ea0ebe51132c"
+      }
     },
     {
-      "variant": "mixed_int8",
-      "mask_map": 95.20424404990426,
-      "seconds": 1.9590787910010476
+      "variant": "int8",
+      "model": "YOLO26n",
+      "mask_map": 96.77872570298321,
+      "seconds": 0.907157448502403,
+      "runs": 24,
+      "source": "SO101_synthetic/benchmarks/portfolio_consistent_20261022/stage11_complete.json",
+      "model_hashes": {
+        "model_int8.onnx": "07505ec7c325802b3a7a5a810589a9fcb93af5a0eccbfcb8f4a6122776a933ae"
+      }
     }
   ],
   "size": {
@@ -121,7 +147,7 @@
     99.64912280701755
   ],
   "limitations": [
-    "Training comparisons use separate model/runtime/evaluation protocols; do not rank across the two panels.",
+    "Training panels use the same nano model and NCNN FP16 evaluation; early-stopping criteria match, but stage counts and total training duration differ.",
     "Model test: 31 real photos, one captured environment; AP is not simple accuracy.",
     "Pi timings exclude camera, transport, UI and robot motion.",
     "Jig comparison includes all 304 development photos, including train/val/test; not unseen-test accuracy."
