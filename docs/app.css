@@ -1648,3 +1648,20 @@ html body header.top .brand span { font-size: 15.5px; }
 @media (max-width: 680px) {
   .robot-study .process-step figcaption { font-size: 14px; }
 }
+
+/* floating buttons step aside while reading on small screens */
+.fab-stack { transition: opacity .22s ease, transform .22s ease; }
+.fab-stack.fab-away { opacity: 0; transform: translateY(14px); pointer-events: none; }
+@media (prefers-reduced-motion: reduce) { .fab-stack { transition: none; } }
+#robot-4 tbody th { white-space: nowrap; }
+/* pallet slide: give the three-step adoption flow enough width to read on one or two lines */
+@media (min-width: 981px) {
+  .pallet-process-summary { grid-template-columns: minmax(0, 1.45fr) minmax(0, 1fr); }
+}
+/* narrow phones: inspection cards stack so titles and text do not break word by word */
+@media (max-width: 480px) {
+  .robot-study .study-inspection .case-grid { grid-template-columns: 1fr; }
+}
+@media (min-width: 681px) {
+  .adoption-flow li + li::before { top: 0; line-height: 28px; }
+}
