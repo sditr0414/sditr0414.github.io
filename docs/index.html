@@ -4,7 +4,7 @@
 <meta content="noindex" name="robots"/><title>정승호 포트폴리오</title>
 <link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
-<link href="app.css?v=20261021compactadoption" rel="stylesheet"/></head>
+<link href="app.css?v=20261021readable" rel="stylesheet"/></head>
 <body>
 <a class="skip" href="#about">본문으로 이동</a>
 <header class="top" id="top">
@@ -247,14 +247,15 @@
 </div></div></section>
 
 <section class="ds" id="opencv-13">
-<div class="ds-head"><p class="ds-no">13<span>에피소드 실행 최적화</span></p><h3>카메라·모델을 미리 준비하고 실행 중 재사용</h3></div>
+<div class="ds-head"><p class="ds-no">13<span>에피소드 실행 최적화</span></p><h3>카메라·모델 재사용으로 반복 준비 시간 약 97% 감소</h3></div>
 <div class="ds-body">
-<ol class="flow row3"><li><span>01</span><h4>시작 준비 병행</h4><p>팔 연결·리니어 준비와<br>카메라·AI 예열을 동시에 진행</p></li><li><span>02</span><h4>반복 초기화 제거</h4><p>에피소드 안에서 카메라·모델 유지<br>측정·검사 사이에는 추론만 정지</p></li><li><span>03</span><h4>새 영상으로 측정</h4><p>예열 영상은 측정에서 제외<br>실행 종료 시 카메라·모델 해제</p></li></ol>
-<p class="study-takeaway">지그 측정은 첫 3개 관측이 조기 채택 조건을 통과하면 확정.<br>아니면 <strong>4초간 관측 후 과반·중앙값 판단 → 미채택 시 재시도 → 총 5회 실패 시 실행 중단</strong><br><small>현재 Pi 설정 기준 · 조기 채택 후에도 고정 전 위치가 달라지면 무효화·재측정<br>모든 사용 지그의 채택값과 신선도를 확인한 뒤 실행 기준으로 고정하고 작업 진행</small></p>
-<table class="study-table"><caption>Pi 5 실측 · 카메라·모델 준비 시간</caption><thead><tr><th scope="col">항목</th><th scope="col">최초 준비</th><th scope="col">같은 에피소드 내 재사용</th></tr></thead><tbody>
-<tr class="highlight"><th scope="row">준비 완료까지</th><td>2.632초</td><td>0.083초</td></tr><tr><th scope="row">추가 예열 추론</th><td>1회</td><td>0회</td></tr>
-</tbody></table>
-<p class="ds-note">각 조건 1회 실측 · 모터 이동 없이 준비·재사용 경로 검증 · 전체 에피소드 소요 시간은 별도 측정하지 않음</p>
+<p class="episode-method">팔 연결과 비전 준비를 병행하고, 실행 중 카메라·모델을 재사용</p>
+<div class="episode-metrics" aria-label="카메라·모델 준비 시간 비교">
+<div><span>최초 준비</span><strong>2.632<small>초</small></strong></div>
+<div><span>같은 에피소드 내 재사용</span><strong>0.083<small>초</small></strong></div>
+<div class="episode-saving"><span>준비 시간 감소</span><strong>2.549<small>초</small></strong></div>
+</div>
+<p class="episode-footnote">Pi 5 · 조건별 1회 실측 · 모터 이동 없이 준비 경로 비교 (전체 실행 시간 아님)</p>
 </div></section>
 
 <nav aria-label="다른 프로젝트" class="pager"><a href="#travel"><small>06</small><b>Travel Visualizer</b></a><a class="next" href="#robot"><small>02</small><b>원격 물품 회수⁠·⁠운반 로봇</b></a></nav>

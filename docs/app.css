@@ -1614,13 +1614,23 @@ html body header.top .brand span { font-size: 15.5px; }
 .adoption-flow { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 18px; list-style: none; padding: 0; margin: 0; }
 .adoption-flow li { position: relative; min-width: 0; }
 .adoption-flow li + li::before { content: "›"; position: absolute; left: -14px; top: 17px; color: var(--navy); font-size: 22px; }
-.adoption-flow strong { display: block; color: var(--navy); font-size: 16px; margin-bottom: 5px; }
-.adoption-flow span { display: block; font-size: 13px; line-height: 1.6; word-break: keep-all; }
-.robot-study .adoption-compact .adoption-after { border-top: 1px solid var(--box-line); padding-top: 10px; margin-top: 12px; font-size: 13px; line-height: 1.6; }
+.adoption-flow strong { display: block; color: var(--navy); font-size: 18px; margin-bottom: 5px; }
+.adoption-flow span { display: block; font-size: 16px; line-height: 1.6; word-break: keep-all; }
+.robot-study .adoption-compact .adoption-after { border-top: 1px solid var(--box-line); padding-top: 10px; margin-top: 12px; font-size: 16px; line-height: 1.6; }
 @media (max-width: 560px) {
  .adoption-rule.adoption-compact { padding: 12px; }
- .adoption-flow { gap: 14px; }
- .adoption-flow strong { font-size: 14px; }
- .adoption-flow span { font-size: 12px; }
- .adoption-flow li + li::before { left: -11px; font-size: 18px; }
+ .adoption-flow { grid-template-columns: 1fr; gap: 22px; }
+ .adoption-flow strong { font-size: 18px; }
+ .adoption-flow span { font-size: 16px; }
+ .adoption-flow li + li::before { content: "↓"; left: auto; right: 12px; top: -23px; font-size: 18px; }
 }
+
+.robot-study .episode-method { font-size: 20px; line-height: 1.6; margin: 0 0 24px; }
+.episode-metrics { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 20px; }
+.episode-metrics > div { background: var(--box); border: 1px solid var(--box-line); border-radius: 6px; padding: 26px; }
+.episode-metrics span { display: block; font-size: 18px; }
+.episode-metrics strong { display: block; margin-top: 12px; font-size: 48px; line-height: 1.2; color: var(--navy); }
+.episode-metrics small { font-size: 22px; margin-left: 5px; }
+.episode-metrics .episode-saving { border-top: 4px solid var(--navy); }
+.robot-study .episode-footnote { font-size: 16px; color: var(--muted); line-height: 1.6; margin-top: 20px; }
+@media (max-width: 680px) { .episode-metrics { grid-template-columns: 1fr; gap: 12px; } .episode-metrics > div { padding: 18px 22px; } .episode-metrics strong { font-size: 40px; } }
