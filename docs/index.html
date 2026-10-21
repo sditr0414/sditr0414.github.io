@@ -212,11 +212,11 @@
 <div class="ds-body">
 <div class="study-pair">
 <figure><a class="image-open" href="assets/images/robot-training-real.png" aria-label="실물 데이터 원본 크게 보기"><img src="assets/images/robot-training-real.png" width="1280" height="720" loading="lazy" alt="실제 작업대의 운반 지그와 리니어 지그, 부품을 촬영한 데이터"></a><figcaption>실물 사진 · 부품 종류·보이는 윤곽 확인</figcaption></figure>
-<figure><a class="image-open" href="assets/images/robot-training-synthetic.png?v=20261021isaacnormal" aria-label="Isaac Sim 합성 데이터 원본 크게 보기"><img src="assets/images/robot-training-synthetic.png?v=20261021isaacnormal" width="1280" height="720" loading="lazy" alt="Isaac Sim에서 운반용 지그와 부품을 정상 배치한 새 가상 데이터셋 이미지"></a><figcaption>합성 데이터 · 배치·적재·조명 변화</figcaption></figure>
+<figure><a class="image-open" href="assets/images/robot-training-synthetic.png?v=20261021isaacnormal" aria-label="Isaac Sim 가상 데이터 원본 크게 보기"><img src="assets/images/robot-training-synthetic.png?v=20261021isaacnormal" width="1280" height="720" loading="lazy" alt="Isaac Sim에서 운반용 지그와 부품을 정상 배치한 새 가상 데이터셋 이미지"></a><figcaption>가상 데이터 · 배치·적재·조명 변화</figcaption></figure>
 </div>
 <table class="study-table"><caption>학습·검증·테스트 분리</caption><thead><tr><th scope="col">자료</th><th scope="col">학습</th><th scope="col">검증</th><th scope="col">실물 테스트</th></tr></thead><tbody>
 <tr><th scope="row">실물 사진</th><td>243장</td><td>30장</td><td>31장</td></tr>
-<tr><th scope="row">혼합 학습</th><td>실물 243 + 합성 960장</td><td>실물 30 + 합성 120장</td><td>같은 실물 31장</td></tr>
+<tr><th scope="row">혼합 학습</th><td>실물 243 + 가상 960장</td><td>실물 30 + 가상 120장</td><td>같은 실물 31장</td></tr>
 </tbody></table>
 </div></section>
 
@@ -229,7 +229,7 @@
 <tr class="study-selected"><th scope="row">최저 클래스</th><td>84.11</td><td>86.76</td></tr>
 <tr class="study-selected"><th scope="row">클래스 간 편차</th><td>5.08</td><td>4.34</td></tr>
 </tbody></table></div>
-<figure><h4>혼합 ↔ 순차 학습 · YOLO26x 추가 비교</h4><img src="assets/charts/robot-training-x.svg" width="640" height="240" alt="YOLO26x FP16의 실물 테스트 마스크 AP50–95: 혼합 98.93, 합성 학습 후 실물 추가 학습 97.20"><figcaption>순차: 합성 데이터로 학습 후 실물로 추가 학습 · 실물 마스크 AP50–95</figcaption></figure>
+<figure><h4>혼합 ↔ 순차 학습 · YOLO26x 추가 비교</h4><img src="assets/charts/robot-training-x.svg" width="640" height="240" alt="YOLO26x FP16의 실물 테스트 마스크 AP50–95: 혼합 98.93, 가상 학습 후 실물 추가 학습 97.20"><figcaption>순차: 가상 데이터로 학습 후 실물로 추가 학습 · 실물 마스크 AP50–95</figcaption></figure>
 </div>
 <p class="study-takeaway">일부 클래스는 하락했지만, 낮았던 클래스의 성능을 보완함<br>전체 균형을 기준으로 혼합 학습을 선택함</p>
 </div></section>
