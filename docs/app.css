@@ -1564,3 +1564,18 @@ html body header.top .brand span { font-size: 15.5px; }
   #robot-2 .split figure img { max-height: 280px; width: auto; max-width: 100%; margin-inline: auto; display: block; }
   #robot-2 .text-stack > section { padding-top: 12px; padding-bottom: 12px; }
 }
+/* 2026-10-21: project 01 slides follow the same spacing and components as the other projects */
+@media (min-width: 681px) and (min-height: 821px) {
+  .robot-study .ds { padding: 40px 48px 44px; }
+  .robot-study .ds-body { margin-top: 28px; }
+  .robot-study .ds-head .ds-no { margin-bottom: 12px; padding-bottom: 10px; }
+  .robot-study .ds-head h3 { line-height: 1.7; }
+  .robot-study .ds-deck { margin-top: 6px; }
+}
+/* the one-line conclusion reads like the notes elsewhere: a tinted box with the navy bar */
+.robot-study .study-takeaway { background: var(--box); border: 1px solid var(--box-line); border-left: 4px solid var(--navy); border-radius: 0 6px 6px 0; padding: 12px 20px; font-size: 16px; color: var(--ink); }
+.robot-study .ds-body .study-note { margin-top: 10px; }
+/* tables: labels left, numbers centred under their headings, like the other result tables */
+.robot-study .study-table td, .robot-study .study-table thead th:not(:first-child) { text-align: center; }
+.robot-study .study-method-table thead th:nth-child(2), .robot-study .study-method-table td:nth-child(2) { text-align: left; }
+.robot-study .study-table caption { font-size: 15.5px; color: var(--navy); }
