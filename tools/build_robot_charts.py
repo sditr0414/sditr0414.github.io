@@ -114,5 +114,30 @@ evidence = {
         "Jig comparison includes all 304 development photos, including train/val/test; not unseen-test accuracy."
     ]
 }
+# Final deployed NCNN comparison uses matched-mask IoU, not mAP.
+final_path = base + "yolo26n_mixed_75_25_20261021/boundary_repair_20261021/ncnn_comparison/report.json"
+final_report = read(final_path)
+final_metrics = {}
+for host in ["pc", "pi"]:
+    data = final_report["hosts"][host]
+    final_metrics[host] = {
+        variant: {
+            "accuracy": {key: value for key, value in data["accuracy"]["0.5"][variant].items()
+                         if not isinstance(value, (list, dict))},
+            "performance": data["performance"][variant]
+        } for variant in ["current", "final"]
+    }
+bars("robot-final-iou", ["기존", "최종"],
+     [final_metrics["pi"][v]["accuracy"]["mean_iou"] * 100 for v in ["current", "final"]],
+     100, "마스크 평균 IoU · %", highlight=1)
+evidence["final_model_20261021"] = {
+    "model": "YOLO26n-seg boundary repair, NCNN FP16, input 960, threads 4",
+    "source": final_path,
+    "confidence": 0.5,
+    "metrics": final_metrics,
+    "dataset": {k: v for k, v in read("SO101_synthetic/mixed_process_75_25_20261021/mix_plan.json").items()
+                if k.endswith("counts") or k.endswith("fraction") or k.startswith("total_") or k == "synthetic_categories"},
+    "timing_scope": "Pi roundtrip includes SSH and PNG transport, excludes camera and GUI; PC has a different worker transport path."
+}
 (output / "robot-evidence.json").write_text(json.dumps(evidence, ensure_ascii=False, indent=2) + "\n")
-print("Wrote source values" if "--evidence-only" in sys.argv[2:] else "Wrote five charts and source values", "to", output)
+print("Wrote source values" if "--evidence-only" in sys.argv[2:] else "Wrote charts and source values", "to", output)

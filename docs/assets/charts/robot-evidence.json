@@ -123,5 +123,216 @@
     "Model test: 31 real photos, one captured environment; AP is not simple accuracy.",
     "Pi timings exclude camera, transport, UI and robot motion.",
     "Jig comparison includes all 304 development photos, including train/val/test; not unseen-test accuracy."
-  ]
+  ],
+  "final_model_20261021": {
+    "model": "YOLO26n-seg boundary repair, NCNN FP16, input 960, threads 4",
+    "source": "SO101_synthetic/benchmarks/yolo26n_mixed_75_25_20261021/boundary_repair_20261021/ncnn_comparison/report.json",
+    "confidence": 0.5,
+    "metrics": {
+      "pc": {
+        "current": {
+          "accuracy": {
+            "gt": 169,
+            "pred": 169,
+            "tp": 169,
+            "fp": 0,
+            "fn": 0,
+            "mean_iou": 0.9651038278970427,
+            "mean_iou_missing_as_zero": 0.9651038278970431,
+            "precision": 1.0,
+            "recall": 1.0,
+            "images": 31
+          },
+          "performance": {
+            "inference_ms": {
+              "n": 62,
+              "mean_ms": 174.70676035032562,
+              "median_ms": 167.28203897946514,
+              "p95_ms": 212.44334264920323,
+              "min_ms": 151.88257399131544,
+              "max_ms": 289.4206089840736,
+              "equivalent_fps": 5.723876958137048
+            },
+            "total_ms": {
+              "n": 62,
+              "mean_ms": 185.51769714488933,
+              "median_ms": 178.1640044937376,
+              "p95_ms": 227.37972025497578,
+              "min_ms": 160.9384200128261,
+              "max_ms": 306.4487230149098,
+              "equivalent_fps": 5.390321329932206
+            },
+            "roundtrip_ms": {
+              "n": 62,
+              "mean_ms": 191.8336607712028,
+              "median_ms": 184.17413800489157,
+              "p95_ms": 234.85111219342795,
+              "min_ms": 166.02642100770026,
+              "max_ms": 314.1870590043254,
+              "equivalent_fps": 5.212849486267612
+            }
+          }
+        },
+        "final": {
+          "accuracy": {
+            "gt": 169,
+            "pred": 169,
+            "tp": 169,
+            "fp": 0,
+            "fn": 0,
+            "mean_iou": 0.9773098620160332,
+            "mean_iou_missing_as_zero": 0.977309862016033,
+            "precision": 1.0,
+            "recall": 1.0,
+            "images": 31
+          },
+          "performance": {
+            "inference_ms": {
+              "n": 62,
+              "mean_ms": 168.0968978053575,
+              "median_ms": 164.13637300138362,
+              "p95_ms": 197.32060450041894,
+              "min_ms": 150.15271099400707,
+              "max_ms": 285.7138789840974,
+              "equivalent_fps": 5.948949760857089
+            },
+            "total_ms": {
+              "n": 62,
+              "mean_ms": 178.04464351736956,
+              "median_ms": 173.6676125001395,
+              "p95_ms": 211.22438491438507,
+              "min_ms": 160.3668049792759,
+              "max_ms": 303.0594750016462,
+              "equivalent_fps": 5.616568857363252
+            },
+            "roundtrip_ms": {
+              "n": 62,
+              "mean_ms": 183.98566288693297,
+              "median_ms": 179.57944799854886,
+              "p95_ms": 219.3152337378705,
+              "min_ms": 165.8724209992215,
+              "max_ms": 312.6114959886763,
+              "equivalent_fps": 5.435206115025075
+            }
+          }
+        }
+      },
+      "pi": {
+        "current": {
+          "accuracy": {
+            "gt": 169,
+            "pred": 169,
+            "tp": 169,
+            "fp": 0,
+            "fn": 0,
+            "mean_iou": 0.9651749713054297,
+            "mean_iou_missing_as_zero": 0.9651749713054297,
+            "precision": 1.0,
+            "recall": 1.0,
+            "images": 31
+          },
+          "performance": {
+            "inference_ms": {
+              "n": 62,
+              "mean_ms": 482.9709160970402,
+              "median_ms": 482.8427164993627,
+              "p95_ms": 493.96164504978515,
+              "min_ms": 470.4008039989276,
+              "max_ms": 509.05526100177667,
+              "equivalent_fps": 2.0705180512341173
+            },
+            "total_ms": {
+              "n": 62,
+              "mean_ms": 524.2651344999044,
+              "median_ms": 523.4541075005836,
+              "p95_ms": 540.7925189974776,
+              "min_ms": 499.28578800245305,
+              "max_ms": 563.9154829987092,
+              "equivalent_fps": 1.907431820645289
+            },
+            "roundtrip_ms": {
+              "n": 62,
+              "mean_ms": 863.1021766299044,
+              "median_ms": 862.3431674932363,
+              "p95_ms": 905.9919151593931,
+              "min_ms": 797.9226300085429,
+              "max_ms": 915.6158840050921,
+              "equivalent_fps": 1.1586113754279141
+            }
+          }
+        },
+        "final": {
+          "accuracy": {
+            "gt": 169,
+            "pred": 169,
+            "tp": 169,
+            "fp": 0,
+            "fn": 0,
+            "mean_iou": 0.9775096181442735,
+            "mean_iou_missing_as_zero": 0.9775096181442735,
+            "precision": 1.0,
+            "recall": 1.0,
+            "images": 31
+          },
+          "performance": {
+            "inference_ms": {
+              "n": 62,
+              "mean_ms": 503.33820275814253,
+              "median_ms": 502.11826100166945,
+              "p95_ms": 512.207946298804,
+              "min_ms": 493.077445000381,
+              "max_ms": 531.3646220020019,
+              "equivalent_fps": 1.986735746502649
+            },
+            "total_ms": {
+              "n": 62,
+              "mean_ms": 545.2063228065292,
+              "median_ms": 544.9096119991736,
+              "p95_ms": 570.0882630524575,
+              "min_ms": 524.1492950008251,
+              "max_ms": 575.3106789998128,
+              "equivalent_fps": 1.8341680170771937
+            },
+            "roundtrip_ms": {
+              "n": 62,
+              "mean_ms": 887.4861012586588,
+              "median_ms": 887.0436144934501,
+              "p95_ms": 950.6829875637777,
+              "min_ms": 834.5958620193414,
+              "max_ms": 970.7203809812199,
+              "equivalent_fps": 1.1267782093508514
+            }
+          }
+        }
+      }
+    },
+    "dataset": {
+      "real_counts": {
+        "train": 243,
+        "val": 30,
+        "test": 31
+      },
+      "synthetic_counts": {
+        "train": 729,
+        "val": 90,
+        "test": 93
+      },
+      "combined_counts": {
+        "train": 972,
+        "val": 120,
+        "test": 124
+      },
+      "synthetic_fraction": 0.75,
+      "real_fraction": 0.25,
+      "total_real": 304,
+      "total_synthetic": 912,
+      "total_combined": 1216,
+      "synthetic_categories": {
+        "normal": 730,
+        "misseated": 137,
+        "boundary_hard": 45
+      }
+    },
+    "timing_scope": "Pi roundtrip includes SSH and PNG transport, excludes camera and GUI; PC has a different worker transport path."
+  }
 }
