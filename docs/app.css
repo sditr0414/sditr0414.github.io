@@ -1480,7 +1480,7 @@ html body header.top .brand span { font-size: 15.5px; }
 }
 .robot-study .ds-body .inline-demo { width: fit-content; max-width: 100%; margin-inline: auto; aspect-ratio: auto; }
 .robot-study .ds-body .study-chart img, .robot-study .study-charts img { width: 100%; max-height: none; background: transparent; }
-.robot-study #opencv-2 figure img { max-height: 170px; }
+.robot-study #opencv-7 figure img { max-height: 170px; }
 .robot-study .study-charts h4 { text-align: center; }
 .robot-study .study-charts figcaption { text-align: center; }
 .robot-study .study-transform svg { display: block; width: min(100%, 640px); height: auto; max-height: 180px; margin-inline: auto; }
@@ -1502,7 +1502,7 @@ html body header.top .brand span { font-size: 15.5px; }
   .robot-study .ds { padding: 18px 16px; }
   .robot-study .ds-body { margin-top: 14px; }
   .robot-study .study-pair { grid-template-columns: 1fr; gap: 18px; }
-  .robot-study #opencv-2 .study-pair { grid-template-columns: 1fr 1fr; gap: 12px; }
+  .robot-study #opencv-7 .study-pair { grid-template-columns: 1fr 1fr; gap: 12px; }
   .robot-study .ds-body figure img, .robot-study .ds-body .inline-demo video { max-height: 190px; }
   .robot-study .ds-body .study-chart img, .robot-study .study-charts img { max-height: none; }
   .robot-study .study-table th, .robot-study .study-table td { padding: 8px 5px; }
@@ -1510,8 +1510,8 @@ html body header.top .brand span { font-size: 15.5px; }
   .robot-study .ds-body .study-note { font-size: 14px; margin-top: 12px; }
   .robot-study .study-takeaway { font-size: 16px; margin-top: 12px; }
   .robot-study .study-transform svg { max-height: 130px; }
-  .robot-study #opencv-6 .inline-demo video { max-height: 150px; }
-  .robot-study #opencv-9 .case-grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 12px; }
+  .robot-study #opencv-2 .inline-demo video { max-height: 150px; }
+  .robot-study #opencv-4 .case-grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 12px; }
 }
 @media (max-height: 520px) and (orientation: landscape) {
   .robot-study .ds { padding: 12px 18px; }
@@ -1520,6 +1520,6 @@ html body header.top .brand span { font-size: 15.5px; }
   .robot-study .ds-body { margin-top: 10px; }
   .robot-study .ds-body figure img, .robot-study .ds-body .inline-demo video { max-height: 100px; }
   .robot-study .ds-body .study-chart img, .robot-study .study-charts img { width: auto; max-height: calc(100svh - 250px); }
-  .robot-study #opencv-2 figure img { max-height: 100px; }
+  .robot-study #opencv-7 figure img { max-height: 100px; }
   .robot-study .ds-body .flow.row4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
 }

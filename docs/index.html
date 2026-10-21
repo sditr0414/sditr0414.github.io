@@ -4,7 +4,7 @@
 <meta content="noindex" name="robots"/><title>정승호 포트폴리오</title>
 <link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
-<link href="app.css?v=20261021ai12g" rel="stylesheet"/></head>
+<link href="app.css?v=20261021flow" rel="stylesheet"/></head>
 <body>
 <a class="skip" href="#about">본문으로 이동</a>
 <header class="top" id="top">
@@ -135,15 +135,15 @@
 </header>
 <nav class="dv-toc" aria-label="상세 목차"><ol>
 <li><a href="#opencv-1" data-to="opencv-1"><b>01</b>개요·시연</a></li>
-<li><a href="#opencv-2" data-to="opencv-2"><b>02</b>학습 데이터</a></li>
-<li><a href="#opencv-3" data-to="opencv-3"><b>03</b>학습 방식 비교</a></li>
-<li><a href="#opencv-4" data-to="opencv-4"><b>04</b>양자화·실행 형식</a></li>
-<li><a href="#opencv-5" data-to="opencv-5"><b>05</b>Pi 모델 선택</a></li>
-<li><a href="#opencv-6" data-to="opencv-6"><b>06</b>지그 위치·방향</a></li>
-<li><a href="#opencv-7" data-to="opencv-7"><b>07</b>위치 확보 결과</a></li>
-<li><a href="#opencv-8" data-to="opencv-8"><b>08</b>목표 자세 보정</a></li>
-<li><a href="#opencv-9" data-to="opencv-9"><b>09</b>부품·안착 검사</a></li>
-<li><a href="#opencv-10" data-to="opencv-10"><b>10</b>티칭·미리보기</a></li>
+<li><a href="#opencv-2" data-to="opencv-2"><b>02</b>지그 위치·방향</a></li>
+<li><a href="#opencv-3" data-to="opencv-3"><b>03</b>목표 자세 보정</a></li>
+<li><a href="#opencv-4" data-to="opencv-4"><b>04</b>부품·안착 검사</a></li>
+<li><a href="#opencv-5" data-to="opencv-5"><b>05</b>티칭·미리보기</a></li>
+<li><a href="#opencv-6" data-to="opencv-6"><b>06</b>위치 확보 결과</a></li>
+<li><a href="#opencv-7" data-to="opencv-7"><b>07</b>학습 데이터</a></li>
+<li><a href="#opencv-8" data-to="opencv-8"><b>08</b>학습 방식 비교</a></li>
+<li><a href="#opencv-9" data-to="opencv-9"><b>09</b>양자화·실행 형식</a></li>
+<li><a href="#opencv-10" data-to="opencv-10"><b>10</b>Pi 모델 선택</a></li>
 <li><a href="#opencv-11" data-to="opencv-11"><b>11</b>처리 지연 개선</a></li>
 <li><a href="#opencv-12" data-to="opencv-12"><b>12</b>공정 연동·검증</a></li>
 </ol></nav>
@@ -158,7 +158,59 @@
 </div></div></section>
 
 <section class="ds" id="opencv-2">
-<div class="ds-head"><p class="ds-no">02<span>학습 데이터</span></p><h3>실제 촬영 데이터에 배치·조명 변화를 보완</h3><p class="ds-deck">지그·단품·부분 조립체·완제품을 13개 클래스로 구분</p></div>
+<div class="ds-head"><p class="ds-no">02<span>지그 위치·방향</span></p><h3>운반 지그는 영상 특징, 팔레트는 설계 형상으로 확인</h3></div>
+<div class="ds-body"><div class="split">
+<figure><div class="inline-demo"><video class="inline-demo-video" data-src="assets/videos/opencv-jig-adoption.mp4" poster="assets/images/opencv-jig-live.webp" aria-label="지그 위치 재채택 시연 · 무음" muted loop playsinline controls preload="none"></video></div><figcaption>지그 이동 후 위치를 다시 채택하는 시연</figcaption></figure>
+<div class="text-stack">
+<section><h4>운반 지그 · AI + OpenCV</h4><p>AI로 초기 영역을 찾고 OpenCV로 추적함. 실제 외곽·격자·원형 특징으로 위치와 360° 방향을 검증함</p></section>
+<section><h4>완제품 팔레트 · AI + CAD</h4><p>보이는 AI 마스크 경계에 설계 형상을 맞춤. 제품에 가려진 외곽을 임의로 채우지 않음</p></section>
+<section><h4>동작에 넘기기 전</h4><p>서로 다른 관측의 일치·신선도를 확인하고 위치를 확정한 뒤 실행함</p></section>
+</div></div></div></section>
+
+<section class="ds" id="opencv-3">
+<div class="ds-head"><p class="ds-no">03<span>목표 자세 보정</span></p><h3>지그의 이동·회전을 집게 목표에 반영</h3></div>
+<div class="ds-body">
+<figure class="study-transform"><svg viewBox="0 0 640 190" role="img" aria-label="티칭 기준의 집게 작업점을 지그 이동과 회전만큼 바꾼 뒤 역기구학으로 관절 목표를 계산"><g fill="none" stroke="#7593ab" stroke-width="2"><rect x="55" y="56" width="150" height="90"/><rect x="-75" y="-45" width="150" height="90" transform="translate(490 101) rotate(-18)"/></g><g fill="#315e80"><circle cx="103" cy="101" r="6"/><circle cx="155" cy="101" r="8"/><circle cx="465" cy="109" r="6"/><circle cx="516" cy="93" r="8"/><path d="M265 98h100v-8l20 12-20 12v-8H265Z"/></g><g fill="#203b52" font-size="17" text-anchor="middle"><text x="130" y="30">티칭 기준 위치</text><text x="490" y="30">현재 지그 위치</text><text x="322" y="79">이동 Δx·Δy</text><text x="322" y="139">회전 θ</text><text x="320" y="183" font-size="15">집게 높이와 벌림은 유지</text></g></svg></figure>
+<ol class="flow row4"><li><span>01</span><h4>순기구학</h4><p>티칭 관절값과 TCP로 집게 자세 계산</p></li><li><span>02</span><h4>목표 변환</h4><p>지그 이동·회전만큼 집게 목표 보정</p></li><li><span>03</span><h4>역기구학</h4><p>관절 범위·자세 연속성을 확인해 계산</p></li><li><span>04</span><h4>도착 확인</h4><p>모터 실측 각도로 목표 도착 확인</p></li></ol>
+<p class="study-note">지그가 움직이지 않으면 원래 티칭 틱 유지 · 계산 잔차와 실물 집기 오차는 구분함</p>
+</div></section>
+
+<section class="ds" id="opencv-4">
+<div class="ds-head"><p class="ds-no">04<span>부품·안착 검사</span></p><h3>부품 종류와 제자리에 놓였는지를 따로 확인</h3></div>
+<div class="ds-body">
+<div class="case-grid c2"><section><h4>AI 라벨 · 무엇이 있는가</h4><p>A/B 부품·조립 상태를 구분하고 검사 위치에 연결</p></section><section><h4>CAD 검사 · 제자리에 있는가</h4><p>설계 형상·위치·방향으로 안착 상태 확인</p></section></div>
+<table class="study-table"><caption>같은 검사 위치에서 비교한 결과</caption><thead><tr><th scope="col">방식</th><th scope="col">부품 구분</th><th scope="col">안착 판정 일치</th><th scope="col">평균 처리</th></tr></thead><tbody>
+<tr><th scope="row">OpenCV</th><td>247/249</td><td>52/53</td><td>0.937초</td></tr>
+<tr class="study-selected"><th scope="row">AI 라벨 + CAD</th><td>249/249</td><td>52/53</td><td>1.592초</td></tr>
+</tbody></table>
+<p class="study-takeaway">종류 구분 2건을 보완했지만, 최종 안착 판정은 같고 처리 시간은 늘어남</p>
+<p class="study-note">구분 249개 대상 · 안착 44장/53개 대상(위치 미확정 1개)<br>시간은 위치가 확보된 284장 · 내부 결합 강도·실물 공정 성공률과 구분</p>
+</div></section>
+
+<section class="ds" id="opencv-5">
+<div class="ds-head"><p class="ds-no">05<span>티칭·미리보기</span></p><h3>작업 기준과 실행 전 자세를 한 화면에서 확인</h3></div>
+<div class="ds-body">
+<div class="study-pair">
+<figure><div class="inline-demo"><video class="inline-demo-video" data-src="assets/videos/opencv-gui.mp4" poster="assets/images/opencv-gui-poster.webp" aria-label="티칭 GUI 동작 예시 · 무음" muted loop playsinline controls preload="none"></video></div><figcaption>스텝 편집 · 카메라 측정 · 검사 화면</figcaption></figure>
+<figure><a class="image-open" href="assets/images/opencv-mujoco-latest.webp" aria-label="티칭 앱의 MuJoCo 미리보기 크게 보기"><img src="assets/images/opencv-mujoco-latest.webp" width="977" height="787" loading="lazy" alt="기존 티칭 앱에서 로봇팔과 작업대 자세를 확인하는 MuJoCo 미리보기"></a><figcaption>MuJoCo 자세·경로 미리보기</figcaption></figure>
+</div>
+<ul class="dots study-summary"><li><b>설정:</b> 원점·TCP·카메라·팔별 기준 관리</li><li><b>티칭:</b> 고정 자세 또는 지그 따라가기 선택</li><li><b>확인:</b> 보정 목표·관절 범위·경로 미리보기</li></ul>
+<p class="study-note">3D 표시는 실행 전 확인용이며, 실물 작업의 정확도·안전을 대신하지 않음</p>
+</div></section>
+
+<section class="ds" id="opencv-6">
+<div class="ds-head"><p class="ds-no">06<span>위치 확보 결과</span></p><h3>가려진 팔레트의 위치를 더 많이 확보</h3><p class="ds-deck">Pi 5에서 저장 사진 304장을 동일 조건으로 비교</p></div>
+<div class="ds-body"><div class="study-pair">
+<figure class="study-chart"><img src="assets/charts/robot-pallet-yield.svg" width="640" height="300" alt="팔레트 위치 확보율: OpenCV 79.3%, AI와 OpenCV 80.7%, AI와 CAD 99.6%"><figcaption>위치 확보율(%) · 허용 영역에 들어온 사진 285장</figcaption></figure>
+<div><table class="study-table"><caption>두 지그를 처리한 평균 계산 시간</caption><thead><tr><th scope="col">운반 지그 / 팔레트</th><th scope="col">시간</th></tr></thead><tbody>
+<tr><th scope="row">OpenCV / OpenCV</th><td>0.446초</td></tr>
+<tr><th scope="row">AI+OpenCV / AI+OpenCV</th><td>0.670초</td></tr>
+<tr class="study-selected"><th scope="row">AI+OpenCV / AI+CAD</th><td>0.562초</td></tr>
+</tbody></table><p class="study-takeaway">팔레트 위치 확보 226 → 284장<br>OpenCV보다 계산 시간 0.117초 증가</p></div>
+</div><p class="study-note">개발 자료 304장(학습·검증 포함) · mm 위치 오차 평가가 아님<br>운반 지그는 133/161 → 132/161로 개선되지 않음</p></div></section>
+
+<section class="ds" id="opencv-7">
+<div class="ds-head"><p class="ds-no">07<span>학습 데이터</span></p><h3>실제 촬영 데이터에 배치·조명 변화를 보완</h3><p class="ds-deck">지그·단품·부분 조립체·완제품을 13개 클래스로 구분</p></div>
 <div class="ds-body">
 <div class="study-pair">
 <figure><a class="image-open" href="assets/images/robot-training-real.png" aria-label="실물 데이터 원본 크게 보기"><img src="assets/images/robot-training-real.png" width="1280" height="720" loading="lazy" alt="실제 작업대의 운반 지그와 리니어 지그, 부품을 촬영한 데이터"></a><figcaption>실물 사진 · 부품 종류·보이는 윤곽 확인</figcaption></figure>
@@ -171,8 +223,8 @@
 <p class="study-note">평가 그래프는 실물 테스트의 마스크 성능만 표시함 · 클래스와 보이는 윤곽을 라벨링하고, 테스트는 학습·양자화 보정에서 제외함</p>
 </div></section>
 
-<section class="ds" id="opencv-3">
-<div class="ds-head"><p class="ds-no">03<span>학습 방식 비교</span></p><h3>실물·혼합·순차 학습 비교</h3></div>
+<section class="ds" id="opencv-8">
+<div class="ds-head"><p class="ds-no">08<span>학습 방식 비교</span></p><h3>실물·혼합·순차 학습 비교</h3></div>
 <div class="ds-body">
 <div class="study-pair study-charts">
 <figure><h4>실물만 ↔ 혼합 · YOLO26s</h4><img src="assets/charts/robot-training-s.svg" width="640" height="240" alt="YOLO26s NCNN FP16의 실물 테스트 마스크 mAP50–95: 실물만 94.77, 혼합 94.76"><figcaption>실물 마스크 mAP50–95 · NCNN FP16</figcaption></figure>
@@ -182,8 +234,8 @@
 <p class="study-note">순차: 가상 학습 후 실물로 추가 학습 · 실물 테스트 31장<br>AP는 높을수록 좋음 · 모델·평가 절차가 다른 두 묶음의 수치는 직접 비교하지 않음</p>
 </div></section>
 
-<section class="ds" id="opencv-4">
-<div class="ds-head"><p class="ds-no">04<span>양자화·실행 형식</span></p><h3>Pi에서 빠른 실행 형식을 선택</h3><p class="ds-deck">혼합 학습 YOLO26s · 입력 960</p></div>
+<section class="ds" id="opencv-9">
+<div class="ds-head"><p class="ds-no">09<span>양자화·실행 형식</span></p><h3>Pi에서 빠른 실행 형식을 선택</h3><p class="ds-deck">혼합 학습 YOLO26s · 입력 960</p></div>
 <div class="ds-body">
 <div class="study-pair">
 <figure class="study-chart"><img src="assets/charts/robot-quantization.svg" width="640" height="300" alt="처리 시간 중앙값: 원본 PyTorch 4.142초, NCNN FP16 1.223초, ONNX Runtime INT8 혼합 1.959초"><figcaption>처리 시간 중앙값(초) · 예열 3회 후 12회 측정</figcaption></figure>
@@ -196,8 +248,8 @@
 <p class="study-note">Pi 5 CPU 4스레드 · 정밀도와 실행 엔진이 함께 다른 비교<br>INT8은 일부 FP32 연산 유지 · 시간은 전처리·추론·후처리이며 촬영·전송·표시 제외</p>
 </div></section>
 
-<section class="ds" id="opencv-5">
-<div class="ds-head"><p class="ds-no">05<span>Pi 모델 선택</span></p><h3>작은 n 모델로 처리 비용을 더 줄임</h3><p class="ds-deck">같은 혼합 학습 절차 · 입력 960 · NCNN FP16</p></div>
+<section class="ds" id="opencv-10">
+<div class="ds-head"><p class="ds-no">10<span>Pi 모델 선택</span></p><h3>작은 n 모델로 처리 비용을 더 줄임</h3><p class="ds-deck">같은 혼합 학습 절차 · 입력 960 · NCNN FP16</p></div>
 <div class="ds-body"><div class="study-pair">
 <figure class="study-chart"><img src="assets/charts/robot-model-size.svg" width="640" height="240" alt="Pi 5 처리 시간 중앙값: YOLO26s 1.073초, YOLO26n 0.469초"><figcaption>처리 시간 중앙값(초) · Pi 5 · 모델별 24회 측정</figcaption></figure>
 <div><table class="study-table"><caption>실물 테스트와 Pi 메모리 비교</caption><thead><tr><th scope="col">모델</th><th scope="col">마스크 mAP ↑</th><th scope="col">최대 메모리 ↓</th></tr></thead><tbody>
@@ -205,58 +257,6 @@
 <tr class="study-selected"><th scope="row">YOLO26n</th><td>95.79</td><td>272.7MiB</td></tr>
 </tbody></table><p class="study-takeaway">이 비교에서 n은 약 2.29배 빠르고, 실물 마스크 성능도 낮아지지 않음</p></div>
 </div><p class="study-note">마스크 mAP50–95 · 실물 31장 · 한 번의 학습 시드 결과<br>앞 페이지와 별도 측정이므로 속도 개선 배수를 이어 곱하지 않음 · 실제 앱 FPS와 구분</p></div></section>
-
-<section class="ds" id="opencv-6">
-<div class="ds-head"><p class="ds-no">06<span>지그 위치·방향</span></p><h3>운반 지그는 영상 특징, 팔레트는 설계 형상으로 확인</h3></div>
-<div class="ds-body"><div class="split">
-<figure><div class="inline-demo"><video class="inline-demo-video" data-src="assets/videos/opencv-jig-adoption.mp4" poster="assets/images/opencv-jig-live.webp" aria-label="지그 위치 재채택 시연 · 무음" muted loop playsinline controls preload="none"></video></div><figcaption>지그 이동 후 위치를 다시 채택하는 시연</figcaption></figure>
-<div class="text-stack">
-<section><h4>운반 지그 · AI + OpenCV</h4><p>AI로 초기 영역을 찾고 OpenCV로 추적함. 실제 외곽·격자·원형 특징으로 위치와 360° 방향을 검증함</p></section>
-<section><h4>완제품 팔레트 · AI + CAD</h4><p>보이는 AI 마스크 경계에 설계 형상을 맞춤. 제품에 가려진 외곽을 임의로 채우지 않음</p></section>
-<section><h4>동작에 넘기기 전</h4><p>서로 다른 관측의 일치·신선도를 확인하고 위치를 확정한 뒤 실행함</p></section>
-</div></div></div></section>
-
-<section class="ds" id="opencv-7">
-<div class="ds-head"><p class="ds-no">07<span>위치 확보 결과</span></p><h3>가려진 팔레트의 위치를 더 많이 확보</h3><p class="ds-deck">Pi 5에서 저장 사진 304장을 동일 조건으로 비교</p></div>
-<div class="ds-body"><div class="study-pair">
-<figure class="study-chart"><img src="assets/charts/robot-pallet-yield.svg" width="640" height="300" alt="팔레트 위치 확보율: OpenCV 79.3%, AI와 OpenCV 80.7%, AI와 CAD 99.6%"><figcaption>위치 확보율(%) · 허용 영역에 들어온 사진 285장</figcaption></figure>
-<div><table class="study-table"><caption>두 지그를 처리한 평균 계산 시간</caption><thead><tr><th scope="col">운반 지그 / 팔레트</th><th scope="col">시간</th></tr></thead><tbody>
-<tr><th scope="row">OpenCV / OpenCV</th><td>0.446초</td></tr>
-<tr><th scope="row">AI+OpenCV / AI+OpenCV</th><td>0.670초</td></tr>
-<tr class="study-selected"><th scope="row">AI+OpenCV / AI+CAD</th><td>0.562초</td></tr>
-</tbody></table><p class="study-takeaway">팔레트 위치 확보 226 → 284장<br>OpenCV보다 계산 시간 0.117초 증가</p></div>
-</div><p class="study-note">개발 자료 304장(학습·검증 포함) · mm 위치 오차 평가가 아님<br>운반 지그는 133/161 → 132/161로 개선되지 않음</p></div></section>
-
-<section class="ds" id="opencv-8">
-<div class="ds-head"><p class="ds-no">08<span>목표 자세 보정</span></p><h3>지그의 이동·회전을 집게 목표에 반영</h3></div>
-<div class="ds-body">
-<figure class="study-transform"><svg viewBox="0 0 640 190" role="img" aria-label="티칭 기준의 집게 작업점을 지그 이동과 회전만큼 바꾼 뒤 역기구학으로 관절 목표를 계산"><g fill="none" stroke="#7593ab" stroke-width="2"><rect x="55" y="56" width="150" height="90"/><rect x="-75" y="-45" width="150" height="90" transform="translate(490 101) rotate(-18)"/></g><g fill="#315e80"><circle cx="103" cy="101" r="6"/><circle cx="155" cy="101" r="8"/><circle cx="465" cy="109" r="6"/><circle cx="516" cy="93" r="8"/><path d="M265 98h100v-8l20 12-20 12v-8H265Z"/></g><g fill="#203b52" font-size="17" text-anchor="middle"><text x="130" y="30">티칭 기준 위치</text><text x="490" y="30">현재 지그 위치</text><text x="322" y="79">이동 Δx·Δy</text><text x="322" y="139">회전 θ</text><text x="320" y="183" font-size="15">집게 높이와 벌림은 유지</text></g></svg></figure>
-<ol class="flow row4"><li><span>01</span><h4>순기구학</h4><p>티칭 관절값과 TCP로 집게 자세 계산</p></li><li><span>02</span><h4>목표 변환</h4><p>지그 이동·회전만큼 집게 목표 보정</p></li><li><span>03</span><h4>역기구학</h4><p>관절 범위·자세 연속성을 확인해 계산</p></li><li><span>04</span><h4>도착 확인</h4><p>모터 실측 각도로 목표 도착 확인</p></li></ol>
-<p class="study-note">지그가 움직이지 않으면 원래 티칭 틱 유지 · 계산 잔차와 실물 집기 오차는 구분함</p>
-</div></section>
-
-<section class="ds" id="opencv-9">
-<div class="ds-head"><p class="ds-no">09<span>부품·안착 검사</span></p><h3>부품 종류와 제자리에 놓였는지를 따로 확인</h3></div>
-<div class="ds-body">
-<div class="case-grid c2"><section><h4>AI 라벨 · 무엇이 있는가</h4><p>A/B 부품·조립 상태를 구분하고 검사 위치에 연결</p></section><section><h4>CAD 검사 · 제자리에 있는가</h4><p>설계 형상·위치·방향으로 안착 상태 확인</p></section></div>
-<table class="study-table"><caption>같은 검사 위치에서 비교한 결과</caption><thead><tr><th scope="col">방식</th><th scope="col">부품 구분</th><th scope="col">안착 판정 일치</th><th scope="col">평균 처리</th></tr></thead><tbody>
-<tr><th scope="row">OpenCV</th><td>247/249</td><td>52/53</td><td>0.937초</td></tr>
-<tr class="study-selected"><th scope="row">AI 라벨 + CAD</th><td>249/249</td><td>52/53</td><td>1.592초</td></tr>
-</tbody></table>
-<p class="study-takeaway">종류 구분 2건을 보완했지만, 최종 안착 판정은 같고 처리 시간은 늘어남</p>
-<p class="study-note">구분 249개 대상 · 안착 44장/53개 대상(위치 미확정 1개)<br>시간은 위치가 확보된 284장 · 내부 결합 강도·실물 공정 성공률과 구분</p>
-</div></section>
-
-<section class="ds" id="opencv-10">
-<div class="ds-head"><p class="ds-no">10<span>티칭·미리보기</span></p><h3>작업 기준과 실행 전 자세를 한 화면에서 확인</h3></div>
-<div class="ds-body">
-<div class="study-pair">
-<figure><div class="inline-demo"><video class="inline-demo-video" data-src="assets/videos/opencv-gui.mp4" poster="assets/images/opencv-gui-poster.webp" aria-label="티칭 GUI 동작 예시 · 무음" muted loop playsinline controls preload="none"></video></div><figcaption>스텝 편집 · 카메라 측정 · 검사 화면</figcaption></figure>
-<figure><a class="image-open" href="assets/images/opencv-mujoco-latest.webp" aria-label="티칭 앱의 MuJoCo 미리보기 크게 보기"><img src="assets/images/opencv-mujoco-latest.webp" width="977" height="787" loading="lazy" alt="기존 티칭 앱에서 로봇팔과 작업대 자세를 확인하는 MuJoCo 미리보기"></a><figcaption>MuJoCo 자세·경로 미리보기</figcaption></figure>
-</div>
-<ul class="dots study-summary"><li><b>설정:</b> 원점·TCP·카메라·팔별 기준 관리</li><li><b>티칭:</b> 고정 자세 또는 지그 따라가기 선택</li><li><b>확인:</b> 보정 목표·관절 범위·경로 미리보기</li></ul>
-<p class="study-note">3D 표시는 실행 전 확인용이며, 실물 작업의 정확도·안전을 대신하지 않음</p>
-</div></section>
 
 <section class="ds" id="opencv-11">
 <div class="ds-head"><p class="ds-no">11<span>처리 지연 개선</span></p><h3>같은 영상의 AI 추론을 한 번만 수행</h3><p class="ds-deck">지그 탐색과 부품 검사에서 필요한 결과를 공유</p></div>
@@ -377,6 +377,6 @@
 <nav aria-label="다른 프로젝트" class="pager"><a href="#thesis"><small>05</small><b>노크 위치 탐지 연구</b></a><a class="next" href="#opencv"><small>01</small><b>비전 기반 로봇팔 티칭·검사</b></a></nav>
 </article></div>
 </div>
-<script defer src="slide-pages.js?v=20261021ai12g"></script>
-<script defer="" src="app.js?v=20261021ai12g"></script>
+<script defer src="slide-pages.js?v=20261021flow"></script>
+<script defer="" src="app.js?v=20261021flow"></script>
 </body></html>
