@@ -1582,3 +1582,11 @@ html body header.top .brand span { font-size: 15.5px; }
 /* captions start where their image or video starts: the figure shrinks to the media and centres */
 .robot-study .ds-body figure:not(.study-chart):not(.svg-fig):not(:has(.pallet-photo)):not(.study-transform) { width: fit-content; max-width: 100%; margin-inline: auto; }
 .robot-study .ds-body figure:not(.study-chart):not(.svg-fig) > figcaption { text-align: left; }
+
+/* Carrier adoption: physical evidence beside the acquisition sequence. */
+.robot-study .carrier-layout { grid-template-columns: .8fr 1.2fr; gap: 32px; align-items: center; }
+.robot-study .carrier-photo svg { display: block; width: 100%; max-width: 350px; height: auto; max-height: 340px; }
+@media (max-width: 680px) {
+  .robot-study .carrier-layout { grid-template-columns: 1fr; gap: 18px; }
+  .robot-study .carrier-photo svg { max-height: 220px; }
+}
