@@ -403,12 +403,12 @@ function closeAnim(id) {
 /* back to the top of the detail sheet, at the right end of its last line */
 const sheetTop = document.createElement('p');
 sheetTop.className = 'end sheet-end';
-sheetTop.innerHTML = '<a class="to-top" href="#top-of-sheet"><span>맨 위로</span><i aria-hidden="true"></i></a>';
+sheetTop.innerHTML = '<span class="end-nav"><a class="to-main" href="#projects">메인으로</a><a class="to-top" href="#top-of-sheet"><span>맨 위로</span><i aria-hidden="true"></i></a></span>';
 /* same contact line as the main page footer, ahead of the top link */
 const mainEnd = $('main p.end') || $('p.end:not(.sheet-end)');
 if (mainEnd) [...mainEnd.children].filter(n => !n.classList.contains('to-top')).reverse().forEach(n => sheetTop.prepend(n.cloneNode(true)));
 $('.sheet-in').appendChild(sheetTop);
-$('a', sheetTop).addEventListener('click', e => {
+$('a.to-top', sheetTop).addEventListener('click', e => {
   e.preventDefault();
   sheetGl.stop(); clearTimeout(swSnap);
   const from = sheet.scrollTop, t0 = performance.now(), dur = Math.min(900, Math.max(450, from * .3));
@@ -474,7 +474,7 @@ tocBtn.innerHTML = '<i aria-hidden="true"></i>'; tocBtn.setAttribute('aria-label
 const topBtn = document.createElement('button');
 topBtn.type = 'button'; topBtn.className = 'top-fab'; topBtn.setAttribute('aria-label', '맨 위로'); topBtn.title = '맨 위로';
 topBtn.innerHTML = '<i aria-hidden="true"></i>';
-topBtn.addEventListener('click', () => { closeToc(); $('a', sheetTop).click(); });
+topBtn.addEventListener('click', () => { closeToc(); $('a.to-top', sheetTop).click(); });
 const fabs = document.createElement('div'); fabs.className = 'fab-stack';
 const tocPanel = document.createElement('nav');
 tocPanel.className = 'toc-pop'; tocPanel.hidden = true; tocPanel.setAttribute('aria-label', '상세 목차');
@@ -489,7 +489,20 @@ const fillToc = () => {
     const src = $(`.dv-toc a[data-to="${l.dataset.to}"]`, art); if (src) src.click();
   }));
 };
+/* a mouse resting on the contents button opens the list; leaving both button and list closes it again */
+let tocHoverT = 0, tocLeaveT = 0, tocHoverAt = 0;
+const showToc = () => { fillToc(); tocPanel.hidden = false; tocBtn.setAttribute('aria-expanded', 'true'); };
+if (matchMedia('(hover: hover) and (pointer: fine)').matches) {
+  tocBtn.addEventListener('pointerenter', () => { clearTimeout(tocLeaveT); if (tocPanel.hidden) tocHoverT = setTimeout(() => { showToc(); tocHoverAt = Date.now(); }, 450); });
+  const leave = () => { clearTimeout(tocHoverT); if (tocHoverAt) tocLeaveT = setTimeout(() => { if (!tocBtn.matches(':hover') && !tocPanel.matches(':hover')) { closeToc(); tocHoverAt = 0; } }, 350); };
+  tocBtn.addEventListener('pointerleave', leave);
+  tocPanel.addEventListener('pointerleave', leave);
+  tocPanel.addEventListener('pointerenter', () => clearTimeout(tocLeaveT));
+}
 tocBtn.addEventListener('click', () => {
+  clearTimeout(tocHoverT);
+  if (!tocPanel.hidden && tocHoverAt && Date.now() - tocHoverAt < 1500) { tocHoverAt = 0; return; }
+  tocHoverAt = 0;
   if (tocPanel.hidden) { fillToc(); tocPanel.hidden = false; tocBtn.setAttribute('aria-expanded', 'true'); const c = $('a.cur', tocPanel) || $('a', tocPanel); c && c.focus({ preventScroll: true }); }
   else closeToc();
 });
@@ -686,7 +699,10 @@ let keepAt = null, keepRaf = 0, resizing = 0;
 const noteAnchor = () => { if (resizing) return; if (!keepRaf) keepRaf = requestAnimationFrame(() => { keepRaf = 0; keepAt = { sheet: !!open, a: anchorOf(!!open) }; }); };
 addEventListener('scroll', noteAnchor, { passive: true });
 sheet.addEventListener('scroll', noteAnchor, { passive: true });
+/* a video in fullscreen must stay where it is: re-paginating would move it out of the page and drop fullscreen */
+const inFullscreen = () => !!(document.fullscreenElement || document.webkitFullscreenElement || [...document.querySelectorAll('video')].some(v => v.webkitDisplayingFullscreen));
 addEventListener('resize', () => {
+  if (inFullscreen()) return;
   const k = keepAt;
   if (!k || !k.a) { requestAnimationFrame(() => slidePages.prepare(articles.find(a => !a.hidden))); return; }
   clearTimeout(resizing);

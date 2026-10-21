@@ -1857,3 +1857,9 @@ html body .pc-lead .pc-body .pc-more { font-size: 15px; }
 .adoption-flow li:nth-child(1) strong { color: #4f7aa6; }
 .adoption-flow li:nth-child(2) strong { color: #2f5c88; }
 .adoption-flow li:nth-child(3) strong { color: #183c62; }
+/* detail sheet footer: "메인으로" sits just left of "맨 위로" */
+.sheet-end .to-main { margin-left: auto; border-bottom: 0; color: var(--muted); font-weight: 500; display: inline-flex; align-items: center; min-height: 26px; transition: color .2s var(--ease); }
+.sheet-end .to-main:hover { color: var(--link); }
+.sheet-end .to-main + .to-top { margin-left: 22px; }
+.sheet-end .end-nav { margin-left: auto; display: inline-flex; align-items: center; gap: 22px; white-space: nowrap; }
+.sheet-end .end-nav .to-main, .sheet-end .end-nav .to-top { margin-left: 0; }
