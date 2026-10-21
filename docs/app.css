@@ -1827,3 +1827,12 @@ html body .pc-lead .pc-body .pc-more { font-size: 15px; }
 /* slide 13: the failure row uses the same emphasis as highlighted rows in other tables */
 .robot-study .log-evidence .log-failure td { background: var(--box) !important; color: var(--ink); font-weight: 700; }
 .dv-code + .dv-code { margin-left: 8px; }
+/* project 01 overview: multi-item rows list "role  name" pairs in two aligned columns */
+.robot-study .spec-pair { display: grid; grid-template-columns: 6.5em minmax(0, 1fr); column-gap: 10px; align-items: baseline; }
+.robot-study .spec-pair + .spec-pair { margin-top: 2px; }
+.robot-study .spec-k { font-weight: 500; color: var(--muted); font-size: .9em; }
+@media (max-width: 680px) {
+  .robot-study .ds-first .overview-copy .specs { grid-template-columns: 1fr !important; }
+  .robot-study .ds-first .overview-copy .specs > div { grid-column: auto !important; border-right: 0 !important; }
+  .robot-study .spec-pair { grid-template-columns: 6em minmax(0, 1fr); }
+}
