@@ -1,0 +1,469 @@
+{
+  "protocol": {
+    "format": "NCNN FP16",
+    "input": 960,
+    "threads": 4,
+    "order": [
+      "n",
+      "s",
+      "s",
+      "n"
+    ],
+    "warmup_per_process": 3,
+    "runs_per_model": 24,
+    "accuracy": "Ultralytics 8.4.177, real test 31 images, batch1, rectFalse, mask_ratio2, overlap_maskFalse",
+    "timing": "preprocessing + inference + postprocessing; excludes camera, drawing, network, UI",
+    "n_model": "Final boundary-repaired YOLO26n",
+    "n_checkpoint_sha256": "4f3e8a701b9fa2038fef71e92ccbd495b23a1dcdbe470d0ca4c5c4470b16a598"
+  },
+  "models": {
+    "s": {
+      "seconds": 1.183679244499217,
+      "mask_map": 94.7641185480343,
+      "peak_rss_mib": 427.484375,
+      "accuracy_metrics": {
+        "metrics/precision(B)": 0.9930392031678357,
+        "metrics/recall(B)": 0.9928041354858126,
+        "metrics/mAP50(B)": 0.9949999999999998,
+        "metrics/mAP50-95(B)": 0.9836538461538461,
+        "metrics/precision(M)": 0.9930392031678357,
+        "metrics/recall(M)": 0.9928041354858126,
+        "metrics/mAP50(M)": 0.9949999999999998,
+        "metrics/mAP50-95(M)": 0.947641185480343,
+        "fitness": 1.931295031634189
+      },
+      "pi_blocks": [
+        {
+          "model": "s",
+          "status": "complete",
+          "host": "arm3",
+          "machine": "aarch64",
+          "platform": "Linux-6.8.0-1065-raspi-aarch64-with-glibc2.39",
+          "cpu_model": "Raspberry Pi 5 Model B Rev 1.1\u0000",
+          "python": "3.12.3",
+          "ncnn": "1.0.20260526",
+          "numpy": "2.5.4",
+          "opencv": "5.0.0",
+          "options": {
+            "num_threads": 4,
+            "use_vulkan_compute": false,
+            "use_fp16_storage": true,
+            "use_fp16_packed": true,
+            "use_fp16_arithmetic": true
+          },
+          "confidence": 0.5,
+          "iou": 0.7,
+          "input": 960,
+          "warmup": 3,
+          "runs": 12,
+          "input_sha256": "46e667475eb72623f72b2ef455196ea2aa2f7f47bd12ebc104de60b296b4b02d",
+          "model_sha256": {
+            "metadata.yaml": "674ba9d0ea066eaa0aa14294db1cfa9ca5ae149b2790cb3c87b66c4f27165e68",
+            "model.ncnn.param": "b521ac2ecba84f253970ae0aeba8cdbae927ed25cf80d887dbc2e7193abcc725",
+            "model.ncnn.bin": "5dcb1dcdca77e3b1d9886cf62ce3f7861b9314c219683e35cdb537608bb9fd7b"
+          },
+          "temperature_before": "51800",
+          "temperature_after": "52900",
+          "cpu_frequency_khz": "2400000",
+          "cpu_governor": "ondemand",
+          "load_average": [
+            1.75244140625,
+            1.2646484375,
+            0.70849609375
+          ],
+          "peak_rss_mb": 427.390625,
+          "samples": [
+            {
+              "inference_ms": 1103.4802070062142,
+              "total_ms": 1174.7090930002742,
+              "objects": 10
+            },
+            {
+              "inference_ms": 1111.799685000733,
+              "total_ms": 1178.3826559985755,
+              "objects": 10
+            },
+            {
+              "inference_ms": 1140.3702480020002,
+              "total_ms": 1200.097523003933,
+              "objects": 10
+            },
+            {
+              "inference_ms": 1111.3215570003376,
+              "total_ms": 1174.6509860022343,
+              "objects": 10
+            },
+            {
+              "inference_ms": 1113.00382000627,
+              "total_ms": 1175.017100002151,
+              "objects": 10
+            },
+            {
+              "inference_ms": 1107.6919059996726,
+              "total_ms": 1174.075562004873,
+              "objects": 10
+            },
+            {
+              "inference_ms": 1121.1220949990093,
+              "total_ms": 1183.33054100367,
+              "objects": 10
+            },
+            {
+              "inference_ms": 1116.4844779996201,
+              "total_ms": 1184.5929519986385,
+              "objects": 10
+            },
+            {
+              "inference_ms": 1109.174172001076,
+              "total_ms": 1159.816249004507,
+              "objects": 10
+            },
+            {
+              "inference_ms": 1116.1995169968577,
+              "total_ms": 1183.9483619987732,
+              "objects": 10
+            },
+            {
+              "inference_ms": 1116.7460010037757,
+              "total_ms": 1179.1613930035965,
+              "objects": 10
+            },
+            {
+              "inference_ms": 1113.5122009945917,
+              "total_ms": 1181.0630639956798,
+              "objects": 10
+            }
+          ],
+          "scope": "model inference and preprocessing/postprocessing only; no capture/drawing/network/UI; not app FPS"
+        },
+        {
+          "model": "s",
+          "status": "complete",
+          "host": "arm3",
+          "machine": "aarch64",
+          "platform": "Linux-6.8.0-1065-raspi-aarch64-with-glibc2.39",
+          "cpu_model": "Raspberry Pi 5 Model B Rev 1.1\u0000",
+          "python": "3.12.3",
+          "ncnn": "1.0.20260526",
+          "numpy": "2.5.4",
+          "opencv": "5.0.0",
+          "options": {
+            "num_threads": 4,
+            "use_vulkan_compute": false,
+            "use_fp16_storage": true,
+            "use_fp16_packed": true,
+            "use_fp16_arithmetic": true
+          },
+          "confidence": 0.5,
+          "iou": 0.7,
+          "input": 960,
+          "warmup": 3,
+          "runs": 12,
+          "input_sha256": "46e667475eb72623f72b2ef455196ea2aa2f7f47bd12ebc104de60b296b4b02d",
+          "model_sha256": {
+            "metadata.yaml": "674ba9d0ea066eaa0aa14294db1cfa9ca5ae149b2790cb3c87b66c4f27165e68",
+            "model.ncnn.param": "b521ac2ecba84f253970ae0aeba8cdbae927ed25cf80d887dbc2e7193abcc725",
+            "model.ncnn.bin": "5dcb1dcdca77e3b1d9886cf62ce3f7861b9314c219683e35cdb537608bb9fd7b"
+          },
+          "temperature_before": "52350",
+          "temperature_after": "55100",
+          "cpu_frequency_khz": "2400000",
+          "cpu_governor": "ondemand",
+          "load_average": [
+            2.2509765625,
+            1.3994140625,
+            0.76220703125
+          ],
+          "peak_rss_mb": 427.484375,
+          "samples": [
+            {
+              "inference_ms": 1099.5935749961063,
+              "total_ms": 1162.5615969969658,
+              "objects": 10
+            },
+            {
+              "inference_ms": 1142.7382709953235,
+              "total_ms": 1202.426252006262,
+              "objects": 10
+            },
+            {
+              "inference_ms": 1132.5268689979566,
+              "total_ms": 1198.1082650017925,
+              "objects": 10
+            },
+            {
+              "inference_ms": 1137.6801549995434,
+              "total_ms": 1201.225290002185,
+              "objects": 10
+            },
+            {
+              "inference_ms": 1121.9838190008886,
+              "total_ms": 1181.1999280034797,
+              "objects": 10
+            },
+            {
+              "inference_ms": 1143.1038709997665,
+              "total_ms": 1209.3482880009105,
+              "objects": 10
+            },
+            {
+              "inference_ms": 1137.4211410002317,
+              "total_ms": 1208.7782700036769,
+              "objects": 10
+            },
+            {
+              "inference_ms": 1138.4782559980522,
+              "total_ms": 1197.1041050055646,
+              "objects": 10
+            },
+            {
+              "inference_ms": 1130.0488729975768,
+              "total_ms": 1193.12747100048,
+              "objects": 10
+            },
+            {
+              "inference_ms": 1147.81145699817,
+              "total_ms": 1216.8801939988043,
+              "objects": 10
+            },
+            {
+              "inference_ms": 1153.6516350024613,
+              "total_ms": 1217.889881998417,
+              "objects": 10
+            },
+            {
+              "inference_ms": 1110.7611439947505,
+              "total_ms": 1183.4101269996609,
+              "objects": 10
+            }
+          ],
+          "scope": "model inference and preprocessing/postprocessing only; no capture/drawing/network/UI; not app FPS"
+        }
+      ]
+    },
+    "n": {
+      "seconds": 0.49129449099928024,
+      "mask_map": 97.10072360733652,
+      "peak_rss_mib": 271.640625,
+      "accuracy_metrics": {
+        "metrics/precision(B)": 0.9909642668846741,
+        "metrics/recall(B)": 0.995023149655865,
+        "metrics/mAP50(B)": 0.9949999999999998,
+        "metrics/mAP50-95(B)": 0.9788130341880341,
+        "metrics/precision(M)": 0.9909642668846741,
+        "metrics/recall(M)": 0.995023149655865,
+        "metrics/mAP50(M)": 0.9949999999999998,
+        "metrics/mAP50-95(M)": 0.9710072360733651,
+        "fitness": 1.9498202702613994
+      },
+      "pi_blocks": [
+        {
+          "model": "n",
+          "status": "complete",
+          "host": "arm3",
+          "machine": "aarch64",
+          "platform": "Linux-6.8.0-1065-raspi-aarch64-with-glibc2.39",
+          "cpu_model": "Raspberry Pi 5 Model B Rev 1.1\u0000",
+          "python": "3.12.3",
+          "ncnn": "1.0.20260526",
+          "numpy": "2.5.4",
+          "opencv": "5.0.0",
+          "options": {
+            "num_threads": 4,
+            "use_vulkan_compute": false,
+            "use_fp16_storage": true,
+            "use_fp16_packed": true,
+            "use_fp16_arithmetic": true
+          },
+          "confidence": 0.5,
+          "iou": 0.7,
+          "input": 960,
+          "warmup": 3,
+          "runs": 12,
+          "input_sha256": "46e667475eb72623f72b2ef455196ea2aa2f7f47bd12ebc104de60b296b4b02d",
+          "model_sha256": {
+            "metadata.yaml": "6d2b76803eb0217e9fffeac26a6326976857c7a9d35d82304a4416827282df13",
+            "model.ncnn.param": "e8037ba3faebb6fd713e9495888daf78a4b52950d93e885741e4ea0ebe51132c",
+            "model.ncnn.bin": "ef5c9ee1829682a68193fe4a5d49987167873b84e5bea2e1eac5dda17d302e21"
+          },
+          "temperature_before": "47400",
+          "temperature_after": "51250",
+          "cpu_frequency_khz": "2400000",
+          "cpu_governor": "ondemand",
+          "load_average": [
+            1.1015625,
+            1.11083984375,
+            0.64697265625
+          ],
+          "peak_rss_mb": 271.640625,
+          "samples": [
+            {
+              "inference_ms": 442.17744300112827,
+              "total_ms": 507.1360590009135,
+              "objects": 10
+            },
+            {
+              "inference_ms": 439.63479100057157,
+              "total_ms": 501.87497699516825,
+              "objects": 10
+            },
+            {
+              "inference_ms": 438.08680700021796,
+              "total_ms": 498.97460200008936,
+              "objects": 10
+            },
+            {
+              "inference_ms": 432.51916900044307,
+              "total_ms": 496.8253219994949,
+              "objects": 10
+            },
+            {
+              "inference_ms": 441.3391819980461,
+              "total_ms": 501.10216200118884,
+              "objects": 10
+            },
+            {
+              "inference_ms": 429.72062800254207,
+              "total_ms": 490.7216840001638,
+              "objects": 10
+            },
+            {
+              "inference_ms": 438.0036599977757,
+              "total_ms": 499.0139360015746,
+              "objects": 10
+            },
+            {
+              "inference_ms": 435.84995299897855,
+              "total_ms": 495.2553760012961,
+              "objects": 10
+            },
+            {
+              "inference_ms": 432.52798499452183,
+              "total_ms": 492.869019995851,
+              "objects": 10
+            },
+            {
+              "inference_ms": 431.415687999106,
+              "total_ms": 491.8672979983967,
+              "objects": 10
+            },
+            {
+              "inference_ms": 436.9020480007748,
+              "total_ms": 496.7320639989339,
+              "objects": 10
+            },
+            {
+              "inference_ms": 432.7850969930296,
+              "total_ms": 492.4520579952514,
+              "objects": 10
+            }
+          ],
+          "scope": "model inference and preprocessing/postprocessing only; no capture/drawing/network/UI; not app FPS"
+        },
+        {
+          "model": "n",
+          "status": "complete",
+          "host": "arm3",
+          "machine": "aarch64",
+          "platform": "Linux-6.8.0-1065-raspi-aarch64-with-glibc2.39",
+          "cpu_model": "Raspberry Pi 5 Model B Rev 1.1\u0000",
+          "python": "3.12.3",
+          "ncnn": "1.0.20260526",
+          "numpy": "2.5.4",
+          "opencv": "5.0.0",
+          "options": {
+            "num_threads": 4,
+            "use_vulkan_compute": false,
+            "use_fp16_storage": true,
+            "use_fp16_packed": true,
+            "use_fp16_arithmetic": true
+          },
+          "confidence": 0.5,
+          "iou": 0.7,
+          "input": 960,
+          "warmup": 3,
+          "runs": 12,
+          "input_sha256": "46e667475eb72623f72b2ef455196ea2aa2f7f47bd12ebc104de60b296b4b02d",
+          "model_sha256": {
+            "metadata.yaml": "6d2b76803eb0217e9fffeac26a6326976857c7a9d35d82304a4416827282df13",
+            "model.ncnn.param": "e8037ba3faebb6fd713e9495888daf78a4b52950d93e885741e4ea0ebe51132c",
+            "model.ncnn.bin": "ef5c9ee1829682a68193fe4a5d49987167873b84e5bea2e1eac5dda17d302e21"
+          },
+          "temperature_before": "54000",
+          "temperature_after": "55100",
+          "cpu_frequency_khz": "2300000",
+          "cpu_governor": "ondemand",
+          "load_average": [
+            2.52001953125,
+            1.4853515625,
+            0.79736328125
+          ],
+          "peak_rss_mb": 270.859375,
+          "samples": [
+            {
+              "inference_ms": 427.04430899902945,
+              "total_ms": 485.8640309976181,
+              "objects": 10
+            },
+            {
+              "inference_ms": 419.3924459978007,
+              "total_ms": 476.29020099702757,
+              "objects": 10
+            },
+            {
+              "inference_ms": 441.4488690017606,
+              "total_ms": 495.4294910057797,
+              "objects": 10
+            },
+            {
+              "inference_ms": 420.6441710048239,
+              "total_ms": 474.85734799556667,
+              "objects": 10
+            },
+            {
+              "inference_ms": 423.39104599523125,
+              "total_ms": 475.57529299956514,
+              "objects": 10
+            },
+            {
+              "inference_ms": 414.6287360053975,
+              "total_ms": 468.3440970038646,
+              "objects": 10
+            },
+            {
+              "inference_ms": 423.2059349960764,
+              "total_ms": 477.8655750051257,
+              "objects": 10
+            },
+            {
+              "inference_ms": 419.09655799827306,
+              "total_ms": 473.77636499732034,
+              "objects": 10
+            },
+            {
+              "inference_ms": 422.9286560002947,
+              "total_ms": 477.8909079977893,
+              "objects": 10
+            },
+            {
+              "inference_ms": 414.48723699431866,
+              "total_ms": 468.487117002951,
+              "objects": 10
+            },
+            {
+              "inference_ms": 417.06709199934267,
+              "total_ms": 478.97972599457717,
+              "objects": 10
+            },
+            {
+              "inference_ms": 420.0383010029327,
+              "total_ms": 474.567367004056,
+              "objects": 10
+            }
+          ],
+          "scope": "model inference and preprocessing/postprocessing only; no capture/drawing/network/UI; not app FPS"
+        }
+      ]
+    }
+  }
+}

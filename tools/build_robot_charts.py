@@ -81,7 +81,8 @@ quant_time = [variants[k]["pi"]["total_ms_median"] / 1000 for k in quant_keys]
 bars("robot-quantization", ["원본", "FP16", "INT8 혼합"], quant_time, 5,
      "Pi 5 처리 시간 중앙값 · 초 · 짧을수록 좋음", 3, highlight=1)
 sizes = read(base + "yolo26n_vs_s_mixed_fp16_20261018/comparison.json")
-size_times = [sizes["pi"][k]["pipeline_ms_median"] / 1000 for k in ["s", "n"]]
+current_sizes = json.loads((output / "robot-size-current-evidence.json").read_text())["models"]
+size_times = [current_sizes[k]["seconds"] for k in ["s", "n"]]
 bars("robot-model-size", ["YOLO26s", "YOLO26n"], size_times, 1.2,
      "Pi 5 처리 시간 중앙값 · 초 · 짧을수록 좋음", 3, highlight=1)
 full = read("SO101_teach/verification/full-vision-revised-20261020/summary.json")
@@ -104,8 +105,8 @@ evidence = {
                    "source": xbase, "metric": "recorded common-protocol mask AP50-95"},
     "quantization": [{"variant": k, "mask_map": mask(variants[k]), "seconds": quant_time[i]}
                      for i, k in enumerate(quant_keys)],
-    "size": {k: {"seconds": sizes["pi"][k]["pipeline_ms_median"] / 1000,
-                 "mask_map": mask(sizes["accuracy"][k])} for k in ["s", "n"]},
+    "size": {k: {field: current_sizes[k][field] for field in ["seconds", "mask_map", "peak_rss_mib"]}
+             for k in ["s", "n"]},
     "pallet_yield": yield_values,
     "limitations": [
         "Training comparisons use separate model/runtime/evaluation protocols; do not rank across the two panels.",
