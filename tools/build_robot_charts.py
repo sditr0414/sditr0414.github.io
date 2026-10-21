@@ -74,7 +74,7 @@ bars("robot-quantization", ["원본", "FP16", "INT8 혼합"], quant_time, 2,
 sizes = read(base + "yolo26n_vs_s_mixed_fp16_20261018/comparison.json")
 current_sizes = json.loads((output / "robot-size-current-evidence.json").read_text())["models"]
 size_times = [current_sizes[k]["seconds"] for k in ["s", "n"]]
-bars("robot-model-size", ["YOLO26s", "YOLO26n"], size_times, 1.2,
+bars("robot-model-size", ["YOLO26s", "YOLO26n"], size_times, 1.5,
      "Pi 5 처리 시간 중앙값 · 초 · 짧을수록 좋음", 3, highlight=1)
 full = read("SO101_teach/verification/full-vision-revised-20261020/summary.json")
 jigs = full["hosts"]["pi"]["jig"]

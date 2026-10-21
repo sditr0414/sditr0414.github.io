@@ -11,240 +11,209 @@
     ],
     "warmup_per_process": 3,
     "runs_per_model": 24,
-    "accuracy": "Ultralytics 8.4.177, real test 31 images, batch1, rectFalse, mask_ratio2, overlap_maskFalse",
+    "accuracy": "Ultralytics real test31, rectFalse mask_ratio2 overlap_maskFalse batch1",
     "timing": "preprocessing + inference + postprocessing; excludes camera, drawing, network, UI",
-    "n_model": "Final boundary-repaired YOLO26n",
-    "n_checkpoint_sha256": "4f3e8a701b9fa2038fef71e92ccbd495b23a1dcdbe470d0ca4c5c4470b16a598"
+    "training": "Same mixed data and training settings, baseline max100/patience25, aligned refinement max30/min12+10 nonimproving; actual epochs may differ.",
+    "source": "SO101_synthetic/benchmarks/portfolio_consistent_20261022/stage12_complete.json"
   },
   "models": {
     "s": {
-      "seconds": 1.183679244499217,
-      "mask_map": 94.7641185480343,
-      "peak_rss_mib": 427.484375,
+      "seconds": 1.2386103950011602,
+      "mask_map": 96.39426420463906,
+      "peak_rss_mib": 409.05859375,
       "accuracy_metrics": {
-        "metrics/precision(B)": 0.9930392031678357,
-        "metrics/recall(B)": 0.9928041354858126,
+        "metrics/precision(B)": 0.9885859035146892,
+        "metrics/recall(B)": 1.0,
         "metrics/mAP50(B)": 0.9949999999999998,
-        "metrics/mAP50-95(B)": 0.9836538461538461,
-        "metrics/precision(M)": 0.9930392031678357,
-        "metrics/recall(M)": 0.9928041354858126,
+        "metrics/mAP50-95(B)": 0.9848320512820513,
+        "metrics/precision(M)": 0.9885859035146892,
+        "metrics/recall(M)": 1.0,
         "metrics/mAP50(M)": 0.9949999999999998,
-        "metrics/mAP50-95(M)": 0.947641185480343,
-        "fitness": 1.931295031634189
+        "metrics/mAP50-95(M)": 0.9639426420463906,
+        "fitness": 1.948774693328442
+      },
+      "model_sha256": {
+        "metadata.yaml": "59c4e7468708f61b7dcf077d28b95f126448ed84c10bf0c83462ff65ea1a2e06",
+        "model.ncnn.bin": "d3c14285ab796df3d4fb1e787c9870fa8d83f915e1fb4d60124526a5049a41d2",
+        "model.ncnn.param": "b521ac2ecba84f253970ae0aeba8cdbae927ed25cf80d887dbc2e7193abcc725"
       },
       "pi_blocks": [
         {
-          "model": "s",
           "status": "complete",
-          "host": "arm3",
-          "machine": "aarch64",
-          "platform": "Linux-6.8.0-1065-raspi-aarch64-with-glibc2.39",
-          "cpu_model": "Raspberry Pi 5 Model B Rev 1.1\u0000",
-          "python": "3.12.3",
-          "ncnn": "1.0.20260526",
-          "numpy": "2.5.4",
-          "opencv": "5.0.0",
-          "options": {
-            "num_threads": 4,
-            "use_vulkan_compute": false,
-            "use_fp16_storage": true,
-            "use_fp16_packed": true,
-            "use_fp16_arithmetic": true
-          },
-          "confidence": 0.5,
-          "iou": 0.7,
-          "input": 960,
-          "warmup": 3,
-          "runs": 12,
-          "input_sha256": "46e667475eb72623f72b2ef455196ea2aa2f7f47bd12ebc104de60b296b4b02d",
+          "model": "/home/ubuntu/portfolio-consistent-20261022/12/models/s_mixed/model_ncnn_model",
           "model_sha256": {
-            "metadata.yaml": "674ba9d0ea066eaa0aa14294db1cfa9ca5ae149b2790cb3c87b66c4f27165e68",
-            "model.ncnn.param": "b521ac2ecba84f253970ae0aeba8cdbae927ed25cf80d887dbc2e7193abcc725",
-            "model.ncnn.bin": "5dcb1dcdca77e3b1d9886cf62ce3f7861b9314c219683e35cdb537608bb9fd7b"
+            "metadata.yaml": "59c4e7468708f61b7dcf077d28b95f126448ed84c10bf0c83462ff65ea1a2e06",
+            "model.ncnn.bin": "d3c14285ab796df3d4fb1e787c9870fa8d83f915e1fb4d60124526a5049a41d2",
+            "model.ncnn.param": "b521ac2ecba84f253970ae0aeba8cdbae927ed25cf80d887dbc2e7193abcc725"
           },
-          "temperature_before": "51800",
-          "temperature_after": "52900",
+          "input_image_sha256": "46e667475eb72623f72b2ef455196ea2aa2f7f47bd12ebc104de60b296b4b02d",
+          "imgsz": 960,
+          "threads": 4,
+          "warmup_runs": 3,
+          "runs": 12,
+          "total_ms_median": 1234.0650680016552,
+          "total_ms_p95": 1243.4939917497104,
+          "inference_ms_median": 1166.0502444974554,
+          "fps_from_median": 0.8103300433090768,
+          "peak_rss_mb": 409.05859375,
+          "temperature_before_millideg_c": "50150",
+          "temperature_after_millideg_c": "51250",
           "cpu_frequency_khz": "2400000",
-          "cpu_governor": "ondemand",
-          "load_average": [
-            1.75244140625,
-            1.2646484375,
-            0.70849609375
-          ],
-          "peak_rss_mb": 427.390625,
           "samples": [
             {
-              "inference_ms": 1103.4802070062142,
-              "total_ms": 1174.7090930002742,
+              "total_ms": 1220.9061659959843,
+              "inference_ms": 1147.337738002534,
               "objects": 10
             },
             {
-              "inference_ms": 1111.799685000733,
-              "total_ms": 1178.3826559985755,
+              "total_ms": 1221.715387997392,
+              "inference_ms": 1155.3110370005015,
               "objects": 10
             },
             {
-              "inference_ms": 1140.3702480020002,
-              "total_ms": 1200.097523003933,
+              "total_ms": 1243.5309159991448,
+              "inference_ms": 1179.899907001527,
               "objects": 10
             },
             {
-              "inference_ms": 1111.3215570003376,
-              "total_ms": 1174.6509860022343,
+              "total_ms": 1224.0534830052638,
+              "inference_ms": 1159.4805260028807,
               "objects": 10
             },
             {
-              "inference_ms": 1113.00382000627,
-              "total_ms": 1175.017100002151,
+              "total_ms": 1243.4637810001732,
+              "inference_ms": 1178.6027679991093,
               "objects": 10
             },
             {
-              "inference_ms": 1107.6919059996726,
-              "total_ms": 1174.075562004873,
+              "total_ms": 1236.1506080051186,
+              "inference_ms": 1169.5819040032802,
               "objects": 10
             },
             {
-              "inference_ms": 1121.1220949990093,
-              "total_ms": 1183.33054100367,
+              "total_ms": 1241.6654190019472,
+              "inference_ms": 1174.4832879994647,
               "objects": 10
             },
             {
-              "inference_ms": 1116.4844779996201,
-              "total_ms": 1184.5929519986385,
+              "total_ms": 1239.8965030006366,
+              "inference_ms": 1173.2781889950274,
               "objects": 10
             },
             {
-              "inference_ms": 1109.174172001076,
-              "total_ms": 1159.816249004507,
+              "total_ms": 1229.8151360009797,
+              "inference_ms": 1160.332389001269,
               "objects": 10
             },
             {
-              "inference_ms": 1116.1995169968577,
-              "total_ms": 1183.9483619987732,
+              "total_ms": 1237.3242870016838,
+              "inference_ms": 1167.1125549983117,
               "objects": 10
             },
             {
-              "inference_ms": 1116.7460010037757,
-              "total_ms": 1179.1613930035965,
+              "total_ms": 1231.9795279981918,
+              "inference_ms": 1164.9879339965992,
               "objects": 10
             },
             {
-              "inference_ms": 1113.5122009945917,
-              "total_ms": 1181.0630639956798,
+              "total_ms": 1228.0117530026473,
+              "inference_ms": 1161.2306800016086,
               "objects": 10
             }
           ],
-          "scope": "model inference and preprocessing/postprocessing only; no capture/drawing/network/UI; not app FPS"
+          "scope": "CPU inference pipeline only, no camera capture, drawing, transport or display."
         },
         {
-          "model": "s",
           "status": "complete",
-          "host": "arm3",
-          "machine": "aarch64",
-          "platform": "Linux-6.8.0-1065-raspi-aarch64-with-glibc2.39",
-          "cpu_model": "Raspberry Pi 5 Model B Rev 1.1\u0000",
-          "python": "3.12.3",
-          "ncnn": "1.0.20260526",
-          "numpy": "2.5.4",
-          "opencv": "5.0.0",
-          "options": {
-            "num_threads": 4,
-            "use_vulkan_compute": false,
-            "use_fp16_storage": true,
-            "use_fp16_packed": true,
-            "use_fp16_arithmetic": true
-          },
-          "confidence": 0.5,
-          "iou": 0.7,
-          "input": 960,
-          "warmup": 3,
-          "runs": 12,
-          "input_sha256": "46e667475eb72623f72b2ef455196ea2aa2f7f47bd12ebc104de60b296b4b02d",
+          "model": "/home/ubuntu/portfolio-consistent-20261022/12/models/s_mixed/model_ncnn_model",
           "model_sha256": {
-            "metadata.yaml": "674ba9d0ea066eaa0aa14294db1cfa9ca5ae149b2790cb3c87b66c4f27165e68",
-            "model.ncnn.param": "b521ac2ecba84f253970ae0aeba8cdbae927ed25cf80d887dbc2e7193abcc725",
-            "model.ncnn.bin": "5dcb1dcdca77e3b1d9886cf62ce3f7861b9314c219683e35cdb537608bb9fd7b"
+            "metadata.yaml": "59c4e7468708f61b7dcf077d28b95f126448ed84c10bf0c83462ff65ea1a2e06",
+            "model.ncnn.bin": "d3c14285ab796df3d4fb1e787c9870fa8d83f915e1fb4d60124526a5049a41d2",
+            "model.ncnn.param": "b521ac2ecba84f253970ae0aeba8cdbae927ed25cf80d887dbc2e7193abcc725"
           },
-          "temperature_before": "52350",
-          "temperature_after": "55100",
+          "input_image_sha256": "46e667475eb72623f72b2ef455196ea2aa2f7f47bd12ebc104de60b296b4b02d",
+          "imgsz": 960,
+          "threads": 4,
+          "warmup_runs": 3,
+          "runs": 12,
+          "total_ms_median": 1244.2497165029636,
+          "total_ms_p95": 1258.7307874018734,
+          "inference_ms_median": 1177.182448998792,
+          "fps_from_median": 0.8036971893476161,
+          "peak_rss_mb": 409.03515625,
+          "temperature_before_millideg_c": "51250",
+          "temperature_after_millideg_c": "54550",
           "cpu_frequency_khz": "2400000",
-          "cpu_governor": "ondemand",
-          "load_average": [
-            2.2509765625,
-            1.3994140625,
-            0.76220703125
-          ],
-          "peak_rss_mb": 427.484375,
           "samples": [
             {
-              "inference_ms": 1099.5935749961063,
-              "total_ms": 1162.5615969969658,
+              "total_ms": 1236.9293049996486,
+              "inference_ms": 1163.3392489966354,
               "objects": 10
             },
             {
-              "inference_ms": 1142.7382709953235,
-              "total_ms": 1202.426252006262,
+              "total_ms": 1241.6040579992114,
+              "inference_ms": 1174.9470049981028,
               "objects": 10
             },
             {
-              "inference_ms": 1132.5268689979566,
-              "total_ms": 1198.1082650017925,
+              "total_ms": 1246.6679600038333,
+              "inference_ms": 1178.019270999357,
               "objects": 10
             },
             {
-              "inference_ms": 1137.6801549995434,
-              "total_ms": 1201.225290002185,
+              "total_ms": 1232.6236739972956,
+              "inference_ms": 1168.947277998086,
               "objects": 10
             },
             {
-              "inference_ms": 1121.9838190008886,
-              "total_ms": 1181.1999280034797,
+              "total_ms": 1230.927017997601,
+              "inference_ms": 1165.7305620028637,
               "objects": 10
             },
             {
-              "inference_ms": 1143.1038709997665,
-              "total_ms": 1209.3482880009105,
+              "total_ms": 1248.5819590001483,
+              "inference_ms": 1180.536864005262,
               "objects": 10
             },
             {
-              "inference_ms": 1137.4211410002317,
-              "total_ms": 1208.7782700036769,
+              "total_ms": 1241.8314730020938,
+              "inference_ms": 1176.345626998227,
               "objects": 10
             },
             {
-              "inference_ms": 1138.4782559980522,
-              "total_ms": 1197.1041050055646,
+              "total_ms": 1236.3867500025663,
+              "inference_ms": 1172.4259269976756,
               "objects": 10
             },
             {
-              "inference_ms": 1130.0488729975768,
-              "total_ms": 1193.12747100048,
+              "total_ms": 1256.5152340030181,
+              "inference_ms": 1187.7848600051948,
               "objects": 10
             },
             {
-              "inference_ms": 1147.81145699817,
-              "total_ms": 1216.8801939988043,
+              "total_ms": 1247.833483001159,
+              "inference_ms": 1180.5572070006747,
               "objects": 10
             },
             {
-              "inference_ms": 1153.6516350024613,
-              "total_ms": 1217.889881998417,
+              "total_ms": 1249.4142089999514,
+              "inference_ms": 1181.4219110019621,
               "objects": 10
             },
             {
-              "inference_ms": 1110.7611439947505,
-              "total_ms": 1183.4101269996609,
+              "total_ms": 1261.4386860004743,
+              "inference_ms": 1194.1647990024649,
               "objects": 10
             }
           ],
-          "scope": "model inference and preprocessing/postprocessing only; no capture/drawing/network/UI; not app FPS"
+          "scope": "CPU inference pipeline only, no camera capture, drawing, transport or display."
         }
       ]
     },
     "n": {
-      "seconds": 0.49129449099928024,
+      "seconds": 0.5303315925011702,
       "mask_map": 97.10072360733652,
-      "peak_rss_mib": 271.640625,
+      "peak_rss_mib": 254.00390625,
       "accuracy_metrics": {
         "metrics/precision(B)": 0.9909642668846741,
         "metrics/recall(B)": 0.995023149655865,
@@ -256,212 +225,181 @@
         "metrics/mAP50-95(M)": 0.9710072360733651,
         "fitness": 1.9498202702613994
       },
+      "model_sha256": {
+        "metadata.yaml": "6d2b76803eb0217e9fffeac26a6326976857c7a9d35d82304a4416827282df13",
+        "model.ncnn.bin": "ef5c9ee1829682a68193fe4a5d49987167873b84e5bea2e1eac5dda17d302e21",
+        "model.ncnn.param": "e8037ba3faebb6fd713e9495888daf78a4b52950d93e885741e4ea0ebe51132c"
+      },
       "pi_blocks": [
         {
-          "model": "n",
           "status": "complete",
-          "host": "arm3",
-          "machine": "aarch64",
-          "platform": "Linux-6.8.0-1065-raspi-aarch64-with-glibc2.39",
-          "cpu_model": "Raspberry Pi 5 Model B Rev 1.1\u0000",
-          "python": "3.12.3",
-          "ncnn": "1.0.20260526",
-          "numpy": "2.5.4",
-          "opencv": "5.0.0",
-          "options": {
-            "num_threads": 4,
-            "use_vulkan_compute": false,
-            "use_fp16_storage": true,
-            "use_fp16_packed": true,
-            "use_fp16_arithmetic": true
-          },
-          "confidence": 0.5,
-          "iou": 0.7,
-          "input": 960,
-          "warmup": 3,
-          "runs": 12,
-          "input_sha256": "46e667475eb72623f72b2ef455196ea2aa2f7f47bd12ebc104de60b296b4b02d",
+          "model": "/home/ubuntu/portfolio-consistent-20261022/12/models/n_mixed/model_ncnn_model",
           "model_sha256": {
             "metadata.yaml": "6d2b76803eb0217e9fffeac26a6326976857c7a9d35d82304a4416827282df13",
-            "model.ncnn.param": "e8037ba3faebb6fd713e9495888daf78a4b52950d93e885741e4ea0ebe51132c",
-            "model.ncnn.bin": "ef5c9ee1829682a68193fe4a5d49987167873b84e5bea2e1eac5dda17d302e21"
+            "model.ncnn.bin": "ef5c9ee1829682a68193fe4a5d49987167873b84e5bea2e1eac5dda17d302e21",
+            "model.ncnn.param": "e8037ba3faebb6fd713e9495888daf78a4b52950d93e885741e4ea0ebe51132c"
           },
-          "temperature_before": "47400",
-          "temperature_after": "51250",
+          "input_image_sha256": "46e667475eb72623f72b2ef455196ea2aa2f7f47bd12ebc104de60b296b4b02d",
+          "imgsz": 960,
+          "threads": 4,
+          "warmup_runs": 3,
+          "runs": 12,
+          "total_ms_median": 537.1494209975936,
+          "total_ms_p95": 549.4425123990368,
+          "inference_ms_median": 474.2041440003959,
+          "fps_from_median": 1.8616793780449408,
+          "peak_rss_mb": 254.00390625,
+          "temperature_before_millideg_c": "46850",
+          "temperature_after_millideg_c": "51250",
           "cpu_frequency_khz": "2400000",
-          "cpu_governor": "ondemand",
-          "load_average": [
-            1.1015625,
-            1.11083984375,
-            0.64697265625
-          ],
-          "peak_rss_mb": 271.640625,
           "samples": [
             {
-              "inference_ms": 442.17744300112827,
-              "total_ms": 507.1360590009135,
+              "total_ms": 538.5331049983506,
+              "inference_ms": 475.9692079969682,
               "objects": 10
             },
             {
-              "inference_ms": 439.63479100057157,
-              "total_ms": 501.87497699516825,
+              "total_ms": 546.3946099989698,
+              "inference_ms": 486.8957969956682,
               "objects": 10
             },
             {
-              "inference_ms": 438.08680700021796,
-              "total_ms": 498.97460200008936,
+              "total_ms": 534.9869080018834,
+              "inference_ms": 472.6786230021389,
               "objects": 10
             },
             {
-              "inference_ms": 432.51916900044307,
-              "total_ms": 496.8253219994949,
+              "total_ms": 536.8536730020423,
+              "inference_ms": 469.5888920032303,
               "objects": 10
             },
             {
-              "inference_ms": 441.3391819980461,
-              "total_ms": 501.10216200118884,
+              "total_ms": 537.3463029973209,
+              "inference_ms": 473.514327997691,
               "objects": 10
             },
             {
-              "inference_ms": 429.72062800254207,
-              "total_ms": 490.7216840001638,
+              "total_ms": 550.4166570026428,
+              "inference_ms": 480.0510889981524,
               "objects": 10
             },
             {
-              "inference_ms": 438.0036599977757,
-              "total_ms": 499.0139360015746,
+              "total_ms": 548.6454849960865,
+              "inference_ms": 481.5120009952807,
               "objects": 10
             },
             {
-              "inference_ms": 435.84995299897855,
-              "total_ms": 495.2553760012961,
+              "total_ms": 545.1131769950734,
+              "inference_ms": 477.7847850054968,
               "objects": 10
             },
             {
-              "inference_ms": 432.52798499452183,
-              "total_ms": 492.869019995851,
+              "total_ms": 530.4307430051267,
+              "inference_ms": 468.7251270006527,
               "objects": 10
             },
             {
-              "inference_ms": 431.415687999106,
-              "total_ms": 491.8672979983967,
+              "total_ms": 531.2042079967796,
+              "inference_ms": 467.05310299876146,
               "objects": 10
             },
             {
-              "inference_ms": 436.9020480007748,
-              "total_ms": 496.7320639989339,
+              "total_ms": 536.9525389978662,
+              "inference_ms": 474.8939600031008,
               "objects": 10
             },
             {
-              "inference_ms": 432.7850969930296,
-              "total_ms": 492.4520579952514,
+              "total_ms": 531.9942269998137,
+              "inference_ms": 467.801900995255,
               "objects": 10
             }
           ],
-          "scope": "model inference and preprocessing/postprocessing only; no capture/drawing/network/UI; not app FPS"
+          "scope": "CPU inference pipeline only, no camera capture, drawing, transport or display."
         },
         {
-          "model": "n",
           "status": "complete",
-          "host": "arm3",
-          "machine": "aarch64",
-          "platform": "Linux-6.8.0-1065-raspi-aarch64-with-glibc2.39",
-          "cpu_model": "Raspberry Pi 5 Model B Rev 1.1\u0000",
-          "python": "3.12.3",
-          "ncnn": "1.0.20260526",
-          "numpy": "2.5.4",
-          "opencv": "5.0.0",
-          "options": {
-            "num_threads": 4,
-            "use_vulkan_compute": false,
-            "use_fp16_storage": true,
-            "use_fp16_packed": true,
-            "use_fp16_arithmetic": true
-          },
-          "confidence": 0.5,
-          "iou": 0.7,
-          "input": 960,
-          "warmup": 3,
-          "runs": 12,
-          "input_sha256": "46e667475eb72623f72b2ef455196ea2aa2f7f47bd12ebc104de60b296b4b02d",
+          "model": "/home/ubuntu/portfolio-consistent-20261022/12/models/n_mixed/model_ncnn_model",
           "model_sha256": {
             "metadata.yaml": "6d2b76803eb0217e9fffeac26a6326976857c7a9d35d82304a4416827282df13",
-            "model.ncnn.param": "e8037ba3faebb6fd713e9495888daf78a4b52950d93e885741e4ea0ebe51132c",
-            "model.ncnn.bin": "ef5c9ee1829682a68193fe4a5d49987167873b84e5bea2e1eac5dda17d302e21"
+            "model.ncnn.bin": "ef5c9ee1829682a68193fe4a5d49987167873b84e5bea2e1eac5dda17d302e21",
+            "model.ncnn.param": "e8037ba3faebb6fd713e9495888daf78a4b52950d93e885741e4ea0ebe51132c"
           },
-          "temperature_before": "54000",
-          "temperature_after": "55100",
-          "cpu_frequency_khz": "2300000",
-          "cpu_governor": "ondemand",
-          "load_average": [
-            2.52001953125,
-            1.4853515625,
-            0.79736328125
-          ],
-          "peak_rss_mb": 270.859375,
+          "input_image_sha256": "46e667475eb72623f72b2ef455196ea2aa2f7f47bd12ebc104de60b296b4b02d",
+          "imgsz": 960,
+          "threads": 4,
+          "warmup_runs": 3,
+          "runs": 12,
+          "total_ms_median": 522.0573459992011,
+          "total_ms_p95": 529.3745833496359,
+          "inference_ms_median": 459.4739069980278,
+          "fps_from_median": 1.9154983789875266,
+          "peak_rss_mb": 253.859375,
+          "temperature_before_millideg_c": "52900",
+          "temperature_after_millideg_c": "54000",
+          "cpu_frequency_khz": "2400000",
           "samples": [
             {
-              "inference_ms": 427.04430899902945,
-              "total_ms": 485.8640309976181,
+              "total_ms": 520.5528419974144,
+              "inference_ms": 456.55301999795483,
               "objects": 10
             },
             {
-              "inference_ms": 419.3924459978007,
-              "total_ms": 476.29020099702757,
+              "total_ms": 528.6726990016177,
+              "inference_ms": 465.4183800012106,
               "objects": 10
             },
             {
-              "inference_ms": 441.4488690017606,
-              "total_ms": 495.4294910057797,
+              "total_ms": 523.5618500009878,
+              "inference_ms": 460.6081419988186,
               "objects": 10
             },
             {
-              "inference_ms": 420.6441710048239,
-              "total_ms": 474.85734799556667,
+              "total_ms": 519.7939490026329,
+              "inference_ms": 455.9783510048874,
               "objects": 10
             },
             {
-              "inference_ms": 423.39104599523125,
-              "total_ms": 475.57529299956514,
+              "total_ms": 528.66212400113,
+              "inference_ms": 459.09830399614293,
               "objects": 10
             },
             {
-              "inference_ms": 414.6287360053975,
-              "total_ms": 468.3440970038646,
+              "total_ms": 517.9991280019749,
+              "inference_ms": 459.8495099999127,
               "objects": 10
             },
             {
-              "inference_ms": 423.2059349960764,
-              "total_ms": 477.8655750051257,
+              "total_ms": 514.2535060003866,
+              "inference_ms": 451.22761300444836,
               "objects": 10
             },
             {
-              "inference_ms": 419.09655799827306,
-              "total_ms": 473.77636499732034,
+              "total_ms": 530.2324419972138,
+              "inference_ms": 460.7697890023701,
               "objects": 10
             },
             {
-              "inference_ms": 422.9286560002947,
-              "total_ms": 477.8909079977893,
+              "total_ms": 516.0568990031607,
+              "inference_ms": 452.59087500016904,
               "objects": 10
             },
             {
-              "inference_ms": 414.48723699431866,
-              "total_ms": 468.487117002951,
+              "total_ms": 528.5823800004437,
+              "inference_ms": 462.8174800018314,
               "objects": 10
             },
             {
-              "inference_ms": 417.06709199934267,
-              "total_ms": 478.97972599457717,
+              "total_ms": 525.6561490023159,
+              "inference_ms": 461.84877299674554,
               "objects": 10
             },
             {
-              "inference_ms": 420.0383010029327,
-              "total_ms": 474.567367004056,
+              "total_ms": 515.9781940019457,
+              "inference_ms": 451.89192799443845,
               "objects": 10
             }
           ],
-          "scope": "model inference and preprocessing/postprocessing only; no capture/drawing/network/UI; not app FPS"
+          "scope": "CPU inference pipeline only, no camera capture, drawing, transport or display."
         }
       ]
     }

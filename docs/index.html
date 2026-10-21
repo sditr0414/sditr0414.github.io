@@ -238,13 +238,13 @@
 </div></section>
 
 <section class="ds" id="opencv-12">
-<div class="ds-head"><p class="ds-no">12<span>Pi 모델 선택</span></p><h3>작은 n 모델로 처리 비용을 더 줄임</h3><p class="ds-deck">기존 s와 최종 n 비교 · 입력 960 · NCNN FP16</p></div>
+<div class="ds-head"><p class="ds-no">12<span>Pi 모델 선택</span></p><h3>작은 n 모델로 처리 비용을 더 줄임</h3><p class="ds-deck">동일 학습·보정 기준 · 입력 960 · NCNN FP16</p></div>
 <div class="ds-body"><div class="study-pair">
-<figure class="study-chart"><img src="assets/charts/robot-model-size.svg?v=finaln" width="640" height="240" alt="Pi5 처리 시간 중앙값: YOLO26s 1.184초, 최종 YOLO26n 0.491초"><figcaption>처리 시간 중앙값(초) · Pi5 · 모델별 24회 별도 측정</figcaption></figure>
+<figure class="study-chart"><img src="assets/charts/robot-model-size.svg?v=consistent" width="640" height="240" alt="Pi5 처리 시간 중앙값: YOLO26s 1.239초, YOLO26n 0.530초"><figcaption>처리 시간 중앙값(초) · Pi5 · 모델별 24회 별도 측정</figcaption></figure>
 <div><table class="study-table"><caption>실물 테스트와 Pi 메모리 비교</caption><thead><tr><th scope="col">모델</th><th scope="col">마스크 mAP50–95</th><th scope="col">최대 메모리</th></tr></thead><tbody>
-<tr><th scope="row">YOLO26s</th><td>94.76</td><td>427.5MiB</td></tr>
-<tr class="study-selected"><th scope="row">YOLO26n</th><td>97.10</td><td>271.6MiB</td></tr>
-</tbody></table><p class="study-takeaway">최종 n은 s보다 약 2.41배 빠르고 메모리는 약 36% 감소<br>실물 마스크 mAP50–95도 2.34점 높음</p></div>
+<tr><th scope="row">YOLO26s</th><td>96.39</td><td>409.1MiB</td></tr>
+<tr class="study-selected"><th scope="row">YOLO26n</th><td>97.10</td><td>254.0MiB</td></tr>
+</tbody></table><p class="study-takeaway">n은 s보다 약 2.34배 빠르고 메모리는 약 38% 감소<br>실물 마스크 mAP50–95도 0.71점 높음</p></div>
 </div></div></section>
 
 <section class="ds study-logs" id="opencv-13">
