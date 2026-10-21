@@ -4,7 +4,7 @@
 <meta content="noindex" name="robots"/><title>정승호 포트폴리오</title>
 <link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
-<link href="app.css?v=20261021ord1" rel="stylesheet"/></head>
+<link href="app.css?v=20261021ord2" rel="stylesheet"/></head>
 <body>
 <a class="skip" href="#about">본문으로 이동</a>
 <header class="top" id="top">
@@ -133,7 +133,7 @@
 <div><dt>구현</dt><dd>지그에 맞춘 목표 자세 갱신, AI 부품 구분·CAD 안착 검사, ROS2 작업 요청과 결과 반환</dd></div>
 </dl>
 </header>
-<nav class="dv-toc" aria-label="상세 목차"><ol><li><a href="#opencv-1" data-to="opencv-1"><b>01</b>개요·시연</a></li><li><a href="#opencv-2" data-to="opencv-2"><b>02</b>작업 흐름</a></li><li><a href="#opencv-3" data-to="opencv-3"><b>03</b>지그 위치 채택</a></li><li><a href="#opencv-4" data-to="opencv-4"><b>04</b>목표 자세 보정</a></li><li><a href="#opencv-5" data-to="opencv-5"><b>05</b>팔레트 찾기</a></li><li><a href="#opencv-6" data-to="opencv-6"><b>06</b>부품·안착 검사</a></li><li><a href="#opencv-7" data-to="opencv-7"><b>07</b>티칭 GUI</a></li><li><a href="#opencv-8" data-to="opencv-8"><b>08</b>학습 데이터</a></li><li><a href="#opencv-9" data-to="opencv-9"><b>09</b>학습 방식 비교</a></li><li><a href="#opencv-10" data-to="opencv-10"><b>10</b>양자화·실행 형식</a></li><li><a href="#opencv-11" data-to="opencv-11"><b>11</b>Pi 모델 선택</a></li><li><a href="#opencv-12" data-to="opencv-12"><b>12</b>처리 지연 개선</a></li></ol></nav>
+<nav class="dv-toc" aria-label="상세 목차"><ol><li><a href="#opencv-1" data-to="opencv-1"><b>01</b>개요·시연</a></li><li><a href="#opencv-2" data-to="opencv-2"><b>02</b>티칭 GUI</a></li><li><a href="#opencv-3" data-to="opencv-3"><b>03</b>작업 흐름</a></li><li><a href="#opencv-4" data-to="opencv-4"><b>04</b>지그 위치 채택</a></li><li><a href="#opencv-5" data-to="opencv-5"><b>05</b>목표 자세 보정</a></li><li><a href="#opencv-6" data-to="opencv-6"><b>06</b>팔레트 찾기</a></li><li><a href="#opencv-7" data-to="opencv-7"><b>07</b>부품·안착 검사</a></li><li><a href="#opencv-8" data-to="opencv-8"><b>08</b>학습 데이터</a></li><li><a href="#opencv-9" data-to="opencv-9"><b>09</b>학습 방식 비교</a></li><li><a href="#opencv-10" data-to="opencv-10"><b>10</b>양자화·실행 형식</a></li><li><a href="#opencv-11" data-to="opencv-11"><b>11</b>Pi 모델 선택</a></li><li><a href="#opencv-12" data-to="opencv-12"><b>12</b>처리 지연 개선</a></li></ol></nav>
 
 <section class="ds ds-first" id="opencv-1" aria-label="개요·시연">
 <div class="ds-body"><div class="split overview">
@@ -144,15 +144,25 @@
 <figure class="main-figure"><div class="inline-demo"><video class="inline-demo-video" data-src="assets/videos/opencv-demo.mp4" poster="assets/images/opencv-demo.webp" aria-label="지그 위치 보정 실물 시연 · 무음" muted loop playsinline controls preload="none"></video></div><figcaption>지그 위치 변화에 따른 동작 보정 시연</figcaption></figure>
 </div></div></section>
 
-<section class="ds" id="opencv-2">
-<div class="ds-head"><p class="ds-no">02<span>작업 흐름</span></p><h3>작업 요청부터 검사·오류 기록까지 연결</h3></div>
+<section class="ds study-gui" id="opencv-2">
+<div class="ds-head"><p class="ds-no">02<span>티칭 GUI</span></p><h3>기준 설정·스텝 편집·검사를 한 화면에서 관리</h3></div>
+<div class="ds-body"><div class="study-gui-layout">
+<figure><div class="inline-demo"><video class="inline-demo-video" data-src="assets/videos/opencv-gui.mp4" poster="assets/images/opencv-gui-poster.webp" aria-label="티칭 GUI 동작 예시 · 무음" muted loop playsinline controls preload="none"></video></div><figcaption>스텝 편집 · 카메라 측정 · 검사 화면</figcaption></figure>
+<div class="text-stack">
+<section><h4>기준 설정</h4><p>원점·TCP·카메라와 팔별 좌표 기준을 관리함</p></section>
+<section><h4>스텝 편집</h4><p>고정 자세 또는 지그 따라가기를 선택해 작업 순서를 구성함</p></section>
+<section><h4>측정·검사 확인</h4><p>지그 위치 채택 상태와 부품·안착 검사 결과를 확인함</p></section>
+</div></div></div></section>
+
+<section class="ds" id="opencv-3">
+<div class="ds-head"><p class="ds-no">03<span>작업 흐름</span></p><h3>작업 요청부터 검사·오류 기록까지 연결</h3></div>
 <div class="ds-body">
 <ol class="flow row3"><li><span>01</span><h4>ROS2 작업 요청</h4><p>조립·하차 에피소드와 제품 종류 전달</p></li><li><span>02</span><h4>Pi에서 준비·실행</h4><p>지그 측정·시작 검사 후 저장한 스텝 수행</p></li><li><span>03</span><h4>결과와 근거 반환</h4><p>진행·완료·실패 상태와 검사·오류 기록</p></li></ol>
 <div class="case-grid"><section><h4>기준 일치</h4><p>PC⁠·⁠Pi의 보정값⁠·⁠TCP⁠·⁠좌표 기준을 맞춤</p></section><section><h4>원인 추적</h4><p>판정 영상⁠·⁠설정⁠·⁠오류 로그로 원인을 찾음</p></section><section><h4>검증</h4><p>실물 지그 보정과 저장 영상⁠·⁠Pi 추론으로 확인</p></section></div>
 
 </div></section>
-<section class="ds study-jig" id="opencv-3">
-<div class="ds-head"><p class="ds-no">03<span>지그 위치 채택</span></p><h3>측정한 지그 위치를 검증한 뒤 동작 기준으로 채택</h3></div>
+<section class="ds study-jig" id="opencv-4">
+<div class="ds-head"><p class="ds-no">04<span>지그 위치 채택</span></p><h3>측정한 지그 위치를 검증한 뒤 동작 기준으로 채택</h3></div>
 <div class="ds-body"><div class="split">
 <figure><div class="inline-demo"><video class="inline-demo-video" data-src="assets/videos/opencv-jig-adoption.mp4" poster="assets/images/opencv-jig-live.webp" aria-label="지그 위치 재채택 시연 · 무음" muted loop playsinline controls preload="none"></video></div><figcaption>지그 이동 후 위치를 다시 채택하는 시연</figcaption></figure>
 <div class="text-stack">
@@ -161,22 +171,22 @@
 <section><h4>동작에 넘기기 전</h4><p>서로 다른 관측의 일치·신선도를 확인하고 위치를 확정한 뒤 실행함</p></section>
 </div></div></div></section>
 
-<section class="ds" id="opencv-4">
-<div class="ds-head"><p class="ds-no">04<span>목표 자세 보정</span></p><h3>지그의 이동·회전을 집게 목표에 반영</h3></div>
+<section class="ds" id="opencv-5">
+<div class="ds-head"><p class="ds-no">05<span>목표 자세 보정</span></p><h3>지그의 이동·회전을 집게 목표에 반영</h3></div>
 <div class="ds-body">
 <figure class="study-transform"><svg viewBox="0 0 640 190" role="img" aria-label="티칭 기준의 집게 작업점을 지그 이동과 회전만큼 바꾼 뒤 역기구학으로 관절 목표를 계산"><g fill="none" stroke="#7593ab" stroke-width="2"><rect x="55" y="56" width="150" height="90"/><rect x="-75" y="-45" width="150" height="90" transform="translate(490 101) rotate(-18)"/></g><g fill="#315e80"><circle cx="103" cy="101" r="6"/><circle cx="155" cy="101" r="8"/><circle cx="465" cy="109" r="6"/><circle cx="516" cy="93" r="8"/><path d="M265 98h100v-8l20 12-20 12v-8H265Z"/></g><g fill="#203b52" font-size="17" text-anchor="middle"><text x="130" y="30">티칭 기준 위치</text><text x="490" y="30">현재 지그 위치</text><text x="322" y="79">이동 Δx·Δy</text><text x="322" y="139">회전 θ</text><text x="320" y="183" font-size="15">집게 높이와 벌림은 유지</text></g></svg></figure>
 <ol class="flow row4"><li><span>01</span><h4>순기구학</h4><p>티칭 관절값과 TCP로 집게 자세 계산</p></li><li><span>02</span><h4>목표 변환</h4><p>지그 이동·회전만큼 집게 목표 보정</p></li><li><span>03</span><h4>역기구학</h4><p>관절 범위·자세 연속성을 확인해 계산</p></li><li><span>04</span><h4>도착 확인</h4><p>모터 실측 각도로 목표 도착 확인</p></li></ol>
 <p class="study-note">지그가 움직이지 않으면 원래 티칭 값을 그대로 사용</p>
 </div></section>
 
-<section class="ds study-pallet" id="opencv-5">
-<div class="ds-head"><p class="ds-no">05<span>팔레트 찾기</span></p><h3>완제품이 가린 팔레트도 찾아냄</h3><p class="ds-deck">완제품을 내리려면 흰 받침대(팔레트)의 위치가 필요하지만, 제품이 위를 가려 외곽선만으로는 놓치기 쉬움</p></div>
+<section class="ds study-pallet" id="opencv-6">
+<div class="ds-head"><p class="ds-no">06<span>팔레트 찾기</span></p><h3>완제품이 가린 팔레트도 찾아냄</h3><p class="ds-deck">완제품을 내리려면 흰 받침대(팔레트)의 위치가 필요하지만, 제품이 위를 가려 외곽선만으로는 놓치기 쉬움</p></div>
 <div class="ds-body"><div class="study-pair">
 <figure><a class="image-open pallet-photo" href="assets/images/robot-pallet-occluded.png" aria-label="완제품이 올라간 팔레트의 실물 사진 크게 보기"><svg viewBox="280 65 460 300" role="img" aria-label="보라색 완제품 아래의 흰 받침이 완제품 팔레트이며, 제품이 받침의 일부를 가리고 있음"><image href="assets/images/robot-pallet-occluded.png" width="1280" height="720"/><rect x="355" y="112" width="158" height="165" rx="5" fill="none" stroke="#f4c76c" stroke-width="4"/><path d="M493 258L535 307H716" fill="none" stroke="#f4c76c" stroke-width="3"/><rect x="530" y="307" width="195" height="39" rx="4" fill="#18344d"/><text x="628" y="334" fill="#fff" font-size="23" text-anchor="middle">완제품 팔레트</text></svg></a><figcaption>흰 받침대(팔레트)를 완제품 하차 기준으로 사용</figcaption></figure>
 <table class="study-table"><caption>팔레트를 찾은 비율 · 개발 사진 285장</caption><thead><tr><th scope="col">찾는 방법</th><th scope="col">찾은 비율</th></tr></thead><tbody><tr><th scope="row">외곽선 검출</th><td>79.3%</td></tr><tr><th scope="row">AI 인식 + 외곽선</th><td>80.7%</td></tr><tr class="study-selected"><th scope="row">AI 인식 + 설계 형상 맞춤</th><td>99.6%</td></tr></tbody></table>
 </div><p class="study-takeaway">AI가 찾은 영역에 설계 형상(CAD)을 맞춰 가려진 부분까지 위치를 계산 · 285장 중 284장</p><p class="study-note">위치 계산 평균 0.56초 · Pi 5</p></div></section>
-<section class="ds study-inspection" id="opencv-6">
-<div class="ds-head"><p class="ds-no">06<span>부품·안착 검사</span></p><h3>부품 종류와 제자리에 놓였는지를 따로 확인</h3></div>
+<section class="ds study-inspection" id="opencv-7">
+<div class="ds-head"><p class="ds-no">07<span>부품·안착 검사</span></p><h3>부품 종류와 제자리에 놓였는지를 따로 확인</h3></div>
 <div class="ds-body">
 <div class="case-grid c2"><section><h4>AI 라벨 · 무엇이 있는가</h4><p>A/B 부품·조립 상태를 구분하고 검사 위치에 연결</p></section><section><h4>CAD 검사 · 제자리에 있는가</h4><p>설계 형상·위치·방향으로 안착 상태 확인</p></section></div>
 <table class="study-table"><caption>같은 검사 위치에서 비교한 결과</caption><thead><tr><th scope="col">방식</th><th scope="col">부품 구분</th><th scope="col">안착 판정 일치</th><th scope="col">평균 처리</th></tr></thead><tbody>
@@ -186,16 +196,6 @@
 <p class="study-takeaway">부품 구분 오류 2건을 없애 249개를 모두 정확히 구분</p>
 <p class="study-note">안착 판정 53개 · 처리 시간은 사진 284장 평균</p>
 </div></section>
-
-<section class="ds study-gui" id="opencv-7">
-<div class="ds-head"><p class="ds-no">07<span>티칭 GUI</span></p><h3>기준 설정·스텝 편집·검사를 한 화면에서 관리</h3></div>
-<div class="ds-body"><div class="study-gui-layout">
-<figure><div class="inline-demo"><video class="inline-demo-video" data-src="assets/videos/opencv-gui.mp4" poster="assets/images/opencv-gui-poster.webp" aria-label="티칭 GUI 동작 예시 · 무음" muted loop playsinline controls preload="none"></video></div><figcaption>스텝 편집 · 카메라 측정 · 검사 화면</figcaption></figure>
-<div class="text-stack">
-<section><h4>기준 설정</h4><p>원점·TCP·카메라와 팔별 좌표 기준을 관리함</p></section>
-<section><h4>스텝 편집</h4><p>고정 자세 또는 지그 따라가기를 선택해 작업 순서를 구성함</p></section>
-<section><h4>측정·검사 확인</h4><p>지그 위치 채택 상태와 부품·안착 검사 결과를 확인함</p></section>
-</div></div></div></section>
 
 <section class="ds study-data" id="opencv-8">
 <div class="ds-head"><p class="ds-no">08<span>학습 데이터</span></p><h3>실제 촬영 데이터에 배치·조명 변화를 보완</h3><p class="ds-deck">지그·단품·부분 조립체·완제품을 13개 클래스로 구분</p></div>
@@ -363,6 +363,6 @@
 <nav aria-label="다른 프로젝트" class="pager"><a href="#thesis"><small>05</small><b>노크 위치 탐지 연구</b></a><a class="next" href="#opencv"><small>01</small><b>비전 기반 로봇팔 티칭·검사</b></a></nav>
 </article></div>
 </div>
-<script defer src="slide-pages.js?v=20261021ord1"></script>
-<script defer="" src="app.js?v=20261021ord1"></script>
+<script defer src="slide-pages.js?v=20261021ord2"></script>
+<script defer="" src="app.js?v=20261021ord2"></script>
 </body></html>
