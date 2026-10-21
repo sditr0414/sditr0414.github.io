@@ -4,7 +4,7 @@
 <meta content="noindex" name="robots"/><title>정승호 포트폴리오</title>
 <link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
-<link href="app.css?v=20261021reallogscreen" rel="stylesheet"/></head>
+<link href="app.css?v=20261021logsummary" rel="stylesheet"/></head>
 <body>
 <a class="skip" href="#about">본문으로 이동</a>
 <header class="top" id="top">
@@ -247,9 +247,9 @@
 </div></div></section>
 
 <section class="ds study-logs" id="opencv-13">
-<div class="ds-head"><p class="ds-no">13<span>작업 로그·오류 추적</span></p><h3>오안착 원인을 실제 로그와 판정 영상으로 확인</h3></div>
+<div class="ds-head"><p class="ds-no">13<span>작업 로그·오류 추적</span></p><h3>오안착 원인을 실행 기록과 판정 영상으로 확인</h3></div>
 <div class="ds-body"><div class="log-evidence">
-<figure><h4>01 · 실패 사유와 저장 경로</h4><a class="image-open" href="assets/images/robot-execution-log-screen.png" aria-label="실제 오류·실행 로그 화면 크게 보기"><img class="actual-log-screen" src="assets/images/robot-execution-log-screen.png" width="650" height="540" loading="lazy" alt="실제 앱의 오류·실행 로그 화면. A 하단 부품 슬롯 중심 이탈 7.8mm, 허용 5mm로 검사 실패 후 FAILURE_IMAGES 저장 경로와 에피소드 중단을 기록"></a><figcaption>실제 실행 로그에서 발췌</figcaption></figure>
+<div><h4>01 · 실행 기록 요약</h4><table class="study-table"><thead><tr><th scope="col">시각</th><th scope="col">기록</th></tr></thead><tbody><tr><td><time>19:50:15</time></td><td>A 조립 작업 접수</td></tr><tr><td><time>19:50:23</time></td><td>지그 위치·방향 확정</td></tr><tr class="log-failure"><td><time>19:50:25</time></td><td>중심 이탈 7.8mm · 안착 불합격</td></tr><tr><td><time>19:50:27</time></td><td>판정 영상·오류 기록 저장</td></tr><tr><td><time>19:50:27</time></td><td>에피소드 중단</td></tr></tbody></table><p class="log-source">실제 실행 로그에서 발췌</p></div>
 <div class="log-link" aria-hidden="true"><span>→</span><b>같은 실행</b></div>
 <figure><h4>02 · 저장된 판정 영상</h4><a class="image-open" href="assets/images/robot-execution-failure.jpg?v=20261021misseated" aria-label="같은 실행에서 저장된 오안착 판정 영상 크게 보기"><img src="assets/images/robot-execution-failure.jpg?v=20261021misseated" width="1280" height="720" loading="lazy" alt="A 하단 부품의 중심 이탈을 붉은 외곽으로 표시한 동일 실행의 실제 판정 영상"></a><figcaption>붉은 영역 · A 하단 부품 오안착</figcaption><p class="log-reason"><b>중심 이탈 7.8mm &gt; 허용 5mm</b><br>부품은 있으나 제자리를 벗어나 검사 실패</p></figure>
 </div><p class="log-summary">실패 사유 확인 → <code>FAILURE_IMAGES</code> 경로 → 같은 실행의 판정 영상 조회</p></div></section>
