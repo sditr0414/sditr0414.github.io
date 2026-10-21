@@ -4,7 +4,7 @@
 <meta content="noindex" name="robots"/><title>정승호 포트폴리오</title>
 <link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
-<link href="app.css?v=20261021parallelcompare" rel="stylesheet"/></head>
+<link href="app.css?v=20261021worklogs" rel="stylesheet"/></head>
 <body>
 <a class="skip" href="#about">본문으로 이동</a>
 <header class="top" id="top">
@@ -133,7 +133,7 @@
 <div><dt>구현</dt><dd>지그에 맞춘 목표 자세 갱신, AI 부품 <x-nw>구분·CAD</x-nw> 안착 검사, ROS2 작업 요청과 결과 반환</dd></div>
 </dl>
 </header>
-<nav class="dv-toc" aria-label="상세 목차"><ol><li><a href="#opencv-1" data-to="opencv-1"><b>01</b><x-nw>개요·시연</x-nw></a></li><li><a href="#opencv-2" data-to="opencv-2"><b>02</b>작업 흐름</a></li><li><a href="#opencv-3" data-to="opencv-3"><b>03</b>지그 위치 채택</a></li><li><a href="#opencv-4" data-to="opencv-4"><b>04</b>목표 자세 보정</a></li><li><a href="#opencv-5" data-to="opencv-5"><b>05</b>티칭 GUI</a></li><li><a href="#opencv-6" data-to="opencv-6"><b>06</b><x-nw>부품·안착</x-nw> 검사</a></li><li><a href="#opencv-7" data-to="opencv-7"><b>07</b>운반용 지그 채택</a></li><li><a href="#opencv-8" data-to="opencv-8"><b>08</b>팔레트 <x-nw>찾기·채택</x-nw></a></li><li><a href="#opencv-9" data-to="opencv-9"><b>09</b>학습 데이터</a></li><li><a href="#opencv-10" data-to="opencv-10"><b>10</b>학습 방식 비교</a></li><li><a href="#opencv-11" data-to="opencv-11"><b>11</b><x-nw>양자화·실행</x-nw> 형식</a></li><li><a href="#opencv-12" data-to="opencv-12"><b>12</b>Pi 모델 선택</a></li><li><a href="#opencv-13" data-to="opencv-13"><b>13</b>에피소드 실행 최적화</a></li></ol></nav>
+<nav class="dv-toc" aria-label="상세 목차"><ol><li><a href="#opencv-1" data-to="opencv-1"><b>01</b><x-nw>개요·시연</x-nw></a></li><li><a href="#opencv-2" data-to="opencv-2"><b>02</b>작업 흐름</a></li><li><a href="#opencv-3" data-to="opencv-3"><b>03</b>지그 위치 채택</a></li><li><a href="#opencv-4" data-to="opencv-4"><b>04</b>목표 자세 보정</a></li><li><a href="#opencv-5" data-to="opencv-5"><b>05</b>티칭 GUI</a></li><li><a href="#opencv-6" data-to="opencv-6"><b>06</b><x-nw>부품·안착</x-nw> 검사</a></li><li><a href="#opencv-7" data-to="opencv-7"><b>07</b>운반용 지그 채택</a></li><li><a href="#opencv-8" data-to="opencv-8"><b>08</b>팔레트 <x-nw>찾기·채택</x-nw></a></li><li><a href="#opencv-9" data-to="opencv-9"><b>09</b>학습 데이터</a></li><li><a href="#opencv-10" data-to="opencv-10"><b>10</b>학습 방식 비교</a></li><li><a href="#opencv-11" data-to="opencv-11"><b>11</b><x-nw>양자화·실행</x-nw> 형식</a></li><li><a href="#opencv-12" data-to="opencv-12"><b>12</b>Pi 모델 선택</a></li><li><a href="#opencv-13" data-to="opencv-13"><b>13</b>작업 로그·오류 추적</a></li></ol></nav>
 
 <section class="ds ds-first" id="opencv-1" aria-label="개요·시연">
 <div class="ds-body"><div class="split overview">
@@ -246,13 +246,12 @@
 </tbody></table><p class="study-takeaway">이 비교에서 n은 약 2.29배 빠르고, 실물 마스크 성능도 낮아지지 않음</p></div>
 </div></div></section>
 
-<section class="ds" id="opencv-13">
-<div class="ds-head"><p class="ds-no">13<span>에피소드 실행 최적화</span></p><h3>앞 작업이 끝나기를 기다리던 구간을 겹쳐 실행</h3></div>
-<div class="ds-body"><div class="episode-concurrency" aria-label="순차 처리와 병렬 처리 비교">
-<div class="compare-head"><span>구간</span><strong>순차 처리</strong><strong>병렬 처리 · 적용</strong></div><div class="compare-row"><h4>시작 준비</h4><div class="compare-sequential"><span>팔 연결·리니어 준비</span><b aria-hidden="true">→</b><span>카메라 연결·AI 예열</span></div><div class="compare-parallel"><div class="parallel-pair"><span>팔 연결·리니어 준비</span><span>카메라 연결·AI 예열</span></div><p>예열 시작 대기 축소</p></div></div><div class="compare-row"><h4>측정·검사</h4><div class="compare-sequential"><span>전체 지그 채택</span><b aria-hidden="true">→</b><span>시작 전 검사</span></div><div class="compare-parallel"><div class="parallel-pair"><span>지그 측정 계속</span><span>채택된 지그부터 검사</span></div><p>전체 지그 채택까지 기다리지 않음</p></div></div><div class="compare-row"><h4>경로 계산</h4><div class="compare-sequential"><span>남은 검사·리니어 확인</span><b aria-hidden="true">→</b><span>IK 경로 계산</span></div><div class="compare-parallel"><div class="parallel-pair"><span>남은 검사·리니어 확인</span><span>확정 좌표로 IK 경로 계산</span></div><p>검사 종료 대기 축소</p></div></div></div>
-<p class="parallel-gate">모든 준비·검사·경로 확인 완료 → 로봇 동작 시작</p>
-<p class="episode-footnote">처리 순서 비교도 · 막대 길이는 실제 소요 시간을 뜻하지 않음</p>
-</div></section>
+<section class="ds study-logs" id="opencv-13">
+<div class="ds-head"><p class="ds-no">13<span>작업 로그·오류 추적</span></p><h3>실행 이력과 판정 영상을 함께 남겨 실패 원인 확인</h3></div>
+<div class="ds-body"><div class="log-evidence">
+<div><table class="study-table"><caption>B 조립 실제 실행 기록 · 주요 항목 요약</caption><thead><tr><th scope="col">시각</th><th scope="col">기록</th></tr></thead><tbody><tr><td><time>17:24:41</time></td><td>B 조립 작업 접수</td></tr><tr><td><time>17:24:45</time></td><td>지그 위치·방향 확정</td></tr><tr><td><time>17:24:50</time></td><td>작업 준비 완료</td></tr><tr class="log-failure"><td><time>17:25:43</time></td><td>안착 검사 불합격</td></tr><tr><td><time>17:25:43</time></td><td>판정 이미지·오류 기록 저장</td></tr></tbody></table><p class="log-source">2026.10.14 실행 로그 발췌</p></div>
+<figure><a class="image-open" href="assets/images/robot-execution-failure.jpg" aria-label="실패 시 저장된 검사 판정 영상 크게 보기"><img src="assets/images/robot-execution-failure.jpg" width="1280" height="720" loading="lazy" alt="B 상단 결합 완제품을 기대했으나 하단·중단 상태로 판정한 실제 실패 검사 영상"></a><figcaption>실패 시 저장된 실제 검사 판정 영상</figcaption><p class="log-reason"><b>기대</b> B 완제품 <span>→</span> <b>관측</b> B 하단·중단만 있음</p></figure>
+</div><p class="log-summary">실패 단계·검사 결과·판정 영상·실행 설정·코드 버전을 함께 기록</p></div></section>
 
 <nav aria-label="다른 프로젝트" class="pager"><a href="#travel"><small>06</small><b>Travel Visualizer</b></a><a class="next" href="#robot"><small>02</small><b>원격 물품 <x-nw>회수·운반</x-nw> 로봇</b></a></nav>
 </article><article aria-labelledby="dv-robot" class="dv" data-id="robot" hidden="">

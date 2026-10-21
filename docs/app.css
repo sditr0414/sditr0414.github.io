@@ -1756,24 +1756,15 @@ x-nw { white-space: nowrap; }
 @media (min-width: 681px) { .robot-study .study-transform svg { max-height: 222px; } }
 @media (min-width: 681px) and (max-height: 820px) { .robot-study .study-transform svg { max-height: 190px; } }
 
-/* Compare sequential dependencies with concurrent preparation. */
-.compare-head, .compare-row { display: grid; grid-template-columns: 100px minmax(0,1fr) minmax(0,1fr); gap: 24px; align-items: center; }
-.compare-head { padding-bottom: 12px; color: var(--navy); font-size: 18px; }
-.compare-row { border-top: 1px solid var(--box-line); padding: 16px 0; }
-.robot-study .compare-row h4 { font-size: 18px; margin: 0; }
-.compare-sequential { display: grid; grid-template-columns: minmax(0,1fr) 20px minmax(0,1fr); gap: 8px; align-items: center; }
-.compare-sequential span, .parallel-pair span { padding: 12px 14px; border-radius: 5px; font-size: 16px; line-height: 1.5; text-align: center; word-break: keep-all; }
-.compare-sequential span { background: #f1f3f5; border: 1px solid #d4dce3; color: #455463; }
-.compare-sequential b { text-align: center; color: var(--muted); }
-.parallel-pair { display: grid; gap: 5px; border-left: 3px solid var(--navy); padding-left: 10px; }
-.parallel-pair span { background: var(--box); border: 1px solid var(--box-line); color: var(--navy); padding: 8px 12px; }
-.robot-study .compare-parallel p { font-size: 16px; font-weight: 600; color: var(--link); margin: 7px 0 0 13px; }
-.robot-study .parallel-gate { margin: 12px 0 0; padding: 16px; border-top: 3px solid var(--navy); background: var(--box); font-size: 18px; font-weight: 600; text-align: center; }
-.robot-study .episode-footnote { font-size: 16px; color: var(--muted); line-height: 1.6; margin-top: 14px; }
-@media (max-width: 680px) {
- .compare-head { display: none; }
- .compare-row { grid-template-columns: 1fr; gap: 12px; }
- .compare-sequential::before { content: "순차 처리"; grid-column: 1 / -1; font-weight: 600; font-size: 16px; }
- .compare-parallel::before { content: "병렬 처리 · 적용"; display: block; margin-bottom: 8px; font-weight: 600; font-size: 16px; color: var(--navy); }
- .robot-study .compare-row h4 { font-size: 20px; }
-}
+/* Actual execution history and its failure evidence. */
+.log-evidence { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1.25fr); gap: 28px; align-items: start; }
+.robot-study .log-evidence .study-table { font-size: 17px; }
+.log-evidence time { white-space: nowrap; font-variant-numeric: tabular-nums; }
+.log-evidence .log-failure td { background: #fff0e9; color: #873d25; font-weight: 600; }
+.robot-study .log-source { font-size: 15px; color: var(--muted); margin-top: 10px; }
+.robot-study .log-evidence img { width: 100%; height: auto; max-height: none; border-radius: 6px; }
+.robot-study .log-evidence figcaption { font-size: 16px; margin-top: 8px; }
+.robot-study .log-reason { font-size: 17px; line-height: 1.6; margin-top: 12px; }
+.log-reason span { padding: 0 8px; color: var(--muted); }
+.robot-study .log-summary { margin-top: 22px; padding: 16px 20px; border-left: 4px solid var(--navy); background: var(--box); font-size: 18px; font-weight: 600; }
+@media (max-width: 680px) { .log-evidence { grid-template-columns: 1fr; gap: 22px; } .robot-study .log-evidence .study-table { font-size: 16px; } }
