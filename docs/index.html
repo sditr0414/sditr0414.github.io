@@ -200,9 +200,9 @@
 <div class="ds-head"><p class="ds-no">08<span>부품·안착 검사</span></p><h3>부품 종류와 제자리에 놓였는지를 따로 확인</h3></div>
 <div class="ds-body">
 <div class="case-grid c2"><section><h4>AI 라벨 · 무엇이 있는가</h4><p>A/B 부품·조립 상태를 구분하고 검사 위치에 연결</p></section><section><h4>CAD 검사 · 제자리에 있는가</h4><p>설계 형상·위치·방향으로 안착 상태 확인</p></section></div>
-<table class="study-table"><caption>같은 검사 위치에서 비교한 결과</caption><thead><tr><th scope="col">방식</th><th scope="col">부품 구분</th><th scope="col">안착 판정 일치</th><th scope="col">평균 처리</th></tr></thead><tbody>
-<tr><th scope="row">OpenCV</th><td>247/249</td><td>52/53</td><td>0.937초</td></tr>
-<tr class="study-selected"><th scope="row">AI 라벨 + CAD</th><td>249/249</td><td>52/53</td><td>1.592초</td></tr>
+<table class="study-table"><caption>같은 검사 위치에서 비교한 결과</caption><thead><tr><th scope="col">방식</th><th scope="col">부품 구분</th><th scope="col">평균 처리</th></tr></thead><tbody>
+<tr><th scope="row">OpenCV</th><td>247/249</td><td>0.937초</td></tr>
+<tr class="study-selected"><th scope="row">AI 라벨 + CAD</th><td>249/249</td><td>1.592초</td></tr>
 </tbody></table>
 <p class="study-takeaway">처리 시간이 0.66초 늘었지만, 부품 구분 오류 2건을 없애 249개를 모두 정확히 구분</p>
 </div></section>
