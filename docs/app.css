@@ -1808,3 +1808,14 @@ html body .pc-lead .pc-body .pc-more { font-size: 15px; }
 .ds-body .result-table td, .ds-body .result-table thead th:not(:first-child) { text-align: center; font-variant-numeric: tabular-nums; }
 .ds-body .result-table td:last-child, .ds-body .result-table thead th:last-child { text-align: center; }
 .robot-study .log-evidence .study-table td:first-child { text-align: left; }
+/* lead project card: the whole text block, link included, sits centered; the link keeps the shared rule style */
+.pc-lead .pc-body { justify-content: center; }
+.pc-lead .pc-more { margin-top: 18px; box-sizing: border-box; max-width: 100%; }
+/* about card: 학력 and 자격 columns share the space evenly, 기술 keeps the room its longest line needs */
+@media (min-width: 1100px) {
+  .about-card { grid-template-columns: minmax(0, 1fr) minmax(max-content, 1.25fr) minmax(0, 1fr); }
+}
+@media (min-width: 681px) and (max-width: 1099px) {
+  .about-card .ab-cert dl { display: flex; flex-wrap: wrap; gap: 8px 40px; }
+  .about-card .ab-cert dl div + div { margin-top: 0; }
+}
