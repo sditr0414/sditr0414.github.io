@@ -4,7 +4,7 @@
 <meta content="noindex" name="robots"/><title>정승호 포트폴리오</title>
 <link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
-<link href="app.css?v=20261021flow" rel="stylesheet"/></head>
+<link href="app.css?v=20261021balance" rel="stylesheet"/></head>
 <body>
 <a class="skip" href="#about">본문으로 이동</a>
 <header class="top" id="top">
@@ -224,14 +224,18 @@
 </div></section>
 
 <section class="ds" id="opencv-8">
-<div class="ds-head"><p class="ds-no">08<span>학습 방식 비교</span></p><h3>실물·혼합·순차 학습 비교</h3></div>
+<div class="ds-head"><p class="ds-no">08<span>학습 방식 비교</span></p><h3>클래스별 성능 편차가 줄어 혼합 학습 선택</h3></div>
 <div class="ds-body">
 <div class="study-pair study-charts">
-<figure><h4>실물만 ↔ 혼합 · YOLO26s</h4><img src="assets/charts/robot-training-s.svg" width="640" height="240" alt="YOLO26s NCNN FP16의 실물 테스트 마스크 mAP50–95: 실물만 94.77, 혼합 94.76"><figcaption>실물 마스크 mAP50–95 · NCNN FP16</figcaption></figure>
+<div><table class="study-table"><caption>실물만 ↔ 혼합 · YOLO26s · NCNN FP16</caption><thead><tr><th scope="col">마스크 AP50–95</th><th scope="col">실물만</th><th scope="col">혼합</th></tr></thead><tbody>
+<tr><th scope="row">평균 ↑</th><td>94.77</td><td>94.76</td></tr>
+<tr class="study-selected"><th scope="row">최저 클래스 ↑</th><td>84.11</td><td>86.76</td></tr>
+<tr class="study-selected"><th scope="row">클래스 간 편차 ↓</th><td>5.08</td><td>4.34</td></tr>
+</tbody></table></div>
 <figure><h4>혼합 ↔ 순차 · YOLO26x</h4><img src="assets/charts/robot-training-x.svg" width="640" height="240" alt="YOLO26x TensorRT FP16의 실물 테스트 마스크 AP50–95: 혼합 98.93, 가상 다음 실물 순차 97.20"><figcaption>실물 마스크 AP50–95 · TensorRT FP16</figcaption></figure>
 </div>
-<p class="study-takeaway">s 모델: 실물만과 혼합이 비슷함<br>x 모델: 순차 학습의 추가 이득 없음</p>
-<p class="study-note">순차: 가상 학습 후 실물로 추가 학습 · 실물 테스트 31장<br>AP는 높을수록 좋음 · 모델·평가 절차가 다른 두 묶음의 수치는 직접 비교하지 않음</p>
+<p class="study-takeaway">평균을 유지하며 낮았던 부품 성능을 보완함<br>A 중단 85.41 → 86.76 · B 중단 84.11 → 88.31</p>
+<p class="study-note">s 모델 13개 클래스: 5개 상승·5개 하락·3개 동일 · 편차는 클래스별 AP의 표준편차<br>x 모델은 순차 학습(가상 → 실물)의 추가 이득 없음<br>실물 테스트 31장 · 모델·평가 절차가 다른 두 비교의 점수는 직접 비교하지 않음</p>
 </div></section>
 
 <section class="ds" id="opencv-9">
@@ -377,6 +381,6 @@
 <nav aria-label="다른 프로젝트" class="pager"><a href="#thesis"><small>05</small><b>노크 위치 탐지 연구</b></a><a class="next" href="#opencv"><small>01</small><b>비전 기반 로봇팔 티칭·검사</b></a></nav>
 </article></div>
 </div>
-<script defer src="slide-pages.js?v=20261021flow"></script>
-<script defer="" src="app.js?v=20261021flow"></script>
+<script defer src="slide-pages.js?v=20261021balance"></script>
+<script defer="" src="app.js?v=20261021balance"></script>
 </body></html>

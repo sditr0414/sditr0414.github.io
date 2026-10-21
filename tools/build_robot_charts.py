@@ -1,10 +1,12 @@
 """Build portfolio charts from the recorded SO-101 comparison results.
 
 Usage: python3 tools/build_robot_charts.py /path/to/Final_Arm
+Add --evidence-only to refresh source values without regenerating SVG files.
 Only reads experiment results; never starts training or connects to equipment.
 """
 import json
 import sys
+from statistics import mean, pstdev
 from pathlib import Path
 
 import matplotlib
@@ -25,6 +27,8 @@ def read(path):
 
 
 def bars(name, labels, values, maximum, unit, decimals=2, highlight=None):
+    if "--evidence-only" in sys.argv[2:]:
+        return
     fig, ax = plt.subplots(figsize=(6.4, 2.4 if len(labels) == 2 else 3.0))
     fig.patch.set_alpha(0)
     ax.set_facecolor("none")
@@ -54,6 +58,19 @@ variants = {k: read(nine + k + ".json") for k in
             ["real_fp16", "mixed_original", "mixed_fp16", "mixed_int8"]}
 mask = lambda d: d["domains"]["real"]["metrics"]["metrics/mAP50-95(M)"] * 100
 s_training = [mask(variants[k]) for k in ["real_fp16", "mixed_fp16"]]
+# Class-level balance explains the mixed-data choice beyond mean mAP.
+class_scores = {k: {label: values["mask_map50_95"] * 100
+                    for label, values in variants[k]["domains"]["real"]["per_class"].items()}
+                for k in ["real_fp16", "mixed_fp16"]}
+assert class_scores["real_fp16"].keys() == class_scores["mixed_fp16"].keys()
+class_summary = {k: {"mean": mean(scores.values()), "minimum": min(scores.values()),
+                     "population_stddev": pstdev(scores.values())}
+                 for k, scores in class_scores.items()}
+class_deltas = {label: class_scores["mixed_fp16"][label] - value
+                for label, value in class_scores["real_fp16"].items()}
+class_changes = {"improved": sum(v > 1e-8 for v in class_deltas.values()),
+                 "declined": sum(v < -1e-8 for v in class_deltas.values()),
+                 "unchanged": sum(abs(v) <= 1e-8 for v in class_deltas.values())}
 xbase = base + "yolo26x_seg_vs_sam3_20261017/comparison/"
 x_training = [read(xbase + k + "/test/metrics_summary.json")["dedup"]["mask"]["mask_ap50_95"] * 100
               for k in ["yolo_trt_fp16", "yolo_synthetic_then_real_uncapped_fp16"]]
@@ -79,6 +96,10 @@ evidence = {
     "date": "2026-10-21",
     "training_s": {"model": "YOLO26s, NCNN FP16", "values": s_training,
                    "source": nine, "metric": "Ultralytics mask mAP50-95"},
+    "training_s_class_balance": {"metric": "real-test class mask AP50-95",
+                                 "scores": class_scores, "summary": class_summary,
+                                 "changes": class_changes, "deltas": class_deltas,
+                                 "source": nine},
     "training_x": {"model": "YOLO26x, TensorRT FP16", "values": x_training,
                    "source": xbase, "metric": "recorded common-protocol mask AP50-95"},
     "quantization": [{"variant": k, "mask_map": mask(variants[k]), "seconds": quant_time[i]}
@@ -94,4 +115,4 @@ evidence = {
     ]
 }
 (output / "robot-evidence.json").write_text(json.dumps(evidence, ensure_ascii=False, indent=2) + "\n")
-print("Wrote five charts and their source values to", output)
+print("Wrote source values" if "--evidence-only" in sys.argv[2:] else "Wrote five charts and source values", "to", output)
