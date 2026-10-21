@@ -1546,3 +1546,7 @@ html body header.top .brand span { font-size: 15.5px; }
   .robot-study .ds.ds-first .inline-demo video { max-height: 210px; }
   .robot-study .pallet-photo svg { max-height: 110px; }
 }
+
+/* Equipment wraps between components, never within a module specification. */
+.robot-study .spec-item { display: block; }
+.robot-study .spec-unit { display: inline-block; white-space: nowrap; }
