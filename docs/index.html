@@ -128,12 +128,12 @@
 <h2 id="dv-opencv" tabindex="-1">비전 기반 로봇팔 티칭·검사</h2>
 <p class="dv-lead">달라지는 지그 위치에 동작을 맞추고, Raspberry Pi에서 AI·OpenCV·CAD로 부품과 안착 상태를 확인함</p>
 <dl class="brief">
-<div><dt>문제</dt><dd>운반 로봇이 지그를 매번 다른 위치에 정차시키고 부품이 서로 가려, 저장한 자세·영상 윤곽만으로는 공정을 이어가기 어려움</dd></div>
+<div><dt>문제</dt><dd>운반 로봇의 도킹 오차와 부품 가림 때문에 저장한 자세·영상 윤곽만으로는 공정을 이어가기 어려움</dd></div>
 <div><dt>담당</dt><dd>로봇팔 2대의 비전 보정·티칭 GUI·Pi 연동, 데이터·모델 비교와 실행 기준 검증</dd></div>
 <div><dt>구현</dt><dd>지그에 맞춘 목표 자세 갱신, AI 부품 구분·CAD 안착 검사, ROS2 작업 요청과 결과 반환</dd></div>
 </dl>
 </header>
-<nav class="dv-toc" aria-label="상세 목차"><ol><li><a href="#opencv-1" data-to="opencv-1"><b>01</b>개요·시연</a></li><li><a href="#opencv-2" data-to="opencv-2"><b>02</b>작업 흐름</a></li><li><a href="#opencv-3" data-to="opencv-3"><b>03</b>지그 위치 확정</a></li><li><a href="#opencv-4" data-to="opencv-4"><b>04</b>운반용 지그 채택</a></li><li><a href="#opencv-5" data-to="opencv-5"><b>05</b>목표 자세 보정</a></li><li><a href="#opencv-6" data-to="opencv-6"><b>06</b>티칭 GUI</a></li><li><a href="#opencv-7" data-to="opencv-7"><b>07</b>팔레트 찾기·채택</a></li><li><a href="#opencv-8" data-to="opencv-8"><b>08</b>부품·안착 검사</a></li><li><a href="#opencv-9" data-to="opencv-9"><b>09</b>학습 데이터</a></li><li><a href="#opencv-10" data-to="opencv-10"><b>10</b>학습 방식 비교</a></li><li><a href="#opencv-11" data-to="opencv-11"><b>11</b>양자화·실행 형식</a></li><li><a href="#opencv-12" data-to="opencv-12"><b>12</b>Pi 모델 선택</a></li><li><a href="#opencv-13" data-to="opencv-13"><b>13</b>처리 지연 개선</a></li></ol></nav>
+<nav class="dv-toc" aria-label="상세 목차"><ol><li><a href="#opencv-1" data-to="opencv-1"><b>01</b>개요·시연</a></li><li><a href="#opencv-2" data-to="opencv-2"><b>02</b>작업 흐름</a></li><li><a href="#opencv-3" data-to="opencv-3"><b>03</b>지그 위치 확정</a></li><li><a href="#opencv-4" data-to="opencv-4"><b>04</b>운반용 지그 채택</a></li><li><a href="#opencv-5" data-to="opencv-5"><b>05</b>목표 자세 보정</a></li><li><a href="#opencv-6" data-to="opencv-6"><b>06</b>티칭 GUI</a></li><li><a href="#opencv-7" data-to="opencv-7"><b>07</b>팔레트 찾기·채택</a></li><li><a href="#opencv-8" data-to="opencv-8"><b>08</b>부품·안착 검사</a></li><li><a href="#opencv-9" data-to="opencv-9"><b>09</b>학습 데이터</a></li><li><a href="#opencv-10" data-to="opencv-10"><b>10</b>학습 방식 비교</a></li><li><a href="#opencv-11" data-to="opencv-11"><b>11</b>양자화·실행 형식</a></li><li><a href="#opencv-12" data-to="opencv-12"><b>12</b>Pi 모델 선택</a></li><li><a href="#opencv-13" data-to="opencv-13"><b>13</b>에피소드 실행 최적화</a></li></ol></nav>
 
 <section class="ds ds-first" id="opencv-1" aria-label="개요·시연">
 <div class="ds-body"><div class="split overview">
@@ -247,12 +247,13 @@
 </div></div></section>
 
 <section class="ds" id="opencv-13">
-<div class="ds-head"><p class="ds-no">13<span>처리 지연 개선</span></p><h3>같은 영상의 AI 추론을 한 번만 수행</h3><p class="ds-deck">지그 탐색과 부품 검사에서 필요한 결과를 공유</p></div>
+<div class="ds-head"><p class="ds-no">13<span>에피소드 실행 최적화</span></p><h3>카메라·모델을 미리 준비하고 실행 중 재사용</h3></div>
 <div class="ds-body">
-<p class="study-takeaway study-process">원영상 → AI 추론 1회 → 지그 탐색·부품 검사</p>
-<table class="study-table"><caption>Pi 저장 영상 4개 사례 · 지그 위치와 검사 결과 동일</caption><thead><tr><th scope="col">사례</th><th scope="col">분리 처리</th><th scope="col">추론 공유</th></tr></thead><tbody>
-<tr><th scope="row">A 하단 검사</th><td>1.479초</td><td>0.931초</td></tr><tr><th scope="row">B 하단 검사</th><td>1.140초</td><td>0.919초</td></tr><tr><th scope="row">여러 부품 위치 검사</th><td>2.764초</td><td>2.441초</td></tr><tr><th scope="row">A 완제품 검사</th><td>1.182초</td><td>0.921초</td></tr>
+<ol class="flow row3"><li><span>01</span><h4>시작 준비 병행</h4><p>팔 연결·리니어 준비와<br>카메라·AI 예열을 동시에 진행</p></li><li><span>02</span><h4>반복 초기화 제거</h4><p>에피소드 안에서 카메라·모델 유지<br>측정·검사 사이에는 추론만 정지</p></li><li><span>03</span><h4>새 영상으로 측정</h4><p>예열 영상은 측정에서 제외<br>실행 종료 시 카메라·모델 해제</p></li></ol>
+<table class="study-table"><caption>Pi 5 실측 · 카메라·모델 준비 시간</caption><thead><tr><th scope="col">항목</th><th scope="col">최초 준비</th><th scope="col">같은 에피소드 내 재사용</th></tr></thead><tbody>
+<tr class="highlight"><th scope="row">준비 완료까지</th><td>2.632초</td><td>0.083초</td></tr><tr><th scope="row">추가 예열 추론</th><td>1회</td><td>0회</td></tr>
 </tbody></table>
+<p class="ds-note">각 조건 1회 실측 · 모터 이동 없이 준비·재사용 경로 검증 · 전체 에피소드 소요 시간은 별도 측정하지 않음</p>
 </div></section>
 
 <nav aria-label="다른 프로젝트" class="pager"><a href="#travel"><small>06</small><b>Travel Visualizer</b></a><a class="next" href="#robot"><small>02</small><b>원격 물품 회수⁠·⁠운반 로봇</b></a></nav>
