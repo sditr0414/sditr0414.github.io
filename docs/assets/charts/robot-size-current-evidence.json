@@ -1,36 +1,38 @@
 {
   "protocol": {
-    "format": "NCNN FP16",
+    "confidence": 0.5,
+    "confidence_source": "SO101_teach/so101_teach/yolo_ui.py default 0.5 and model_regions.py default 0.5",
     "input": 960,
-    "threads": 4,
-    "order": [
-      "n",
-      "s",
-      "s",
-      "n"
+    "mask_resolution": [
+      1280,
+      720
     ],
-    "warmup_per_process": 3,
-    "runs_per_model": 24,
-    "accuracy": "Ultralytics real test31, rectFalse mask_ratio2 overlap_maskFalse batch1",
-    "timing": "preprocessing + inference + postprocessing; excludes camera, drawing, network, UI",
-    "training": "Same mixed data and training settings, baseline max100/patience25, aligned refinement max30/min12+10 nonimproving; actual epochs may differ.",
-    "source": "SO101_synthetic/benchmarks/portfolio_consistent_20261022/stage12_complete.json"
+    "test_images": 31,
+    "gt_instances": 169,
+    "primary_metric": "Macro average of 13 class mean original-pixel IoUs; unmatched GT scores zero; class-aware one-to-one matching at IoU>=0.5; FP/FN separately reported.",
+    "native_ncnn_provider_sha256": "062b5e1f71f42cffd72cb82e3e53d08ae77ebaa49e0a644b1dd3f7da504555f8",
+    "original_backend": "PyTorch full-resolution retina_masks=True",
+    "int8_backend": "ONNX Runtime with same full-resolution mask restoration as NCNN",
+    "training_changed": false,
+    "live_model_changed": false
   },
   "models": {
     "s": {
-      "seconds": 1.2386103950011602,
-      "mask_map": 96.39426420463906,
-      "peak_rss_mib": 409.05859375,
-      "accuracy_metrics": {
-        "metrics/precision(B)": 0.9885859035146892,
-        "metrics/recall(B)": 1.0,
-        "metrics/mAP50(B)": 0.9949999999999998,
-        "metrics/mAP50-95(B)": 0.9848320512820513,
-        "metrics/precision(M)": 0.9885859035146892,
-        "metrics/recall(M)": 1.0,
-        "metrics/mAP50(M)": 0.9949999999999998,
-        "metrics/mAP50-95(M)": 0.9639426420463906,
-        "fitness": 1.948774693328442
+      "seconds": 1.2602645125007257,
+      "class_mean_iou_percent": 97.81315479360698,
+      "peak_rss_mib": 409.265625,
+      "operating_accuracy": {
+        "gt": 169,
+        "pred": 169,
+        "tp": 169,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "instance_mean_iou": 0.9789529034033074,
+        "class_mean_iou": 0.9781315479360698,
+        "minimum_class_iou": 0.9625605298350826,
+        "class_iou_stddev": 0.006757067966114721
       },
       "model_sha256": {
         "metadata.yaml": "59c4e7468708f61b7dcf077d28b95f126448ed84c10bf0c83462ff65ea1a2e06",
@@ -40,7 +42,7 @@
       "pi_blocks": [
         {
           "status": "complete",
-          "model": "/home/ubuntu/portfolio-consistent-20261022/12/models/s_mixed/model_ncnn_model",
+          "model": "/home/ubuntu/portfolio-operating-eval-20261022/operating/models/s_mixed/model_ncnn_model",
           "model_sha256": {
             "metadata.yaml": "59c4e7468708f61b7dcf077d28b95f126448ed84c10bf0c83462ff65ea1a2e06",
             "model.ncnn.bin": "d3c14285ab796df3d4fb1e787c9870fa8d83f915e1fb4d60124526a5049a41d2",
@@ -51,73 +53,73 @@
           "threads": 4,
           "warmup_runs": 3,
           "runs": 12,
-          "total_ms_median": 1234.0650680016552,
-          "total_ms_p95": 1243.4939917497104,
-          "inference_ms_median": 1166.0502444974554,
-          "fps_from_median": 0.8103300433090768,
-          "peak_rss_mb": 409.05859375,
-          "temperature_before_millideg_c": "50150",
-          "temperature_after_millideg_c": "51250",
+          "total_ms_median": 1259.4320950011024,
+          "total_ms_p95": 1264.0543231973425,
+          "inference_ms_median": 1194.0616689971648,
+          "fps_from_median": 0.7940086678505082,
+          "peak_rss_mb": 408.9375,
+          "temperature_before_millideg_c": "54550",
+          "temperature_after_millideg_c": "56200",
           "cpu_frequency_khz": "2400000",
           "samples": [
             {
-              "total_ms": 1220.9061659959843,
-              "inference_ms": 1147.337738002534,
+              "total_ms": 1261.2849710130831,
+              "inference_ms": 1193.3483979955781,
               "objects": 10
             },
             {
-              "total_ms": 1221.715387997392,
-              "inference_ms": 1155.3110370005015,
+              "total_ms": 1258.871400001226,
+              "inference_ms": 1195.022493993747,
               "objects": 10
             },
             {
-              "total_ms": 1243.5309159991448,
-              "inference_ms": 1179.899907001527,
+              "total_ms": 1259.9927900009789,
+              "inference_ms": 1194.7749399987515,
               "objects": 10
             },
             {
-              "total_ms": 1224.0534830052638,
-              "inference_ms": 1159.4805260028807,
+              "total_ms": 1245.2444420050597,
+              "inference_ms": 1181.9579050061293,
               "objects": 10
             },
             {
-              "total_ms": 1243.4637810001732,
-              "inference_ms": 1178.6027679991093,
+              "total_ms": 1263.6435919994256,
+              "inference_ms": 1199.4615180010442,
               "objects": 10
             },
             {
-              "total_ms": 1236.1506080051186,
-              "inference_ms": 1169.5819040032802,
+              "total_ms": 1262.87064999633,
+              "inference_ms": 1198.4912059997441,
               "objects": 10
             },
             {
-              "total_ms": 1241.6654190019472,
-              "inference_ms": 1174.4832879994647,
+              "total_ms": 1256.0815230099251,
+              "inference_ms": 1191.1192830011714,
               "objects": 10
             },
             {
-              "total_ms": 1239.8965030006366,
-              "inference_ms": 1173.2781889950274,
+              "total_ms": 1254.4239879935049,
+              "inference_ms": 1191.9741190067725,
               "objects": 10
             },
             {
-              "total_ms": 1229.8151360009797,
-              "inference_ms": 1160.332389001269,
+              "total_ms": 1243.9405269979034,
+              "inference_ms": 1179.2657140031224,
               "objects": 10
             },
             {
-              "total_ms": 1237.3242870016838,
-              "inference_ms": 1167.1125549983117,
+              "total_ms": 1263.6059000069508,
+              "inference_ms": 1200.7491599943023,
               "objects": 10
             },
             {
-              "total_ms": 1231.9795279981918,
-              "inference_ms": 1164.9879339965992,
+              "total_ms": 1264.5563279947964,
+              "inference_ms": 1199.6459770016372,
               "objects": 10
             },
             {
-              "total_ms": 1228.0117530026473,
-              "inference_ms": 1161.2306800016086,
+              "total_ms": 1238.6512939992826,
+              "inference_ms": 1173.9600349974353,
               "objects": 10
             }
           ],
@@ -125,7 +127,7 @@
         },
         {
           "status": "complete",
-          "model": "/home/ubuntu/portfolio-consistent-20261022/12/models/s_mixed/model_ncnn_model",
+          "model": "/home/ubuntu/portfolio-operating-eval-20261022/operating/models/s_mixed/model_ncnn_model",
           "model_sha256": {
             "metadata.yaml": "59c4e7468708f61b7dcf077d28b95f126448ed84c10bf0c83462ff65ea1a2e06",
             "model.ncnn.bin": "d3c14285ab796df3d4fb1e787c9870fa8d83f915e1fb4d60124526a5049a41d2",
@@ -136,73 +138,73 @@
           "threads": 4,
           "warmup_runs": 3,
           "runs": 12,
-          "total_ms_median": 1244.2497165029636,
-          "total_ms_p95": 1258.7307874018734,
-          "inference_ms_median": 1177.182448998792,
-          "fps_from_median": 0.8036971893476161,
-          "peak_rss_mb": 409.03515625,
-          "temperature_before_millideg_c": "51250",
-          "temperature_after_millideg_c": "54550",
+          "total_ms_median": 1261.1871099943528,
+          "total_ms_p95": 1413.9324197472888,
+          "inference_ms_median": 1197.564590991533,
+          "fps_from_median": 0.7929037587487535,
+          "peak_rss_mb": 409.265625,
+          "temperature_before_millideg_c": "55650",
+          "temperature_after_millideg_c": "56750",
           "cpu_frequency_khz": "2400000",
           "samples": [
             {
-              "total_ms": 1236.9293049996486,
-              "inference_ms": 1163.3392489966354,
+              "total_ms": 1293.4072150092106,
+              "inference_ms": 1222.1078250004211,
               "objects": 10
             },
             {
-              "total_ms": 1241.6040579992114,
-              "inference_ms": 1174.9470049981028,
+              "total_ms": 1266.0049760015681,
+              "inference_ms": 1202.7944190049311,
               "objects": 10
             },
             {
-              "total_ms": 1246.6679600038333,
-              "inference_ms": 1178.019270999357,
+              "total_ms": 1258.297477994347,
+              "inference_ms": 1194.8682549991645,
               "objects": 10
             },
             {
-              "total_ms": 1232.6236739972956,
-              "inference_ms": 1168.947277998086,
+              "total_ms": 1374.964500995702,
+              "inference_ms": 1296.8052219948731,
               "objects": 10
             },
             {
-              "total_ms": 1230.927017997601,
-              "inference_ms": 1165.7305620028637,
+              "total_ms": 1461.559875999228,
+              "inference_ms": 1390.9777630033204,
               "objects": 10
             },
             {
-              "total_ms": 1248.5819590001483,
-              "inference_ms": 1180.536864005262,
+              "total_ms": 1261.837984988233,
+              "inference_ms": 1196.3576509879204,
               "objects": 10
             },
             {
-              "total_ms": 1241.8314730020938,
-              "inference_ms": 1176.345626998227,
+              "total_ms": 1256.417266005883,
+              "inference_ms": 1195.0003940000897,
               "objects": 10
             },
             {
-              "total_ms": 1236.3867500025663,
-              "inference_ms": 1172.4259269976756,
+              "total_ms": 1255.6981939997058,
+              "inference_ms": 1191.962101001991,
               "objects": 10
             },
             {
-              "total_ms": 1256.5152340030181,
-              "inference_ms": 1187.7848600051948,
+              "total_ms": 1254.392271002871,
+              "inference_ms": 1193.7519170023734,
               "objects": 10
             },
             {
-              "total_ms": 1247.833483001159,
-              "inference_ms": 1180.5572070006747,
+              "total_ms": 1260.5362350004725,
+              "inference_ms": 1198.7715309951454,
               "objects": 10
             },
             {
-              "total_ms": 1249.4142089999514,
-              "inference_ms": 1181.4219110019621,
+              "total_ms": 1267.8672390029533,
+              "inference_ms": 1207.3825510015013,
               "objects": 10
             },
             {
-              "total_ms": 1261.4386860004743,
-              "inference_ms": 1194.1647990024649,
+              "total_ms": 1256.3051670003915,
+              "inference_ms": 1195.3330720134545,
               "objects": 10
             }
           ],
@@ -211,19 +213,21 @@
       ]
     },
     "n": {
-      "seconds": 0.5303315925011702,
-      "mask_map": 97.10072360733652,
-      "peak_rss_mib": 254.00390625,
-      "accuracy_metrics": {
-        "metrics/precision(B)": 0.9909642668846741,
-        "metrics/recall(B)": 0.995023149655865,
-        "metrics/mAP50(B)": 0.9949999999999998,
-        "metrics/mAP50-95(B)": 0.9788130341880341,
-        "metrics/precision(M)": 0.9909642668846741,
-        "metrics/recall(M)": 0.995023149655865,
-        "metrics/mAP50(M)": 0.9949999999999998,
-        "metrics/mAP50-95(M)": 0.9710072360733651,
-        "fitness": 1.9498202702613994
+      "seconds": 0.5460138099952019,
+      "class_mean_iou_percent": 97.62877343957392,
+      "peak_rss_mib": 253.87109375,
+      "operating_accuracy": {
+        "gt": 169,
+        "pred": 169,
+        "tp": 169,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "instance_mean_iou": 0.9773098620160332,
+        "class_mean_iou": 0.9762877343957391,
+        "minimum_class_iou": 0.9580672808803226,
+        "class_iou_stddev": 0.007548845022578371
       },
       "model_sha256": {
         "metadata.yaml": "6d2b76803eb0217e9fffeac26a6326976857c7a9d35d82304a4416827282df13",
@@ -233,7 +237,7 @@
       "pi_blocks": [
         {
           "status": "complete",
-          "model": "/home/ubuntu/portfolio-consistent-20261022/12/models/n_mixed/model_ncnn_model",
+          "model": "/home/ubuntu/portfolio-operating-eval-20261022/operating/models/n_mixed/model_ncnn_model",
           "model_sha256": {
             "metadata.yaml": "6d2b76803eb0217e9fffeac26a6326976857c7a9d35d82304a4416827282df13",
             "model.ncnn.bin": "ef5c9ee1829682a68193fe4a5d49987167873b84e5bea2e1eac5dda17d302e21",
@@ -244,73 +248,73 @@
           "threads": 4,
           "warmup_runs": 3,
           "runs": 12,
-          "total_ms_median": 537.1494209975936,
-          "total_ms_p95": 549.4425123990368,
-          "inference_ms_median": 474.2041440003959,
-          "fps_from_median": 1.8616793780449408,
-          "peak_rss_mb": 254.00390625,
-          "temperature_before_millideg_c": "46850",
-          "temperature_after_millideg_c": "51250",
+          "total_ms_median": 547.2547164972639,
+          "total_ms_p95": 561.8034048042318,
+          "inference_ms_median": 489.4905825058231,
+          "fps_from_median": 1.8273026615477324,
+          "peak_rss_mb": 253.87109375,
+          "temperature_before_millideg_c": "51800",
+          "temperature_after_millideg_c": "55100",
           "cpu_frequency_khz": "2400000",
           "samples": [
             {
-              "total_ms": 538.5331049983506,
-              "inference_ms": 475.9692079969682,
+              "total_ms": 539.9771119991783,
+              "inference_ms": 483.5235610080417,
               "objects": 10
             },
             {
-              "total_ms": 546.3946099989698,
-              "inference_ms": 486.8957969956682,
+              "total_ms": 543.3481679938268,
+              "inference_ms": 486.5718939981889,
               "objects": 10
             },
             {
-              "total_ms": 534.9869080018834,
-              "inference_ms": 472.6786230021389,
+              "total_ms": 545.2144830051111,
+              "inference_ms": 489.93609799072146,
               "objects": 10
             },
             {
-              "total_ms": 536.8536730020423,
-              "inference_ms": 469.5888920032303,
+              "total_ms": 548.5002609930234,
+              "inference_ms": 490.7201530004386,
               "objects": 10
             },
             {
-              "total_ms": 537.3463029973209,
-              "inference_ms": 473.514327997691,
+              "total_ms": 547.387576996698,
+              "inference_ms": 488.44398799701594,
               "objects": 10
             },
             {
-              "total_ms": 550.4166570026428,
-              "inference_ms": 480.0510889981524,
+              "total_ms": 564.8240950104082,
+              "inference_ms": 495.78791300882585,
               "objects": 10
             },
             {
-              "total_ms": 548.6454849960865,
-              "inference_ms": 481.5120009952807,
+              "total_ms": 540.0514479988487,
+              "inference_ms": 482.8748220024863,
               "objects": 10
             },
             {
-              "total_ms": 545.1131769950734,
-              "inference_ms": 477.7847850054968,
+              "total_ms": 547.1218559978297,
+              "inference_ms": 489.8623780027265,
               "objects": 10
             },
             {
-              "total_ms": 530.4307430051267,
-              "inference_ms": 468.7251270006527,
+              "total_ms": 545.1389489899157,
+              "inference_ms": 487.90519300382584,
               "objects": 10
             },
             {
-              "total_ms": 531.2042079967796,
-              "inference_ms": 467.05310299876146,
+              "total_ms": 550.3297450050013,
+              "inference_ms": 490.453342004912,
               "objects": 10
             },
             {
-              "total_ms": 536.9525389978662,
-              "inference_ms": 474.8939600031008,
+              "total_ms": 551.2345600000117,
+              "inference_ms": 493.50423099531326,
               "objects": 10
             },
             {
-              "total_ms": 531.9942269998137,
-              "inference_ms": 467.801900995255,
+              "total_ms": 559.3319309991784,
+              "inference_ms": 489.11878700891975,
               "objects": 10
             }
           ],
@@ -318,7 +322,7 @@
         },
         {
           "status": "complete",
-          "model": "/home/ubuntu/portfolio-consistent-20261022/12/models/n_mixed/model_ncnn_model",
+          "model": "/home/ubuntu/portfolio-operating-eval-20261022/operating/models/n_mixed/model_ncnn_model",
           "model_sha256": {
             "metadata.yaml": "6d2b76803eb0217e9fffeac26a6326976857c7a9d35d82304a4416827282df13",
             "model.ncnn.bin": "ef5c9ee1829682a68193fe4a5d49987167873b84e5bea2e1eac5dda17d302e21",
@@ -329,73 +333,73 @@
           "threads": 4,
           "warmup_runs": 3,
           "runs": 12,
-          "total_ms_median": 522.0573459992011,
-          "total_ms_p95": 529.3745833496359,
-          "inference_ms_median": 459.4739069980278,
-          "fps_from_median": 1.9154983789875266,
-          "peak_rss_mb": 253.859375,
-          "temperature_before_millideg_c": "52900",
-          "temperature_after_millideg_c": "54000",
+          "total_ms_median": 545.4647274964373,
+          "total_ms_p95": 552.7004561015929,
+          "inference_ms_median": 481.9920105001074,
+          "fps_from_median": 1.833299110998028,
+          "peak_rss_mb": 253.6953125,
+          "temperature_before_millideg_c": "57300",
+          "temperature_after_millideg_c": "56200",
           "cpu_frequency_khz": "2400000",
           "samples": [
             {
-              "total_ms": 520.5528419974144,
-              "inference_ms": 456.55301999795483,
+              "total_ms": 548.2811050023884,
+              "inference_ms": 482.5059720024001,
               "objects": 10
             },
             {
-              "total_ms": 528.6726990016177,
-              "inference_ms": 465.4183800012106,
+              "total_ms": 546.5402169938898,
+              "inference_ms": 482.72069499944337,
               "objects": 10
             },
             {
-              "total_ms": 523.5618500009878,
-              "inference_ms": 460.6081419988186,
+              "total_ms": 539.147346993559,
+              "inference_ms": 472.22013800637797,
               "objects": 10
             },
             {
-              "total_ms": 519.7939490026329,
-              "inference_ms": 455.9783510048874,
+              "total_ms": 545.4420519963605,
+              "inference_ms": 481.2765840033535,
               "objects": 10
             },
             {
-              "total_ms": 528.66212400113,
-              "inference_ms": 459.09830399614293,
+              "total_ms": 545.487402996514,
+              "inference_ms": 480.67249200539663,
               "objects": 10
             },
             {
-              "total_ms": 517.9991280019749,
-              "inference_ms": 459.8495099999127,
+              "total_ms": 542.6062180049485,
+              "inference_ms": 478.5951590019977,
               "objects": 10
             },
             {
-              "total_ms": 514.2535060003866,
-              "inference_ms": 451.22761300444836,
+              "total_ms": 549.253144999966,
+              "inference_ms": 486.2497889989754,
               "objects": 10
             },
             {
-              "total_ms": 530.2324419972138,
-              "inference_ms": 460.7697890023701,
+              "total_ms": 543.0418670002837,
+              "inference_ms": 479.03614200185984,
               "objects": 10
             },
             {
-              "total_ms": 516.0568990031607,
-              "inference_ms": 452.59087500016904,
+              "total_ms": 544.9113119975664,
+              "inference_ms": 481.47804899781477,
               "objects": 10
             },
             {
-              "total_ms": 528.5823800004437,
-              "inference_ms": 462.8174800018314,
+              "total_ms": 543.1742749933619,
+              "inference_ms": 483.1106420024298,
               "objects": 10
             },
             {
-              "total_ms": 525.6561490023159,
-              "inference_ms": 461.84877299674554,
+              "total_ms": 552.1307390008587,
+              "inference_ms": 487.0065870054532,
               "objects": 10
             },
             {
-              "total_ms": 515.9781940019457,
-              "inference_ms": 451.89192799443845,
+              "total_ms": 553.3967770024901,
+              "inference_ms": 491.4478290011175,
               "objects": 10
             }
           ],

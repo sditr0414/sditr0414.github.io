@@ -3,76 +3,76 @@
   "training_n": {
     "model": "YOLO26n, NCNN FP16",
     "values": {
-      "n_real": 96.26242653780854,
-      "n_mixed": 97.10072360733652,
-      "n_sequential": 95.98496328059886
+      "n_real": 96.81449947517036,
+      "n_mixed": 97.62877343957392,
+      "n_sequential": 97.66638859011125
     },
     "scores": {
       "n_real": {
-        "carrier_jig": 99.49999999999999,
-        "pallet": 96.0483870967742,
-        "linear_jig": 97.19649122807017,
-        "A_lower": 98.4,
-        "A_middle": 91.23333333333333,
-        "A_upper": 95.08571428571429,
-        "B_lower": 94.41904761904763,
-        "B_middle": 85.65714285714286,
-        "B_upper": 95.87142857142858,
-        "A_lower_middle": 99.49999999999999,
-        "B_lower_middle": 99.49999999999999,
-        "A_complete": 99.49999999999999,
-        "B_complete": 99.49999999999999
+        "carrier_jig": 98.74488836318204,
+        "pallet": 97.20074026430542,
+        "linear_jig": 98.03102599887319,
+        "A_lower": 98.19161057939229,
+        "A_middle": 98.04986023954673,
+        "A_upper": 97.32522125980039,
+        "B_lower": 85.32313861596015,
+        "B_middle": 96.91528659709778,
+        "B_upper": 97.13078507420309,
+        "A_lower_middle": 98.08756537609949,
+        "B_lower_middle": 97.87702296794075,
+        "A_complete": 97.66863595956481,
+        "B_complete": 98.04271188124854
       },
       "n_mixed": {
-        "carrier_jig": 99.49999999999999,
-        "pallet": 94.51567673664447,
-        "linear_jig": 97.73261904761907,
-        "A_lower": 99.49999999999999,
-        "A_middle": 95.06666666666665,
-        "A_upper": 98.3,
-        "B_lower": 95.24444444444443,
-        "B_middle": 86.55000000000001,
-        "B_upper": 97.89999999999999,
-        "A_lower_middle": 99.49999999999999,
-        "B_lower_middle": 99.49999999999999,
-        "A_complete": 99.49999999999999,
-        "B_complete": 99.49999999999999
+        "carrier_jig": 98.754414469403,
+        "pallet": 97.08019115133222,
+        "linear_jig": 98.04979587574148,
+        "A_lower": 98.10586005711033,
+        "A_middle": 98.05011866144169,
+        "A_upper": 97.48224507162358,
+        "B_lower": 95.80672808803226,
+        "B_middle": 96.77602288070479,
+        "B_upper": 96.96270373008295,
+        "A_lower_middle": 98.21935827413265,
+        "B_lower_middle": 98.12230207140459,
+        "A_complete": 97.77097139867456,
+        "B_complete": 97.9933429847768
       },
       "n_sequential": {
-        "carrier_jig": 99.49999999999999,
-        "pallet": 95.48772401433693,
-        "linear_jig": 96.92342561757542,
-        "A_lower": 98.27777777777777,
-        "A_middle": 86.98392857142858,
-        "A_upper": 94.75833333333334,
-        "B_lower": 96.43333333333335,
-        "B_middle": 83.74000000000002,
-        "B_upper": 97.7,
-        "A_lower_middle": 99.49999999999999,
-        "B_lower_middle": 99.49999999999999,
-        "A_complete": 99.49999999999999,
-        "B_complete": 99.49999999999999
+        "carrier_jig": 98.75089033145598,
+        "pallet": 97.07118003713947,
+        "linear_jig": 98.09335263370545,
+        "A_lower": 97.70309926233884,
+        "A_middle": 97.80089614001083,
+        "A_upper": 97.44136246785231,
+        "B_lower": 96.98279611027911,
+        "B_middle": 96.8633047502904,
+        "B_upper": 96.84598421238965,
+        "A_lower_middle": 98.04536295686917,
+        "B_lower_middle": 97.78366692837993,
+        "A_complete": 97.86180029310768,
+        "B_complete": 98.4193555476274
       }
     },
     "summary": {
       "n_real": {
-        "mean": 96.26242653780854,
-        "minimum": 85.65714285714286,
-        "population_stddev": 3.9281657201879394
+        "mean": 96.81449947517036,
+        "minimum": 85.32313861596015,
+        "population_stddev": 3.3533930551670825
       },
       "n_mixed": {
-        "mean": 97.1007236073365,
-        "minimum": 86.55000000000001,
-        "population_stddev": 3.5366102593632003
+        "mean": 97.62877343957392,
+        "minimum": 95.80672808803226,
+        "population_stddev": 0.754884502257836
       },
       "n_sequential": {
-        "mean": 95.98496328059888,
-        "minimum": 83.74000000000002,
-        "population_stddev": 4.833911712041176
+        "mean": 97.66638859011125,
+        "minimum": 96.84598421238965,
+        "population_stddev": 0.5771693979095172
       }
     },
-    "source": "SO101_synthetic/benchmarks/portfolio_consistent_20261022/stage10_complete.json",
-    "metric": "Ultralytics mask mAP50-95",
+    "source": "SO101_synthetic/benchmarks/portfolio_operating_eval_20261022/accuracy_complete.json",
+    "metric": "Original-resolution mask IoU, macro average over classes, confidence 0.5; unmatched GT contributes zero",
     "protocol": "Same training settings and early stopping per stage; sequential trains synthetic then real; actual epochs and total training exposure may differ.",
     "model_hashes": {
       "n_real": {
@@ -96,10 +96,10 @@
     {
       "variant": "original",
       "model": "YOLO26n",
-      "mask_map": 97.10072360733652,
-      "seconds": 1.6078692935006984,
+      "class_mean_iou_percent": 97.62842021165746,
+      "seconds": 1.5772616305039264,
       "runs": 24,
-      "source": "SO101_synthetic/benchmarks/portfolio_consistent_20261022/stage11_complete.json",
+      "source": "SO101_synthetic/benchmarks/portfolio_operating_eval_20261022/performance_complete.json",
       "model_hashes": {
         "model.pt": "4f3e8a701b9fa2038fef71e92ccbd495b23a1dcdbe470d0ca4c5c4470b16a598"
       }
@@ -107,10 +107,10 @@
     {
       "variant": "fp16",
       "model": "YOLO26n",
-      "mask_map": 97.10072360733652,
-      "seconds": 0.523781774998497,
+      "class_mean_iou_percent": 97.62877343957392,
+      "seconds": 0.5460138099952019,
       "runs": 24,
-      "source": "SO101_synthetic/benchmarks/portfolio_consistent_20261022/stage11_complete.json",
+      "source": "SO101_synthetic/benchmarks/portfolio_operating_eval_20261022/performance_complete.json",
       "model_hashes": {
         "metadata.yaml": "6d2b76803eb0217e9fffeac26a6326976857c7a9d35d82304a4416827282df13",
         "model.ncnn.bin": "ef5c9ee1829682a68193fe4a5d49987167873b84e5bea2e1eac5dda17d302e21",
@@ -120,10 +120,10 @@
     {
       "variant": "int8",
       "model": "YOLO26n",
-      "mask_map": 96.77872570298321,
-      "seconds": 0.907157448502403,
+      "class_mean_iou_percent": 97.55115285965381,
+      "seconds": 0.9257956120054587,
       "runs": 24,
-      "source": "SO101_synthetic/benchmarks/portfolio_consistent_20261022/stage11_complete.json",
+      "source": "SO101_synthetic/benchmarks/portfolio_operating_eval_20261022/performance_complete.json",
       "model_hashes": {
         "model_int8.onnx": "07505ec7c325802b3a7a5a810589a9fcb93af5a0eccbfcb8f4a6122776a933ae"
       }
@@ -131,14 +131,14 @@
   ],
   "size": {
     "s": {
-      "seconds": 1.2386103950011602,
-      "mask_map": 96.39426420463906,
-      "peak_rss_mib": 409.05859375
+      "seconds": 1.2602645125007257,
+      "class_mean_iou_percent": 97.81315479360698,
+      "peak_rss_mib": 409.265625
     },
     "n": {
-      "seconds": 0.5303315925011702,
-      "mask_map": 97.10072360733652,
-      "peak_rss_mib": 254.00390625
+      "seconds": 0.5460138099952019,
+      "class_mean_iou_percent": 97.62877343957392,
+      "peak_rss_mib": 253.87109375
     }
   },
   "pallet_yield": [
@@ -146,9 +146,146 @@
     80.7017543859649,
     99.64912280701755
   ],
+  "operating_evaluation": {
+    "protocol": {
+      "confidence": 0.5,
+      "confidence_source": "SO101_teach/so101_teach/yolo_ui.py default 0.5 and model_regions.py default 0.5",
+      "input": 960,
+      "mask_resolution": [
+        1280,
+        720
+      ],
+      "test_images": 31,
+      "gt_instances": 169,
+      "primary_metric": "Macro average of 13 class mean original-pixel IoUs; unmatched GT scores zero; class-aware one-to-one matching at IoU>=0.5; FP/FN separately reported.",
+      "native_ncnn_provider_sha256": "062b5e1f71f42cffd72cb82e3e53d08ae77ebaa49e0a644b1dd3f7da504555f8",
+      "original_backend": "PyTorch full-resolution retina_masks=True",
+      "int8_backend": "ONNX Runtime with same full-resolution mask restoration as NCNN",
+      "training_changed": false,
+      "live_model_changed": false
+    },
+    "variants": {
+      "n_real": {
+        "overall": {
+          "gt": 169,
+          "pred": 168,
+          "tp": 168,
+          "fp": 0,
+          "fn": 1,
+          "precision": 1.0,
+          "recall": 0.9940828402366864,
+          "instance_mean_iou": 0.9725207697446524,
+          "class_mean_iou": 0.9681449947517037,
+          "minimum_class_iou": 0.8532313861596015,
+          "class_iou_stddev": 0.033533930551670824
+        },
+        "model_sha256": {
+          "metadata.yaml": "9aa43bf48338b1115e47f9e8cc90d22ff42d3dae7e78b8328fefef0a30c25d09",
+          "model.ncnn.bin": "23b79e8f16df127e012fe0537671a01968f995b2a8cf468f9cda2523b287d6bf",
+          "model.ncnn.param": "e8037ba3faebb6fd713e9495888daf78a4b52950d93e885741e4ea0ebe51132c"
+        }
+      },
+      "n_mixed": {
+        "overall": {
+          "gt": 169,
+          "pred": 169,
+          "tp": 169,
+          "fp": 0,
+          "fn": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "instance_mean_iou": 0.9773098620160332,
+          "class_mean_iou": 0.9762877343957391,
+          "minimum_class_iou": 0.9580672808803226,
+          "class_iou_stddev": 0.007548845022578371
+        },
+        "model_sha256": {
+          "metadata.yaml": "6d2b76803eb0217e9fffeac26a6326976857c7a9d35d82304a4416827282df13",
+          "model.ncnn.bin": "ef5c9ee1829682a68193fe4a5d49987167873b84e5bea2e1eac5dda17d302e21",
+          "model.ncnn.param": "e8037ba3faebb6fd713e9495888daf78a4b52950d93e885741e4ea0ebe51132c"
+        }
+      },
+      "n_sequential": {
+        "overall": {
+          "gt": 169,
+          "pred": 169,
+          "tp": 169,
+          "fp": 0,
+          "fn": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "instance_mean_iou": 0.9776366649400545,
+          "class_mean_iou": 0.9766638859011125,
+          "minimum_class_iou": 0.9684598421238965,
+          "class_iou_stddev": 0.005771693979095163
+        },
+        "model_sha256": {
+          "metadata.yaml": "50b537dc13101edb251007cb0cb0b807a17f1606984a64479f557f0004ecd546",
+          "model.ncnn.bin": "32785927ca1a9f8ddb8bf2e7a442fa6bd4c3ac354abf63bcaf2c050ddc740ada",
+          "model.ncnn.param": "e8037ba3faebb6fd713e9495888daf78a4b52950d93e885741e4ea0ebe51132c"
+        }
+      },
+      "s_mixed": {
+        "overall": {
+          "gt": 169,
+          "pred": 169,
+          "tp": 169,
+          "fp": 0,
+          "fn": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "instance_mean_iou": 0.9789529034033074,
+          "class_mean_iou": 0.9781315479360698,
+          "minimum_class_iou": 0.9625605298350826,
+          "class_iou_stddev": 0.006757067966114721
+        },
+        "model_sha256": {
+          "metadata.yaml": "59c4e7468708f61b7dcf077d28b95f126448ed84c10bf0c83462ff65ea1a2e06",
+          "model.ncnn.bin": "d3c14285ab796df3d4fb1e787c9870fa8d83f915e1fb4d60124526a5049a41d2",
+          "model.ncnn.param": "b521ac2ecba84f253970ae0aeba8cdbae927ed25cf80d887dbc2e7193abcc725"
+        }
+      },
+      "n_original": {
+        "overall": {
+          "gt": 169,
+          "pred": 169,
+          "tp": 169,
+          "fp": 0,
+          "fn": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "instance_mean_iou": 0.9772841390944029,
+          "class_mean_iou": 0.9762842021165746,
+          "minimum_class_iou": 0.9580079121836667,
+          "class_iou_stddev": 0.007546845376620212
+        },
+        "model_sha256": {
+          "model.pt": "4f3e8a701b9fa2038fef71e92ccbd495b23a1dcdbe470d0ca4c5c4470b16a598"
+        }
+      },
+      "n_int8": {
+        "overall": {
+          "gt": 169,
+          "pred": 169,
+          "tp": 169,
+          "fp": 0,
+          "fn": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "instance_mean_iou": 0.9756299178034653,
+          "class_mean_iou": 0.9755115285965381,
+          "minimum_class_iou": 0.9599574445642086,
+          "class_iou_stddev": 0.00732396592550036
+        },
+        "model_sha256": {
+          "model_int8.onnx": "07505ec7c325802b3a7a5a810589a9fcb93af5a0eccbfcb8f4a6122776a933ae"
+        }
+      }
+    }
+  },
   "limitations": [
     "Training panels use the same nano model and NCNN FP16 evaluation; early-stopping criteria match, but stage counts and total training duration differ.",
-    "Model test: 31 real photos, one captured environment; AP is not simple accuracy.",
+    "Operating-point mask evaluation: 31 real photos, confidence 0.5, original 1280x720 masks; class-average IoU includes zero for unmatched ground truth. FP/FN reported separately.",
     "Pi timings exclude camera, transport, UI and robot motion.",
     "Jig comparison includes all 304 development photos, including train/val/test; not unseen-test accuracy."
   ],

@@ -53,12 +53,16 @@ def bars(name, labels, values, maximum, unit, decimals=2, highlight=None):
 
 
 base = "SO101_synthetic/benchmarks/"
-comparison_base = base + "portfolio_consistent_20261022/"
-training = read(comparison_base + "stage10_complete.json")["variants"]
-quantization = read(comparison_base + "stage11_complete.json")
-mask = lambda d: d["metrics"]["metrics/mAP50-95(M)"] * 100
+comparison_base = base + "portfolio_operating_eval_20261022/"
+operating = read(comparison_base + "accuracy_complete.json")
+performance = read(comparison_base + "performance_complete.json")
+training = {k: operating[k] for k in ["n_real", "n_mixed", "n_sequential"]}
+quant_models = {"original": "n_original", "fp16": "n_mixed", "int8": "n_int8"}
+quantization = {"variants": {k: operating[v] for k, v in quant_models.items()},
+                "pi": {k: performance[v] for k, v in quant_models.items()}}
+mask = lambda d: d["overall"]["class_mean_iou"] * 100
 training_values = {k: mask(v) for k, v in training.items()}
-class_scores = {k: {label: score * 100 for label, score in v["per_class_mask_ap"].items()}
+class_scores = {k: {label: score * 100 for label, score in {label: row["mean_iou"] for label, row in v["per_class"].items()}.items()}
                 for k, v in training.items()}
 class_summary = {k: {"mean": mean(scores.values()), "minimum": min(scores.values()),
                      "population_stddev": pstdev(scores.values())}
@@ -66,7 +70,7 @@ class_summary = {k: {"mean": mean(scores.values()), "minimum": min(scores.values
 assert all(scores.keys() == class_scores["n_real"].keys() for scores in class_scores.values())
 bars("robot-training-n-sequential", ["혼합", "순차"],
      [training_values[k] for k in ["n_mixed", "n_sequential"]], 100,
-     "실물 테스트 마스크 mAP50–95 · 높을수록 좋음", highlight=0)
+     "원본 마스크 클래스 평균 IoU · % · 높을수록 좋음", highlight=0)
 quant_keys = ["original", "fp16", "int8"]
 quant_time = [quantization["pi"][k]["seconds"] for k in quant_keys]
 bars("robot-quantization", ["원본", "FP16", "INT8 혼합"], quant_time, 2,
@@ -88,21 +92,23 @@ evidence = {
     "date": "2026-10-22",
     "training_n": {"model": "YOLO26n, NCNN FP16", "values": training_values,
                    "scores": class_scores, "summary": class_summary,
-                   "source": comparison_base + "stage10_complete.json",
-                   "metric": "Ultralytics mask mAP50-95",
+                   "source": comparison_base + "accuracy_complete.json",
+                   "metric": "Original-resolution mask IoU, macro average over classes, confidence 0.5; unmatched GT contributes zero",
                    "protocol": "Same training settings and early stopping per stage; sequential trains synthetic then real; actual epochs and total training exposure may differ.",
                    "model_hashes": {k: v["model_sha256"] for k, v in training.items()}},
-    "quantization": [{"variant": k, "model": "YOLO26n", "mask_map": mask(quantization["variants"][k]),
+    "quantization": [{"variant": k, "model": "YOLO26n", "class_mean_iou_percent": mask(quantization["variants"][k]),
                       "seconds": quant_time[i], "runs": quantization["pi"][k]["runs"],
-                      "source": comparison_base + "stage11_complete.json",
+                      "source": comparison_base + "performance_complete.json",
                       "model_hashes": quantization["variants"][k]["model_sha256"]}
                      for i, k in enumerate(quant_keys)],
-    "size": {k: {field: current_sizes[k][field] for field in ["seconds", "mask_map", "peak_rss_mib"]}
+    "size": {k: {field: current_sizes[k][field] for field in ["seconds", "class_mean_iou_percent", "peak_rss_mib"]}
              for k in ["s", "n"]},
     "pallet_yield": yield_values,
+    "operating_evaluation": {"protocol": read(comparison_base + "protocol.json"),
+                             "variants": {k: {"overall": v["overall"], "model_sha256": v["model_sha256"]} for k, v in operating.items()}},
     "limitations": [
         "Training panels use the same nano model and NCNN FP16 evaluation; early-stopping criteria match, but stage counts and total training duration differ.",
-        "Model test: 31 real photos, one captured environment; AP is not simple accuracy.",
+        "Operating-point mask evaluation: 31 real photos, confidence 0.5, original 1280x720 masks; class-average IoU includes zero for unmatched ground truth. FP/FN reported separately.",
         "Pi timings exclude camera, transport, UI and robot motion.",
         "Jig comparison includes all 304 development photos, including train/val/test; not unseen-test accuracy."
     ]
