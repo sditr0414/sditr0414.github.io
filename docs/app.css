@@ -1742,3 +1742,14 @@ x-nw { white-space: nowrap; }
 @media (min-width: 681px) {
   .hero-in { column-gap: clamp(88px, 10vw, 180px); }
 }
+
+/* hero (final): text anchored to the left edge of the content column, a larger photo anchored to the right edge,
+   both lined up with the info card below */
+@media (min-width: 681px) {
+  .hero-in { grid-template-columns: minmax(0, 1fr) auto; justify-content: stretch; column-gap: 64px; align-items: center; }
+  .hero-in .h-photo { order: 0; width: clamp(220px, 22vw, 300px); }
+}
+@media (min-width: 681px) and (max-height: 760px) {
+  .hero-in .h-photo { width: clamp(200px, 18vw, 250px); }
+}
+@media (min-width: 681px) { .hero-in { padding-bottom: 20px; } }
