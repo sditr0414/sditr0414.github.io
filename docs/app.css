@@ -1579,3 +1579,6 @@ html body header.top .brand span { font-size: 15.5px; }
 .robot-study .study-table td, .robot-study .study-table thead th:not(:first-child) { text-align: center; }
 .robot-study .study-method-table thead th:nth-child(2), .robot-study .study-method-table td:nth-child(2) { text-align: left; }
 .robot-study .study-table caption { font-size: 15.5px; color: var(--navy); }
+/* captions start where their image or video starts: the figure shrinks to the media and centres */
+.robot-study .ds-body figure:not(.study-chart):not(.svg-fig):not(:has(.pallet-photo)) { width: fit-content; max-width: 100%; margin-inline: auto; }
+.robot-study .ds-body figure:not(.study-chart):not(.svg-fig) > figcaption { text-align: left; }
