@@ -594,7 +594,7 @@ document.addEventListener('click', e => {
   e.preventDefault();
   const fig = a.closest('figure'), cap = fig && $('figcaption', fig), img = $('img', a);
   lbOpener = a;
-  lbImg.src = a.getAttribute('href'); lbImg.alt = img ? img.alt : '';
+  lbImg.src = a.getAttribute('href'); lbImg.alt = img ? img.alt : (a.getAttribute('aria-label') || '');
   lbCap.textContent = cap ? cap.textContent : ''; lbCap.hidden = !cap;
   lb.classList.remove('zoom', 'can-zoom'); lb.hidden = false;
   requestAnimationFrame(() => lb.classList.add('on'));
