@@ -1619,10 +1619,11 @@ html body header.top .brand span { font-size: 15.5px; }
 .robot-study .adoption-compact .adoption-after { border-top: 1px solid var(--box-line); padding-top: 10px; margin-top: 12px; font-size: 16px; line-height: 1.6; }
 @media (max-width: 560px) {
  .adoption-rule.adoption-compact { padding: 12px; }
- .adoption-flow { grid-template-columns: 1fr; gap: 22px; }
+ .adoption-flow { grid-template-columns: 1fr; gap: 32px; }
+ .adoption-flow li { text-align: center; }
  .adoption-flow strong { font-size: 18px; }
  .adoption-flow span { font-size: 16px; }
- .adoption-flow li + li::before { content: "↓"; left: auto; right: 12px; top: -23px; font-size: 18px; }
+ .adoption-flow li + li::before { content: "↓"; left: 50%; right: auto; top: -27px; transform: translateX(-50%); font-size: 20px; line-height: 22px; }
 }
 
 .robot-study .episode-method { font-size: 20px; line-height: 1.6; margin: 0 0 24px; }
