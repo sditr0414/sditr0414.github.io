@@ -1608,3 +1608,19 @@ html body header.top .brand span { font-size: 15.5px; }
  .pallet-process-summary { grid-template-columns: 1fr; gap: 18px; }
  .adoption-rule { padding: 12px 14px; }
 }
+
+/* Compact adoption decisions on fixture detail slides. */
+.adoption-rule.adoption-compact { display: block; padding: 16px; }
+.adoption-flow { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 18px; list-style: none; padding: 0; margin: 0; }
+.adoption-flow li { position: relative; min-width: 0; }
+.adoption-flow li + li::before { content: "›"; position: absolute; left: -14px; top: 17px; color: var(--navy); font-size: 22px; }
+.adoption-flow strong { display: block; color: var(--navy); font-size: 16px; margin-bottom: 5px; }
+.adoption-flow span { display: block; font-size: 13px; line-height: 1.6; word-break: keep-all; }
+.robot-study .adoption-compact .adoption-after { border-top: 1px solid var(--box-line); padding-top: 10px; margin-top: 12px; font-size: 13px; line-height: 1.6; }
+@media (max-width: 560px) {
+ .adoption-rule.adoption-compact { padding: 12px; }
+ .adoption-flow { gap: 14px; }
+ .adoption-flow strong { font-size: 14px; }
+ .adoption-flow span { font-size: 12px; }
+ .adoption-flow li + li::before { left: -11px; font-size: 18px; }
+}
