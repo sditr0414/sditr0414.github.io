@@ -9,7 +9,7 @@
     <dc:format>image/svg+xml</dc:format>
     <dc:creator>
      <cc:Agent>
-      <dc:title>Matplotlib v3.6.3, https://matplotlib.org/</dc:title>
+      <dc:title>Matplotlib v3.10.9, https://matplotlib.org/</dc:title>
      </cc:Agent>
     </dc:creator>
    </cc:Work>
@@ -43,7 +43,7 @@ z
      <g id="line2d_1">
       <path d="M 124.416 134.784
 L 124.416 10.368
-" clip-path="url(#p5b22dbc0b3)" style="fill: none; stroke: #dce4eb; stroke-width: 0.65; stroke-linecap: square"/>
+" clip-path="url(#p6aeb06b723)" style="fill: none; stroke: #dce4eb; stroke-width: 0.65; stroke-linecap: square"/>
      </g>
      <g id="line2d_2"/>
      <g id="text_1">
@@ -80,7 +80,7 @@ z
      <g id="line2d_3">
       <path d="M 263.450483 134.784
 L 263.450483 10.368
-" clip-path="url(#p5b22dbc0b3)" style="fill: none; stroke: #dce4eb; stroke-width: 0.65; stroke-linecap: square"/>
+" clip-path="url(#p6aeb06b723)" style="fill: none; stroke: #dce4eb; stroke-width: 0.65; stroke-linecap: square"/>
      </g>
      <g id="line2d_4"/>
      <g id="text_2">
@@ -114,7 +114,7 @@ z
 " transform="scale(0.015625)"/>
        </defs>
        <use xlink:href="#DejaVuSans-35"/>
-       <use xlink:href="#DejaVuSans-30" x="63.623047"/>
+       <use xlink:href="#DejaVuSans-30" transform="translate(63.623047 0)"/>
       </g>
      </g>
     </g>
@@ -122,7 +122,7 @@ z
      <g id="line2d_5">
       <path d="M 402.484966 134.784
 L 402.484966 10.368
-" clip-path="url(#p5b22dbc0b3)" style="fill: none; stroke: #dce4eb; stroke-width: 0.65; stroke-linecap: square"/>
+" clip-path="url(#p6aeb06b723)" style="fill: none; stroke: #dce4eb; stroke-width: 0.65; stroke-linecap: square"/>
      </g>
      <g id="line2d_6"/>
      <g id="text_3">
@@ -145,8 +145,8 @@ z
 " transform="scale(0.015625)"/>
        </defs>
        <use xlink:href="#DejaVuSans-31"/>
-       <use xlink:href="#DejaVuSans-30" x="63.623047"/>
-       <use xlink:href="#DejaVuSans-30" x="127.246094"/>
+       <use xlink:href="#DejaVuSans-30" transform="translate(63.623047 0)"/>
+       <use xlink:href="#DejaVuSans-30" transform="translate(127.246094 0)"/>
       </g>
      </g>
     </g>
@@ -247,7 +247,7 @@ z
 " transform="scale(0.015625)"/>
        </defs>
        <use xlink:href="#NotoSansCJKjp-Regular-d63c"/>
-       <use xlink:href="#NotoSansCJKjp-Regular-d569" x="91.999985"/>
+       <use xlink:href="#NotoSansCJKjp-Regular-d569" transform="translate(91.999985 0)"/>
       </g>
      </g>
     </g>
@@ -319,30 +319,30 @@ z
 " transform="scale(0.015625)"/>
        </defs>
        <use xlink:href="#NotoSansCJKjp-Regular-c21c"/>
-       <use xlink:href="#NotoSansCJKjp-Regular-cc28" x="91.999985"/>
+       <use xlink:href="#NotoSansCJKjp-Regular-cc28" transform="translate(91.999985 0)"/>
       </g>
      </g>
     </g>
    </g>
    <g id="patch_3">
     <path d="M 124.416 16.023273
-L 395.89132 16.023273
-L 395.89132 51.659238
+L 396.015241 16.023273
+L 396.015241 51.659238
 L 124.416 51.659238
 z
-" clip-path="url(#p5b22dbc0b3)" style="fill: #315e80"/>
+" clip-path="url(#p6aeb06b723)" style="fill: #a4bdd1"/>
    </g>
    <g id="patch_4">
     <path d="M 124.416 93.492762
-L 395.995916 93.492762
-L 395.995916 129.128727
+L 395.965129 93.492762
+L 395.965129 129.128727
 L 124.416 129.128727
 z
-" clip-path="url(#p5b22dbc0b3)" style="fill: #a4bdd1"/>
+" clip-path="url(#p6aeb06b723)" style="fill: #315e80"/>
    </g>
    <g id="text_6">
-    <!-- 97.63 -->
-    <g style="fill: #203b52" transform="translate(402.843044 39.226568) scale(0.19 -0.19)">
+    <!-- 97.67 -->
+    <g style="fill: #203b52" transform="translate(402.966966 39.226568) scale(0.19 -0.19)">
      <defs>
       <path id="NotoSansCJKjp-Regular-39" d="M 1504 -83
 C 2381 -83 3206 646 3206 2547
@@ -397,47 +397,28 @@ C 2720 800 2374 378 1926 378
 C 1338 378 986 909 922 1882
 z
 " transform="scale(0.015625)"/>
-      <path id="NotoSansCJKjp-Regular-33" d="M 1683 -83
-C 2522 -83 3194 416 3194 1254
-C 3194 1901 2752 2310 2202 2445
-L 2202 2477
-C 2701 2650 3034 3034 3034 3603
-C 3034 4346 2458 4774 1664 4774
-C 1126 4774 710 4538 358 4218
-L 672 3846
-C 941 4115 1267 4301 1645 4301
-C 2138 4301 2438 4006 2438 3558
-C 2438 3053 2112 2662 1139 2662
-L 1139 2214
-C 2227 2214 2598 1843 2598 1274
-C 2598 736 2208 403 1645 403
-C 1114 403 762 659 486 941
-L 186 563
-C 493 224 954 -83 1683 -83
-z
-" transform="scale(0.015625)"/>
      </defs>
      <use xlink:href="#NotoSansCJKjp-Regular-39"/>
-     <use xlink:href="#NotoSansCJKjp-Regular-37" x="55.499985"/>
-     <use xlink:href="#NotoSansCJKjp-Regular-2e" x="110.999969"/>
-     <use xlink:href="#NotoSansCJKjp-Regular-36" x="138.799957"/>
-     <use xlink:href="#NotoSansCJKjp-Regular-33" x="194.299942"/>
+     <use xlink:href="#NotoSansCJKjp-Regular-37" transform="translate(55.499985 0)"/>
+     <use xlink:href="#NotoSansCJKjp-Regular-2e" transform="translate(110.999969 0)"/>
+     <use xlink:href="#NotoSansCJKjp-Regular-36" transform="translate(138.799957 0)"/>
+     <use xlink:href="#NotoSansCJKjp-Regular-37" transform="translate(194.299942 0)"/>
     </g>
    </g>
    <g id="text_7">
-    <!-- 97.67 -->
-    <g style="fill: #203b52" transform="translate(402.947641 116.696057) scale(0.19 -0.19)">
+    <!-- 97.66 -->
+    <g style="fill: #203b52" transform="translate(402.916853 116.696057) scale(0.19 -0.19)">
      <use xlink:href="#NotoSansCJKjp-Regular-39"/>
-     <use xlink:href="#NotoSansCJKjp-Regular-37" x="55.499985"/>
-     <use xlink:href="#NotoSansCJKjp-Regular-2e" x="110.999969"/>
-     <use xlink:href="#NotoSansCJKjp-Regular-36" x="138.799957"/>
-     <use xlink:href="#NotoSansCJKjp-Regular-37" x="194.299942"/>
+     <use xlink:href="#NotoSansCJKjp-Regular-37" transform="translate(55.499985 0)"/>
+     <use xlink:href="#NotoSansCJKjp-Regular-2e" transform="translate(110.999969 0)"/>
+     <use xlink:href="#NotoSansCJKjp-Regular-36" transform="translate(138.799957 0)"/>
+     <use xlink:href="#NotoSansCJKjp-Regular-36" transform="translate(194.299942 0)"/>
     </g>
    </g>
   </g>
  </g>
  <defs>
-  <clipPath id="p5b22dbc0b3">
+  <clipPath id="p6aeb06b723">
    <rect x="124.416" y="10.368" width="322.56" height="124.416"/>
   </clipPath>
  </defs>
