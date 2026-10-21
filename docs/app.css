@@ -1865,3 +1865,19 @@ html body .pc-lead .pc-body .pc-more { font-size: 15px; }
 .sheet-end .end-nav .to-main, .sheet-end .end-nav .to-top { margin-left: 0; }
 /* footer line (main and detail sheet): content kept a little in from the edges */
 @media (min-width: 681px) { .end { padding-left: 24px; padding-right: 24px; } }
+
+/* phones: the three step photos of 07/08 sit in one swipeable row instead of a tall stack,
+   the next photo peeks in and the round arrows stay between the photos */
+@media (max-width: 680px) {
+  .robot-study .process-strip { display: flex; gap: 40px; overflow-x: auto; scroll-snap-type: x mandatory; overscroll-behavior-x: contain;
+    margin-inline: -4px; padding: 0 4px 10px; scrollbar-width: thin; -webkit-overflow-scrolling: touch; }
+  .robot-study .process-strip > .process-step { flex: 0 0 74%; scroll-snap-align: start; }
+  .robot-study .process-step svg, .robot-study .pallet-process .process-step svg { height: 220px; }
+  .robot-study .process-step + .process-step::before,
+  .robot-study .pallet-process .process-step + .process-step::before { left: -20px; top: calc(36px + 110px); }
+  .robot-study .process-step + .process-step::after,
+  .robot-study .pallet-process .process-step + .process-step::after { left: -20px; top: calc(36px + 110px); margin: -4px 0 0 -6px; transform: rotate(45deg); }
+  .robot-study .process-step h4 { margin-bottom: 8px; }
+  .adoption-flow { gap: 26px; }
+  .adoption-flow li + li::before { top: -24px; }
+}
