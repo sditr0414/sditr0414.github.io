@@ -1533,9 +1533,9 @@ html body header.top .brand span { font-size: 15.5px; }
 .robot-study .pallet-photo svg { display: block; width: 100%; max-height: 235px; margin-inline: auto; border-radius: 6px; }
 .robot-study .study-method-table thead th:nth-child(2), .robot-study .study-method-table td:nth-child(2) { text-align: left; }
 .robot-study .study-method-table td:nth-child(n+3) { white-space: nowrap; }
-.study-gui-layout { display: grid; grid-template-columns: minmax(0, 1.65fr) minmax(0, 1fr); gap: 24px; align-items: center; }
+.study-gui-layout { display: grid; grid-template-columns: minmax(0, 1.9fr) minmax(0, 1fr); gap: 24px; align-items: center; }
 .robot-study .study-gui .inline-demo { width: 100%; }
-.robot-study .study-gui .inline-demo video { width: 100%; max-height: min(350px, 45svh); }
+.robot-study .study-gui .inline-demo video { width: 100%; max-height: min(470px, 54svh); }
 @media (max-width: 680px) {
   .robot-study .ds.ds-first .inline-demo video { max-height: 340px; }
   .robot-study .study-pallet .study-pair, .study-gui-layout { grid-template-columns: 1fr; gap: 16px; }
@@ -1580,7 +1580,7 @@ html body header.top .brand span { font-size: 15.5px; }
 .robot-study .study-method-table thead th:nth-child(2), .robot-study .study-method-table td:nth-child(2) { text-align: left; }
 .robot-study .study-table caption { font-size: 15.5px; color: var(--navy); }
 /* captions start where their image or video starts: the figure shrinks to the media and centres */
-.robot-study .ds-body figure:not(.study-chart):not(.svg-fig):not(:has(.pallet-photo)):not(.study-transform) { width: fit-content; max-width: 100%; margin-inline: auto; }
+.robot-study .ds-body figure:not(.study-chart):not(.svg-fig):not(:has(.pallet-photo)):not(.study-transform):not(.process-step) { width: fit-content; max-width: 100%; margin-inline: auto; }
 .robot-study .ds-body figure:not(.study-chart):not(.svg-fig) > figcaption { text-align: left; }
 
 /* Carrier adoption: physical evidence beside the acquisition sequence. */
@@ -1589,4 +1589,22 @@ html body header.top .brand span { font-size: 15.5px; }
 @media (max-width: 680px) {
   .robot-study .carrier-layout { grid-template-columns: 1fr; gap: 18px; }
   .robot-study .carrier-photo svg { max-height: 220px; }
+}
+
+.process-strip { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; }
+.robot-study .process-step { width: 100%; min-width: 0; margin: 0; }
+.robot-study .process-step h4 { font-size: 17px; margin: 0 0 12px; }
+.robot-study .process-step svg { display: block; width: 100%; height: 270px; background: #f1f5f8; border-radius: 6px; }
+.robot-study .process-step figcaption { margin-top: 10px; font-size: 15px; color: var(--ink); text-align: left; }
+.adoption-rule { display: flex; align-items: center; gap: 16px; padding: 16px 20px; background: var(--box); border: 1px solid var(--box-line); border-radius: 6px; margin-top: 22px; }
+.adoption-rule > b { flex: 0 0 auto; color: var(--navy); }
+.robot-study .adoption-rule p { margin: 0; font-size: 16px; line-height: 1.6; }
+.pallet-process-summary { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1.2fr); align-items: center; gap: 28px; margin-top: 24px; }
+.pallet-process-summary .adoption-rule { margin-top: 0; }
+.robot-study .pallet-process svg { height: 210px; }
+@media (max-width: 680px) {
+ .process-strip { grid-template-columns: 1fr; gap: 20px; }
+ .robot-study .process-step svg { height: 230px; }
+ .pallet-process-summary { grid-template-columns: 1fr; gap: 18px; }
+ .adoption-rule { padding: 12px 14px; }
 }
