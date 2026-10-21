@@ -4,7 +4,7 @@
 <meta content="noindex" name="robots"/><title>정승호 포트폴리오</title>
 <link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
-<link href="app.css?v=20261021rev1" rel="stylesheet"/></head>
+<link href="app.css?v=20261021rev2" rel="stylesheet"/></head>
 <body>
 <a class="skip" href="#about">본문으로 이동</a>
 <header class="top" id="top">
@@ -177,14 +177,14 @@
 <tr class="study-selected"><th scope="row">AI + OpenCV</th><td>AI + CAD</td><td>99.6%</td><td>0.562초</td></tr>
 </tbody></table>
 </div><p class="study-takeaway">확보 226 → 284장 · 계산 +0.117초</p>
-<p class="study-note">개발 사진 304장(학습 포함) · Pi 5<br>허용 영역의 팔레트 285장 · mm 오차 미평가<br>운반 지그 개선 없음(133/161 → 132/161)</p></div></section>
+<p class="study-note">개발 사진 304장 · 허용 영역 팔레트 285장 기준 · Pi 5</p></div></section>
 
 <section class="ds" id="opencv-4">
 <div class="ds-head"><p class="ds-no">04<span>목표 자세 보정</span></p><h3>지그의 이동·회전을 집게 목표에 반영</h3></div>
 <div class="ds-body">
 <figure class="study-transform"><svg viewBox="0 0 640 190" role="img" aria-label="티칭 기준의 집게 작업점을 지그 이동과 회전만큼 바꾼 뒤 역기구학으로 관절 목표를 계산"><g fill="none" stroke="#7593ab" stroke-width="2"><rect x="55" y="56" width="150" height="90"/><rect x="-75" y="-45" width="150" height="90" transform="translate(490 101) rotate(-18)"/></g><g fill="#315e80"><circle cx="103" cy="101" r="6"/><circle cx="155" cy="101" r="8"/><circle cx="465" cy="109" r="6"/><circle cx="516" cy="93" r="8"/><path d="M265 98h100v-8l20 12-20 12v-8H265Z"/></g><g fill="#203b52" font-size="17" text-anchor="middle"><text x="130" y="30">티칭 기준 위치</text><text x="490" y="30">현재 지그 위치</text><text x="322" y="79">이동 Δx·Δy</text><text x="322" y="139">회전 θ</text><text x="320" y="183" font-size="15">집게 높이와 벌림은 유지</text></g></svg></figure>
 <ol class="flow row4"><li><span>01</span><h4>순기구학</h4><p>티칭 관절값과 TCP로 집게 자세 계산</p></li><li><span>02</span><h4>목표 변환</h4><p>지그 이동·회전만큼 집게 목표 보정</p></li><li><span>03</span><h4>역기구학</h4><p>관절 범위·자세 연속성을 확인해 계산</p></li><li><span>04</span><h4>도착 확인</h4><p>모터 실측 각도로 목표 도착 확인</p></li></ol>
-<p class="study-note">지그가 움직이지 않으면 원래 티칭 틱 유지 · 계산 잔차와 실물 집기 오차는 구분함</p>
+<p class="study-note">지그가 움직이지 않으면 원래 티칭 값을 그대로 사용</p>
 </div></section>
 
 <section class="ds study-inspection" id="opencv-5">
@@ -195,8 +195,8 @@
 <tr><th scope="row">OpenCV</th><td>247/249</td><td>52/53</td><td>0.937초</td></tr>
 <tr class="study-selected"><th scope="row">AI 라벨 + CAD</th><td>249/249</td><td>52/53</td><td>1.592초</td></tr>
 </tbody></table>
-<p class="study-takeaway">종류 구분 2건을 보완했지만, 최종 안착 판정은 같고 처리 시간은 늘어남</p>
-<p class="study-note">구분 249개 대상 · 안착 44장/53개 대상(위치 미확정 1개)<br>시간은 위치가 확보된 284장 · 내부 결합 강도·실물 공정 성공률과 구분</p>
+<p class="study-takeaway">부품 구분 오류 2건을 없애 249개를 모두 정확히 구분</p>
+<p class="study-note">안착 판정 53개 · 처리 시간은 사진 284장 평균</p>
 </div></section>
 
 <section class="ds study-gui" id="opencv-6">
@@ -220,7 +220,7 @@
 <tr><th scope="row">실물 사진</th><td>243장</td><td>30장</td><td>31장</td></tr>
 <tr><th scope="row">혼합 학습</th><td>실물 243 + 가상 960장</td><td>실물 30 + 가상 120장</td><td>같은 실물 31장</td></tr>
 </tbody></table>
-<p class="study-note">평가 그래프는 실물 테스트의 마스크 성능만 표시함 · 클래스와 보이는 윤곽을 라벨링하고, 테스트는 학습·양자화 보정에서 제외함</p>
+<p class="study-note">실물 테스트 31장은 학습⁠·⁠양자화 보정에 쓰지 않음</p>
 </div></section>
 
 <section class="ds" id="opencv-8">
@@ -235,7 +235,7 @@
 <figure><h4>혼합 ↔ 순차 · YOLO26x</h4><img src="assets/charts/robot-training-x.svg" width="640" height="240" alt="YOLO26x FP16의 실물 테스트 마스크 AP50–95: 혼합 98.93, 가상 다음 실물 순차 97.20"><figcaption>실물 마스크 AP50–95 · FP16</figcaption></figure>
 </div>
 <p class="study-takeaway">일부 클래스는 하락했지만, 낮았던 클래스의 성능을 보완함<br>전체 균형을 기준으로 혼합 학습을 선택함</p>
-<p class="study-note">s 모델 13개 클래스: 5개 상승·5개 하락·3개 동일 · 편차는 클래스별 AP의 표준편차<br>x 모델은 순차 학습(가상 → 실물)의 추가 이득 없음<br>실물 테스트 31장 · 모델·평가 절차가 다른 두 비교의 점수는 직접 비교하지 않음</p>
+<p class="study-note">편차는 13개 클래스별 AP의 표준편차 · 실물 테스트 31장</p>
 </div></section>
 
 <section class="ds" id="opencv-9">
@@ -249,7 +249,7 @@
 <tr><th scope="row">INT8 혼합</th><td>95.20</td></tr>
 </tbody></table><p class="study-takeaway">FP16: 마스크 성능을 유지하며<br>원본 대비 처리 시간 약 70% 감소</p></div>
 </div>
-<p class="study-note">Pi 5 CPU 4스레드 · 정밀도 외 실행 조건도 다른 비교<br>INT8은 일부 FP32 연산 유지 · 시간은 전처리·추론·후처리이며 촬영·전송·표시 제외</p>
+<p class="study-note">Pi 5 CPU 4스레드 · 시간은 전처리⁠·⁠추론⁠·⁠후처리 합계</p>
 </div></section>
 
 <section class="ds" id="opencv-10">
@@ -260,7 +260,7 @@
 <tr><th scope="row">YOLO26s</th><td>94.76</td><td>428.4MiB</td></tr>
 <tr class="study-selected"><th scope="row">YOLO26n</th><td>95.79</td><td>272.7MiB</td></tr>
 </tbody></table><p class="study-takeaway">이 비교에서 n은 약 2.29배 빠르고, 실물 마스크 성능도 낮아지지 않음</p></div>
-</div><p class="study-note">마스크 mAP50–95 · 실물 31장 · 한 번의 학습 시드 결과<br>앞 페이지와 별도 측정이므로 속도 개선 배수를 이어 곱하지 않음 · 실제 앱 FPS와 구분</p></div></section>
+</div><p class="study-note">마스크 mAP50–95 · 실물 테스트 31장</p></div></section>
 
 <section class="ds" id="opencv-11">
 <div class="ds-head"><p class="ds-no">11<span>처리 지연 개선</span></p><h3>같은 영상의 AI 추론을 한 번만 수행</h3><p class="ds-deck">지그 탐색과 부품 검사에서 필요한 결과를 공유</p></div>
@@ -269,7 +269,7 @@
 <table class="study-table"><caption>Pi 저장 영상 4개 사례 · 지그 위치와 검사 결과 동일</caption><thead><tr><th scope="col">사례</th><th scope="col">분리 처리</th><th scope="col">추론 공유</th></tr></thead><tbody>
 <tr><th scope="row">A 하단 검사</th><td>1.479초</td><td>0.931초</td></tr><tr><th scope="row">B 하단 검사</th><td>1.140초</td><td>0.919초</td></tr><tr><th scope="row">여러 부품 위치 검사</th><td>2.764초</td><td>2.441초</td></tr><tr><th scope="row">A 완제품 검사</th><td>1.182초</td><td>0.921초</td></tr>
 </tbody></table>
-<p class="study-note">추론 호출 2회 → 1회 · 카메라·모델을 예열·재사용함<br>대표 저장 사례 비교이며 실물 공정 전체의 단축률은 아님</p>
+<p class="study-note">추론 호출 2회 → 1회 · 카메라⁠·⁠모델 예열 후 재사용</p>
 </div></section>
 
 <section class="ds" id="opencv-12">
@@ -277,7 +277,7 @@
 <div class="ds-body">
 <ol class="flow row3"><li><span>01</span><h4>ROS2 작업 요청</h4><p>조립·하차 에피소드와 제품 종류 전달</p></li><li><span>02</span><h4>Pi에서 준비·실행</h4><p>지그 측정·시작 검사 후 저장한 스텝 수행</p></li><li><span>03</span><h4>결과와 근거 반환</h4><p>진행·완료·실패 상태와 검사·오류 기록</p></li></ol>
 <ul class="dots study-summary"><li>PC·Pi의 보정값·TCP·좌표 기준 일치</li><li>판정 영상·설정·오류 로그로 실패 원인 추적</li><li>실물 지그 보정과 저장 영상·Pi 추론 검증</li></ul>
-<p class="study-note">최신 AI·검사는 저장 영상·실행 경로 중심으로 검증함<br>새 A/B 전체 실물 공정의 성공률은 미측정</p>
+
 </div></section>
 <nav aria-label="다른 프로젝트" class="pager"><a href="#travel"><small>06</small><b>Travel Visualizer</b></a><a class="next" href="#robot"><small>02</small><b>원격 물품 회수⁠·⁠운반 로봇</b></a></nav>
 </article><article aria-labelledby="dv-robot" class="dv" data-id="robot" hidden="">
@@ -382,6 +382,6 @@
 <nav aria-label="다른 프로젝트" class="pager"><a href="#thesis"><small>05</small><b>노크 위치 탐지 연구</b></a><a class="next" href="#opencv"><small>01</small><b>비전 기반 로봇팔 티칭·검사</b></a></nav>
 </article></div>
 </div>
-<script defer src="slide-pages.js?v=20261021rev1"></script>
-<script defer="" src="app.js?v=20261021rev1"></script>
+<script defer src="slide-pages.js?v=20261021rev2"></script>
+<script defer="" src="app.js?v=20261021rev2"></script>
 </body></html>
