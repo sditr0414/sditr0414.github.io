@@ -1836,3 +1836,24 @@ html body .pc-lead .pc-body .pc-more { font-size: 15px; }
   .robot-study .ds-first .overview-copy .specs > div { grid-column: auto !important; border-right: 0 !important; }
   .robot-study .spec-pair { grid-template-columns: 6em minmax(0, 1fr); }
 }
+
+/* ===== colour as meaning (restrained) ===== */
+/* categories: a card or row carries its category colour, the same colour everywhere the category appears */
+.ds-body .case-grid section.cat, .ds-body .workflow section.cat { border-top-color: var(--cat); }
+.ds-body .case-grid section.cat h4, .ds-body .text-stack > section.cat h4 { color: color-mix(in srgb, var(--cat) 70%, #14293d); }
+.ds-body .text-stack > section.cat { border-left-color: var(--cat); }
+.ds-body th.cat::before { content: ""; display: inline-block; width: 9px; height: 9px; border-radius: 50%; background: var(--cat); margin-right: 8px; vertical-align: 1px; }
+/* sequences: step numbers deepen from light to dark blue, so the order reads at a glance */
+.ds-body ol.flow:not(.lanes) > li { border-top: 3px solid var(--step, var(--navy)); }
+.ds-body ol.flow:not(.lanes) > li > span { display: inline-block; width: auto; padding: 1px 7px; border-radius: 4px; background: var(--step, var(--navy)); color: #fff; }
+.ds-body ol.flow:not(.lanes) > li:nth-child(1) { --step: #7fa3c6; }
+.ds-body ol.flow:not(.lanes) > li:nth-child(2) { --step: #5d87b2; }
+.ds-body ol.flow:not(.lanes) > li:nth-child(3) { --step: #426d9a; }
+.ds-body ol.flow:not(.lanes) > li:nth-child(4) { --step: #2b547f; }
+.ds-body ol.flow:not(.lanes) > li:nth-child(5) { --step: #1b3e62; }
+.ds-body ol.flow.row3 > li:nth-child(1) { --step: #6f97c0; }
+.ds-body ol.flow.row3 > li:nth-child(2) { --step: #426d9a; }
+.ds-body ol.flow.row3 > li:nth-child(3) { --step: #1f4670; }
+.adoption-flow li:nth-child(1) strong { color: #4f7aa6; }
+.adoption-flow li:nth-child(2) strong { color: #2f5c88; }
+.adoption-flow li:nth-child(3) strong { color: #183c62; }
