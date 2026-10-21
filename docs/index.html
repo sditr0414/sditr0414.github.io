@@ -224,7 +224,7 @@
 </div></section>
 
 <section class="ds" id="opencv-8">
-<div class="ds-head"><p class="ds-no">08<span>학습 방식 비교</span></p><h3>클래스별 성능 편차가 줄어 혼합 학습 선택</h3></div>
+<div class="ds-head"><p class="ds-no">08<span>학습 방식 비교</span></p><h3>전체 클래스의 성능 균형을 보고 혼합 학습 선택</h3></div>
 <div class="ds-body">
 <div class="study-pair study-charts">
 <div><table class="study-table"><caption>실물만 ↔ 혼합 · YOLO26s · NCNN FP16</caption><thead><tr><th scope="col">마스크 AP50–95</th><th scope="col">실물만</th><th scope="col">혼합</th></tr></thead><tbody>
@@ -234,7 +234,7 @@
 </tbody></table></div>
 <figure><h4>혼합 ↔ 순차 · YOLO26x</h4><img src="assets/charts/robot-training-x.svg" width="640" height="240" alt="YOLO26x TensorRT FP16의 실물 테스트 마스크 AP50–95: 혼합 98.93, 가상 다음 실물 순차 97.20"><figcaption>실물 마스크 AP50–95 · TensorRT FP16</figcaption></figure>
 </div>
-<p class="study-takeaway">평균을 유지하며 낮았던 부품 성능을 보완함<br>A 중단 85.41 → 86.76 · B 중단 84.11 → 88.31</p>
+<p class="study-takeaway">일부 클래스는 하락했지만, 낮았던 클래스의 성능을 보완함<br>전체 균형을 기준으로 혼합 학습을 선택함</p>
 <p class="study-note">s 모델 13개 클래스: 5개 상승·5개 하락·3개 동일 · 편차는 클래스별 AP의 표준편차<br>x 모델은 순차 학습(가상 → 실물)의 추가 이득 없음<br>실물 테스트 31장 · 모델·평가 절차가 다른 두 비교의 점수는 직접 비교하지 않음</p>
 </div></section>
 
