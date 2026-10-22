@@ -1967,7 +1967,6 @@ a.mail { border-bottom: 0; text-decoration: underline; text-underline-offset: 3p
   .bar-nav button:disabled { opacity: .3; }
   .sheet-bar .pdf { padding: 5px 11px; font-size: 13px; }
   .sheet-title { display: none !important; }
-  .sheet.bar-off .sheet-bar { transform: none; }
   .top nav a.pdf { margin-left: 12px; padding: 5px 11px; }
   /* other projects: picture on top, text below at full width */
   .pc-small { display: flex; flex-direction: column; }
@@ -2001,7 +2000,49 @@ a.mail { border-bottom: 0; text-decoration: underline; text-underline-offset: 3p
   .sheet-bar .bar-nav { justify-self: center; gap: 18px; }
   .sheet-bar .pdf { justify-self: end; min-height: 36px; height: 36px; padding: 0 12px; border-radius: 6px; border-color: rgba(255,255,255,.22); background: rgba(255,255,255,.12); font-size: 14px; }
   .sheet-title { display: none !important; }
-  .sheet.bar-off .sheet-bar { transform: none; }
-  .side-nav { display: none !important; }
   .ds.ds-wait { opacity: 0; }
+}
+/* phones: a clearer hand-off from the intro to the projects — headings and cards rise in a little further and a little slower */
+@media (max-width: 680px), (max-height: 520px) {
+  @media (prefers-reduced-motion: no-preference) {
+    .js .sec-head.reveal { transform: translateY(26px); transition: opacity .5s var(--ease-out), transform .55s var(--ease-out); }
+    .js .pc.reveal { transform: translateY(44px); transition: opacity .5s var(--ease-out), transform .6s var(--ease-out), box-shadow .3s var(--ease-out); transition-delay: var(--d, 0ms); }
+    .js .sec-head.reveal.above { transform: translateY(-20px); }
+    .js .pc.reveal.above { transform: translateY(-30px); }
+    .js .reveal.in, .js .pc.reveal.in, .js .sec-head.reveal.in { transform: none; }
+  }
+}
+
+/* landscape phones (short screens): keep each picture within one screen and give text columns room */
+@media (max-height: 520px) and (min-width: 681px) {
+  .ds-body video, .ds-body .main-figure img { max-height: calc(100svh - 120px); width: auto; max-width: 100%; margin-inline: auto; }
+  .ds-first .split.overview:not(.stack) { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: start; gap: 24px; }
+  .ds-first .overview:not(.stack) .overview-copy .specs div { grid-template-columns: 76px minmax(0, 1fr); gap: 10px; padding: 9px 2px; }
+  .ds-first .overview:not(.stack) .overview-copy .specs dd { font-size: 14px; }
+  .study-gui-layout { align-items: start; }
+  .robot-study .process-step svg, .robot-study .pallet-process .process-step svg { height: min(200px, calc(100svh - 190px)); }
+  .pallet-process-summary { grid-template-columns: 1fr; gap: 16px; }
+}
+@media (max-height: 520px) and (min-width: 681px) {
+  /* slides are no longer split on short screens, so pictures can use most of the screen height again */
+  .robot-study .ds-body figure img, .robot-study .ds-body .inline-demo video { max-height: min(250px, calc(100svh - 140px)); }
+  .robot-study .study-jig .inline-demo video { max-height: min(250px, calc(100svh - 140px)); }
+  .robot-study .study-data figure img { max-height: 150px; }
+  #opencv-1 .split.overview:not(.stack) { grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); align-items: start; }
+  #opencv-1 .split.overview:not(.stack) .inline-demo video { max-height: min(280px, calc(100svh - 110px)); }
+}
+
+/* landscape phones: previous / next project sit at the left and right edges at mid-height, where the thumbs rest */
+@media (max-height: 520px) and (min-width: 681px) {
+  .sheet-bar .bar-nav { display: none; }
+  .sheet-in { padding-inline: 60px; }
+  body.lock .side-nav { position: fixed; top: 50%; z-index: 45; display: flex; width: auto; transform: translateY(-50%); color: var(--link); }
+  body.lock .side-nav[hidden] { display: none; }
+  .side-nav.prev { left: max(8px, env(safe-area-inset-left)); right: auto; }
+  .side-nav.next { right: max(8px, env(safe-area-inset-right)); left: auto; }
+  .side-nav i { position: relative; display: block; width: 42px; height: 42px; border-radius: 50%; background: var(--card); box-shadow: var(--shadow-hi); }
+  .side-nav i::before { content: ""; position: absolute; left: 50%; top: 50%; width: 10px; height: 10px; margin: -5px 0 0 -2px; border-left: 2.5px solid currentColor; border-bottom: 2.5px solid currentColor; transform: rotate(45deg); }
+  .side-nav.next i::before { margin-left: -8px; transform: rotate(-135deg); }
+  .side-nav span { display: none !important; }
+  .side-nav:active i { background: var(--link); color: #fff; }
 }

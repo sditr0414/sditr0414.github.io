@@ -174,10 +174,17 @@ const onDrift = () => {
   heroIn.style.transform = y ? `translate3d(0, ${(y * .16).toFixed(1)}px, 0)` : '';
   heroIn.style.opacity = y ? Math.max(0, 1 - y / (hero.offsetHeight * .9)).toFixed(3) : '';
   /* the about card eases back and dims as it leaves, and returns the same way when scrolling up */
-  const start = hero.offsetHeight * .35, k = Math.max(0, Math.min(1, (scrollY - start) / (innerHeight * .75)));
   const phone = compactView();
-  aboutSec.style.transform = k && !phone ? `translate3d(0, ${(k * 20).toFixed(1)}px, 0)` : '';
-  aboutSec.style.opacity = k && !phone ? (1 - k * .55).toFixed(3) : '';
+  let k;
+  if (phone) {
+    /* phones: the card stays fully readable until its last row has moved into the top quarter, then eases away */
+    const bottom = aboutSec.getBoundingClientRect().bottom - parseFloat(aboutSec.style.transform.split(',')[1] || 0);
+    k = Math.max(0, Math.min(1, (innerHeight * .25 - bottom) / (innerHeight * .25)));
+  } else {
+    const start = hero.offsetHeight * .35; k = Math.max(0, Math.min(1, (scrollY - start) / (innerHeight * .75)));
+  }
+  aboutSec.style.transform = k ? `translate3d(0, ${(k * (phone ? 28 : 20)).toFixed(1)}px, 0)` : '';
+  aboutSec.style.opacity = k ? (1 - k * (phone ? .7 : .55)).toFixed(3) : '';
 };
 addEventListener('scroll', () => { if (!drift) drift = requestAnimationFrame(onDrift); }, { passive: true });
 followScroll = () => { onScroll(); markNav(); cancelAnimationFrame(drift); onDrift(); };
@@ -269,7 +276,7 @@ const centeredSheet = matchMedia('(min-width: 1000px) and (min-height: 700px)');
 const slidePosition = sec => {
   const r = sec.getBoundingClientRect();
   const bar = $('.sheet-bar', sheet).offsetHeight;
-  const top = centeredSheet.matches ? Math.max(bar + 16, bar + (sheet.clientHeight - bar - r.height) / 2) : Math.max(parseFloat(getComputedStyle(sec).scrollMarginTop) || 0, compactView() ? bar + 14 : 0);
+  const top = centeredSheet.matches ? Math.max(bar + 16, bar + (sheet.clientHeight - bar - r.height) / 2) : Math.max(parseFloat(getComputedStyle(sec).scrollMarginTop) || 0, compactView() ? (sheet.classList.contains('bar-off') ? 0 : bar) + 14 : 0);
   return Math.max(0, Math.round(sheet.scrollTop + r.top - sheet.getBoundingClientRect().top - top));
 };
 const alignedStops = () => {
@@ -369,6 +376,62 @@ sheet.addEventListener('wheel', e => {
   sheetWheel(e.deltaY * (e.deltaMode === 1 ? 40 : e.deltaMode === 2 ? sheet.clientHeight : 1));
 }, { passive: false });
 ['pointerdown', 'touchstart'].forEach(t => sheet.addEventListener(t, sheetWheelStop, { passive: true }));
+/* touch screens: the PC wheel snapping, adapted to swipes. When a swipe (and its momentum) comes to rest,
+   the nearest slide eases into place: a slide that fits is centred under the bar, a tall one meets the screen
+   at its top or bottom, and nothing moves while the reader is in the middle of a tall slide.
+   On the main page, stopping near the projects heading settles onto it, and the cards rise in as on PC. */
+let touching = false, touchArmed = false, tStartMain = 0, tStartSheet = 0, touchIdle = 0;
+const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)');
+function touchSnapSheet() {
+  const art = articles.find(a => !a.hidden); if (!art || !open) return;
+  const vh = sheet.clientHeight, bar = sheet.classList.contains('bar-off') ? 0 : $('.sheet-bar', sheet).offsetHeight, avail = vh - bar, cur = sheet.scrollTop;
+  const base = sheet.getBoundingClientRect().top, max = sheet.scrollHeight - vh;
+  if (cur >= max - 2 || cur <= 2) return;
+  const dir = Math.sign(cur - tStartSheet);
+  let best = null, reading = false;
+  const offer = y => {
+    y = Math.max(0, Math.min(max, Math.round(y)));
+    if (dir && (y - cur) * dir < -avail * .12) return;            // never pull far back against the swipe
+    const d = Math.abs(y - cur); if (d < avail * .45 && (!best || d < best.d)) best = { y, d };
+  };
+  $$('section.ds[id]', art).forEach(sec => {
+    const r = sec.getBoundingClientRect(), top = cur + (r.top - base), h = r.height, vTop = r.top - base, vBot = vTop + h;
+    if (vBot < -vh * .5 || vTop > vh * 1.5) return;
+    if (h <= avail - 28) offer(top - bar - (avail - h) / 2);
+    else if (h <= avail + 60) offer(top - bar - 14);
+    else {
+      if (vTop > bar - avail * .15 && vTop < bar + avail * .4) offer(top - bar - 14);
+      if (vBot < vh + avail * .15 && vBot > vh - avail * .4) offer(top + h - vh + 16);
+      if (vTop < bar - avail * .15 && vBot > vh + avail * .15) reading = true;
+    }
+  });
+  if (reading || !best || best.d <= 2) return;
+  sheetGl.to(best.y, 360);
+}
+function touchSnapMain() {
+  const py = projY(), d = py - scrollY, dir = Math.sign(scrollY - tStartMain);
+  if (Math.abs(d) <= 4 || Math.abs(d) > innerHeight * .3) return;
+  if (dir && d * dir < 0 && Math.abs(d) > innerHeight * .1) return;
+  if (d > 0) cueProjects(py);
+  mainGl.to(py, 380);
+}
+const touchSettle = () => {
+  touchIdle = 0;
+  if (touching || !touchArmed || !compactView() || reduceMotion.matches) return;
+  touchArmed = false;
+  const inSheet = document.body.classList.contains('lock');
+  if (Math.abs(inSheet ? sheet.scrollTop - tStartSheet : scrollY - tStartMain) < 12) return;   // a tap, not a swipe
+  if (inSheet) { if (!sheetGl.active) touchSnapSheet(); }
+  else if (!mainGl.active) touchSnapMain();
+};
+const touchWait = () => { if (!touchArmed) return; clearTimeout(touchIdle); touchIdle = setTimeout(touchSettle, 120); };
+addEventListener('touchstart', e => {
+  if (e.touches.length > 1 || e.target.closest('.lightbox, .dv-toc, .process-strip, .heat-wrap, video')) { touchArmed = false; return; }
+  touching = true; touchArmed = true; tStartMain = scrollY; tStartSheet = sheet.scrollTop; clearTimeout(touchIdle);
+}, { passive: true });
+['touchend', 'touchcancel'].forEach(t => addEventListener(t, () => { touching = false; touchWait(); }, { passive: true }));
+addEventListener('scroll', touchWait, { passive: true });
+sheet.addEventListener('scroll', touchWait, { passive: true });
 const bound = new WeakSet();
 let listY = 0, open = '', closeTimer = 0;
 function finishClose() {
@@ -603,11 +666,20 @@ $$('.dv-toc').forEach(toc => {
   mark(links[0].dataset.to);
 });
 /* while reading downwards the bar slides away; any upward scroll brings it back */
-let lastTop = 0;
+let lastTop = 0, upRun = 0;
 sheet.addEventListener('scroll', () => {
   const t = sheet.scrollTop, d = t - lastTop;
   sheet.classList.toggle('scrolled', t > 120);
-  if (t < 160 || d < -6 || compactView()) sheet.classList.remove('bar-off');
+  if (t < 160) { sheet.classList.remove('bar-off'); upRun = 0; }
+  else if (compactView()) {
+    /* phones: the bar hides while reading down and returns only after a deliberate upward scroll,
+       so small corrections while reading a slide do not pop it in; eased snaps never toggle it */
+    if (!sheetGl.active) {
+      if (d < 0) { upRun -= d; if (upRun > 140) sheet.classList.remove('bar-off'); }
+      else if (d > 6) { upRun = 0; sheet.classList.add('bar-off'); }
+    }
+  }
+  else if (d < -6) sheet.classList.remove('bar-off');
   else if (d > 6) sheet.classList.add('bar-off');
   lastTop = t;
 }, { passive: true });
