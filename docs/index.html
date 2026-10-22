@@ -9,7 +9,7 @@
 <meta name="twitter:card" content="summary_large_image"/>
 <link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
-<link href="app.css?v=20261022pick" rel="stylesheet"/></head>
+<link href="app.css?v=20261022sk" rel="stylesheet"/></head>
 <body>
 <a class="skip" href="#about">본문으로 이동</a>
 <header class="top" id="top">
@@ -41,9 +41,9 @@
 <div class="ab ab-skill" id="skills">
 <h2>기술</h2>
 <dl>
-<div><dt><x-nw>언어·개발</x-nw> 환경</dt><dd>Python · C · C++ · STM32 · Linux</dd></div>
-<div><dt><x-nw>로봇·자동화</x-nw></dt><dd>ROS2 · FK/IK · PLC · SolidWorks</dd></div>
-<div><dt><x-nw>비전·시뮬레이션</x-nw></dt><dd>OpenCV · YOLO · TFLite · MuJoCo · Isaac Sim</dd></div>
+<div><dt><x-nw>제어·임베디드</x-nw></dt><dd>C · C++ · STM32 · FreeRTOS<br/>PLC · PWM · I²C · UART</dd></div>
+<div><dt><x-nw>로봇·비전</x-nw></dt><dd>Python · ROS2 · FK/IK<br/>OpenCV · YOLO · TFLite</dd></div>
+<div><dt><x-nw>설계·개발</x-nw> 도구</dt><dd>SolidWorks · Ansys · MATLAB<br/>MuJoCo · Isaac Sim · Linux · Git</dd></div>
 </dl>
 </div>
 <div class="ab ab-skill ab-cert" id="background">
@@ -129,7 +129,7 @@
 <div class="sheet-bar"><a class="back" href="#projects">메인으로</a><span class="sheet-title" id="sheet-title"></span><a class="pdf" href="https://sditr0414.github.io/portfolio-submission/" rel="noopener" target="_blank">제출용</a></div>
 <div class="sheet-in"><article aria-labelledby="dv-opencv" class="dv robot-study" data-id="opencv" hidden="">
 <header class="dv-head">
-<p class="dv-cat"><b>01</b>비전 · 로봇팔<span>2026.09–11 · 진행 중</span><a class="dv-code" href="https://github.com/7s-FA/opencv-teach" target="_blank" rel="noopener">GitHub 소스 코드 ↗</a></p>
+<p class="dv-cat"><b>01</b>비전 · 로봇팔<span>2026.09 – 2026.11 · 진행 중</span><a class="dv-code" href="https://github.com/7s-FA/opencv-teach" target="_blank" rel="noopener">GitHub 소스 코드 ↗</a></p>
 <h2 id="dv-opencv" tabindex="-1">비전 기반 로봇팔 <x-nw>티칭·검사</x-nw></h2>
 <p class="dv-lead">달라지는 지그 위치에 동작을 맞추고, Raspberry Pi에서 <x-nw>AI·OpenCV·CAD로</x-nw> 부품과 안착 상태를 확인함</p>
 <dl class="brief">
@@ -301,7 +301,7 @@
 <nav class="dv-toc" aria-label="상세 목차"><ol><li><a href="#plc-1" data-to="plc-1"><b>01</b><x-nw>개요·시연</x-nw></a></li><li><a href="#plc-2" data-to="plc-2"><b>02</b>목표와 장비</a></li><li><a href="#plc-3" data-to="plc-3"><b>03</b>HMI 화면</a></li><li><a href="#plc-4" data-to="plc-4"><b>04</b>서보 위치와 자동 운전</a></li><li><a href="#plc-5" data-to="plc-5"><b>05</b>병렬 시퀀스</a></li><li><a href="#plc-6" data-to="plc-6"><b>06</b>흐름별 동작</a></li><li><a href="#plc-7" data-to="plc-7"><b>07</b>수동 개별 제어</a></li><li><a href="#plc-8" data-to="plc-8"><b>08</b>통합과 문제 해결</a></li></ol></nav>
 <section class="ds ds-first" id="plc-1" aria-label="개요·시연">
 <div class="ds-body"><div class="slide-body">
-<div class="split overview"><div class="overview-copy"><dl class="specs"><div><dt>PLC</dt><dd>미쓰비시 Q03UDVCPU</dd></div><div><dt>구현 범위</dt><dd>병렬 적재 · 비움 · 수동 제어</dd></div><div><dt>래더 프로그램</dt><dd>GX Works2</dd></div><div><dt>HMI 작화</dt><dd>GT Designer3</dd></div></dl><div class="tags"><span>Mitsubishi Q PLC</span><span>GX Works2</span><span>GT Designer3</span></div></div><figure class="main-figure inline-video-figure figure-board"><div class="inline-demo"><video aria-label="PLC 창고 적재 공정 시연 · 무음" class="inline-demo-video" controls="" data-poster="assets/images/plc-demo-poster.webp" data-src="assets/videos/plc-demo.mp4" loop="" muted="" playsinline="" poster="assets/images/plc-demo-poster.webp" preload="none"></video></div><figcaption>PLC 창고 적재 공정 시연</figcaption></figure></div>
+<div class="split overview"><div class="overview-copy"><dl class="specs"><div><dt>PLC</dt><dd>미쓰비시 Q 시리즈</dd></div><div><dt>구현 범위</dt><dd>병렬 적재 · 비움 · 수동 제어</dd></div><div><dt>래더 프로그램</dt><dd>GX Works2</dd></div><div><dt>HMI 작화</dt><dd>GT Designer3</dd></div></dl><div class="tags"><span>Mitsubishi Q PLC</span><span>GX Works2</span><span>GT Designer3</span></div></div><figure class="main-figure inline-video-figure figure-board"><div class="inline-demo"><video aria-label="PLC 창고 적재 공정 시연 · 무음" class="inline-demo-video" controls="" data-poster="assets/images/plc-demo-poster.webp" data-src="assets/videos/plc-demo.mp4" loop="" muted="" playsinline="" poster="assets/images/plc-demo-poster.webp" preload="none"></video></div><figcaption>PLC 창고 적재 공정 시연</figcaption></figure></div>
 </div></div></section>
 <section class="ds" id="plc-2"><div class="ds-head"><p class="ds-no">02<span>목표와 장비</span></p><h3>MPS 트레이너와 미쓰비시 Q 시리즈 PLC</h3><p class="ds-deck"><x-nw>공급–가공–분배–금속·비금속</x-nw> 판별–흡입–저장–배출 공정과 1–4층 적재 구현</p></div><div class="ds-body"><div class="split"><figure><a class="image-open" href="assets/images/plc-hardware.webp" aria-label="MPS 트레이너와 PLC 장비 크게 보기"><img src="assets/images/plc-hardware.webp" alt="MPS 트레이너와 PLC 장비" width="1650" height="1207" loading="lazy" decoding="async"></a><figcaption>MPS 트레이너 설비</figcaption></figure><div class="col"><table class="spec-table"><thead><tr><th scope="col">구분</th><th scope="col">구성</th></tr></thead><tbody><tr><th scope="row">전원 모듈</th><td data-h="구성">Q61P</td></tr><tr><th scope="row">CPU</th><td data-h="구성">Q03UDVCPU</td></tr><tr><th scope="row">모션 제어</th><td data-h="구성">QD77MS2 심플모션 카드</td></tr><tr><th scope="row">래더 프로그램</th><td data-h="구성">GX Works2</td></tr><tr><th scope="row">HMI 작화</th><td data-h="구성">GT Designer3</td></tr></tbody></table></div></div></div></section>
 <section class="ds" id="plc-3"><div class="ds-head"><p class="ds-no">03<span>HMI 화면</span></p><h3>메인 · 설비 점검 · 위치 티칭</h3></div><div class="ds-body"><div class="fig-grid g3"><figure><a class="image-open" href="assets/images/plc-main.webp" aria-label="HMI 메인 화면 크게 보기"><img src="assets/images/plc-main.webp" alt="HMI 메인 화면" width="895" height="668" loading="lazy" decoding="async"></a><figcaption>메인 · 화면 이동</figcaption></figure><figure><a class="image-open" href="assets/images/plc-inspect.webp" aria-label="HMI 전체 설비 점검 화면 크게 보기"><img src="assets/images/plc-inspect.webp" alt="HMI 전체 설비 점검 화면" width="897" height="675" loading="lazy" decoding="async"></a><figcaption>설비 점검 · 수동 조작과 서보 상태</figcaption></figure><figure><a class="image-open" href="assets/images/plc-teaching.webp" aria-label="HMI 서보 티칭 화면 크게 보기"><img src="assets/images/plc-teaching.webp" alt="HMI 서보 티칭 화면" width="896" height="672" loading="lazy" decoding="async"></a><figcaption>티칭 · <x-nw>위치·속도</x-nw> 저장</figcaption></figure></div><div class="case-grid c2"><section><h4>설비 점검</h4><p>각 설비를 수동 조작하거나 BSFL로 번갈아 점검하고, 축 정보로 서보 상태 확인</p></section><section><h4><x-nw>위치·속도</x-nw> 티칭</h4><p>N번 위치의 설정값을 읽고 속도와 위치를 지정해 저장</p></section></div></div></section>
