@@ -1943,3 +1943,36 @@ html body .pc-lead .pc-body .pc-more { font-size: 15px; }
 .hero h1 .name-en { display: inline-block; margin-left: .4em; font-size: .24em; font-weight: 500; letter-spacing: .18em; color: #b9cde0; vertical-align: .55em; }
 @media (max-width: 680px) { .hero h1 .name-en { display: block; margin: 6px 0 0; font-size: 12px; vertical-align: 0; } }
 @media (min-width: 681px) { .hero h1 .name-en { margin-left: 22px; vertical-align: baseline; font-size: 15px; } }
+
+/* ===== mobile polish ===== */
+/* email reads as a link everywhere */
+a.mail { border-bottom: 0; text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1px; }
+.copy-toast { position: fixed; left: 50%; bottom: max(24px, env(safe-area-inset-bottom)); z-index: 80; transform: translate(-50%, 12px); padding: 10px 16px; border-radius: 8px; background: var(--deep); color: #fff; font-size: 14px; opacity: 0; pointer-events: none; transition: opacity .2s, transform .2s; }
+.copy-toast.on { opacity: 1; transform: translate(-50%, 0); }
+/* "제출용" looks like a button in the header, the detail bar and the footer */
+.top nav a.pdf { opacity: 1; margin-left: 20px; padding: 6px 14px; min-height: 34px; border: 1px solid currentColor; border-radius: 17px; font-weight: 600; }
+.top nav a.pdf::before { display: none; }
+.top nav a.pdf:hover { background: rgba(255,255,255,.12); }
+.top.solid nav a.pdf:hover { background: var(--wash); }
+.sheet-bar .pdf { padding: 6px 14px; min-height: 34px; border: 1px solid rgba(255,255,255,.4); border-radius: 17px; font-weight: 600; }
+.end a[href="https://sditr0414.github.io/portfolio-submission/"] { padding: 4px 13px; border: 1px solid currentColor; border-radius: 15px; font-weight: 600; text-decoration: none; }
+/* phone-only prev/next project buttons in the detail bar */
+.bar-nav { display: none; }
+@media (max-width: 680px) {
+  .bar-nav { display: inline-flex; gap: 6px; }
+  .bar-nav button { width: 34px; height: 34px; border-radius: 50%; border: 1px solid rgba(255,255,255,.35); background: rgba(255,255,255,.1); color: #fff; position: relative; cursor: pointer; }
+  .bar-nav button::before { content: ""; position: absolute; left: 50%; top: 50%; width: 8px; height: 8px; border-left: 2px solid currentColor; border-bottom: 2px solid currentColor; }
+  .bar-nav .bar-prev::before { transform: translate(-30%, -50%) rotate(45deg); }
+  .bar-nav .bar-next::before { transform: translate(-70%, -50%) rotate(-135deg); }
+  .bar-nav button:disabled { opacity: .3; }
+  .sheet-bar .pdf { padding: 5px 11px; font-size: 13px; }
+  .sheet-title { display: none !important; }
+  .sheet.bar-off .sheet-bar { transform: none; }
+  .top nav a.pdf { margin-left: 12px; padding: 5px 11px; }
+  /* other projects: picture on top, text below at full width */
+  .pc-small { display: flex; flex-direction: column; }
+  .pc-small .pc-media { aspect-ratio: 16 / 9; height: auto; min-height: 0; }
+  .pc-small .pc-media img, .pc-small .pc-media video { object-position: center; }
+  .pc-small .pc-body { padding: 14px 16px 14px; }
+  .pc-small .pc-sum { font-size: 14.5px; }
+}

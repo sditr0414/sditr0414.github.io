@@ -173,8 +173,9 @@ const onDrift = () => {
   heroIn.style.opacity = y ? Math.max(0, 1 - y / (hero.offsetHeight * .9)).toFixed(3) : '';
   /* the about card eases back and dims as it leaves, and returns the same way when scrolling up */
   const start = hero.offsetHeight * .35, k = Math.max(0, Math.min(1, (scrollY - start) / (innerHeight * .75)));
-  aboutSec.style.transform = k ? `translate3d(0, ${(k * 20).toFixed(1)}px, 0)` : '';
-  aboutSec.style.opacity = k ? (1 - k * .55).toFixed(3) : '';
+  const phone = innerWidth <= 680;
+  aboutSec.style.transform = k && !phone ? `translate3d(0, ${(k * 20).toFixed(1)}px, 0)` : '';
+  aboutSec.style.opacity = k && !phone ? (1 - k * .55).toFixed(3) : '';
 };
 addEventListener('scroll', () => { if (!drift) drift = requestAnimationFrame(onDrift); }, { passive: true });
 followScroll = () => { onScroll(); markNav(); cancelAnimationFrame(drift); onDrift(); };
@@ -579,7 +580,7 @@ let lastTop = 0;
 sheet.addEventListener('scroll', () => {
   const t = sheet.scrollTop, d = t - lastTop;
   sheet.classList.toggle('scrolled', t > 120);
-  if (t < 160 || d < -6) sheet.classList.remove('bar-off');
+  if (t < 160 || d < -6 || innerWidth <= 680) sheet.classList.remove('bar-off');
   else if (d > 6) sheet.classList.add('bar-off');
   lastTop = t;
 }, { passive: true });
@@ -741,5 +742,29 @@ addEventListener('hashchange', route); route();
     else if (y < last - 4) fab.classList.remove('fab-away');
     last = y;
   }, { passive: true });
+})();
+
+/* email: tapping opens the mail app and also copies the address, with a short confirmation */
+(() => {
+  const toast = document.createElement('div'); toast.className = 'copy-toast'; toast.setAttribute('role', 'status'); document.body.append(toast);
+  let t = 0;
+  document.addEventListener('click', e => {
+    const a = e.target.closest('a.mail'); if (!a) return;
+    const addr = a.textContent.trim();
+    const show = msg => { toast.textContent = msg; toast.classList.add('on'); clearTimeout(t); t = setTimeout(() => toast.classList.remove('on'), 1800); };
+    if (navigator.clipboard) navigator.clipboard.writeText(addr).then(() => show('이메일 주소를 복사했습니다'), () => {});
+  });
+})();
+/* phones: previous / next project buttons in the detail bar */
+(() => {
+  const bar = document.querySelector('.sheet-bar'); if (!bar) return;
+  const wrap = document.createElement('span'); wrap.className = 'bar-nav';
+  wrap.innerHTML = '<button type="button" class="bar-prev" aria-label="이전 프로젝트"></button><button type="button" class="bar-next" aria-label="다음 프로젝트"></button>';
+  bar.insertBefore(wrap, bar.querySelector('.pdf'));
+  const [bp, bn] = wrap.querySelectorAll('button');
+  bp.addEventListener('click', () => { if (!sideNav[0].hidden) sideNav[0].click(); });
+  bn.addEventListener('click', () => { if (!sideNav[1].hidden) sideNav[1].click(); });
+  const sync = () => { bp.disabled = sideNav[0].hidden; bn.disabled = sideNav[1].hidden; };
+  new MutationObserver(sync).observe(sideNav[0], { attributes: true }); new MutationObserver(sync).observe(sideNav[1], { attributes: true }); sync();
 })();
 })();
