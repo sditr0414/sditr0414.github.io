@@ -1980,7 +1980,7 @@ a.mail { border-bottom: 0; text-decoration: underline; text-underline-offset: 3p
 @media (max-width: 680px) {
   .sheet-bar { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 8px; height: 56px; }
   .sheet-bar .back { justify-self: start; min-height: 36px; height: 36px; padding: 0 12px 0 11px; border-radius: 6px; font-size: 14px; }
-  .sheet-bar .bar-nav { justify-self: center; gap: 8px; }
+  .sheet-bar .bar-nav { justify-self: center; gap: 18px; }
   .bar-nav button { width: 36px; height: 36px; border-radius: 6px; border-color: rgba(255,255,255,.22); background: rgba(255,255,255,.12); }
   .sheet-bar .pdf { justify-self: end; min-height: 36px; height: 36px; padding: 0 12px; border-radius: 6px; border-color: rgba(255,255,255,.22); background: rgba(255,255,255,.12); font-size: 14px; }
 }
