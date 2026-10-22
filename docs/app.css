@@ -1977,7 +1977,7 @@ a.mail { border-bottom: 0; text-decoration: underline; text-underline-offset: 3p
 }
 /* phone detail bar: 메인으로 left, arrows centred, 제출용 right, all the same height and shape */
 @media (max-width: 680px) {
-  .sheet-bar { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 8px; height: 56px; }
+  .sheet-bar { display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: 8px; height: 56px; }
   .sheet-bar .back { justify-self: start; min-height: 36px; height: 36px; padding: 0 12px 0 11px; border-radius: 6px; font-size: 14px; }
   .sheet-bar .bar-nav { justify-self: center; gap: 18px; }
   .bar-nav button { width: 36px; height: 36px; border-radius: 6px; border-color: rgba(255,255,255,.22); background: rgba(255,255,255,.12); }
@@ -2045,4 +2045,40 @@ a.mail { border-bottom: 0; text-decoration: underline; text-underline-offset: 3p
   .side-nav.next i::before { margin-left: -8px; transform: rotate(-135deg); }
   .side-nav span { display: none !important; }
   .side-nav:active i { background: var(--link); color: #fff; }
+}
+/* landscape phones: keep the slide width (buttons sit in a slim edge margin) and stop awkward word-by-word wraps */
+@media (max-height: 520px) and (min-width: 681px) {
+  .sheet-in { padding-inline: 46px; }
+  .side-nav.prev { left: max(4px, env(safe-area-inset-left)); }
+  .side-nav.next { right: max(4px, env(safe-area-inset-right)); }
+  .side-nav i { width: 38px; height: 38px; opacity: .94; }
+  /* bar: back on the left, submission on the right (the centre arrows move to the screen edges) */
+  .sheet-bar { grid-template-columns: 1fr 1fr; }
+  /* 01 overview: the spec column gets the larger share so pairs never clip */
+  #opencv-1 .split.overview:not(.stack) { grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr); }
+  #opencv-1 .main-figure { align-self: start; }
+  .robot-study .spec-pair { grid-template-columns: 5.4em minmax(0, 1fr); column-gap: 8px; }
+  .ds-first .overview:not(.stack) .overview-copy .specs div { grid-template-columns: 66px minmax(0, 1fr); }
+  /* step headings on one line */
+  .robot-study .process-step h4 { font-size: 15px; white-space: nowrap; }
+  .robot-study .process-step figcaption { font-size: 13.5px; }
+  /* method cards: compact labels */
+  .robot-study .method-cards { gap: 12px; }
+  .robot-study .method-card { padding: 14px 16px 12px; }
+  .robot-study .method-card dt { font-size: 12px; white-space: nowrap; }
+  .robot-study .method-card dd { font-size: 15px; }
+  .robot-study .method-card .method-hero { font-size: 34px; }
+  /* tables: tighter cells so every column fits */
+  .robot-study .ds-body .study-table { font-size: 13.5px; }
+  .robot-study .study-table th, .robot-study .study-table td { padding: 7px 7px; }
+  .robot-study .study-opt { gap: 14px; }
+  .robot-study .study-table td { white-space: nowrap; }
+  .robot-study .log-evidence .study-table td:last-child { white-space: normal; }
+}
+
+/* landscape phones: table text one size throughout; spec labels on one line */
+@media (max-height: 520px) and (min-width: 681px) {
+  .robot-study .study-table th, .robot-study .study-table td, .robot-study .study-table tbody th { font-size: 13.5px; }
+  .ds-first .overview:not(.stack) .overview-copy .specs div { grid-template-columns: 80px minmax(0, 1fr); }
+  .ds-first .overview:not(.stack) .overview-copy .specs dt { white-space: nowrap; }
 }

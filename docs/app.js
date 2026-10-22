@@ -855,16 +855,41 @@ addEventListener('hashchange', route); route();
     if (navigator.clipboard) navigator.clipboard.writeText(addr).then(() => show('이메일 주소를 복사했습니다'), () => {});
   });
 })();
-/* phones: previous / next project buttons in the detail bar */
+/* touch screens: a wide sideways swipe in the detail sheet moves to the previous / next project.
+   The page follows the finger a little so the gesture reads; short or mostly vertical moves are ignored,
+   and anything that scrolls sideways itself (strips, tables, the contents row, videos) keeps its own swipe. */
 (() => {
-  const bar = document.querySelector('.sheet-bar'); if (!bar) return;
-  const wrap = document.createElement('span'); wrap.className = 'bar-nav';
-  wrap.innerHTML = '<button type="button" class="bar-prev" aria-label="이전 프로젝트"></button><button type="button" class="bar-next" aria-label="다음 프로젝트"></button>';
-  bar.insertBefore(wrap, bar.querySelector('.pdf'));
-  const [bp, bn] = wrap.querySelectorAll('button');
-  bp.addEventListener('click', () => { if (!sideNav[0].hidden) sideNav[0].click(); });
-  bn.addEventListener('click', () => { if (!sideNav[1].hidden) sideNav[1].click(); });
-  const sync = () => { bp.disabled = sideNav[0].hidden; bn.disabled = sideNav[1].hidden; };
-  new MutationObserver(sync).observe(sideNav[0], { attributes: true }); new MutationObserver(sync).observe(sideNav[1], { attributes: true }); sync();
+  let sx = 0, sy = 0, st = 0, track = false, horiz = null, dx = 0;
+  const inner = () => $('.sheet-in', sheet);
+  const scrollsSideways = el => { for (let n = el; n && n !== sheet; n = n.parentElement) { if (n.scrollWidth > n.clientWidth + 2 && /auto|scroll/.test(getComputedStyle(n).overflowX)) return true; } return false; };
+  const reset = (animate) => { const el = inner(); if (!el) return; if (animate && dx) el.animate([{ transform: `translateX(${dx * .3}px)`, opacity: 1 - Math.min(.35, Math.abs(dx) / 900) }, { transform: 'none', opacity: 1 }], { duration: 220, easing: 'ease-out' }); el.style.transform = ''; el.style.opacity = ''; };
+  sheet.addEventListener('touchstart', e => {
+    track = false; horiz = null; dx = 0;
+    if (!compactView() || e.touches.length !== 1 || !open) return;
+    if (e.target.closest('video, .lightbox, .dv-toc, a.side-nav, .fab-stack, input, textarea') || scrollsSideways(e.target)) return;
+    const t = e.touches[0]; sx = t.clientX; sy = t.clientY; st = performance.now(); track = true;
+  }, { passive: true });
+  sheet.addEventListener('touchmove', e => {
+    if (!track) return;
+    const t = e.touches[0], mx = t.clientX - sx, my = t.clientY - sy;
+    if (horiz === null && (Math.abs(mx) > 12 || Math.abs(my) > 12)) horiz = Math.abs(mx) > Math.abs(my) * 1.6;
+    if (!horiz) return;
+    const target = mx < 0 ? sideNav[1] : sideNav[0];
+    dx = target.hidden ? mx * .25 : mx;                       // resistance where there is no project to go to
+    const el = inner(); if (!el || reduceMotion.matches) return;
+    el.style.transform = `translateX(${(dx * .3).toFixed(1)}px)`;
+    el.style.opacity = (1 - Math.min(.35, Math.abs(dx) / 900)).toFixed(3);
+  }, { passive: true });
+  const end = () => {
+    if (!track) return; track = false;
+    const quick = performance.now() - st < 600;
+    const go = horiz && Math.abs(dx) > Math.min(innerWidth * (quick ? .18 : .3), quick ? 90 : 140);
+    const target = dx < 0 ? sideNav[1] : sideNav[0];
+    if (go && !target.hidden) { const el = inner(); if (el) { el.style.transform = ''; el.style.opacity = ''; } target.click(); }
+    else reset(true);
+    horiz = null; dx = 0;
+  };
+  sheet.addEventListener('touchend', end, { passive: true });
+  sheet.addEventListener('touchcancel', () => { track = false; reset(true); horiz = null; dx = 0; }, { passive: true });
 })();
 })();
