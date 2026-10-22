@@ -58,7 +58,7 @@ p { margin: 0; }
 .h-tag { font-size: 18px; font-weight: 500; line-height: 1.6; color: #eef3f8; }
 .h-links { display: flex; flex-wrap: wrap; gap: 6px 22px; margin-top: 24px; font-size: 14px; color: #dbe5ef; }
 .h-links a { border-bottom: 1px solid rgba(255,255,255,.45); }
-.mail { user-select: all; }
+.mail { user-select: text; }
 .h-photo { margin: 0; width: 168px; aspect-ratio: 569 / 790; border-radius: 4px; overflow: hidden; box-shadow: 0 16px 36px rgba(6,16,28,.35); }
 .h-photo img { width: 100%; height: 100%; object-fit: cover; }
 .l1, .l2, .l3, .l4, .l5 { animation: fade 1s var(--ease-out) both; }
@@ -1975,4 +1975,12 @@ a.mail { border-bottom: 0; text-decoration: underline; text-underline-offset: 3p
   .pc-small .pc-media img, .pc-small .pc-media video { object-position: center; }
   .pc-small .pc-body { padding: 14px 16px 14px; }
   .pc-small .pc-sum { font-size: 14.5px; }
+}
+/* phone detail bar: 메인으로 left, arrows centred, 제출용 right, all the same height and shape */
+@media (max-width: 680px) {
+  .sheet-bar { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 8px; height: 56px; }
+  .sheet-bar .back { justify-self: start; min-height: 36px; height: 36px; padding: 0 12px 0 11px; border-radius: 6px; font-size: 14px; }
+  .sheet-bar .bar-nav { justify-self: center; gap: 8px; }
+  .bar-nav button { width: 36px; height: 36px; border-radius: 6px; border-color: rgba(255,255,255,.22); background: rgba(255,255,255,.12); }
+  .sheet-bar .pdf { justify-self: end; min-height: 36px; height: 36px; padding: 0 12px; border-radius: 6px; border-color: rgba(255,255,255,.22); background: rgba(255,255,255,.12); font-size: 14px; }
 }

@@ -752,6 +752,7 @@ addEventListener('hashchange', route); route();
     const a = e.target.closest('a.mail'); if (!a) return;
     const addr = a.textContent.trim();
     const show = msg => { toast.textContent = msg; toast.classList.add('on'); clearTimeout(t); t = setTimeout(() => toast.classList.remove('on'), 1800); };
+    a.blur(); const sel = getSelection(); if (sel) sel.removeAllRanges();
     if (navigator.clipboard) navigator.clipboard.writeText(addr).then(() => show('이메일 주소를 복사했습니다'), () => {});
   });
 })();
