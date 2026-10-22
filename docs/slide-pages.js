@@ -73,6 +73,8 @@ function createSlidePages(sheet) {
     const size = `${sheet.clientWidth}:${sheet.clientHeight}`;
     if (state.size === size && !force) return;
     state.size = size;
+    // Short landscape phone screens: keep every slide whole and let it scroll naturally instead of cutting it into tiny parts.
+    if (sheet.clientHeight < 470) { state.originals.forEach(restore); sheet.dispatchEvent(new CustomEvent('detailpageschange', { detail: { article: art } })); return; }
     const bar = sheet.querySelector('.sheet-bar').offsetHeight;
     const limit = Math.max(180, sheet.clientHeight - bar - 32);
     for (const r of state.originals) {

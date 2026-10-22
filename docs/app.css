@@ -1984,3 +1984,24 @@ a.mail { border-bottom: 0; text-decoration: underline; text-underline-offset: 3p
   .bar-nav button { width: 36px; height: 36px; border-radius: 6px; border-color: rgba(255,255,255,.22); background: rgba(255,255,255,.12); }
   .sheet-bar .pdf { justify-self: end; min-height: 36px; height: 36px; padding: 0 12px; border-radius: 6px; border-color: rgba(255,255,255,.22); background: rgba(255,255,255,.12); font-size: 14px; }
 }
+/* phones: slide cards below the fold wait invisibly until they scroll in (see armSlideReveal) */
+@media (max-width: 680px) { .ds.ds-wait { opacity: 0; } }
+@media print { .ds.ds-wait { opacity: 1 !important; } }
+.sheet { overflow-x: hidden; }
+/* landscape phones (short screens): same detail bar as portrait phones, with prev/next projects */
+@media (max-height: 520px) and (min-width: 681px) {
+  .bar-nav { display: inline-flex; }
+  .bar-nav button { width: 36px; height: 36px; border-radius: 6px; border: 1px solid rgba(255,255,255,.22); background: rgba(255,255,255,.12); color: #fff; position: relative; cursor: pointer; }
+  .bar-nav button::before { content: ""; position: absolute; left: 50%; top: 50%; width: 8px; height: 8px; border-left: 2px solid currentColor; border-bottom: 2px solid currentColor; }
+  .bar-nav .bar-prev::before { transform: translate(-30%, -50%) rotate(45deg); }
+  .bar-nav .bar-next::before { transform: translate(-70%, -50%) rotate(-135deg); }
+  .bar-nav button:disabled { opacity: .3; }
+  .sheet-bar { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 8px; height: 50px; }
+  .sheet-bar .back { justify-self: start; min-height: 36px; height: 36px; padding: 0 12px 0 11px; border-radius: 6px; font-size: 14px; }
+  .sheet-bar .bar-nav { justify-self: center; gap: 18px; }
+  .sheet-bar .pdf { justify-self: end; min-height: 36px; height: 36px; padding: 0 12px; border-radius: 6px; border-color: rgba(255,255,255,.22); background: rgba(255,255,255,.12); font-size: 14px; }
+  .sheet-title { display: none !important; }
+  .sheet.bar-off .sheet-bar { transform: none; }
+  .side-nav { display: none !important; }
+  .ds.ds-wait { opacity: 0; }
+}

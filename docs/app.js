@@ -1,5 +1,7 @@
 (() => {
 'use strict';
+/* phones in portrait or landscape (short screens) share the compact behaviour */
+const compactView = () => innerWidth <= 680 || innerHeight <= 520;
 document.documentElement.classList.add('js');
 const saveData = !!(navigator.connection && navigator.connection.saveData);
 const $ = (s, el = document) => el.querySelector(s);
@@ -173,7 +175,7 @@ const onDrift = () => {
   heroIn.style.opacity = y ? Math.max(0, 1 - y / (hero.offsetHeight * .9)).toFixed(3) : '';
   /* the about card eases back and dims as it leaves, and returns the same way when scrolling up */
   const start = hero.offsetHeight * .35, k = Math.max(0, Math.min(1, (scrollY - start) / (innerHeight * .75)));
-  const phone = innerWidth <= 680;
+  const phone = compactView();
   aboutSec.style.transform = k && !phone ? `translate3d(0, ${(k * 20).toFixed(1)}px, 0)` : '';
   aboutSec.style.opacity = k && !phone ? (1 - k * .55).toFixed(3) : '';
 };
@@ -267,7 +269,7 @@ const centeredSheet = matchMedia('(min-width: 1000px) and (min-height: 700px)');
 const slidePosition = sec => {
   const r = sec.getBoundingClientRect();
   const bar = $('.sheet-bar', sheet).offsetHeight;
-  const top = centeredSheet.matches ? Math.max(bar + 16, bar + (sheet.clientHeight - bar - r.height) / 2) : (parseFloat(getComputedStyle(sec).scrollMarginTop) || 0);
+  const top = centeredSheet.matches ? Math.max(bar + 16, bar + (sheet.clientHeight - bar - r.height) / 2) : Math.max(parseFloat(getComputedStyle(sec).scrollMarginTop) || 0, compactView() ? bar + 14 : 0);
   return Math.max(0, Math.round(sheet.scrollTop + r.top - sheet.getBoundingClientRect().top - top));
 };
 const alignedStops = () => {
@@ -391,8 +393,16 @@ const listEl = $('#list'), topEl = $('.top');
 function openAnim(id, prevId) {
   const inner = $('.sheet-in', sheet);
   sheet.getAnimations({ subtree: true }).forEach(a => a.cancel());
-  if (prevId) { inner.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 220, easing: 'ease-out' }); return; }
-  sheet.animate([{ opacity: 0, transform: 'translateY(10px)' }, { opacity: 1, transform: 'none' }], { duration: 260, easing: ezOut });
+  const phone = compactView() && !matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (prevId) {
+    if (phone) {
+      /* phones: the next project slides in from the right, the previous one from the left */
+      const ids = order(articles), dir = ids.indexOf(id) > ids.indexOf(prevId) ? 1 : -1;
+      inner.animate([{ opacity: 0, transform: `translateX(${dir * 36}px)` }, { opacity: 1, transform: 'none' }], { duration: 320, easing: ezOut });
+    } else inner.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 220, easing: 'ease-out' });
+    return;
+  }
+  sheet.animate([{ opacity: 0, transform: `translateY(${phone ? 22 : 10}px)` }, { opacity: 1, transform: 'none' }], { duration: phone ? 340 : 260, easing: ezOut });
 }
 function closeAnim(id) {
   sheet.getAnimations({ subtree: true }).forEach(a => a.cancel());
@@ -512,6 +522,22 @@ addEventListener('keydown', e => { if (e.key === 'Escape' && !tocPanel.hidden) {
 sheet.addEventListener('scroll', () => { if (!tocPanel.hidden) fillToc(); }, { passive: true });
 fabs.addEventListener('wheel', e => { e.preventDefault(); sheetWheel(e.deltaY * (e.deltaMode === 1 ? 40 : e.deltaMode === 2 ? innerHeight : 1)); }, { passive: false });
 
+/* phones: each slide card fades up as it scrolls into view (once per opening; opacity only while waiting, so layout and jumps are unaffected) */
+const slideIO = 'IntersectionObserver' in window ? new IntersectionObserver(entries => entries.forEach(e => {
+  if (!e.isIntersecting) return;
+  const s = e.target; slideIO.unobserve(s);
+  if (!s.classList.contains('ds-wait')) return;
+  s.classList.remove('ds-wait');
+  s.animate([{ opacity: 0, transform: 'translateY(18px)' }, { opacity: 1, transform: 'none' }], { duration: 420, easing: ezOut });
+}), { root: sheet, rootMargin: '0px 0px -6% 0px' }) : null;
+function armSlideReveal(art) {
+  if (!slideIO) return;
+  slideIO.disconnect(); $$('.ds-wait', sheet).forEach(s => s.classList.remove('ds-wait'));
+  if (!compactView() || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const fold = sheet.clientHeight;
+  $$('section.ds', art).forEach(s => { if (s.getBoundingClientRect().top > fold) { s.classList.add('ds-wait'); slideIO.observe(s); } });
+}
+sheet.addEventListener('detailpageschange', () => { if (slideIO) $$('section.ds', sheet).forEach(s => { if (s.classList.contains('ds-wait')) slideIO.observe(s); }); });
 function route() {
   const id = location.hash.slice(1);
   const art = articles.find(a => a.dataset.id === id);
@@ -527,6 +553,7 @@ function route() {
     slidePages.prepare(art);
     openAnim(id, prevId);
     sheet.scrollTop = 0; sheet.classList.remove('scrolled', 'bar-off'); lastTop = 0;
+    armSlideReveal(art);
     const h = art.querySelector('h2');
     sheetTitle.textContent = h.textContent; document.title = h.textContent.replace(/\u2060/g, '') + ' · 정승호 포트폴리오';
     h.focus({ preventScroll: true });
@@ -580,7 +607,7 @@ let lastTop = 0;
 sheet.addEventListener('scroll', () => {
   const t = sheet.scrollTop, d = t - lastTop;
   sheet.classList.toggle('scrolled', t > 120);
-  if (t < 160 || d < -6 || innerWidth <= 680) sheet.classList.remove('bar-off');
+  if (t < 160 || d < -6 || compactView()) sheet.classList.remove('bar-off');
   else if (d > 6) sheet.classList.add('bar-off');
   lastTop = t;
 }, { passive: true });
