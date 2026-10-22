@@ -9,7 +9,7 @@
 <meta name="twitter:card" content="summary_large_image"/>
 <link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
-<link href="app.css?v=20261022en" rel="stylesheet"/></head>
+<link href="app.css?v=20261022proof" rel="stylesheet"/></head>
 <body>
 <a class="skip" href="#about">본문으로 이동</a>
 <header class="top" id="top">
@@ -131,7 +131,7 @@
 <header class="dv-head">
 <p class="dv-cat"><b>01</b>비전 · 로봇팔<span>2026.09 – 2026.11 · 진행 중</span><a class="dv-code" href="https://github.com/7s-FA/opencv-teach" target="_blank" rel="noopener">GitHub 소스 코드 ↗</a></p>
 <h2 id="dv-opencv" tabindex="-1">비전 기반 로봇팔 <x-nw>티칭·검사</x-nw></h2>
-<p class="dv-lead">달라지는 지그 위치에 동작을 맞추고, Raspberry Pi에서 <x-nw>AI·OpenCV·CAD로</x-nw> 부품과 안착 상태를 확인함</p>
+<p class="dv-lead">달라지는 지그 위치에 동작을 맞추고, Raspberry Pi5에서 <x-nw>AI·OpenCV·CAD로</x-nw> 부품과 안착 상태를 확인함</p>
 <dl class="brief">
 <div><dt>문제</dt><dd>운반 로봇의 도킹 오차와 부품 가림 때문에 저장한 <x-nw>자세·영상</x-nw> 윤곽만으로는 공정을 이어가기 어려움</dd></div>
 <div><dt>담당</dt><dd>로봇팔 2대의 비전 <x-nw>보정·티칭</x-nw> <x-nw>GUI·Pi</x-nw> 연동, <x-nw>데이터·모델</x-nw> 비교와 실행 기준 검증</dd></div>
@@ -191,7 +191,7 @@
 <tr><th scope="row">OpenCV</th><td>247/249</td><td>0.937초</td></tr>
 <tr class="study-selected"><th scope="row">AI 라벨 + CAD<span class="pick">채택</span></th><td>249/249</td><td>1.592초</td></tr>
 </tbody></table>
-<p class="study-takeaway">처리 시간이 0.66초 늘었지만, 부품 구분 오류 2건을 없애 249개를 모두 정확히 구분</p>
+<p class="study-takeaway">부품 구분 오류 2건을 없애 249개를 모두 정확히 구분</p>
 </div></section>
 
 <section class="ds study-carrier" id="opencv-7">
@@ -235,7 +235,7 @@
 </div>
 <div class="study-opt-take">
 <div class="study-decision"><p class="study-decision-title">FP16 채택</p><p class="study-decision-result">처리 시간 <strong>61%</strong> 감소</p><p class="study-decision-detail">원본 대비 IoU 차이 0.02점</p></div>
-<div class="study-decision"><p class="study-decision-title">YOLO26n 채택</p><p class="study-decision-result">처리 시간 <strong>53%</strong> 감소</p><p class="study-decision-detail">s 대비 IoU 0.15점 낮음 · 메모리 38% 절감</p></div>
+<div class="study-decision"><p class="study-decision-title">YOLO26n 채택</p><p class="study-decision-result">처리 시간 <strong>53%</strong> 감소</p><p class="study-decision-detail">s 대비 IoU 차이 0.15점 · 메모리 38% 절감</p></div>
 </div>
 </div></section>
 
@@ -243,7 +243,7 @@
 <section class="ds study-logs" id="opencv-12">
 <div class="ds-head"><p class="ds-no">12<span>작업 <x-nw>로그·오류</x-nw> 추적</span></p><h3>오안착 원인을 실행 기록과 판정 영상으로 확인</h3></div>
 <div class="ds-body"><div class="log-evidence">
-<div><h4>01 · 실행 기록 요약</h4><table class="study-table"><thead><tr><th scope="col">시각</th><th scope="col">기록</th></tr></thead><tbody><tr><td><time>19:50:15</time></td><td>A 조립 작업 접수</td></tr><tr><td><time>19:50:23</time></td><td>지그 <x-nw>위치·방향</x-nw> 확정</td></tr><tr class="log-failure"><td><time>19:50:25</time></td><td>중심 이탈 7.8mm · 안착 불합격</td></tr><tr><td><time>19:50:27</time></td><td>판정 <x-nw>영상·오류</x-nw> 기록 저장</td></tr><tr><td><time>19:50:27</time></td><td>에피소드 중단</td></tr></tbody></table><p class="log-source">실제 실행 로그에서 발췌</p><p class="log-reason"><b>중심 이탈 7.8mm &gt; 허용 5mm</b><br>부품은 있으나 제자리를 벗어나 검사 실패</p></div>
+<div><h4>01 · 실행 기록 요약</h4><table class="study-table"><thead><tr><th scope="col">시각</th><th scope="col">기록</th></tr></thead><tbody><tr><td><time>19:50:15</time></td><td>A 조립 작업 접수</td></tr><tr><td><time>19:50:23</time></td><td>지그 <x-nw>위치·방향</x-nw> 확정</td></tr><tr class="log-failure"><td><time>19:50:25</time></td><td>중심 이탈 7.8mm · 안착 불합격</td></tr><tr><td><time>19:50:27</time></td><td>판정 <x-nw>영상·오류</x-nw> 기록 저장</td></tr><tr><td><time>19:50:27</time></td><td>에피소드 중단</td></tr></tbody></table><p class="log-source">실제 실행 로그에서 발췌</p><p class="log-reason"><b>중심 이탈 7.8mm &gt; 허용 5mm</b><br>제자리를 벗어난 부품을 검출해 작업 중단</p></div>
 <div class="log-link" aria-hidden="true"><span>→</span><b>같은 실행</b></div>
 <figure><h4>02 · 저장된 판정 영상</h4><a class="image-open" href="assets/images/robot-execution-failure.jpg?v=20261021misseated" aria-label="같은 실행에서 저장된 오안착 판정 영상 크게 보기"><img src="assets/images/robot-execution-failure.jpg?v=20261021misseated" width="1280" height="720" loading="lazy" alt="A 하단 부품의 중심 이탈을 붉은 외곽으로 표시한 동일 실행의 실제 판정 영상"></a><figcaption>붉은 영역 · A 하단 부품 오안착</figcaption></figure>
 </div><p class="log-summary">실패 사유 확인 → <code>FAILURE_IMAGES</code> 경로 → 같은 실행의 판정 영상 조회</p></div></section>
@@ -296,7 +296,7 @@
 <p class="dv-cat"><b>04</b>산업 자동화 · PLC<span>2026.06 · 3일</span></p>
 <h2 id="dv-plc" tabindex="-1">PLC 기반 창고 적재 제어</h2>
 <p class="dv-lead">MPS 트레이너에서 소재 분류와 1–4층 창고 <x-nw>적재·비움을</x-nw> 병렬 시퀀스로 구현함</p>
-<dl class="brief"><div><dt>문제</dt><dd>소재를 분류해 1–4층 창고에 쌓고 비우는 동작을 서로 막지 않게 병렬로 제어해야 함</dd></div><div><dt>담당</dt><dd>병렬 시퀀스 래더 로직과 HMI 화면 작성, 수동 제어 코드 통합</dd></div><div><dt>결과</dt><dd><x-nw>판단용·적재용</x-nw> 메모리 분리로 오동작 수정, 병렬 <x-nw>적재·비움·수동</x-nw> 제어 구동 확인</dd></div></dl>
+<dl class="brief"><div><dt>문제</dt><dd>소재를 분류해 1–4층 창고에 쌓고 비우는 동작을 서로 막지 않게 병렬로 제어해야 함</dd></div><div><dt>담당</dt><dd>병렬 시퀀스 래더 로직과 HMI 화면 작성, 수동 제어 코드 통합</dd></div><div><dt>결과</dt><dd><x-nw>판단용·적재용</x-nw> 메모리 분리로 시퀀스 간섭 해결, 병렬 <x-nw>적재·비움·수동</x-nw> 제어 구동 확인</dd></div></dl>
 </header>
 <nav class="dv-toc" aria-label="상세 목차"><ol><li><a href="#plc-1" data-to="plc-1"><b>01</b><x-nw>개요·시연</x-nw></a></li><li><a href="#plc-2" data-to="plc-2"><b>02</b>목표와 장비</a></li><li><a href="#plc-3" data-to="plc-3"><b>03</b>HMI 화면</a></li><li><a href="#plc-4" data-to="plc-4"><b>04</b>서보 위치와 자동 운전</a></li><li><a href="#plc-5" data-to="plc-5"><b>05</b>병렬 시퀀스</a></li><li><a href="#plc-6" data-to="plc-6"><b>06</b>흐름별 동작</a></li><li><a href="#plc-7" data-to="plc-7"><b>07</b>수동 개별 제어</a></li><li><a href="#plc-8" data-to="plc-8"><b>08</b>통합과 문제 해결</a></li></ol></nav>
 <section class="ds ds-first" id="plc-1" aria-label="개요·시연">
@@ -347,7 +347,7 @@
 <section class="ds" id="travel-5"><div class="ds-head"><p class="ds-no">05<span>감상 설정</span></p><h3>여행 선택부터 사진 표시 방식까지</h3></div><div class="ds-body"><div class="split"><figure><a class="image-open" href="assets/images/travel-settings.webp" aria-label="여행 기간과 지도·재생 옵션을 조절하는 여행 설정 화면 크게 보기"><img src="assets/images/travel-settings.webp" alt="여행 기간과 지도·재생 옵션을 조절하는 여행 설정 화면" width="1440" height="900" loading="lazy" decoding="async"></a><figcaption>여행 설정 · 기간 선택과 지도 보기 방식</figcaption></figure><div class="col"><div class="text-stack"><section><h4>여행 선택</h4><p>추천 여행을 고르거나 <x-nw>시작일·종료일</x-nw> 지정</p></section><section><h4>지도 · 재생</h4><p>지도 확대, 따라가기, 재생 시간 조절</p></section><section><h4>사진 표시</h4><p>대표 사진만 또는 모든 사진, 사진마다 머무는 시간 조절</p></section><section><h4>사진 목록</h4><p>촬영 정보를 보고 이번 감상에서 뺄 사진 선택</p></section></div></div></div></div></section>
 <section class="ds" id="travel-6"><div class="ds-head"><p class="ds-no">06<span>데이터 흐름</span></p><h3>기록 입력부터 재생까지</h3></div><div class="ds-body"><ol class="flow row3"><li><span>01</span><h4>이동 <x-nw>기록·사진</x-nw></h4><p>Timeline JSON과 <x-nw>사진·영상</x-nw> 정보 입력</p></li><li><span>02</span><h4><x-nw>경로·장면</x-nw> 구성</h4><p>촬영 <x-nw>시간·위치</x-nw> 연결, 여행 선택과 경로 계획</p></li><li><span>03</span><h4><x-nw>경로·사진</x-nw> 재생</h4><p>모드별 재생 위치 유지, 화면 크기에 맞춘 배치</p></li></ol><table class="issue-table narrow"><thead><tr><th scope="col">코드 영역</th><th scope="col">역할</th></tr></thead><tbody><tr><th scope="row"><x-nw>App·UI·설정</x-nw></th><td data-h="역할">파일 연결, 화면, 도움말, 감상 설정</td></tr><tr><th scope="row"><x-nw>Worker·도메인</x-nw></th><td data-h="역할">타임라인 분석, 기간 필터, 경로 계획, 이동 <x-nw>정보·요약</x-nw></td></tr><tr><th scope="row">Player</th><td data-h="역할">모드별 재생 세션, <x-nw>시간·카메라</x-nw> 동기화</td></tr><tr><th scope="row"><x-nw>Media·Map</x-nw></th><td data-h="역할">촬영 정보와 대표 장면, 지도 소스와 경로 표시</td></tr><tr><th scope="row">로컬 서버</th><td data-h="역할">원본 파일 스트림, <x-nw>메타데이터·장소</x-nw> API</td></tr></tbody></table></div></section>
 <section class="ds" id="travel-7"><div class="ds-head"><p class="ds-no">07<span>지도 미리 불러오기</span></p><h3>다음 장면의 지도를 미리 받아 둠</h3><p class="ds-deck">재생 중 카메라가 이동하거나 <x-nw>확대·축소할</x-nw> 때 빈 지도가 보이는 시간을 줄임</p></div><div class="ds-body"><ol class="flow row3"><li><span>01</span><h4>목적지 계산</h4><p>약 1.4초 뒤의 경로 위치와 확대 수준 계산</p></li><li><span>02</span><h4>타일 요청</h4><p>320ms 간격으로 동시에 2개, 한 번에 최대 36개를 낮은 우선순위로 요청</p></li><li><span>03</span><h4>요청 정리</h4><p>4초가 지나면 중단하고, 완료한 요청은 45초 동안 다시 받지 않음</p></li></ol><p class="ds-note">응답을 늦춘 테스트 타일 서버에서 미리 받은 36개 타일을 추가 전송 없이 표시하는 것을 확인함</p></div></section>
-<section class="ds" id="travel-8"><div class="ds-head"><p class="ds-no">08<span>개선과 검증</span></p><h3>실제 여행 기록으로 확인한 문제</h3><p class="ds-deck">직접 여행 기록을 넣어 오류를 재현하고 수정 전후를 비교함</p></div><div class="ds-body"><table class="issue-table wide-th"><thead><tr><th scope="col">구분</th><th scope="col">개선</th></tr></thead><tbody><tr><th scope="row">모드 전환과 재생 위치</th><td data-h="개선">모드 전환 시 재생 위치 유지 기준을 정하고 실제 기록으로 검증</td></tr><tr><th scope="row">불확실한 이동 기록</th><td data-h="개선">기록이 끊기거나 GPS와 위치가 크게 다르면 이동 <x-nw>수단·장소를</x-nw> 단정하지 않음</td></tr><tr><th scope="row">원본 파일 처리</th><td data-h="개선"><x-nw>사진·Timeline</x-nw> 원본을 외부 업로드 없이 로컬에서 처리</td></tr></tbody></table><dl class="specs c3"><div><dt>단위 테스트</dt><dd>202개 통과</dd></div><div><dt>브라우저 회귀 검사</dt><dd><x-nw>데스크톱·모바일</x-nw> 46개 통과</dd></div><div><dt>정적 검사</dt><dd>타입 검사, ESLint, 빌드 통과</dd></div></dl></div></section>
+<section class="ds" id="travel-8"><div class="ds-head"><p class="ds-no">08<span>개선과 검증</span></p><h3>실제 여행 기록으로 확인한 문제</h3><p class="ds-deck">직접 여행 기록을 넣어 오류를 재현하고 수정 전후를 비교함</p></div><div class="ds-body"><table class="issue-table wide-th"><thead><tr><th scope="col">구분</th><th scope="col">개선</th></tr></thead><tbody><tr><th scope="row">모드 전환과 재생 위치</th><td data-h="개선">모드 전환 시 재생 위치 유지 기준을 정하고 실제 기록으로 검증</td></tr><tr><th scope="row">불확실한 이동 기록</th><td data-h="개선">기록이 끊기거나 GPS와 위치가 크게 다를 때 잘못된 이동 <x-nw>수단·장소</x-nw> 표시 방지</td></tr><tr><th scope="row">원본 파일 처리</th><td data-h="개선"><x-nw>사진·Timeline</x-nw> 원본을 외부 업로드 없이 로컬에서 처리</td></tr></tbody></table><dl class="specs c3"><div><dt>단위 테스트</dt><dd>202개 통과</dd></div><div><dt>브라우저 회귀 검사</dt><dd><x-nw>데스크톱·모바일</x-nw> 46개 통과</dd></div><div><dt>정적 검사</dt><dd>타입 검사, ESLint, 빌드 통과</dd></div></dl></div></section>
 <nav aria-label="다른 프로젝트" class="pager"><a href="#thesis"><small>05</small><b>노크 위치 탐지 연구</b></a><a class="next" href="#opencv"><small>01</small><b>비전 기반 로봇팔 <x-nw>티칭·검사</x-nw></b></a></nav>
 </article></div>
 </div>
