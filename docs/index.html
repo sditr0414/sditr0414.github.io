@@ -9,7 +9,7 @@
 <meta name="twitter:card" content="summary_large_image"/>
 <link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
-<link href="app.css?v=20261022-selection-polish" rel="stylesheet"/></head>
+<link href="app.css?v=20261022m10b" rel="stylesheet"/></head>
 <body>
 <a class="skip" href="#about">본문으로 이동</a>
 <header class="top" id="top">
@@ -217,17 +217,7 @@
 
 <section class="ds" id="opencv-10">
 <div class="ds-head"><p class="ds-no">10<span>학습 방식 비교</span></p><h3>최저 클래스 IoU를 고려해 순차 모델 선택</h3></div>
-<div class="ds-body">
-<table class="study-table"><caption>학습 방식별 IoU · YOLO26n · FP16</caption><thead><tr><th scope="col">IoU(%)</th><th scope="col">실물만</th><th scope="col">혼합</th><th scope="col">순차</th></tr></thead><tbody>
-<tr><th scope="row">평균</th><td>96.81</td><td>97.67</td><td>97.66</td></tr>
-<tr class="study-selected"><th scope="row">최저 클래스</th><td>85.32</td><td>96.11</td><td>96.72</td></tr>
-<tr class="study-selected"><th scope="row">클래스 간 편차</th><td>3.36</td><td>0.70</td><td>0.60</td></tr>
-</tbody></table>
-<div class="study-opt-take">
-<div class="study-decision"><p class="study-decision-title">평가 대상</p><p class="study-decision-result">실물 사진 <strong>31장</strong></p><p class="study-decision-detail">사진 속 부품·지그 169개 평가</p></div>
-<div class="study-decision"><p class="study-decision-title">검출 기준</p><p class="study-decision-result">모델 신뢰도 <strong>50%</strong> 이상</p><p class="study-decision-detail">Pi5 · 원본 해상도 1280×720</p></div>
-</div>
-</div></section>
+<div class="ds-body"><div class="method-cards"><section class="method-card"><h4>실물만</h4><p class="method-sub">실물 사진만으로 학습</p><p class="method-label">최저 클래스 IoU</p><p class="method-hero">85.32<small>%</small></p><div class="method-bar" aria-hidden="true"><i style="width:26.6%"></i></div><dl><div><dt>평균</dt><dd>96.81%</dd></div><div><dt>클래스 간 편차</dt><dd>3.36</dd></div></dl></section><section class="method-card"><h4>혼합</h4><p class="method-sub">실물·가상 사진을 함께 학습</p><p class="method-label">최저 클래스 IoU</p><p class="method-hero">96.11<small>%</small></p><div class="method-bar" aria-hidden="true"><i style="width:80.5%"></i></div><dl><div><dt>평균</dt><dd>97.67%</dd></div><div><dt>클래스 간 편차</dt><dd>0.70</dd></div></dl></section><section class="method-card is-picked"><h4>순차<em>선택</em></h4><p class="method-sub">가상 학습 후 실물로 추가 학습</p><p class="method-label">최저 클래스 IoU</p><p class="method-hero">96.72<small>%</small></p><div class="method-bar" aria-hidden="true"><i style="width:83.6%"></i></div><dl><div><dt>평균</dt><dd>97.66%</dd></div><div><dt>클래스 간 편차</dt><dd>0.60</dd></div></dl></section></div><p class="study-takeaway">평균은 혼합과 순차가 거의 같아, 가장 약한 클래스의 IoU가 높고 클래스 간 편차가 작은 순차 학습을 선택함</p><p class="method-note">YOLO26n · FP16 · 실물 사진 31장(부품·지그 169개) · 검출 신뢰도 50% 이상 · Pi5 · 원본 1280×720 · 막대는 80–100% 구간</p></div></section>
 
 <section class="ds" id="opencv-11">
 <div class="ds-head"><p class="ds-no">11<span>Pi 실행 최적화</span></p><h3>FP16과 YOLO26n으로 Pi 처리 비용을 줄임</h3><p class="ds-deck">입력 960 · 원본 1280×720 평가 · 검출 신뢰도 50% 이상 · 처리 시간은 Pi5 24회 측정 중앙값</p></div>
