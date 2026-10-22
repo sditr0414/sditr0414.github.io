@@ -9,7 +9,7 @@
 <meta name="twitter:card" content="summary_large_image"/>
 <link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
-<link href="app.css?v=20261022opt1" rel="stylesheet"/></head>
+<link href="app.css?v=20261022-selection-polish" rel="stylesheet"/></head>
 <body>
 <a class="skip" href="#about">본문으로 이동</a>
 <header class="top" id="top">
@@ -223,11 +223,11 @@
 <tr class="study-selected"><th scope="row">최저 클래스</th><td>85.32</td><td>96.11</td><td>96.72</td></tr>
 <tr class="study-selected"><th scope="row">클래스 간 편차</th><td>3.36</td><td>0.70</td><td>0.60</td></tr>
 </tbody></table>
-<p class="study-takeaway">Pi5 · 실물 31장·169개 · 원본 1280×720 · 신뢰도 0.5</p>
+<p class="study-takeaway">실물 사진 31장 속 부품·지그 169개 평가<br>Pi5 · 원본 해상도 1280×720 · 검출 기준: 모델 신뢰도 50% 이상</p>
 </div></section>
 
 <section class="ds" id="opencv-11">
-<div class="ds-head"><p class="ds-no">11<span>Pi 실행 최적화</span></p><h3>FP16과 YOLO26n으로 Pi 처리 비용을 줄임</h3><p class="ds-deck">입력 960 · 원본 1280×720 평가 · 신뢰도 0.5 · 처리 시간은 Pi5 24회 측정 중앙값</p></div>
+<div class="ds-head"><p class="ds-no">11<span>Pi 실행 최적화</span></p><h3>FP16과 YOLO26n으로 Pi 처리 비용을 줄임</h3><p class="ds-deck">입력 960 · 원본 1280×720 평가 · 검출 신뢰도 50% 이상 · 처리 시간은 Pi5 24회 측정 중앙값</p></div>
 <div class="ds-body">
 <div class="study-pair study-opt">
 <div><table class="study-table"><caption>실행 형식 · YOLO26n 순차 학습</caption><thead><tr><th scope="col">형식</th><th scope="col">처리 시간</th><th scope="col">IoU(%)</th></tr></thead><tbody>
@@ -240,8 +240,10 @@
 <tr class="study-selected"><th scope="row">YOLO26n</th><td>0.523초</td><td>97.66</td><td>253.9MiB</td></tr>
 </tbody></table></div>
 </div>
-<div class="study-opt-take"><p class="study-takeaway"><b>FP16</b> · 원본과 IoU 0.02점 차이로 처리 시간 약 61% 감소</p><p class="study-takeaway"><b>YOLO26n</b> · s 대비 IoU 0.15점 낮지만 처리 시간 약 53% 감소 · 메모리 38% 절감</p></div>
-<p class="study-note">동일 저장 영상 1장 반복 측정 · 촬영·전송·화면 표시·로봇 이동 제외</p>
+<div class="study-opt-take">
+<div class="study-decision"><p class="study-decision-title">FP16 선택</p><p class="study-decision-result">처리 시간 <strong>61%</strong> 감소</p><p class="study-decision-detail">원본 대비 IoU 차이 0.02점</p></div>
+<div class="study-decision"><p class="study-decision-title">YOLO26n 선택</p><p class="study-decision-result">처리 시간 <strong>53%</strong> 감소</p><p class="study-decision-detail">s 대비 IoU 0.15점 낮음 · 메모리 38% 절감</p></div>
+</div>
 </div></section>
 
 

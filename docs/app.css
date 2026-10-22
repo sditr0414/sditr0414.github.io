@@ -1883,7 +1883,13 @@ html body .pc-lead .pc-body .pc-more { font-size: 15px; }
 }
 /* project 01 slide 11: two comparison tables side by side, the two decisions underneath */
 .robot-study .study-opt { align-items: start; }
-.robot-study .study-opt-take { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 20px; }
-.robot-study .study-opt-take .study-takeaway { margin-top: 0; }
-.robot-study .study-opt-take .study-takeaway b { color: var(--navy); margin-right: 2px; }
-@media (max-width: 680px) { .robot-study .study-opt-take { grid-template-columns: 1fr; gap: 10px; } }
+.robot-study .study-opt-take { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 24px; }
+.robot-study .study-decision { border-top: 2px solid var(--line); padding-top: 16px; }
+.robot-study .ds-body .study-decision-title { margin: 0; font-size: 15px; font-weight: 600; color: var(--navy); }
+.robot-study .ds-body .study-decision-result { margin: 5px 0 6px; font-size: 24px; line-height: 1.35; font-weight: 500; color: var(--navy); }
+.robot-study .study-decision-result strong { font-weight: 750; }
+.robot-study .ds-body .study-decision-detail { margin: 0; font-size: 15px; line-height: 1.6; color: var(--muted); }
+@media (max-width: 680px) {
+  .robot-study .study-opt-take { grid-template-columns: 1fr; gap: 22px; }
+  .robot-study .ds-body .study-decision-result { font-size: 23px; }
+}
