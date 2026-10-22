@@ -1,7 +1,7 @@
 {
   "protocol": {
-    "confidence": 0.75,
-    "confidence_source": "User-approved confidence 0.75; PC default updated; Pi production deployment held, evaluation uses isolated scripts.",
+    "confidence": 0.5,
+    "confidence_source": "SO101_teach/so101_teach/yolo_ui.py default 0.5 and model_regions.py default 0.5",
     "input": 960,
     "mask_resolution": [
       1280,
@@ -14,35 +14,31 @@
     "original_backend": "PyTorch full-resolution retina_masks=True",
     "int8_backend": "ONNX Runtime with same full-resolution mask restoration as NCNN",
     "training_changed": false,
-    "live_model_changed": false,
+    "live_model_changed": true,
     "evaluation_device": "Raspberry Pi 5 CPU",
     "final_model": "YOLO26n sequential, NCNN FP16",
     "test_scope": "Existing held-out real31, previously inspected in project; not a fresh blind dataset.",
-    "parameters_definition": "Inference-fused checkpoint parameters, same fusion applied during export",
-    "date": "2026-10-22",
-    "purpose": "Refresh current portfolio candidate comparisons at approved confidence0.75; all169 GT retained for primary score. Tiny C207 B_lower exclusion only reported separately.",
-    "production_deployment": "PC applied; Pi pending at user request",
-    "timing_scope": "Raspberry Pi 5 CPU pipeline; 24 samples per variant in two reversed-order blocks; excludes camera, transport, UI and motion."
+    "parameters_definition": "Inference-fused checkpoint parameters, same fusion applied during export"
   },
   "models": {
     "s": {
-      "seconds": 1.1805615269913687,
-      "class_mean_iou_percent": 96.02544531407254,
-      "peak_rss_mib": 407.23828125,
+      "seconds": 1.1209251939944807,
+      "class_mean_iou_percent": 97.80970624099045,
+      "peak_rss_mib": 409.69921875,
       "parameters": 10370371,
       "training": "mixed",
       "operating_accuracy": {
         "gt": 169,
-        "pred": 167,
-        "tp": 167,
+        "pred": 169,
+        "tp": 169,
         "fp": 0,
-        "fn": 2,
+        "fn": 0,
         "precision": 1.0,
-        "recall": 0.9881656804733728,
-        "class_mean_iou": 0.9602544531407254,
-        "instance_mean_iou": 0.9679293040017118,
-        "minimum_class_iou": 0.7312714847023886,
-        "class_iou_stddev": 0.06629814499449668
+        "recall": 1.0,
+        "class_mean_iou": 0.9780970624099045,
+        "instance_mean_iou": 0.9789093712442835,
+        "minimum_class_iou": 0.9632254052017158,
+        "class_iou_stddev": 0.006666425265344884
       },
       "model_sha256": {
         "metadata.yaml": "59c4e7468708f61b7dcf077d28b95f126448ed84c10bf0c83462ff65ea1a2e06",
@@ -52,7 +48,7 @@
       "pi_blocks": [
         {
           "status": "complete",
-          "model": "/home/ubuntu/portfolio-confidence75-final-20261022/timing/models/s_mixed/model_ncnn_model",
+          "model": "/home/ubuntu/portfolio-sequential-final-20261022/final_clean/models/s_mixed/model_ncnn_model",
           "model_sha256": {
             "metadata.yaml": "59c4e7468708f61b7dcf077d28b95f126448ed84c10bf0c83462ff65ea1a2e06",
             "model.ncnn.bin": "d3c14285ab796df3d4fb1e787c9870fa8d83f915e1fb4d60124526a5049a41d2",
@@ -63,81 +59,81 @@
           "threads": 4,
           "warmup_runs": 3,
           "runs": 12,
-          "total_ms_median": 1188.8649059983436,
-          "total_ms_p95": 1217.0154650506447,
-          "inference_ms_median": 1128.5055440021097,
-          "fps_from_median": 0.8411384632135767,
-          "peak_rss_mb": 407.16796875,
-          "temperature_before_millideg_c": "57300",
-          "temperature_after_millideg_c": "58400",
+          "total_ms_median": 1127.1642169958795,
+          "total_ms_p95": 1143.532113548281,
+          "inference_ms_median": 1072.9170815029647,
+          "fps_from_median": 0.8871821735658022,
+          "peak_rss_mb": 409.58984375,
+          "temperature_before_millideg_c": "56200",
+          "temperature_after_millideg_c": "57300",
           "cpu_frequency_khz": "2400000",
           "samples": [
             {
-              "total_ms": 1207.4884930043481,
-              "inference_ms": 1146.380117002991,
-              "objects": 9
+              "total_ms": 1132.4121920042671,
+              "inference_ms": 1080.4287100036163,
+              "objects": 10
             },
             {
-              "total_ms": 1181.766975991195,
-              "inference_ms": 1118.9856010023504,
-              "objects": 9
+              "total_ms": 1112.489139995887,
+              "inference_ms": 1058.9270229975227,
+              "objects": 10
             },
             {
-              "total_ms": 1207.8117899945937,
-              "inference_ms": 1148.1352629925823,
-              "objects": 9
+              "total_ms": 1142.6034129981417,
+              "inference_ms": 1080.6520390033256,
+              "objects": 10
             },
             {
-              "total_ms": 1190.2152270049555,
-              "inference_ms": 1129.4435699965106,
-              "objects": 9
+              "total_ms": 1118.77304900554,
+              "inference_ms": 1067.931295998278,
+              "objects": 10
             },
             {
-              "total_ms": 1165.9625789907295,
-              "inference_ms": 1108.560196007602,
-              "objects": 9
+              "total_ms": 1123.032231000252,
+              "inference_ms": 1069.8782090039458,
+              "objects": 10
             },
             {
-              "total_ms": 1187.8835459938273,
-              "inference_ms": 1126.4756659948034,
-              "objects": 9
+              "total_ms": 1123.133949993644,
+              "inference_ms": 1069.5672599977115,
+              "objects": 10
             },
             {
-              "total_ms": 1176.8313270004,
-              "inference_ms": 1114.208836996113,
-              "objects": 9
+              "total_ms": 1134.829885995714,
+              "inference_ms": 1077.9429410031298,
+              "objects": 10
             },
             {
-              "total_ms": 1189.84626600286,
-              "inference_ms": 1130.3848289971938,
-              "objects": 9
+              "total_ms": 1133.2408579910407,
+              "inference_ms": 1082.1712519973516,
+              "objects": 10
             },
             {
-              "total_ms": 1140.2185309998458,
-              "inference_ms": 1085.5746989982435,
-              "objects": 9
+              "total_ms": 1114.3313849897822,
+              "inference_ms": 1061.697514000116,
+              "objects": 10
             },
             {
-              "total_ms": 1225.7145449984819,
-              "inference_ms": 1165.4378849925706,
-              "objects": 9
+              "total_ms": 1112.9681900056312,
+              "inference_ms": 1060.5152100033592,
+              "objects": 10
             },
             {
-              "total_ms": 1209.8980360024143,
-              "inference_ms": 1151.4318349945825,
-              "objects": 9
+              "total_ms": 1144.667191998451,
+              "inference_ms": 1081.963630989776,
+              "objects": 10
             },
             {
-              "total_ms": 1185.4491630074335,
-              "inference_ms": 1127.5675180077087,
-              "objects": 9
+              "total_ms": 1131.1944839981152,
+              "inference_ms": 1075.9559540019836,
+              "objects": 10
             }
           ],
           "scope": "CPU inference pipeline only, no camera capture, drawing, transport or display."
         },
         {
           "status": "complete",
-          "model": "/home/ubuntu/portfolio-confidence75-final-20261022/timing/models/s_mixed/model_ncnn_model",
+          "model": "/home/ubuntu/portfolio-sequential-final-20261022/final_clean/models/s_mixed/model_ncnn_model",
           "model_sha256": {
             "metadata.yaml": "59c4e7468708f61b7dcf077d28b95f126448ed84c10bf0c83462ff65ea1a2e06",
             "model.ncnn.bin": "d3c14285ab796df3d4fb1e787c9870fa8d83f915e1fb4d60124526a5049a41d2",
@@ -148,80 +144,80 @@
           "threads": 4,
           "warmup_runs": 3,
           "runs": 12,
-          "total_ms_median": 1165.857544001483,
-          "total_ms_p95": 1195.1007252995623,
-          "inference_ms_median": 1107.1793209994212,
-          "fps_from_median": 0.8577377271735765,
-          "peak_rss_mb": 407.23828125,
-          "temperature_before_millideg_c": "58400",
-          "temperature_after_millideg_c": "59500",
+          "total_ms_median": 1120.4750210017664,
+          "total_ms_p95": 1130.3167433514318,
+          "inference_ms_median": 1061.5867409942439,
+          "fps_from_median": 0.8924786195643566,
+          "peak_rss_mb": 409.69921875,
+          "temperature_before_millideg_c": "56750",
+          "temperature_after_millideg_c": "58400",
           "cpu_frequency_khz": "2400000",
           "samples": [
             {
-              "total_ms": 1170.5841140064877,
-              "inference_ms": 1111.0402640042594,
-              "objects": 9
+              "total_ms": 1129.9089430103777,
+              "inference_ms": 1079.1113949962892,
+              "objects": 10
             },
             {
-              "total_ms": 1183.9334999967832,
-              "inference_ms": 1124.1082240012474,
-              "objects": 9
+              "total_ms": 1120.974457997363,
+              "inference_ms": 1064.7627579892287,
+              "objects": 10
             },
             {
-              "total_ms": 1160.1397170015844,
-              "inference_ms": 1101.847309997538,
-              "objects": 9
+              "total_ms": 1112.700568002765,
+              "inference_ms": 1046.9213100004708,
+              "objects": 10
             },
             {
-              "total_ms": 1146.6957759985235,
-              "inference_ms": 1091.8516610108782,
-              "objects": 9
+              "total_ms": 1120.6384880060796,
+              "inference_ms": 1068.9594370051054,
+              "objects": 10
             },
             {
-              "total_ms": 1158.3151619997807,
-              "inference_ms": 1101.0082720022183,
-              "objects": 9
+              "total_ms": 1125.9527470101602,
+              "inference_ms": 1072.3887259955518,
+              "objects": 10
             },
             {
-              "total_ms": 1195.6394139997428,
-              "inference_ms": 1142.1553529944504,
-              "objects": 9
+              "total_ms": 1120.3115539974533,
+              "inference_ms": 1064.9564330087742,
+              "objects": 10
             },
             {
-              "total_ms": 1155.0393879879266,
-              "inference_ms": 1098.9820140093798,
-              "objects": 9
+              "total_ms": 1112.3398140043719,
+              "inference_ms": 1051.2931690027472,
+              "objects": 10
             },
             {
-              "total_ms": 1173.9587119955104,
-              "inference_ms": 1119.2865030025132,
-              "objects": 9
+              "total_ms": 1130.815165990498,
+              "inference_ms": 1069.4891860039206,
+              "objects": 10
             },
             {
-              "total_ms": 1194.6599799994146,
-              "inference_ms": 1138.0641619907692,
-              "objects": 9
+              "total_ms": 1099.45597499609,
+              "inference_ms": 1048.8683559960919,
+              "objects": 10
             },
             {
-              "total_ms": 1179.3560779915424,
-              "inference_ms": 1121.151908999309,
-              "objects": 9
+              "total_ms": 1107.479932004935,
+              "inference_ms": 1055.8079759939574,
+              "objects": 10
             },
             {
-              "total_ms": 1161.1309739964781,
-              "inference_ms": 1103.318377994583,
-              "objects": 9
+              "total_ms": 1120.8759299915982,
+              "inference_ms": 1058.410723999259,
+              "objects": 10
             },
             {
-              "total_ms": 1146.6552179917926,
-              "inference_ms": 1088.0571040033828,
-              "objects": 9
+              "total_ms": 1113.3323770045536,
+              "inference_ms": 1057.4708650092361,
+              "objects": 10
             }
           ],
           "scope": "CPU inference pipeline only, no camera capture, drawing, transport or display."
         }
       ],
-      "source": "SO101_synthetic/benchmarks/portfolio_confidence75_final_20261022/",
+      "source": "SO101_synthetic/benchmarks/portfolio_sequential_final_20261022/",
       "parameter_evidence": {
         "parameters": 10370371,
         "training_checkpoint_parameters": 11445299,
@@ -231,33 +227,33 @@
       }
     },
     "n": {
-      "seconds": 0.5276804269960849,
-      "class_mean_iou_percent": 96.76379318921622,
-      "peak_rss_mib": 252.05078125,
+      "seconds": 0.523202038006275,
+      "class_mean_iou_percent": 97.65531671423489,
+      "peak_rss_mib": 253.94140625,
       "parameters": 2706699,
       "training": "sequential",
       "operating_accuracy": {
         "gt": 169,
-        "pred": 168,
-        "tp": 168,
+        "pred": 169,
+        "tp": 169,
         "fp": 0,
-        "fn": 1,
+        "fn": 0,
         "precision": 1.0,
-        "recall": 0.9940828402366864,
-        "class_mean_iou": 0.9676379318921622,
-        "instance_mean_iou": 0.9720977022245443,
-        "minimum_class_iou": 0.8533923267470913,
-        "class_iou_stddev": 0.03346241303896792
+        "recall": 1.0,
+        "class_mean_iou": 0.9765531671423489,
+        "instance_mean_iou": 0.9775840008400437,
+        "minimum_class_iou": 0.967213199323322,
+        "class_iou_stddev": 0.006037982183482693
       },
       "model_sha256": {
         "metadata.yaml": "50b537dc13101edb251007cb0cb0b807a17f1606984a64479f557f0004ecd546",
-        "model.ncnn.param": "e8037ba3faebb6fd713e9495888daf78a4b52950d93e885741e4ea0ebe51132c",
-        "model.ncnn.bin": "32785927ca1a9f8ddb8bf2e7a442fa6bd4c3ac354abf63bcaf2c050ddc740ada"
+        "model.ncnn.bin": "32785927ca1a9f8ddb8bf2e7a442fa6bd4c3ac354abf63bcaf2c050ddc740ada",
+        "model.ncnn.param": "e8037ba3faebb6fd713e9495888daf78a4b52950d93e885741e4ea0ebe51132c"
       },
       "pi_blocks": [
         {
           "status": "complete",
-          "model": "/home/ubuntu/portfolio-confidence75-final-20261022/timing/models/n_sequential/model_ncnn_model",
+          "model": "/home/ubuntu/portfolio-sequential-final-20261022/final_clean/models/n_sequential/model_ncnn_model",
           "model_sha256": {
             "metadata.yaml": "50b537dc13101edb251007cb0cb0b807a17f1606984a64479f557f0004ecd546",
             "model.ncnn.bin": "32785927ca1a9f8ddb8bf2e7a442fa6bd4c3ac354abf63bcaf2c050ddc740ada",
@@ -268,81 +264,81 @@
           "threads": 4,
           "warmup_runs": 3,
           "runs": 12,
-          "total_ms_median": 532.4474725057371,
-          "total_ms_p95": 563.1553081038874,
-          "inference_ms_median": 480.60318150237435,
-          "fps_from_median": 1.8781195359871392,
-          "peak_rss_mb": 251.8515625,
-          "temperature_before_millideg_c": "56200",
-          "temperature_after_millideg_c": "58950",
+          "total_ms_median": 483.4062264999375,
+          "total_ms_p95": 640.4691046031074,
+          "inference_ms_median": 427.1061010003905,
+          "fps_from_median": 2.068653536468524,
+          "peak_rss_mb": 253.94140625,
+          "temperature_before_millideg_c": "54550",
+          "temperature_after_millideg_c": "57300",
           "cpu_frequency_khz": "2400000",
           "samples": [
             {
-              "total_ms": 568.1253710063174,
-              "inference_ms": 517.6421070063952,
-              "objects": 9
+              "total_ms": 485.7669269986218,
+              "inference_ms": 427.7984709915472,
+              "objects": 10
             },
             {
-              "total_ms": 526.6604679927696,
-              "inference_ms": 476.0555190005107,
-              "objects": 9
+              "total_ms": 486.02553899399936,
+              "inference_ms": 429.00323499634396,
+              "objects": 10
             },
             {
-              "total_ms": 531.9788140041055,
-              "inference_ms": 480.9416979987873,
-              "objects": 9
+              "total_ms": 485.03577400697395,
+              "inference_ms": 427.22456000046805,
+              "objects": 10
             },
             {
-              "total_ms": 532.9161310073687,
-              "inference_ms": 480.26466500596143,
-              "objects": 9
+              "total_ms": 480.8317739953054,
+              "inference_ms": 423.41191400191747,
+              "objects": 10
             },
             {
-              "total_ms": 559.0888930018991,
-              "inference_ms": 503.76605900237337,
-              "objects": 9
+              "total_ms": 480.98708801262546,
+              "inference_ms": 424.19949000759516,
+              "objects": 10
             },
             {
-              "total_ms": 555.5014190031216,
-              "inference_ms": 502.8637679934036,
-              "objects": 9
+              "total_ms": 483.2714130025124,
+              "inference_ms": 424.15167500439566,
+              "objects": 10
             },
             {
-              "total_ms": 548.1736719957553,
-              "inference_ms": 496.6705370025011,
-              "objects": 9
+              "total_ms": 708.8289829989662,
+              "inference_ms": 639.5083490060642,
+              "objects": 10
             },
             {
-              "total_ms": 528.7003859994002,
-              "inference_ms": 475.08386499248445,
-              "objects": 9
+              "total_ms": 584.5382950064959,
+              "inference_ms": 525.8545779943233,
+              "objects": 10
             },
             {
-              "total_ms": 523.3944680076092,
-              "inference_ms": 473.97075599292293,
-              "objects": 9
+              "total_ms": 480.5984359991271,
+              "inference_ms": 422.9550749878399,
+              "objects": 10
             },
             {
-              "total_ms": 540.0715970026795,
-              "inference_ms": 487.21753699646797,
-              "objects": 9
+              "total_ms": 480.7604369998444,
+              "inference_ms": 426.16879200795665,
+              "objects": 10
             },
             {
-              "total_ms": 511.0563220077893,
-              "inference_ms": 458.7170029990375,
-              "objects": 9
+              "total_ms": 482.66903599142097,
+              "inference_ms": 426.98770300194155,
+              "objects": 10
             },
             {
-              "total_ms": 525.7268419954926,
-              "inference_ms": 472.9974300134927,
-              "objects": 9
+              "total_ms": 483.54103999736253,
+              "inference_ms": 427.2244989988394,
+              "objects": 10
             }
           ],
           "scope": "CPU inference pipeline only, no camera capture, drawing, transport or display."
         },
         {
           "status": "complete",
-          "model": "/home/ubuntu/portfolio-confidence75-final-20261022/timing/models/n_sequential/model_ncnn_model",
+          "model": "/home/ubuntu/portfolio-sequential-final-20261022/final_clean/models/n_sequential/model_ncnn_model",
           "model_sha256": {
             "metadata.yaml": "50b537dc13101edb251007cb0cb0b807a17f1606984a64479f557f0004ecd546",
             "model.ncnn.bin": "32785927ca1a9f8ddb8bf2e7a442fa6bd4c3ac354abf63bcaf2c050ddc740ada",
@@ -353,80 +349,80 @@
           "threads": 4,
           "warmup_runs": 3,
           "runs": 12,
-          "total_ms_median": 517.4195310100913,
-          "total_ms_p95": 538.7943671543326,
-          "inference_ms_median": 462.25631850393256,
-          "fps_from_median": 1.9326676711407262,
-          "peak_rss_mb": 252.05078125,
-          "temperature_before_millideg_c": "56750",
-          "temperature_after_millideg_c": "58950",
+          "total_ms_median": 527.3084065047442,
+          "total_ms_p95": 539.7030344996892,
+          "inference_ms_median": 469.764651497826,
+          "fps_from_median": 1.896423397890591,
+          "peak_rss_mb": 253.83203125,
+          "temperature_before_millideg_c": "55650",
+          "temperature_after_millideg_c": "55100",
           "cpu_frequency_khz": "2400000",
           "samples": [
             {
-              "total_ms": 530.890359004843,
-              "inference_ms": 475.4247319942806,
-              "objects": 9
+              "total_ms": 519.75839798979,
+              "inference_ms": 465.5805840011453,
+              "objects": 10
             },
             {
-              "total_ms": 498.3570320036961,
-              "inference_ms": 443.49968200549483,
-              "objects": 9
+              "total_ms": 551.5324730076827,
+              "inference_ms": 495.4926130012609,
+              "objects": 10
             },
             {
-              "total_ms": 512.7465419936925,
-              "inference_ms": 452.3314370017033,
-              "objects": 9
+              "total_ms": 530.0244029931491,
+              "inference_ms": 470.2848049928434,
+              "objects": 10
             },
             {
-              "total_ms": 511.2472670007264,
-              "inference_ms": 456.3665639871033,
-              "objects": 9
+              "total_ms": 523.9805800083559,
+              "inference_ms": 465.4816730035236,
+              "objects": 10
             },
             {
-              "total_ms": 529.6866440039594,
-              "inference_ms": 474.3323130096542,
-              "objects": 9
+              "total_ms": 528.7843219994102,
+              "inference_ms": 469.5886159897782,
+              "objects": 10
             },
             {
-              "total_ms": 526.5825000096811,
-              "inference_ms": 471.06620599515736,
-              "objects": 9
+              "total_ms": 528.580079000676,
+              "inference_ms": 470.1204320008401,
+              "objects": 10
             },
             {
-              "total_ms": 537.592549007968,
-              "inference_ms": 479.4769610016374,
-              "objects": 9
+              "total_ms": 528.3163000131026,
+              "inference_ms": 473.02268499333877,
+              "objects": 10
             },
             {
-              "total_ms": 513.3475130132865,
-              "inference_ms": 458.512162003899,
-              "objects": 9
+              "total_ms": 526.3005129963858,
+              "inference_ms": 467.5669209973421,
+              "objects": 10
             },
             {
-              "total_ms": 503.9977609994821,
-              "inference_ms": 449.62166898767464,
-              "objects": 9
+              "total_ms": 526.2969570030691,
+              "inference_ms": 470.2128200005973,
+              "objects": 10
             },
             {
-              "total_ms": 540.2632559998892,
-              "inference_ms": 485.4795899882447,
-              "objects": 9
+              "total_ms": 522.423496004194,
+              "inference_ms": 464.4552770041628,
+              "objects": 10
             },
             {
-              "total_ms": 521.4915490068961,
-              "inference_ms": 466.00047500396613,
-              "objects": 9
+              "total_ms": 524.2435219988693,
+              "inference_ms": 467.9828279913636,
+              "objects": 10
             },
             {
-              "total_ms": 510.55513200117275,
-              "inference_ms": 457.561816991074,
-              "objects": 9
+              "total_ms": 528.3572409971384,
+              "inference_ms": 469.94068700587377,
+              "objects": 10
             }
           ],
           "scope": "CPU inference pipeline only, no camera capture, drawing, transport or display."
         }
       ],
-      "source": "SO101_synthetic/benchmarks/portfolio_confidence75_final_20261022/",
+      "source": "SO101_synthetic/benchmarks/portfolio_sequential_final_20261022/",
       "parameter_evidence": {
         "parameters": 2706699,
         "training_checkpoint_parameters": 3089363,

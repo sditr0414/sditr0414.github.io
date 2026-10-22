@@ -216,40 +216,40 @@
 </div></section>
 
 <section class="ds" id="opencv-10">
-<div class="ds-head"><p class="ds-no">10<span>학습 방식 비교</span></p><h3>신뢰도 75%에서 순차 학습 모델 재평가</h3></div>
+<div class="ds-head"><p class="ds-no">10<span>학습 방식 비교</span></p><h3>최저 클래스 성능을 보완한 순차 학습 모델 선택</h3></div>
 <div class="ds-body">
 <div class="study-pair study-charts">
 <div><table class="study-table"><caption>학습 방식별 IoU · YOLO26n · FP16</caption><thead><tr><th scope="col">IoU(%)</th><th scope="col">실물만</th><th scope="col">혼합</th><th scope="col">순차</th></tr></thead><tbody>
-<tr><th scope="row">평균</th><td>96.81</td><td>96.73</td><td>96.76</td></tr>
-<tr class="study-selected"><th scope="row">최저 클래스</th><td>85.32</td><td>83.90</td><td>85.34</td></tr>
-<tr class="study-selected"><th scope="row">클래스 간 편차</th><td>3.36</td><td>3.74</td><td>3.35</td></tr>
+<tr><th scope="row">평균</th><td>96.81</td><td>97.67</td><td>97.66</td></tr>
+<tr class="study-selected"><th scope="row">최저 클래스</th><td>85.32</td><td>96.11</td><td>96.72</td></tr>
+<tr class="study-selected"><th scope="row">클래스 간 편차</th><td>3.36</td><td>0.70</td><td>0.60</td></tr>
 </tbody></table></div>
-<figure><h4>혼합 ↔ 순차 학습 · YOLO26n</h4><img src="assets/charts/robot-training-n-sequential.svg?v=confidence75" width="640" height="240" alt="Pi YOLO26n FP16의 원본 마스크 클래스 평균 IoU: 혼합 96.73%, 순차 96.76%"><figcaption>순차: 가상 학습 후 실물 추가 학습 · 클래스 평균 IoU(%)</figcaption></figure>
+<figure><h4>혼합 ↔ 순차 학습 · YOLO26n</h4><img src="assets/charts/robot-training-n-sequential.svg?v=sequential-final" width="640" height="240" alt="Pi YOLO26n FP16의 원본 마스크 클래스 평균 IoU: 혼합 97.67%, 순차 97.66%"><figcaption>순차: 가상 학습 후 실물 추가 학습 · 클래스 평균 IoU(%)</figcaption></figure>
 </div>
-<p class="study-takeaway">Pi5 · 실물 31장·169개 · 원본 1280×720 · 신뢰도 75%<br>세 방식 모두 오검출 0개 · 누락 1개씩 포함한 점수</p>
+<p class="study-takeaway">Pi5 · 실물 31장·169개 · 원본 1280×720 · 신뢰도 0.5<br>실물만 1개 누락 · 혼합·순차 누락 0개 · 모두 오검출 0개</p>
 </div></section>
 
 <section class="ds" id="opencv-11">
-<div class="ds-head"><p class="ds-no">11<span><x-nw>양자화·실행</x-nw> 형식</span></p><h3>순차 모델의 Pi 실행 형식은 FP16 선택</h3><p class="ds-deck">YOLO26n 순차 학습 · 입력 960 · 원본 1280×720 평가 · 신뢰도 75%</p></div>
+<div class="ds-head"><p class="ds-no">11<span><x-nw>양자화·실행</x-nw> 형식</span></p><h3>순차 모델의 Pi 실행 형식은 FP16 선택</h3><p class="ds-deck">YOLO26n 순차 학습 · 입력 960 · 원본 1280×720 평가 · 신뢰도 0.5</p></div>
 <div class="ds-body">
 <div class="study-pair">
-<figure class="study-chart"><img src="assets/charts/robot-quantization.svg?v=confidence75" width="640" height="300" alt="처리 시간 중앙값: 원본 1.651초, FP16 0.528초, INT8 혼합 0.827초"><figcaption>처리 시간 중앙값(초) · Pi5 · 형식별 24회 측정</figcaption></figure>
+<figure class="study-chart"><img src="assets/charts/robot-quantization.svg?v=sequential-final" width="640" height="300" alt="처리 시간 중앙값: 원본 1.341초, FP16 0.523초, INT8 혼합 0.831초"><figcaption>처리 시간 중앙값(초) · Pi5 · 형식별 24회 측정</figcaption></figure>
 <div><table class="study-table"><caption>클래스 평균 IoU(%)</caption><thead><tr><th scope="col">실행 형식</th><th scope="col">점수</th></tr></thead><tbody>
-<tr><th scope="row">원본</th><td>96.78</td></tr>
-<tr class="study-selected"><th scope="row">FP16</th><td>96.76</td></tr>
-<tr><th scope="row">INT8 혼합</th><td>95.67</td></tr>
-</tbody></table><p class="study-takeaway">원본·FP16은 1개 누락 · INT8 혼합은 2개 누락<br>FP16은 원본과 IoU 0.02점 차이 · 처리 시간 약 68% 감소</p></div>
+<tr><th scope="row">원본</th><td>97.68</td></tr>
+<tr class="study-selected"><th scope="row">FP16</th><td>97.66</td></tr>
+<tr><th scope="row">INT8 혼합</th><td>96.53</td></tr>
+</tbody></table><p class="study-takeaway">원본·FP16은 169개 검출 · INT8 혼합은 1개 누락<br>FP16은 원본과 IoU 0.02점 차이 · 처리 시간 약 61% 감소</p></div>
 </div>
 </div></section>
 
 <section class="ds" id="opencv-12">
-<div class="ds-head"><p class="ds-no">12<span>Pi 모델 선택</span></p><h3>순차 학습 n 모델로 처리 비용을 줄임</h3><p class="ds-deck">s 혼합·n 순차 학습 · FP16 · 신뢰도 75%</p></div>
+<div class="ds-head"><p class="ds-no">12<span>Pi 모델 선택</span></p><h3>순차 학습 n 모델로 처리 비용을 줄임</h3><p class="ds-deck">s 혼합·n 순차 학습 · FP16 · 신뢰도 0.5</p></div>
 <div class="ds-body"><div class="study-pair">
-<figure class="study-chart"><img src="assets/charts/robot-model-size.svg?v=confidence75" width="640" height="240" alt="Pi5 처리 시간 중앙값: YOLO26s 1.181초, YOLO26n 0.528초"><figcaption>처리 시간 중앙값(초) · Pi5 · 모델별 24회 측정<br>파라미터 수는 추론용 변환 기준 · M = 100만 개</figcaption></figure>
+<figure class="study-chart"><img src="assets/charts/robot-model-size.svg?v=sequential-final" width="640" height="240" alt="Pi5 처리 시간 중앙값: YOLO26s 1.121초, YOLO26n 0.523초"><figcaption>처리 시간 중앙값(초) · Pi5 · 모델별 24회 측정<br>파라미터 수는 추론용 변환 기준 · M = 100만 개</figcaption></figure>
 <div><table class="study-table"><caption>클래스 평균 IoU·파라미터·Pi 메모리</caption><thead><tr><th scope="col">모델</th><th scope="col">IoU(%)</th><th scope="col">파라미터</th><th scope="col">최대 메모리</th></tr></thead><tbody>
-<tr><th scope="row">YOLO26s</th><td>96.03</td><td>10.37M</td><td>407.2MiB</td></tr>
-<tr class="study-selected"><th scope="row">YOLO26n</th><td>96.76</td><td>2.71M</td><td>252.1MiB</td></tr>
-</tbody></table><p class="study-takeaway">n의 클래스 평균 IoU가 0.74점 높음<br>n은 약 2.24배 빠르고 메모리는 약 38% 적음</p></div>
+<tr><th scope="row">YOLO26s</th><td>97.81</td><td>10.37M</td><td>409.7MiB</td></tr>
+<tr class="study-selected"><th scope="row">YOLO26n</th><td>97.66</td><td>2.71M</td><td>253.9MiB</td></tr>
+</tbody></table><p class="study-takeaway">s의 클래스 평균 IoU가 0.15점 높으나<br>n은 약 2.14배 빠르고 메모리는 약 38% 적음</p></div>
 </div></div></section>
 
 <section class="ds study-logs" id="opencv-13">

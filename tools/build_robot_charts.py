@@ -2,7 +2,6 @@
 
 Usage: python3 tools/build_robot_charts.py /path/to/Final_Arm
 Add --evidence-only to refresh source values without regenerating SVG files.
-Add --current-only to regenerate only the three current candidate charts.
 Only reads experiment results; never starts training or connects to equipment.
 """
 import json
@@ -28,7 +27,7 @@ def read(path):
 
 
 def bars(name, labels, values, maximum, unit, decimals=2, highlight=None):
-    if "--evidence-only" in sys.argv[2:] or ("--current-only" in sys.argv[2:] and name not in {"robot-training-n-sequential", "robot-quantization", "robot-model-size"}):
+    if "--evidence-only" in sys.argv[2:]:
         return
     fig, ax = plt.subplots(figsize=(6.4, 2.4 if len(labels) == 2 else 3.0))
     fig.patch.set_alpha(0)
@@ -50,13 +49,11 @@ def bars(name, labels, values, maximum, unit, decimals=2, highlight=None):
                 va="center", fontproperties=font, fontsize=19, color=ink)
     fig.subplots_adjust(left=.27, right=.97, top=.94, bottom=.22)
     fig.savefig(output / f"{name}.svg", transparent=True, metadata={"Date": None})
-    svg_path = output / f"{name}.svg"
-    svg_path.write_text("\n".join(line.rstrip() for line in svg_path.read_text().splitlines()) + "\n")
     plt.close(fig)
 
 
 base = "SO101_synthetic/benchmarks/"
-comparison_base = base + "portfolio_confidence75_final_20261022/"
+comparison_base = base + "portfolio_sequential_final_20261022/"
 operating = read(comparison_base + "accuracy_complete.json")
 performance = read(comparison_base + "performance_complete.json")
 training = {k: operating[k] for k in ["n_real", "n_mixed", "n_sequential"]}
@@ -96,7 +93,7 @@ evidence = {
     "training_n": {"model": "YOLO26n, NCNN FP16", "values": training_values,
                    "scores": class_scores, "summary": class_summary,
                    "source": comparison_base + "accuracy_complete.json",
-                   "metric": "Original-resolution mask IoU, macro average over classes, confidence 0.75; unmatched GT contributes zero",
+                   "metric": "Original-resolution mask IoU, macro average over classes, confidence 0.5; unmatched GT contributes zero",
                    "protocol": "Same training settings and early stopping per stage; sequential trains synthetic then real; actual epochs and total training exposure may differ.",
                    "model_hashes": {k: v["model_sha256"] for k, v in training.items()}},
     "quantization": [{"variant": k, "model": "YOLO26n sequential", "class_mean_iou_percent": mask(quantization["variants"][k]),
@@ -111,7 +108,7 @@ evidence = {
                              "variants": {k: {"overall": v["overall"], "model_sha256": v["model_sha256"]} for k, v in operating.items()}},
     "limitations": [
         "Training panels use the same nano model and NCNN FP16 evaluation; early-stopping criteria match, but stage counts and total training duration differ.",
-        "Operating-point mask evaluation on Raspberry Pi 5: 31 real photos, confidence 0.75, original 1280x720 masks; class-average IoU includes zero for unmatched ground truth. FP/FN reported separately.",
+        "Operating-point mask evaluation on Raspberry Pi 5: 31 real photos, confidence 0.5, original 1280x720 masks; class-average IoU includes zero for unmatched ground truth. FP/FN reported separately.",
         "Final candidates use sequential nano and mixed small training; the size panel compares the actual candidates, not an isolated architecture-only experiment. Parameters are counted after inference fusion.",
         "Pi timings exclude camera, transport, UI and robot motion.",
         "Jig comparison includes all 304 development photos, including train/val/test; not unseen-test accuracy."
