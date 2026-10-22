@@ -1934,3 +1934,8 @@ html body .pc-lead .pc-body .pc-more { font-size: 15px; }
   .robot-study .method-card dl { grid-column: 2; grid-row: 3 / span 2; grid-template-columns: auto auto; gap: 4px 12px; margin: 0 0 6px; padding: 0; border: 0; }
   .robot-study .method-card dt { font-size: 12.5px; } .robot-study .method-card dd { font-size: 15px; }
 }
+
+/* adopted option: a badge next to its name and a navy bar on the row, so the choice reads at a glance */
+.robot-study .study-table .pick { display: inline-block; margin-left: 8px; padding: 1px 7px; border-radius: 4px; background: var(--navy); color: #fff; font-size: 12px; font-weight: 700; line-height: 1.5; vertical-align: 1px; letter-spacing: 0; }
+.robot-study .study-table tr.study-selected > th:first-child { box-shadow: inset 4px 0 0 var(--navy); }
+.robot-study .study-table tr.study-selected > td { color: var(--ink); font-weight: 700; }
