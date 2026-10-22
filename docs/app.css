@@ -1881,3 +1881,9 @@ html body .pc-lead .pc-body .pc-more { font-size: 15px; }
   .adoption-flow { gap: 26px; }
   .adoption-flow li + li::before { top: -24px; }
 }
+/* project 01 slide 11: two comparison tables side by side, the two decisions underneath */
+.robot-study .study-opt { align-items: start; }
+.robot-study .study-opt-take { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 20px; }
+.robot-study .study-opt-take .study-takeaway { margin-top: 0; }
+.robot-study .study-opt-take .study-takeaway b { color: var(--navy); margin-right: 2px; }
+@media (max-width: 680px) { .robot-study .study-opt-take { grid-template-columns: 1fr; gap: 10px; } }

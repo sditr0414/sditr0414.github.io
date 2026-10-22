@@ -9,7 +9,7 @@
 <meta name="twitter:card" content="summary_large_image"/>
 <link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
-<link href="app.css?v=20261022mob1" rel="stylesheet"/></head>
+<link href="app.css?v=20261022opt1" rel="stylesheet"/></head>
 <body>
 <a class="skip" href="#about">본문으로 이동</a>
 <header class="top" id="top">
@@ -138,7 +138,7 @@
 <div><dt>구현</dt><dd>지그에 맞춘 목표 자세 갱신, AI 부품 <x-nw>구분·CAD</x-nw> 안착 검사, ROS2 작업 요청과 결과 반환</dd></div>
 </dl>
 </header>
-<nav class="dv-toc" aria-label="상세 목차"><ol><li><a href="#opencv-1" data-to="opencv-1"><b>01</b><x-nw>개요·시연</x-nw></a></li><li><a href="#opencv-2" data-to="opencv-2"><b>02</b>작업 흐름</a></li><li><a href="#opencv-3" data-to="opencv-3"><b>03</b>지그 위치 채택</a></li><li><a href="#opencv-4" data-to="opencv-4"><b>04</b>목표 자세 보정</a></li><li><a href="#opencv-5" data-to="opencv-5"><b>05</b>티칭 GUI</a></li><li><a href="#opencv-6" data-to="opencv-6"><b>06</b><x-nw>부품·안착</x-nw> 검사</a></li><li><a href="#opencv-7" data-to="opencv-7"><b>07</b>운반용 지그 채택</a></li><li><a href="#opencv-8" data-to="opencv-8"><b>08</b>팔레트 <x-nw>찾기·채택</x-nw></a></li><li><a href="#opencv-9" data-to="opencv-9"><b>09</b>학습 데이터</a></li><li><a href="#opencv-10" data-to="opencv-10"><b>10</b>학습 방식 비교</a></li><li><a href="#opencv-11" data-to="opencv-11"><b>11</b><x-nw>양자화·실행</x-nw> 형식</a></li><li><a href="#opencv-12" data-to="opencv-12"><b>12</b>Pi 모델 선택</a></li><li><a href="#opencv-13" data-to="opencv-13"><b>13</b>작업 로그·오류 추적</a></li></ol></nav>
+<nav class="dv-toc" aria-label="상세 목차"><ol><li><a href="#opencv-1" data-to="opencv-1"><b>01</b><x-nw>개요·시연</x-nw></a></li><li><a href="#opencv-2" data-to="opencv-2"><b>02</b>작업 흐름</a></li><li><a href="#opencv-3" data-to="opencv-3"><b>03</b>지그 위치 채택</a></li><li><a href="#opencv-4" data-to="opencv-4"><b>04</b>목표 자세 보정</a></li><li><a href="#opencv-5" data-to="opencv-5"><b>05</b>티칭 GUI</a></li><li><a href="#opencv-6" data-to="opencv-6"><b>06</b><x-nw>부품·안착</x-nw> 검사</a></li><li><a href="#opencv-7" data-to="opencv-7"><b>07</b>운반용 지그 채택</a></li><li><a href="#opencv-8" data-to="opencv-8"><b>08</b>팔레트 <x-nw>찾기·채택</x-nw></a></li><li><a href="#opencv-9" data-to="opencv-9"><b>09</b>학습 데이터</a></li><li><a href="#opencv-10" data-to="opencv-10"><b>10</b>학습 방식 비교</a></li><li><a href="#opencv-11" data-to="opencv-11"><b>11</b>Pi 실행 최적화</a></li><li><a href="#opencv-12" data-to="opencv-12"><b>12</b>작업 로그·오류 추적</a></li></ol></nav>
 
 <section class="ds ds-first" id="opencv-1" aria-label="개요·시연">
 <div class="ds-body"><div class="split overview">
@@ -230,30 +230,25 @@
 </div></section>
 
 <section class="ds" id="opencv-11">
-<div class="ds-head"><p class="ds-no">11<span><x-nw>양자화·실행</x-nw> 형식</span></p><h3>순차 모델의 Pi 실행 형식은 FP16 선택</h3><p class="ds-deck">YOLO26n 순차 학습 · 입력 960 · 원본 1280×720 평가 · 신뢰도 0.5</p></div>
+<div class="ds-head"><p class="ds-no">11<span>Pi 실행 최적화</span></p><h3>FP16과 YOLO26n으로 Pi 처리 비용을 줄임</h3><p class="ds-deck">순차 학습 · 입력 960 · 원본 1280×720 평가 · 신뢰도 0.5 · 처리 시간은 Pi5 24회 측정 중앙값</p></div>
 <div class="ds-body">
-<div class="study-pair">
-<figure class="study-chart"><img src="assets/charts/robot-quantization.svg?v=sequential-final" width="640" height="300" alt="처리 시간 중앙값: 원본 1.341초, FP16 0.523초, INT8 혼합 0.831초"><figcaption>처리 시간 중앙값(초) · Pi5 · 형식별 24회 측정</figcaption></figure>
-<div><table class="study-table"><caption>클래스 평균 IoU(%)</caption><thead><tr><th scope="col">실행 형식</th><th scope="col">점수</th></tr></thead><tbody>
-<tr><th scope="row">원본</th><td>97.68</td></tr>
-<tr class="study-selected"><th scope="row">FP16</th><td>97.66</td></tr>
-<tr><th scope="row">INT8 혼합</th><td>96.53</td></tr>
-</tbody></table><p class="study-takeaway">원본·FP16은 169개 검출 · INT8 혼합은 1개 누락<br>FP16은 원본과 IoU 0.02점 차이 · 처리 시간 약 61% 감소</p></div>
+<div class="study-pair study-opt">
+<div><table class="study-table"><caption>실행 형식 · YOLO26n</caption><thead><tr><th scope="col">형식</th><th scope="col">처리 시간</th><th scope="col">IoU(%)</th></tr></thead><tbody>
+<tr><th scope="row">원본</th><td>1.341초</td><td>97.68</td></tr>
+<tr class="study-selected"><th scope="row">FP16</th><td>0.523초</td><td>97.66</td></tr>
+<tr><th scope="row">INT8 혼합</th><td>0.831초</td><td>96.53</td></tr>
+</tbody></table></div>
+<div><table class="study-table"><caption>모델 크기 · FP16</caption><thead><tr><th scope="col">모델</th><th scope="col">처리 시간</th><th scope="col">IoU(%)</th><th scope="col">최대 메모리</th></tr></thead><tbody>
+<tr><th scope="row">YOLO26s</th><td>1.121초</td><td>97.81</td><td>409.7MiB</td></tr>
+<tr class="study-selected"><th scope="row">YOLO26n</th><td>0.523초</td><td>97.66</td><td>253.9MiB</td></tr>
+</tbody></table></div>
 </div>
+<div class="study-opt-take"><p class="study-takeaway"><b>FP16</b> · 원본과 IoU 0.02점 차이로 처리 시간 약 61% 감소</p><p class="study-takeaway"><b>YOLO26n</b> · s 대비 IoU 0.15점 낮지만 약 2.14배 빠르고 메모리 38% 절감</p></div>
 </div></section>
 
-<section class="ds" id="opencv-12">
-<div class="ds-head"><p class="ds-no">12<span>Pi 모델 선택</span></p><h3>순차 학습 n 모델로 처리 비용을 줄임</h3><p class="ds-deck">s 혼합·n 순차 학습 · FP16 · 신뢰도 0.5</p></div>
-<div class="ds-body"><div class="study-pair">
-<figure class="study-chart"><img src="assets/charts/robot-model-size.svg?v=sequential-final" width="640" height="240" alt="Pi5 처리 시간 중앙값: YOLO26s 1.121초, YOLO26n 0.523초"><figcaption>처리 시간 중앙값(초) · Pi5 · 모델별 24회 측정<br>파라미터 수는 추론용 변환 기준 · M = 100만 개</figcaption></figure>
-<div><table class="study-table"><caption>클래스 평균 IoU·파라미터·Pi 메모리</caption><thead><tr><th scope="col">모델</th><th scope="col">IoU(%)</th><th scope="col">파라미터</th><th scope="col">최대 메모리</th></tr></thead><tbody>
-<tr><th scope="row">YOLO26s</th><td>97.81</td><td>10.37M</td><td>409.7MiB</td></tr>
-<tr class="study-selected"><th scope="row">YOLO26n</th><td>97.66</td><td>2.71M</td><td>253.9MiB</td></tr>
-</tbody></table><p class="study-takeaway">s의 클래스 평균 IoU가 0.15점 높으나<br>n은 약 2.14배 빠르고 메모리는 약 38% 적음</p></div>
-</div></div></section>
 
-<section class="ds study-logs" id="opencv-13">
-<div class="ds-head"><p class="ds-no">13<span>작업 <x-nw>로그·오류</x-nw> 추적</span></p><h3>오안착 원인을 실행 기록과 판정 영상으로 확인</h3></div>
+<section class="ds study-logs" id="opencv-12">
+<div class="ds-head"><p class="ds-no">12<span>작업 <x-nw>로그·오류</x-nw> 추적</span></p><h3>오안착 원인을 실행 기록과 판정 영상으로 확인</h3></div>
 <div class="ds-body"><div class="log-evidence">
 <div><h4>01 · 실행 기록 요약</h4><table class="study-table"><thead><tr><th scope="col">시각</th><th scope="col">기록</th></tr></thead><tbody><tr><td><time>19:50:15</time></td><td>A 조립 작업 접수</td></tr><tr><td><time>19:50:23</time></td><td>지그 <x-nw>위치·방향</x-nw> 확정</td></tr><tr class="log-failure"><td><time>19:50:25</time></td><td>중심 이탈 7.8mm · 안착 불합격</td></tr><tr><td><time>19:50:27</time></td><td>판정 <x-nw>영상·오류</x-nw> 기록 저장</td></tr><tr><td><time>19:50:27</time></td><td>에피소드 중단</td></tr></tbody></table><p class="log-source">실제 실행 로그에서 발췌</p><p class="log-reason"><b>중심 이탈 7.8mm &gt; 허용 5mm</b><br>부품은 있으나 제자리를 벗어나 검사 실패</p></div>
 <div class="log-link" aria-hidden="true"><span>→</span><b>같은 실행</b></div>
@@ -363,6 +358,6 @@
 <nav aria-label="다른 프로젝트" class="pager"><a href="#thesis"><small>05</small><b>노크 위치 탐지 연구</b></a><a class="next" href="#opencv"><small>01</small><b>비전 기반 로봇팔 <x-nw>티칭·검사</x-nw></b></a></nav>
 </article></div>
 </div>
-<script defer src="slide-pages.js?v=20261022mob1"></script>
-<script defer="" src="app.js?v=20261022mob1"></script>
+<script defer src="slide-pages.js?v=20261022opt1"></script>
+<script defer="" src="app.js?v=20261022opt1"></script>
 </body></html>
