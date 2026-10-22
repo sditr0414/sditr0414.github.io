@@ -419,6 +419,8 @@ function touchSnapMain() {
 }
 const touchSettle = () => {
   touchIdle = 0;
+  /* touch phones: no settling or aligning after a swipe — the page simply scrolls with the finger */
+  if (nativeSnapMQ.matches) { touchArmed = false; return; }
   if (touching || !touchArmed || !compactView() || reduceMotion.matches) return;
   touchArmed = false;
   const inSheet = document.body.classList.contains('lock');

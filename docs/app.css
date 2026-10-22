@@ -2082,13 +2082,6 @@ a.mail { border-bottom: 0; text-decoration: underline; text-underline-offset: 3p
   .ds-first .overview:not(.stack) .overview-copy .specs div { grid-template-columns: 80px minmax(0, 1fr); }
   .ds-first .overview:not(.stack) .overview-copy .specs dt { white-space: nowrap; }
 }
-/* touch phones: the detail slides snap natively, so the settle happens inside the swipe's own momentum.
-   A slide that fits the screen settles centred; a taller one settles at its top and scrolls freely inside. */
-@media (pointer: coarse) and (max-width: 680px), (pointer: coarse) and (max-height: 520px) {
-  .sheet { scroll-snap-type: y proximity; }
-  .sheet .ds[id] { scroll-snap-align: start; scroll-margin-top: 12px; }
-  .sheet .ds[id].snap-center { scroll-snap-align: center; scroll-margin-top: 0; }
-}
 /* landscape phones: wide and short, so pictures sit beside the text and stay in view while the text beside them scrolls */
 @media (max-height: 520px) and (min-width: 681px) {
   .ds-body .split, .study-gui-layout { align-items: start; }
@@ -2109,4 +2102,17 @@ a.mail { border-bottom: 0; text-decoration: underline; text-underline-offset: 3p
   #opencv-9 .study-takeaway { margin-top: 12px; font-size: 15px; }
   /* result matrix with its table: give the table the larger share */
   #thesis-8 .split { grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); }
+}
+/* order arrows on small screens: steps that run in sequence keep an arrow between them */
+@media (max-width: 680px) {
+  .ds-body .flow[class*="row"]:not(.lanes) { gap: 24px; }
+  .ds-body .flow[class*="row"]:not(.lanes) > li:not(:last-child)::after {
+    display: block; content: ""; position: absolute; left: 50%; right: auto; top: auto; bottom: -16px; width: 8px; height: 8px;
+    border: 0; border-right: 2px solid #3d6a91; border-bottom: 2px solid #3d6a91; transform: translateX(-50%) rotate(45deg); z-index: 1; }
+}
+@media (min-width: 681px) and (max-width: 900px) {
+  .ds-body .flow.row4:not(.lanes) { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .ds-body .flow.row5 { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+  .ds-body .flow.row4:not(.lanes) > li:not(:last-child)::after, .ds-body .flow.row5 > li:not(:last-child)::after { display: block; }
+  .ds-body .flow.row4 > li, .ds-body .flow.row5 > li { padding: 10px 10px; }
 }
