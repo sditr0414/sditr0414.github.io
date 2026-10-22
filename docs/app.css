@@ -1939,3 +1939,7 @@ html body .pc-lead .pc-body .pc-more { font-size: 15px; }
 .robot-study .study-table .pick { display: inline-block; margin-left: 8px; padding: 1px 7px; border-radius: 4px; background: var(--navy); color: #fff; font-size: 12px; font-weight: 700; line-height: 1.5; vertical-align: 1px; letter-spacing: 0; }
 .robot-study .study-table tr.study-selected > th:first-child { box-shadow: inset 4px 0 0 var(--navy); }
 .robot-study .study-table tr.study-selected > td { color: var(--ink); font-weight: 700; }
+/* English name beside the Korean name, as on the submission cover */
+.hero h1 .name-en { display: inline-block; margin-left: .4em; font-size: .24em; font-weight: 500; letter-spacing: .18em; color: #b9cde0; vertical-align: .55em; }
+@media (max-width: 680px) { .hero h1 .name-en { display: block; margin: 6px 0 0; font-size: 12px; vertical-align: 0; } }
+@media (min-width: 681px) { .hero h1 .name-en { margin-left: 22px; vertical-align: baseline; font-size: 15px; } }
