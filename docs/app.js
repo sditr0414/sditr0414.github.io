@@ -2,6 +2,8 @@
 'use strict';
 /* phones in portrait or landscape (short screens) share the compact behaviour */
 const compactView = () => innerWidth <= 680 || innerHeight <= 520;
+/* touch phones (portrait or landscape) let the browser snap the detail slides natively, inside the swipe's own momentum */
+const nativeSnapMQ = matchMedia('(pointer: coarse) and (max-width: 680px), (pointer: coarse) and (max-height: 520px)');
 document.documentElement.classList.add('js');
 const saveData = !!(navigator.connection && navigator.connection.saveData);
 const $ = (s, el = document) => el.querySelector(s);
@@ -413,7 +415,7 @@ function touchSnapMain() {
   if (Math.abs(d) <= 4 || Math.abs(d) > innerHeight * .3) return;
   if (dir && d * dir < 0 && Math.abs(d) > innerHeight * .1) return;
   if (d > 0) cueProjects(py);
-  mainGl.to(py, 380);
+  scrollTo({ top: py, behavior: 'smooth' });
 }
 const touchSettle = () => {
   touchIdle = 0;
@@ -421,10 +423,12 @@ const touchSettle = () => {
   touchArmed = false;
   const inSheet = document.body.classList.contains('lock');
   if (Math.abs(inSheet ? sheet.scrollTop - tStartSheet : scrollY - tStartMain) < 12) return;   // a tap, not a swipe
-  if (inSheet) { if (!sheetGl.active) touchSnapSheet(); }
+  if (inSheet) { if (!nativeSnapMQ.matches && !sheetGl.active) touchSnapSheet(); }
   else if (!mainGl.active) touchSnapMain();
 };
-const touchWait = () => { if (!touchArmed) return; clearTimeout(touchIdle); touchIdle = setTimeout(touchSettle, 120); };
+const touchWait = () => { if (!touchArmed) return; clearTimeout(touchIdle); touchIdle = setTimeout(touchSettle, 'onscrollend' in window ? 400 : 90); };
+/* where supported, settle the moment the momentum ends instead of after a pause */
+if ('onscrollend' in window) { addEventListener('scrollend', () => { if (touchArmed && !touching) { clearTimeout(touchIdle); touchSettle(); } }); sheet.addEventListener('scrollend', () => { if (touchArmed && !touching) { clearTimeout(touchIdle); touchSettle(); } }); }
 addEventListener('touchstart', e => {
   if (e.touches.length > 1 || e.target.closest('.lightbox, .dv-toc, .process-strip, .heat-wrap, video')) { touchArmed = false; return; }
   touching = true; touchArmed = true; tStartMain = scrollY; tStartSheet = sheet.scrollTop; clearTimeout(touchIdle);
@@ -461,7 +465,7 @@ function openAnim(id, prevId) {
     if (phone) {
       /* phones: the next project slides in from the right, the previous one from the left */
       const ids = order(articles), dir = ids.indexOf(id) > ids.indexOf(prevId) ? 1 : -1;
-      inner.animate([{ opacity: 0, transform: `translateX(${dir * 36}px)` }, { opacity: 1, transform: 'none' }], { duration: 320, easing: ezOut });
+      inner.animate([{ opacity: 0, transform: `translateX(${dir * 56}px)` }, { opacity: 1, transform: 'none' }], { duration: 420, easing: 'cubic-bezier(.16, 1, .3, 1)' });
     } else inner.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 220, easing: 'ease-out' });
     return;
   }
@@ -485,6 +489,7 @@ $('.sheet-in').appendChild(sheetTop);
 $('a.to-top', sheetTop).addEventListener('click', e => {
   e.preventDefault();
   sheetGl.stop(); clearTimeout(swSnap);
+  if (nativeSnapMQ.matches) { sheet.scrollTo({ top: 0, behavior: reduceMotion.matches ? 'auto' : 'smooth' }); const h = $('.dv:not([hidden]) h2', sheet); if (h) h.focus({ preventScroll: true }); return; }
   const from = sheet.scrollTop, t0 = performance.now(), dur = Math.min(900, Math.max(450, from * .3));
   const step = now => {
     const t = Math.min(1, (now - t0) / dur);
@@ -593,7 +598,15 @@ const slideIO = 'IntersectionObserver' in window ? new IntersectionObserver(entr
   s.classList.remove('ds-wait');
   s.animate([{ opacity: 0, transform: 'translateY(18px)' }, { opacity: 1, transform: 'none' }], { duration: 420, easing: ezOut });
 }), { root: sheet, rootMargin: '0px 0px -6% 0px' }) : null;
+function markSnap(art) {
+  if (!art) return;
+  const vh = sheet.clientHeight;
+  $$('section.ds', art).forEach(s => s.classList.toggle('snap-center', s.getBoundingClientRect().height <= vh - 28));
+}
+sheet.addEventListener('detailpageschange', e => markSnap(e.detail && e.detail.article));
+addEventListener('resize', () => markSnap(articles.find(a => !a.hidden)), { passive: true });
 function armSlideReveal(art) {
+  markSnap(art);
   if (!slideIO) return;
   slideIO.disconnect(); $$('.ds-wait', sheet).forEach(s => s.classList.remove('ds-wait'));
   if (!compactView() || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
@@ -727,7 +740,7 @@ addEventListener('keydown', e => { if (e.key === 'Escape' && !lb.hidden) { e.sto
 /* keyboard: ↓ ↑ · PageDown/PageUp · Space step one slide (a detail section, or a block of the main page) at a time;
    a block taller than the screen is read through first. Home/End go to the ends. */
 let kbAim = null;
-const sheetGlide = y => { clearTimeout(swSnap); sheetGl.to(y, SLIDE_MS + 40); };
+const sheetGlide = y => { clearTimeout(swSnap); if (nativeSnapMQ.matches) { sheetGl.stop(); sheet.scrollTo({ top: y, behavior: reduceMotion.matches ? 'auto' : 'smooth' }); return; } sheetGl.to(y, SLIDE_MS + 40); };
 const sheetStops = () => {
   if (centeredSheet.matches) return alignedStops();
   const art = articles.find(a => !a.hidden); if (!art) return [0];
@@ -885,7 +898,14 @@ addEventListener('hashchange', route); route();
     const quick = performance.now() - st < 600;
     const go = horiz && Math.abs(dx) > Math.min(innerWidth * (quick ? .18 : .3), quick ? 90 : 140);
     const target = dx < 0 ? sideNav[1] : sideNav[0];
-    if (go && !target.hidden) { const el = inner(); if (el) { el.style.transform = ''; el.style.opacity = ''; } target.click(); }
+    if (go && !target.hidden) {
+      const el = inner(), from = dx * .3;
+      if (el && !reduceMotion.matches) {
+        const out = el.animate([{ transform: `translateX(${from}px)`, opacity: el.style.opacity || 1 }, { transform: `translateX(${Math.sign(dx) * 90}px)`, opacity: 0 }], { duration: 150, easing: 'cubic-bezier(.4, 0, 1, 1)', fill: 'forwards' });
+        el.style.transform = ''; el.style.opacity = '';
+        out.onfinish = () => { target.click(); requestAnimationFrame(() => out.cancel()); };
+      } else { if (el) { el.style.transform = ''; el.style.opacity = ''; } target.click(); }
+    }
     else reset(true);
     horiz = null; dx = 0;
   };

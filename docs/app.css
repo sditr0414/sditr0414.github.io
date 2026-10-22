@@ -2082,3 +2082,31 @@ a.mail { border-bottom: 0; text-decoration: underline; text-underline-offset: 3p
   .ds-first .overview:not(.stack) .overview-copy .specs div { grid-template-columns: 80px minmax(0, 1fr); }
   .ds-first .overview:not(.stack) .overview-copy .specs dt { white-space: nowrap; }
 }
+/* touch phones: the detail slides snap natively, so the settle happens inside the swipe's own momentum.
+   A slide that fits the screen settles centred; a taller one settles at its top and scrolls freely inside. */
+@media (pointer: coarse) and (max-width: 680px), (pointer: coarse) and (max-height: 520px) {
+  .sheet { scroll-snap-type: y proximity; }
+  .sheet .ds[id] { scroll-snap-align: start; scroll-margin-top: 12px; }
+  .sheet .ds[id].snap-center { scroll-snap-align: center; scroll-margin-top: 0; }
+}
+/* landscape phones: wide and short, so pictures sit beside the text and stay in view while the text beside them scrolls */
+@media (max-height: 520px) and (min-width: 681px) {
+  .ds-body .split, .study-gui-layout { align-items: start; }
+  .ds-body .split > figure, .study-gui-layout > figure, .ds-first .split.overview > figure { position: sticky; top: 12px; z-index: 1; }
+  /* overview that stacks on PC (video over specs): video left, specs right */
+  .ds-first .split.overview.stack > figure { position: static; }
+  /* photo row above a spec grid: photos left, specs right */
+  .ds-body:has(> .fig-grid + dl.specs) { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: 18px; align-items: start; }
+  .ds-body:has(> .fig-grid + dl.specs) > .fig-grid { position: sticky; top: 12px; }
+  .ds-body:has(> .fig-grid + dl.specs) > dl.specs { grid-template-columns: 1fr; margin-top: 0; }
+  .ds-body:has(> .fig-grid + dl.specs) > dl.specs > div { display: grid; grid-template-columns: 84px minmax(0, 1fr); column-gap: 10px; align-items: baseline; padding: 8px 12px; }
+  .ds-body:has(> .fig-grid + dl.specs) > dl.specs dd { margin: 0; }
+  /* learning data: the two photos stack on the left, the split table and note on the right */
+  #opencv-9 .ds-body { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr); column-gap: 20px; align-items: start; }
+  #opencv-9 .study-pair { grid-row: 1 / span 2; grid-template-columns: 1fr; gap: 10px; position: sticky; top: 12px; }
+  #opencv-9 .study-pair figure img { max-height: 112px; }
+  #opencv-9 .study-table, #opencv-9 .study-takeaway { grid-column: 2; }
+  #opencv-9 .study-takeaway { margin-top: 12px; font-size: 15px; }
+  /* result matrix with its table: give the table the larger share */
+  #thesis-8 .split { grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); }
+}
