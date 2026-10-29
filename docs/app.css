@@ -2231,3 +2231,19 @@ html body figure > figcaption { text-align: center !important; }
   html body .dv .study-table caption { font-size: 16.5px; }
 }
 @media (min-width: 681px) { .study-locate .locate-row { grid-template-columns: 230px minmax(0, 1fr); } }
+/* 2026-10-30 · 가로 휴대폰·태블릿(681–1100px): 지그·팔레트 이름을 사진 위로 올려 사진 줄이 넘치지 않게 */
+@media (min-width: 681px) and (max-width: 1100px) {
+  .study-locate .locate-row { grid-template-columns: 1fr !important; gap: 10px; }
+  .study-locate .locate-label { display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; }
+  .study-locate .locate-label h4 { margin: 0; font-size: 19px; }
+  .study-locate .locate-label p br { display: none; }
+  .study-locate .locate-label p { font-size: 16px; }
+  .robot-study .study-locate .process-strip { gap: 34px; }
+  .robot-study .study-locate .process-step svg { height: 170px; }
+  .robot-study .study-locate .pallet-process .process-step svg { height: 150px; }
+  .robot-study .study-locate .process-step + .process-step::before,
+  .robot-study .study-locate .process-step + .process-step::after { left: -17px; top: calc(32px + 85px); }
+  .robot-study .study-locate .pallet-process .process-step + .process-step::before,
+  .robot-study .study-locate .pallet-process .process-step + .process-step::after { top: calc(32px + 75px); }
+  .dsplit-legend { flex-wrap: wrap; }
+}
