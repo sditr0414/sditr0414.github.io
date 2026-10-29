@@ -2184,3 +2184,17 @@ html body figure > figcaption { text-align: center !important; }
 .robot-study .log-failure td, .robot-study .log-failure td time { background: #fbf1ef !important; color: #a5463c !important; font-weight: 700; }
 .robot-study .log-reason { border-left-color: #a5463c; }
 .robot-study .log-reason b { color: #a5463c; }
+/* 2026-10-30 · 팔레트 검출률: 표 대신 0–100% 막대 (13쪽 막대와 같은 상자) */
+.robot-study .ds-body figure.prate { width: 100% !important; max-width: none !important; margin: 0 !important; padding: 18px 22px; background: var(--box); border: 1px solid var(--box-line); border-radius: 6px; display: grid; gap: 14px; }
+.prate figcaption { margin: 0; font-size: 16px; font-weight: 600; color: var(--navy); text-align: left !important; }
+.prate-row { display: grid; grid-template-columns: minmax(0, 1fr) 150px; grid-template-areas: "label val" "bar bar"; column-gap: 12px; row-gap: 6px; align-items: baseline; }
+.prate-label { grid-area: label; font-size: 16px; color: var(--ink); }
+.prate-row strong { grid-area: val; font-size: 18px; color: var(--ink); text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.prate-row strong small { margin-left: 6px; font-size: 14px; font-weight: 500; color: var(--muted); }
+.prate-track { grid-area: bar; display: block; height: 14px; background: #fff; border: 1px solid var(--box-line); border-radius: 4px; overflow: hidden; }
+.prate-track i { display: block; height: 100%; background: #a5bbd0; }
+.prate-row.sel .prate-label { font-weight: 700; }
+.prate-row.sel strong { color: #315b7d; }
+.prate-row.sel .prate-track i { background: var(--navy); }
+@media (max-width: 680px) { .robot-study .ds-body figure.prate { padding: 14px; } .prate-row { grid-template-columns: minmax(0,1fr) auto; } .prate-row strong small { display: block; margin: 0; text-align: right; } }
+.prate .prate-label .pick { display: inline-block; margin-left: 8px; padding: 1px 7px; border-radius: 4px; background: var(--navy); color: #fff; font-size: 12px; font-weight: 700; line-height: 1.5; vertical-align: 2px; }
