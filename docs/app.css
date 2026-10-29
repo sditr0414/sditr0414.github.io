@@ -1912,7 +1912,7 @@ html body .pc-lead .pc-body .pc-more { font-size: 15px; }
 .robot-study .method-card dl { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 14px 0 0; padding-top: 12px; border-top: 1px solid var(--box-line); }
 .robot-study .method-card dt { font-size: 13.5px; color: var(--muted); }
 .robot-study .method-card dd { margin: 2px 0 0; font-size: 17px; font-weight: 600; color: var(--ink); font-variant-numeric: tabular-nums; }
-.robot-study #opencv-10 .study-takeaway { margin-top: 20px; }
+.robot-study #opencv-9 .study-takeaway { margin-top: 20px; }
 .robot-study .ds-body .method-note { margin: 10px 0 0; font-size: 14px; color: var(--muted); }
 @media (max-width: 680px) {
   .robot-study .method-cards { grid-template-columns: 1fr; gap: 12px; }
@@ -1920,12 +1920,12 @@ html body .pc-lead .pc-body .pc-more { font-size: 15px; }
   .robot-study .ds-body .method-hero { font-size: 32px; }
 }
 /* slide 11: tables with the same row height and type as the other slides, decisions as takeaway boxes under each table */
-.robot-study #opencv-11 .study-opt .study-table th, .robot-study #opencv-11 .study-opt .study-table td { padding-top: 12px; padding-bottom: 12px; }
-.robot-study #opencv-11 .study-opt .study-table caption { font-size: 16px; margin-bottom: 8px; }
-.robot-study #opencv-11 .study-opt { gap: 28px; }
-.robot-study #opencv-11 .study-decision { border-top: 0; padding: 14px 20px; background: var(--box); border: 1px solid var(--box-line); border-left: 4px solid var(--navy); border-radius: 0 6px 6px 0; }
-.robot-study #opencv-11 .ds-body .study-decision-result { font-size: 22px; margin: 2px 0 2px; }
-.robot-study #opencv-11 .study-opt-take { gap: 28px; margin-top: 20px; }
+.robot-study #opencv-10 .study-opt .study-table th, .robot-study #opencv-10 .study-opt .study-table td { padding-top: 12px; padding-bottom: 12px; }
+.robot-study #opencv-10 .study-opt .study-table caption { font-size: 16px; margin-bottom: 8px; }
+.robot-study #opencv-10 .study-opt { gap: 28px; }
+.robot-study #opencv-10 .study-decision { border-top: 0; padding: 14px 20px; background: var(--box); border: 1px solid var(--box-line); border-left: 4px solid var(--navy); border-radius: 0 6px 6px 0; }
+.robot-study #opencv-10 .ds-body .study-decision-result { font-size: 22px; margin: 2px 0 2px; }
+.robot-study #opencv-10 .study-opt-take { gap: 28px; margin-top: 20px; }
 @media (max-width: 680px) {
   .robot-study .method-card { display: grid; grid-template-columns: minmax(0, 1fr) auto; column-gap: 14px; align-items: end; }
   .robot-study .method-card h4, .robot-study .ds-body .method-sub, .robot-study .method-bar { grid-column: 1 / -1; }
@@ -2096,11 +2096,11 @@ a.mail { border-bottom: 0; text-decoration: underline; text-underline-offset: 3p
   .ds-body:has(> .fig-grid + dl.specs) > dl.specs > div { display: grid; grid-template-columns: 84px minmax(0, 1fr); column-gap: 10px; align-items: baseline; padding: 8px 12px; }
   .ds-body:has(> .fig-grid + dl.specs) > dl.specs dd { margin: 0; }
   /* learning data: the two photos stack on the left, the split table and note on the right */
-  #opencv-9 .ds-body { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr); column-gap: 20px; align-items: start; }
-  #opencv-9 .study-pair { grid-row: 1 / span 2; grid-template-columns: 1fr; gap: 10px; position: sticky; top: 12px; }
-  #opencv-9 .study-pair figure img { max-height: 112px; }
-  #opencv-9 .study-table, #opencv-9 .study-takeaway { grid-column: 2; }
-  #opencv-9 .study-takeaway { margin-top: 12px; font-size: 15px; }
+  #opencv-8 .ds-body { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr); column-gap: 20px; align-items: start; }
+  #opencv-8 .study-pair { grid-row: 1 / span 2; grid-template-columns: 1fr; gap: 10px; position: sticky; top: 12px; }
+  #opencv-8 .study-pair figure img { max-height: 112px; }
+  #opencv-8 .study-table, #opencv-8 .dsplit, #opencv-8 .study-takeaway { grid-column: 2; }
+  #opencv-8 .study-takeaway { margin-top: 12px; font-size: 15px; }
   /* result matrix with its table: give the table the larger share */
   #thesis-8 .split { grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); }
 }
@@ -2135,3 +2135,52 @@ a.mail { border-bottom: 0; text-decoration: underline; text-underline-offset: 3p
 .study-pallet td small{font-size:.8em;white-space:nowrap}
 /* 그림 설명은 사진 가운데에 맞춤 (2026-10-30) */
 html body figure > figcaption { text-align: center !important; }
+
+/* 2026-10-30 · 07 지그·팔레트 한 장: 줄마다 이름과 3단계 사진, 아래에 공통 채택 기준과 검출률 */
+.study-locate .locate-row { display: grid; grid-template-columns: 190px minmax(0, 1fr); gap: 28px; align-items: center; }
+.study-locate .locate-row + .locate-row { margin-top: 18px; padding-top: 18px; border-top: 1px solid var(--box-line); }
+.study-locate .locate-label h4 { margin: 0 0 6px; font-size: 18px; color: var(--navy); }
+.study-locate .locate-label p { margin: 0; font-size: 15.5px; line-height: 1.6; color: var(--muted); }
+.robot-study .study-locate .process-strip { gap: 40px; }
+.robot-study .study-locate .process-step h4 { font-size: 15.5px; margin-bottom: 8px; text-align: center; }
+.robot-study .study-locate .process-step figcaption { font-size: 14.5px; margin-top: 8px; }
+.robot-study .study-locate .process-step svg { height: 190px; }
+.robot-study .study-locate .pallet-process .process-step svg { height: 170px; }
+.robot-study .study-locate .process-step + .process-step::before,
+.robot-study .study-locate .process-step + .process-step::after { left: -20px; top: calc(32px + 95px); }
+.robot-study .study-locate .pallet-process .process-step + .process-step::before,
+.robot-study .study-locate .pallet-process .process-step + .process-step::after { top: calc(32px + 85px); }
+.study-locate .pallet-process-summary { margin-top: 26px; }
+@media (max-width: 680px) {
+  .study-locate .locate-row { grid-template-columns: 1fr; gap: 12px; }
+  .robot-study .study-locate .process-step svg { height: 230px; }
+  .robot-study .study-locate .pallet-process .process-step svg { height: 210px; }
+  .robot-study .study-locate .process-step + .process-step::before,
+  .robot-study .study-locate .process-step + .process-step::after { left: -20px; top: calc(32px + 110px); }
+}
+/* 2026-10-30 · 학습 데이터 분할: 표 대신 실제 장수 비율 막대 (13쪽 막대와 같은 상자) */
+.dsplit { margin: 0; padding: 20px 24px; background: var(--box); border: 1px solid var(--box-line); border-radius: 6px; display: grid; gap: 14px; }
+.dsplit figcaption { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; margin: 0; font-size: 16px; font-weight: 600; color: var(--navy); text-align: left !important; }
+.dsplit-legend { display: flex; gap: 14px; font-size: 14.5px; font-weight: 500; color: var(--muted); }
+.dsplit-legend span { display: inline-flex; align-items: center; gap: 6px; }
+.dsplit-legend i { display: inline-block; width: 12px; height: 12px; border-radius: 2px; }
+.dsplit-row { display: grid; grid-template-columns: 110px minmax(0, 1fr) 130px; align-items: center; gap: 16px; }
+.dsplit-label { font-size: 16px; font-weight: 600; color: var(--ink); white-space: nowrap; }
+.dsplit-track { display: flex; height: 20px; }
+.dsplit-track i { display: block; height: 100%; }
+.dsplit-row strong { font-size: 17px; color: var(--ink); text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.dsplit-row strong small { font-size: 14px; margin-left: 2px; font-weight: 600; }
+.dsplit i.t { background: var(--navy); } .dsplit i.v { background: #7f9fbe; } .dsplit i.s { background: #b9cadb; }
+@media (max-width: 680px) {
+  .dsplit { padding: 16px; }
+  .dsplit figcaption { flex-wrap: wrap; }
+  .dsplit-row { grid-template-columns: 1fr auto; gap: 6px 12px; }
+  .dsplit-track { grid-column: 1 / -1; grid-row: 2; }
+}
+.robot-study .ds-body figure.dsplit { width: 100% !important; max-width: none !important; margin-inline: 0 !important; }
+.robot-study .study-data .dsplit { margin-top: 22px; }
+/* 2026-10-30 · 제출용과 같은 강조: 핵심 수치는 남청, 오안착 기록만 차분한 빨강 */
+.robot-study .study-decision-result strong, .ds-body table:not(.heat-table) tbody tr.highlight td { color: #315b7d; }
+.robot-study .log-failure td, .robot-study .log-failure td time { background: #fbf1ef !important; color: #a5463c !important; font-weight: 700; }
+.robot-study .log-reason { border-left-color: #a5463c; }
+.robot-study .log-reason b { color: #a5463c; }
