@@ -2133,5 +2133,3 @@ a.mail { border-bottom: 0; text-decoration: underline; text-underline-offset: 3p
 /* Evaluation denominator and per-image scope stay beside the result. */
 .study-pallet .metric-definition{font-size:14px;line-height:1.65;color:var(--muted,#566777);margin-top:12px}
 .study-pallet td small{font-size:.8em;white-space:nowrap}
-
-.metric-details{font-size:13px;line-height:1.6;color:var(--muted,#566777);margin-top:8px}.metric-details summary{cursor:pointer}
