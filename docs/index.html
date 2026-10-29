@@ -146,7 +146,7 @@
 <dl class="specs"><div><dt>장비</dt><dd><span class="spec-item spec-pair"><span class="spec-k">로봇팔</span><span class="spec-unit">SO-101 2대</span></span><span class="spec-item spec-pair"><span class="spec-k">제어기</span><span class="spec-unit">Raspberry Pi5</span></span><span class="spec-item spec-pair"><span class="spec-k">카메라</span><span class="spec-unit">32×32 UVC 모듈</span></span></dd></div><div><dt>공정</dt><dd><span class="spec-item"><span class="spec-unit">지그 도착 → A/B 부품 조립</span> <span class="spec-unit">→ 완제품 하차</span></span></dd></div><div><dt>비전</dt><dd>YOLO · OpenCV · CAD 정합</dd></div><div><dt>제어</dt><dd><x-nw>FK·IK</x-nw> 보정 · ROS2 Action</dd></div><div><dt>시뮬레이션</dt><dd><span class="spec-item spec-pair"><span class="spec-k">티칭 앱</span><span class="spec-unit">MuJoCo</span></span><span class="spec-item spec-pair"><span class="spec-k">가상 데이터셋</span><span class="spec-unit">Isaac Sim</span></span></dd></div></dl>
 <p class="study-takeaway">도킹 위치가 달라져도 카메라로 지그를 다시 측정해 저장한 동작의 목표를 보정함</p><div class="project-actions"><a class="text-link" href="https://github.com/7s-FA/opencv-teach" rel="noopener" target="_blank">GitHub 소스 코드 <span aria-hidden="true">↗</span></a></div>
 </div>
-<figure class="main-figure"><div class="inline-demo"><video class="inline-demo-video" data-src="assets/videos/opencv-demo.mp4" poster="assets/images/opencv-demo.webp" aria-label="지그 위치 보정 실물 시연 · 무음" muted loop playsinline controls preload="none"></video></div><figcaption>지그 위치 변화에 따른 동작 보정 시연</figcaption></figure>
+<figure class="main-figure"><div class="inline-demo"><video class="inline-demo-video" data-src="assets/videos/opencv-workcell-demo-20261029.mp4" poster="assets/images/opencv-workcell-demo-20261029.webp" aria-label="지그 채택과 A/B 조립·검사 실물 시연 · 6배속 편집 · 무음" muted loop playsinline controls preload="none"></video></div><figcaption>지그 채택부터 B 조립·하차, A 조립까지 · 6배속 편집</figcaption></figure>
 </div></div></section>
 
 <section class="ds" id="opencv-2">
@@ -169,7 +169,10 @@
 <section class="ds" id="opencv-4">
 <div class="ds-head"><p class="ds-no">04<span>목표 자세 보정</span></p><h3>지그의 <x-nw>이동·회전을</x-nw> 집게 목표에 반영</h3></div>
 <div class="ds-body">
+<div class="split correction-demo">
+<figure class="main-figure"><div class="inline-demo"><video class="inline-demo-video" data-src="assets/videos/opencv-demo.mp4" poster="assets/images/opencv-demo.webp" aria-label="지그 위치 보정 실물 시연 · 무음" muted loop playsinline controls preload="none"></video></div><figcaption>지그 위치 변화에 따른 동작 보정 시연</figcaption></figure>
 <figure class="study-transform"><svg viewBox="0 0 640 222" role="img" aria-label="티칭 기준의 집게 작업점을 지그 이동과 회전만큼 바꾼 뒤 역기구학으로 관절 목표를 계산"><g fill="#203b52" font-size="19" text-anchor="middle"><text x="135" y="22">티칭 기준 위치</text><text x="510" y="22">현재 지그 위치</text></g><g transform="translate(0 10)"><g fill="none" stroke="#7593ab" stroke-width="2"><rect x="60" y="62" width="150" height="90"/><rect x="-75" y="-45" width="150" height="90" transform="translate(510 107) rotate(-18)"/></g><g fill="#315e80"><circle cx="108" cy="107" r="6"/><circle cx="160" cy="107" r="8"/><circle cx="484" cy="115" r="6"/><circle cx="534" cy="99" r="8"/><path d="M252 103h112v-9l22 13-22 13v-9H252Z"/></g><g fill="#203b52" font-size="19" text-anchor="middle"><text x="319" y="84">이동 Δx·Δy</text><text x="319" y="144">회전 θ</text></g></g><text x="320" y="214" font-size="17" fill="#4a5d70" text-anchor="middle">집게 높이와 벌림은 유지</text></svg></figure>
+</div>
 <ol class="flow row4"><li><span>01</span><h4>순기구학</h4><p>티칭 관절값과 TCP로 집게 자세 계산</p></li><li><span>02</span><h4>목표 변환</h4><p>지그 <x-nw>이동·회전만큼</x-nw> 집게 목표 보정</p></li><li><span>03</span><h4>역기구학</h4><p>관절 <x-nw>범위·자세</x-nw> 연속성을 확인해 계산</p></li><li><span>04</span><h4>도착 확인</h4><p>모터 실측 각도로 목표 도착 확인</p></li></ol>
 </div></section>
 
@@ -241,12 +244,12 @@
 
 
 <section class="ds study-logs" id="opencv-12">
-<div class="ds-head"><p class="ds-no">12<span>작업 <x-nw>로그·오류</x-nw> 추적</span></p><h3>오안착 원인을 실행 기록과 판정 영상으로 확인</h3></div>
+<div class="ds-head"><p class="ds-no">12<span>작업 <x-nw>로그·오류</x-nw> 추적</span></p><h3>오안착 원인을 실행 기록과 판정 사진으로 확인</h3></div>
 <div class="ds-body"><div class="log-evidence">
-<div><h4>01 · 실행 기록 요약</h4><table class="study-table"><thead><tr><th scope="col">시각</th><th scope="col">기록</th></tr></thead><tbody><tr><td><time>19:50:15</time></td><td>A 조립 작업 접수</td></tr><tr><td><time>19:50:23</time></td><td>지그 <x-nw>위치·방향</x-nw> 확정</td></tr><tr class="log-failure"><td><time>19:50:25</time></td><td>중심 이탈 7.8mm · 안착 불합격</td></tr><tr><td><time>19:50:27</time></td><td>판정 <x-nw>영상·오류</x-nw> 기록 저장</td></tr><tr><td><time>19:50:27</time></td><td>에피소드 중단</td></tr></tbody></table><p class="log-source">실제 실행 로그에서 발췌</p><p class="log-reason"><b>중심 이탈 7.8mm &gt; 허용 5mm</b><br>제자리를 벗어난 부품을 검출해 작업 중단</p></div>
+<div><h4>01 · 실행 기록 요약</h4><table class="study-table"><thead><tr><th scope="col">시각</th><th scope="col">기록</th></tr></thead><tbody><tr><td><time>19:50:15</time></td><td>A 조립 작업 접수</td></tr><tr><td><time>19:50:23</time></td><td>지그 <x-nw>위치·방향</x-nw> 확정</td></tr><tr class="log-failure"><td><time>19:50:25</time></td><td>중심 이탈 7.8mm · 안착 불합격</td></tr><tr><td><time>19:50:27</time></td><td>판정 <x-nw>사진·오류</x-nw> 기록 저장</td></tr><tr><td><time>19:50:27</time></td><td>에피소드 중단</td></tr></tbody></table><p class="log-source">실제 실행 로그에서 발췌</p><p class="log-reason"><b>중심 이탈 7.8mm &gt; 허용 5mm</b><br>제자리를 벗어난 부품을 검출해 작업 중단</p></div>
 <div class="log-link" aria-hidden="true"><span>→</span><b>같은 실행</b></div>
-<figure><h4>02 · 저장된 판정 영상</h4><a class="image-open" href="assets/images/robot-execution-failure.jpg?v=20261021misseated" aria-label="같은 실행에서 저장된 오안착 판정 영상 크게 보기"><img src="assets/images/robot-execution-failure.jpg?v=20261021misseated" width="1280" height="720" loading="lazy" alt="A 하단 부품의 중심 이탈을 붉은 외곽으로 표시한 동일 실행의 실제 판정 영상"></a><figcaption>붉은 영역 · A 하단 부품 오안착</figcaption></figure>
-</div><p class="log-summary">실패 사유 확인 → <code>FAILURE_IMAGES</code> 경로 → 같은 실행의 판정 영상 조회</p></div></section>
+<figure><h4>02 · 저장된 판정 사진</h4><a class="image-open" href="assets/images/robot-execution-failure.jpg?v=20261021misseated" aria-label="같은 실행에서 저장된 오안착 판정 사진 크게 보기"><img src="assets/images/robot-execution-failure.jpg?v=20261021misseated" width="1280" height="720" loading="lazy" alt="A 하단 부품의 중심 이탈을 붉은 외곽으로 표시한 동일 실행의 실제 판정 사진"></a><figcaption>붉은 영역 · A 하단 부품 오안착</figcaption></figure>
+</div><p class="log-summary">실패 사유 확인 → <code>FAILURE_IMAGES</code> 경로 → 같은 실행의 판정 사진 조회</p></div></section>
 
 <nav aria-label="다른 프로젝트" class="pager"><a href="#travel"><small>06</small><b>Travel Visualizer</b></a><a class="next" href="#robot"><small>02</small><b>원격 물품 <x-nw>회수·운반</x-nw> 로봇</b></a></nav>
 </article><article aria-labelledby="dv-robot" class="dv" data-id="robot" hidden="">
