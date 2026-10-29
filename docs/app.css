@@ -1729,8 +1729,9 @@ x-nw { white-space: nowrap; }
 }
 /* project 01 overview: the square demo video and the facts sit together in the middle, no wide gap */
 @media (min-width: 681px) {
-  #opencv-1 .split.overview:not(.stack) { grid-template-columns: auto minmax(0, 520px); justify-content: center; gap: 56px; align-items: center; }
-  #opencv-1 .overview > figure { width: 480px; max-width: 100%; }
+  #opencv-1 .split.overview:not(.stack) { grid-template-columns: minmax(0, 1.45fr) minmax(300px, 1fr); justify-content: stretch; gap: 36px; align-items: center; }
+  #opencv-1 .overview > figure { width: 100%; max-width: 100%; }
+  .robot-study #opencv-1 .inline-demo video { width: 100%; max-height: min(600px, 64svh); }
 }
 @media (min-width: 681px) and (max-height: 820px) {
   .robot-study .pallet-process .process-step svg { height: 180px; }
@@ -2115,4 +2116,12 @@ a.mail { border-bottom: 0; text-decoration: underline; text-underline-offset: 3p
   .ds-body .flow.row5 { grid-template-columns: repeat(5, minmax(0, 1fr)); }
   .ds-body .flow.row4:not(.lanes) > li:not(:last-child)::after, .ds-body .flow.row5 > li:not(:last-child)::after { display: block; }
   .ds-body .flow.row4 > li, .ds-body .flow.row5 > li { padding: 10px 10px; }
+}
+
+/* 04 correction: the square demo and the transform diagram share one height so their tops and bottoms line up */
+@media (min-width: 681px) {
+  .robot-study #opencv-4 .correction-demo { --cd-h: min(270px, 34svh); grid-template-columns: auto minmax(0, 640px); justify-content: center; gap: 48px; align-items: start; }
+  .robot-study #opencv-4 .correction-demo .inline-demo video { width: auto; height: var(--cd-h); max-height: none; }
+  .robot-study #opencv-4 .correction-demo .study-transform { height: var(--cd-h); display: flex; align-items: center; justify-content: center; }
+  .robot-study #opencv-4 .correction-demo .study-transform svg { width: 100%; max-height: var(--cd-h); }
 }
