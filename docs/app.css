@@ -2129,3 +2129,9 @@ a.mail { border-bottom: 0; text-decoration: underline; text-underline-offset: 3p
 /* 01 overview: role/name pairs in a row share one key column sized to the longest role, so names sit close */
 .robot-study .specs dd:has(> .spec-pair) { display: grid; grid-template-columns: max-content minmax(0, 1fr); column-gap: 18px; row-gap: 2px; align-items: baseline; }
 .robot-study .specs dd:has(> .spec-pair) > .spec-pair { display: contents; }
+
+/* Evaluation denominator and per-image scope stay beside the result. */
+.study-pallet .metric-definition{font-size:14px;line-height:1.65;color:var(--muted,#566777);margin-top:12px}
+.study-pallet td small{font-size:.8em;white-space:nowrap}
+
+.metric-details{font-size:13px;line-height:1.6;color:var(--muted,#566777);margin-top:8px}.metric-details summary{cursor:pointer}

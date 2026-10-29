@@ -48,7 +48,7 @@ def bars(name, labels, values, maximum, unit, decimals=2, highlight=None):
         ax.text(value + maximum * .025, i, f"{value:.{decimals}f}",
                 va="center", fontproperties=font, fontsize=19, color=ink)
     fig.subplots_adjust(left=.27, right=.97, top=.94, bottom=.22)
-    fig.savefig(output / f"{name}.svg", transparent=True, metadata={"Date": None})
+    fig.savefig(output / f"{name}.svg", transparent=True, metadata={"Date": None, "Description": unit})
     plt.close(fig)
 
 
@@ -87,7 +87,7 @@ cad_key = next(k for k in keys if k not in ["opencv", "ai_cv"])
 yield_values = [jigs[k]["targets"]["pallet"]["roi_yield"] * 100
                 for k in ["opencv", "ai_cv", cad_key]]
 bars("robot-pallet-yield", ["OpenCV", "AI + OpenCV", "AI + CAD"], yield_values, 100,
-     "저장 사진에서 팔레트 위치 확보율 · %", 1, highlight=2)
+     "팔레트 검출률 · 사진당 1회 · %", 1, highlight=2)
 evidence = {
     "date": "2026-10-22",
     "training_n": {"model": "YOLO26n, NCNN FP16", "values": training_values,
@@ -104,6 +104,7 @@ evidence = {
     "size": {k: {field: current_sizes[k][field] for field in ["seconds", "class_mean_iou_percent", "peak_rss_mib", "parameters", "training"]}
              for k in ["s", "n"]},
     "pallet_yield": yield_values,
+    "pallet_protocol": {'metric': 'single-image pallet detection rate', 'real_images': 304, 'eligible_images': 285, 'selected': {'opencv': 226, 'ai_cv': 230, 'ai_cad': 284}, 'processing': 'one detection pipeline call per image, including internal CAD fitting iterations', 'includes_training_images': True, 'independent_test': False, 'reobservation_and_retry': False, 'not_measured': ['absolute position/angle accuracy', 'physical process success rate']},
     "operating_evaluation": {"protocol": read(comparison_base + "protocol.json"),
                              "variants": {k: {"overall": v["overall"], "model_sha256": v["model_sha256"]} for k, v in operating.items()}},
     "limitations": [

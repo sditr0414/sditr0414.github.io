@@ -508,5 +508,23 @@
       }
     },
     "timing_scope": "Pi roundtrip includes SSH and PNG transport, excludes camera and GUI; PC has a different worker transport path."
+  },
+  "pallet_protocol": {
+    "metric": "single-image pallet detection rate",
+    "real_images": 304,
+    "eligible_images": 285,
+    "selected": {
+      "opencv": 226,
+      "ai_cv": 230,
+      "ai_cad": 284
+    },
+    "processing": "one detection pipeline call per image, including internal CAD fitting iterations",
+    "includes_training_images": true,
+    "independent_test": false,
+    "reobservation_and_retry": false,
+    "not_measured": [
+      "absolute position/angle accuracy",
+      "physical process success rate"
+    ]
   }
 }
