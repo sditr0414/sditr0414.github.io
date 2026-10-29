@@ -2198,3 +2198,36 @@ html body figure > figcaption { text-align: center !important; }
 .prate-row.sel .prate-track i { background: var(--navy); }
 @media (max-width: 680px) { .robot-study .ds-body figure.prate { padding: 14px; } .prate-row { grid-template-columns: minmax(0,1fr) auto; } .prate-row strong small { display: block; margin: 0; text-align: right; } }
 .prate .prate-label .pick { display: inline-block; margin-left: 8px; padding: 1px 7px; border-radius: 4px; background: var(--navy); color: #fff; font-size: 12px; font-weight: 700; line-height: 1.5; vertical-align: 2px; }
+/* 2026-10-30 · 가독성: 작은 보조 글자를 한 단계 키움 (PC) */
+@media (min-width: 681px) {
+  html body .dv figure figcaption { font-size: 16.5px; }
+  html body .dv dl.specs dt { font-size: 16px; }
+  html body .dv .ds-body td small, html body .dv .ds-body th small { font-size: 16px; }
+  html body .dv .ds-head .ds-no span { font-size: 16px; }
+  /* 01 · 지그·팔레트 */
+  .study-locate .locate-label h4 { font-size: 21px; margin-bottom: 8px; }
+  .study-locate .locate-label p { font-size: 17.5px; }
+  html body .robot-study .study-locate .process-step h4 { font-size: 17px; }
+  html body .robot-study .study-locate .process-step figcaption { font-size: 16px; }
+  .prate figcaption { font-size: 17px; }
+  .prate-label { font-size: 17px; }
+  .prate-row strong { font-size: 19px; }
+  .prate-row strong small { font-size: 15px; }
+  /* 01 · 학습 방식·Pi 실행 */
+  html body .dv .method-card .method-sub { font-size: 16.5px; }
+  html body .dv .method-card .method-label { font-size: 16px; }
+  html body .dv .method-card dt { font-size: 15px; }
+  html body .dv .method-note { font-size: 15.5px; }
+  html body .dv .study-decision-title, html body .dv .study-decision-detail { font-size: 16.5px; }
+  html body .dv .log-link b { font-size: 15px; }
+  .dsplit figcaption { font-size: 17px; }
+  .dsplit-label { font-size: 17px; }
+}
+@media (min-width: 681px) {
+  html body .dv .study-decision-title, html body .dv .study-decision-detail { font-size: 16.5px !important; }
+  html body .dv .method-note { font-size: 15.5px !important; }
+  html body .dv .method-cards dl dt { font-size: 15.5px !important; }
+  html body .dv .log-evidence figcaption, html body .dv .log-source { font-size: 16.5px !important; }
+  html body .dv .study-table caption { font-size: 16.5px; }
+}
+@media (min-width: 681px) { .study-locate .locate-row { grid-template-columns: 230px minmax(0, 1fr); } }
