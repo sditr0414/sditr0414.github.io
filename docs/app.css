@@ -2247,3 +2247,9 @@ html body figure > figcaption { text-align: center !important; }
   .robot-study .study-locate .pallet-process .process-step + .process-step::after { top: calc(32px + 75px); }
   .dsplit-legend { flex-wrap: wrap; }
 }
+/* lead card: show the full 16:9 workcell demo without cropping */
+.pc-lead .pc-media { flex: 0 0 58%; aspect-ratio: 16 / 9; align-self: stretch; min-height: 0; }
+@media (max-width: 1079px) {
+  .pc-lead { flex-direction: column; }
+  .pc-lead .pc-media { flex: none; width: 100%; height: auto; min-height: 0; aspect-ratio: 16 / 9; align-self: auto; }
+}
