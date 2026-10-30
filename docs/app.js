@@ -220,7 +220,7 @@ function watch(videos, rootEl) {
   const near = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { load(e.target); near.unobserve(e.target); } }), { root: rootEl || null, rootMargin: '300px 0px' });
   const view = new IntersectionObserver(es => es.forEach(e => {
     const v = e.target;
-    if (e.isIntersecting && !document.hidden) { load(v); v.play().catch(() => {}); }
+    if (e.isIntersecting && !document.hidden) { load(v); if (!matchMedia('(prefers-reduced-motion: reduce)').matches) v.play().catch(() => {}); }
     else v.pause();
   }), { root: rootEl || null, threshold: .35 });
   videos.forEach(v => { v.muted = true; near.observe(v); view.observe(v); });
@@ -646,6 +646,11 @@ function route() {
     document.body.classList.remove('lock');
     if (!id || id === 'projects') scrollTo({ top: listY, behavior: 'instant' });
     else document.getElementById(id)?.scrollIntoView({ behavior: 'instant' });
+    /* keyboard and screen-reader users land back on the card that opened the sheet */
+    if (!id || id === 'projects') {
+      const ae = document.activeElement;
+      if (!ae || ae === document.body || sheet.contains(ae)) $(`.pc[data-project="${was}"] .pc-link`)?.focus({ preventScroll: true });
+    }
     closeAnim(was);
   }
 }
