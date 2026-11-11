@@ -2264,10 +2264,10 @@ html body figure > figcaption { text-align: center !important; }
   .sheet-bar { transition: none; }
 }
 
-/* Match the case-study type and align protocol text for easier scanning. */
-#opencv-12 .study-pair figcaption,
-#opencv-12 .flow { font-family: var(--font); }
-#opencv-12 .study-pair figcaption { font-size: 0.9375rem; line-height: 1.5; font-weight: 500; }
-#opencv-12 .flow { margin-top: 1.25rem; }
-#opencv-12 .flow p { text-align: start; line-height: 1.6; }
-#opencv-12 .flow code { font: 600 0.94em/1.4 ui-monospace, Consolas, monospace; white-space: nowrap; }
+/* Section 12 follows the log section (11): evidence pair, flow, summary bar. */
+.robot-study .study-console .log-evidence { grid-template-columns: minmax(0,1.1fr) 62px minmax(0,1fr); }
+.robot-study .study-console .log-evidence figure h4 { text-align: left; }
+.robot-study .study-console .log-source .text-link { font-weight: 600; color: var(--link); }
+.robot-study .study-console .flow { margin-top: 20px; }
+@media (max-width: 760px) { .robot-study .study-console .log-evidence { grid-template-columns: 1fr; } }
+.robot-study .study-console .study-table .log-done td { background: var(--box); font-weight: 700; color: var(--ink); }
