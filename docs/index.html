@@ -245,14 +245,17 @@
 </div><p class="log-summary">정지·에러 사유 확인 → <code>FAILURE_IMAGES</code> 경로 → 같은 실행의 판정 사진 조회</p></div></section>
 
 <section class="ds" id="opencv-12">
-<div class="ds-head"><p class="ds-no">12<span>WPF 관제·액션 프로토콜</span></p><h3>조립·적재 명령을 보내고 두 로봇팔의 작업 결과를 확인</h3></div>
-<div class="ds-body"><div class="split">
-<figure><a class="image-open" href="assets/images/so101-wpf-demo.png" aria-label="Windows WPF 관제 데모 화면 크게 보기"><img src="assets/images/so101-wpf-demo.png" width="1920" height="1080" loading="lazy" alt="상단에 조립·적재 명령 버튼, 중앙에 팔별 운전 상태와 최근 명령의 완료·실패 이력이 표시된 WPF 화면"></a><figcaption>Windows WPF 관제 화면 · 장치 연결 없이 실행한 데모</figcaption></figure>
-<div class="text-stack">
-<section><h4>작업 요청 · Goal</h4><p>운영자가 ‘A 조립 → 적재’를 누르면 WPF가 HTTPS로 Ubuntu 중계에 요청을 보낸다. 중계는 ROS 2 액션으로 <code>BUILD_LOAD_A</code> 명령을 Pi에 전달한다.</p></section>
-<section><h4>진행 상태 · Feedback</h4><p>Pi가 <code>BUILD_DONE</code>을 보내면 조립이 끝나고 적재가 진행 중이라는 뜻이다. 중계는 WSS로 팔별 운전 상태를 관제 화면에 전달한다.</p></section>
-<section><h4>최종 판정 · Result</h4><p>Pi가 성공 결과와 <code>IDLE</code>을 반환하면 완료로 표시한다. 연결이 끊겼다가 복구되면 같은 요청 ID로 결과를 조회해 중복 실행을 막는다.</p></section>
-</div></div></div></section>
+<div class="ds-head"><p class="ds-no">12<span>WPF 관제·액션 프로토콜</span></p><h3>관제에서 작업을 요청하고 실행 기록으로 진행 확인</h3></div>
+<div class="ds-body">
+<div class="study-pair">
+<figure><a class="image-open" href="assets/images/so101-wpf-demo.png" aria-label="WPF 관제 데모 화면 크게 보기"><img src="assets/images/so101-wpf-demo.png" width="1920" height="1080" loading="lazy" alt="조립·적재 명령 버튼과 팔별 운전 상태, 최근 명령의 완료·실패 이력"></a><figcaption>WPF 관제 · 작업 선택과 팔별 결과 확인 (데모)</figcaption></figure>
+<figure><a class="image-open" href="assets/images/so101-work-monitor.webp" aria-label="실시간 작업 모니터 화면 크게 보기"><img src="assets/images/so101-work-monitor.webp" width="1920" height="1080" loading="lazy" alt="상단 카메라 영상, 팔2의 초기화 완료 결과와 시간순 Pi 작업 기록을 함께 보여주는 실시간 작업 화면"></a><figcaption>실시간 작업 모니터 · 카메라 영상과 work_watch 작업 기록</figcaption></figure>
+</div>
+<ol class="flow row3">
+<li><span>01</span><h4>작업 요청 · Goal</h4><p>‘A 조립 → 적재’를 선택하면 WPF가 HTTPS로 Ubuntu 중계에 요청. 중계가 ROS 2 액션으로 Pi에 <code>BUILD_LOAD_A</code> 전달</p></li>
+<li><span>02</span><h4>진행 상태 · Feedback</h4><p>조립이 끝나면 Pi가 <code>BUILD_DONE</code> 반환. 적재가 이어지는 동안 중계가 WSS로 관제 화면에 상태 전달</p></li>
+<li><span>03</span><h4>최종 결과 · Result</h4><p>성공 결과와 <code>IDLE</code> 수신 후 완료 표시. 재연결 시 같은 요청 ID로 결과를 조회해 중복 실행 방지</p></li>
+</ol></div></section>
 
 <nav aria-label="다른 프로젝트" class="pager"><a href="#travel"><small>06</small><b>Travel Visualizer</b></a><a class="next" href="#robot"><small>02</small><b>원격 물품 <x-nw>회수·운반</x-nw> 로봇</b></a></nav>
 </article><article aria-labelledby="dv-robot" class="dv" data-id="robot" hidden="">
