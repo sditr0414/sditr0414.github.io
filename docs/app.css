@@ -2327,3 +2327,4 @@ html body figure > figcaption { text-align: center !important; }
 .ab-cert dt { border-radius: 3px; }
 .pc-tags span, .ds-first .overview-copy .tags span { border-radius: 3px; }
 .top nav a.pdf { border-radius: 4px; }
+@media (min-width: 761px) { .ab-skill dd.chips span.narrow { flex-grow: .7; } .ab-skill dd.chips span.wide { flex-grow: 1.6; } }
