@@ -220,8 +220,12 @@ function watch(videos, rootEl) {
   const near = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { load(e.target); near.unobserve(e.target); } }), { root: rootEl || null, rootMargin: '300px 0px' });
   const view = new IntersectionObserver(es => es.forEach(e => {
     const v = e.target;
-    if (e.isIntersecting && !document.hidden) { load(v); if (!matchMedia('(prefers-reduced-motion: reduce)').matches) v.play().catch(() => {}); }
-    else v.pause();
+    if (e.isIntersecting && !document.hidden) {
+      load(v);
+      v.play().catch(() => {});
+    } else {
+      v.pause();
+    }
   }), { root: rootEl || null, threshold: .35 });
   videos.forEach(v => { v.muted = true; near.observe(v); view.observe(v); });
 }
