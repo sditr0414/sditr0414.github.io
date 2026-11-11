@@ -138,7 +138,7 @@
 <div><dt>구현</dt><dd>지그에 맞춘 목표 자세 갱신, AI 부품 <x-nw>구분·CAD</x-nw> 안착 검사, ROS2 작업 요청과 결과 반환</dd></div>
 </dl>
 </header>
-<nav class="dv-toc" aria-label="상세 목차"><ol><li><a href="#opencv-1" data-to="opencv-1"><b>01</b><x-nw>개요·시연</x-nw></a></li><li><a href="#opencv-2" data-to="opencv-2"><b>02</b>작업 흐름</a></li><li><a href="#opencv-3" data-to="opencv-3"><b>03</b>지그 위치 채택</a></li><li><a href="#opencv-4" data-to="opencv-4"><b>04</b>목표 자세 보정</a></li><li><a href="#opencv-5" data-to="opencv-5"><b>05</b>티칭 GUI</a></li><li><a href="#opencv-6" data-to="opencv-6"><b>06</b><x-nw>부품·안착</x-nw> 검사</a></li><li><a href="#opencv-7" data-to="opencv-7"><b>07</b><x-nw>지그·팔레트</x-nw> 채택</a></li><li><a href="#opencv-8" data-to="opencv-8"><b>08</b>학습 데이터</a></li><li><a href="#opencv-9" data-to="opencv-9"><b>09</b>학습 방식 비교</a></li><li><a href="#opencv-10" data-to="opencv-10"><b>10</b>Pi 실행 최적화</a></li><li><a href="#opencv-11" data-to="opencv-11"><b>11</b>작업 로그·오류 추적</a></li></ol></nav>
+<nav class="dv-toc" aria-label="상세 목차"><ol><li><a href="#opencv-1" data-to="opencv-1"><b>01</b><x-nw>개요·시연</x-nw></a></li><li><a href="#opencv-2" data-to="opencv-2"><b>02</b>작업 흐름</a></li><li><a href="#opencv-3" data-to="opencv-3"><b>03</b>지그 위치 채택</a></li><li><a href="#opencv-4" data-to="opencv-4"><b>04</b>목표 자세 보정</a></li><li><a href="#opencv-5" data-to="opencv-5"><b>05</b>티칭 GUI</a></li><li><a href="#opencv-6" data-to="opencv-6"><b>06</b><x-nw>부품·안착</x-nw> 검사</a></li><li><a href="#opencv-7" data-to="opencv-7"><b>07</b><x-nw>지그·팔레트</x-nw> 채택</a></li><li><a href="#opencv-8" data-to="opencv-8"><b>08</b>학습 데이터</a></li><li><a href="#opencv-9" data-to="opencv-9"><b>09</b>학습 방식 비교</a></li><li><a href="#opencv-10" data-to="opencv-10"><b>10</b>Pi 실행 최적화</a></li><li><a href="#opencv-11" data-to="opencv-11"><b>11</b>작업 로그·오류 추적</a></li><li><a href="#opencv-12" data-to="opencv-12"><b>12</b>WPF 관제·액션 프로토콜</a></li></ol></nav>
 
 <section class="ds ds-first" id="opencv-1" aria-label="개요·시연">
 <div class="ds-body"><div class="split overview">
@@ -243,6 +243,16 @@
 <div class="log-link" aria-hidden="true"><span>→</span><b>같은 실행</b></div>
 <figure><h4>02 · 저장된 판정 사진</h4><a class="image-open" href="assets/images/robot-execution-failure.jpg?v=20261029labels2" aria-label="같은 실행에서 저장된 오안착 판정 사진 크게 보기"><img src="assets/images/robot-execution-failure.jpg?v=20261029labels2" width="1280" height="720" loading="lazy" alt="A 하단 부품의 중심 이탈을 붉은 외곽으로 표시한 동일 실행의 실제 판정 사진"></a><figcaption>붉은 영역 · A 하단 오안착, 중심 이탈 7.8mm</figcaption></figure>
 </div><p class="log-summary">정지·에러 사유 확인 → <code>FAILURE_IMAGES</code> 경로 → 같은 실행의 판정 사진 조회</p></div></section>
+
+<section class="ds" id="opencv-12">
+<div class="ds-head"><p class="ds-no">12<span>WPF 관제·액션 프로토콜</span></p><h3>조립·적재 명령을 보내고 두 로봇팔의 작업 결과를 확인</h3></div>
+<div class="ds-body"><div class="split">
+<figure><a class="image-open" href="assets/images/so101-wpf-demo.png" aria-label="Windows WPF 관제 데모 화면 크게 보기"><img src="assets/images/so101-wpf-demo.png" width="1920" height="1080" loading="lazy" alt="상단에 조립·적재 명령 버튼, 중앙에 팔별 운전 상태와 최근 명령의 완료·실패 이력이 표시된 WPF 화면"></a><figcaption>Windows WPF 관제 화면 · 장치 연결 없이 실행한 데모</figcaption></figure>
+<div class="text-stack">
+<section><h4>작업 요청 · Goal</h4><p>운영자가 ‘A 조립 → 적재’를 누르면 WPF가 HTTPS로 Ubuntu 중계에 요청을 보낸다. 중계는 ROS 2 액션으로 <code>BUILD_LOAD_A</code> 명령을 Pi에 전달한다.</p></section>
+<section><h4>진행 상태 · Feedback</h4><p>Pi가 <code>BUILD_DONE</code>을 보내면 조립이 끝나고 적재가 진행 중이라는 뜻이다. 중계는 WSS로 팔별 운전 상태를 관제 화면에 전달한다.</p></section>
+<section><h4>최종 판정 · Result</h4><p>Pi가 성공 결과와 <code>IDLE</code>을 반환하면 완료로 표시한다. 연결이 끊겼다가 복구되면 같은 요청 ID로 결과를 조회해 중복 실행을 막는다.</p></section>
+</div></div></div></section>
 
 <nav aria-label="다른 프로젝트" class="pager"><a href="#travel"><small>06</small><b>Travel Visualizer</b></a><a class="next" href="#robot"><small>02</small><b>원격 물품 <x-nw>회수·운반</x-nw> 로봇</b></a></nav>
 </article><article aria-labelledby="dv-robot" class="dv" data-id="robot" hidden="">
