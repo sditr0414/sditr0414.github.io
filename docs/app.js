@@ -229,7 +229,7 @@ function watch(videos, rootEl) {
   }), { root: rootEl || null, threshold: .35 });
   videos.forEach(v => { v.muted = true; near.observe(v); view.observe(v); });
 }
-/* project cards: a card's video plays only while the pointer is over it (or it has focus);
+/* Desktop cards preview the featured project until another visible card is hovered or focused;
    on touch screens, only the card nearest the middle of the screen plays */
 function cardVideos() {
   if (saveData) return;
@@ -248,13 +248,41 @@ function cardVideos() {
     clearTimeout(v._t); v._t = setTimeout(() => { if (v.paused) v.currentTime = 0; }, 800);
   };
   if (matchMedia('(hover: hover) and (pointer: fine)').matches) {
-    cards.forEach(c => {
-      const v = vid(c);
-      c.addEventListener('pointerenter', () => start(v));
-      c.addEventListener('pointerleave', () => { if (!$(':focus-visible', c)) stop(v); });
-      c.addEventListener('focusin', e => { if (e.target.matches(':focus-visible')) start(v); });
-      c.addEventListener('focusout', () => { if (!c.matches(':hover')) stop(v); });
+    const featured = cards.find(card => card.dataset.project === 'opencv');
+    const visible = new Set();
+    let hovered = null, focused = null, playing = null;
+    const update = () => {
+      const next = document.hidden || document.body.classList.contains('lock') ? null
+        : [hovered, focused, featured].find(card => visible.has(card)) || null;
+      if (next === playing) return;
+      if (playing) stop(vid(playing));
+      playing = next;
+      if (playing) start(vid(playing));
+    };
+    const observer = hasIO && new IntersectionObserver(entries => {
+      for (const entry of entries) {
+        if (entry.isIntersecting) visible.add(entry.target);
+        else visible.delete(entry.target);
+      }
+      update();
     });
+    cards.forEach(card => {
+      if (observer) observer.observe(card);
+      card.addEventListener('pointerenter', () => {
+        if (!observer) visible.add(card);
+        hovered = card; update();
+      });
+      card.addEventListener('pointerleave', () => { hovered = null; update(); });
+      card.addEventListener('focusin', event => {
+        if (event.target.matches(':focus-visible')) {
+          if (!observer) visible.add(card);
+          focused = card; update();
+        }
+      });
+      card.addEventListener('focusout', () => { focused = null; update(); });
+    });
+    document.addEventListener('visibilitychange', update);
+    new MutationObserver(update).observe(document.body, { attributes: true, attributeFilter: ['class'] });
     return;
   }
   if (!hasIO) return;
