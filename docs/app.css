@@ -317,7 +317,6 @@ p { margin: 0; }
 .dv-toc a { display: inline-flex; align-items: center; gap: 6px; min-height: 34px; padding: 4px 12px; border-radius: 3px; background: var(--card); font-size: 13px; font-weight: 500; color: var(--muted); box-shadow: 0 1px 2px rgba(20,41,61,.06); transition: background .25s var(--ease), color .25s var(--ease); white-space: nowrap; }
 .dv-toc a b { font-size: 12px; font-weight: 700; color: var(--link); font-variant-numeric: tabular-nums; transition: color .25s var(--ease); }
 @media (hover: hover) { .dv-toc a:hover { color: var(--ink); } }
-.dv-toc a.cur { background: var(--navy); color: #fff; }
 .dv-toc a.cur b { color: var(--sky); }
 .ds[id] { scroll-margin-top: 116px; }
 .ds-no { display: flex; align-items: baseline; gap: 8px; font-size: 13px; font-weight: 700; color: var(--link); margin-bottom: 6px; font-variant-numeric: tabular-nums; }
@@ -675,7 +674,6 @@ p, li, dd, td, th, figcaption { text-wrap: pretty; }
 .ds-body .project-actions a { gap: 4px; }
 
 /* detail sheet: previous / next project arrows in the side margins (only where there is room) */
-.side-nav { display: none; }
 @media (min-width: 1300px) {
   .side-nav { position: fixed; top: 50%; z-index: 3; display: flex; align-items: center; gap: 12px; transform: translateY(-50%); color: var(--link); }
   .side-nav[hidden] { display: none; }
@@ -763,7 +761,6 @@ p, li, dd, td, th, figcaption { text-wrap: pretty; }
 }
 
 /* side arrows live outside the sheet so they stay put while the sheet scrolls; shown only while a project is open */
-body:not(.lock) .side-nav { display: none !important; }
 @media (min-width: 1300px) {
   .side-nav { z-index: 45; }
   .side-nav.prev { left: max(14px, calc((100vw - 1080px) / 4 - 26px)); }
@@ -884,7 +881,6 @@ body:not(.lock) .side-nav { display: none !important; }
 /* softer corners on buttons and chips: slightly rounded rectangles instead of pills and circles */
 .dv-toc a { border-radius: 6px; }
 .sheet-bar .back { border-radius: 6px; }
-.pc-tags span, .ds-first .overview-copy .tags span { border-radius: 3px; }
 .pc-meta b { border-radius: 3px; }
 .ds-body h4 small.who { border-radius: 3px; }
 .side-nav i { border-radius: 6px; }
@@ -1076,7 +1072,7 @@ body:not(.lock) .side-nav { display: none !important; }
 .ds-first .overview:not(.stack) .overview-copy .specs div:last-child { border-bottom: 0; }
 .ds-first .overview-copy .tags span { background: var(--box); border: 1px solid var(--box-line); }
 /* no filler labels */
-.ds-first .overview-copy::before, .dv-toc ol::before { content: none !important; display: none !important; }
+.ds-first .overview-copy::before, .dv-toc ol::before { content: none; display: none; }
 /* box tint: less blue, closer to the page's own grey so it sits with the rest of the slide */
 :root { --box: #eaeef2; --box-line: #d0d8e0; }
 .svg-fig .sv-jig { fill: #d8e0e8; }
@@ -1268,7 +1264,7 @@ html body header.top .brand span { font-size: 15px; }
 .ds-body .heat-table tbody td.dt { background: #f6f8fa; }
 .ds-body .heat-table tbody tr + tr > * { border-top: 1px solid #fff; }
 .ds-body .heat-table tbody tr:nth-child(even) td.dt { background: #eef2f6; }
-.ds-body ol.flow.lanes ul.dots li::after { content: none !important; display: none !important; }
+.ds-body ol.flow.lanes ul.dots li::after { content: none; display: none; }
 .ds-body ol.flow.lanes ul.dots li { background: none; border: 0; padding-top: 0; padding-bottom: 0; box-shadow: none; }
 .ds-body .heat-table tbody tr:nth-child(n) td { background: rgba(35, 90, 150, calc(var(--h, 0) * .55)); }
 .ds-body .heat-table tbody tr:nth-child(n) td.dt { background: #f6f8fa; }
@@ -1313,7 +1309,6 @@ html body header.top .brand span { font-size: 15px; }
 .dv nav.pager { max-width: 900px; gap: 40px; }
 .sheet-in .sheet-end { justify-content: flex-start; max-width: none; margin-left: 0; margin-right: 0; }
 .sheet-in .sheet-end .to-top { margin-left: auto; }
-@media (max-width: 680px) { .dv nav.pager { gap: 12px; } }
 @media (max-width: 1299px) { .sheet-in .sheet-end { padding-bottom: 110px; } }
 /* pager text sits in the middle of each button; the arrow side is balanced by the same space on the other side */
 .dv nav.pager a, .dv nav.pager a.next { text-align: center; }
@@ -1338,7 +1333,7 @@ html body header.top .brand span { font-size: 15px; }
 /* pager: keep the earlier size but step in from the edges, in line with the slide contents */
 @media (min-width: 681px) { .dv nav.pager { padding: 0 48px; } }
 /* contents button: a taller reach upwards */
-.toc-fab::after { top: -80px !important; }
+.toc-fab::after { top: -80px; }
 @media (max-width: 680px) { .toc-fab::after { top: -48px !important; } }
 /* smoother scrolling: the fixed header no longer blurs what moves under it every frame */
 .top.solid { backdrop-filter: none; -webkit-backdrop-filter: none; background: rgba(255,255,255,.97); }
@@ -1353,8 +1348,8 @@ html body header.top .brand span { font-size: 15px; }
 /* short screens (phones held sideways): slimmer floating buttons laid in a row, so they cover less of the text */
 @media (max-height: 520px) and (orientation: landscape) {
   .fab-stack { flex-direction: row-reverse; right: max(12px, env(safe-area-inset-right)); bottom: max(10px, env(safe-area-inset-bottom)); gap: 12px; }
-  .fab-stack .toc-fab, .fab-stack .top-fab { width: 40px; height: 40px; transform: none !important; }
-  .toc-fab::after { inset: -10px -8px -6px -8px !important; top: -10px !important; }
+  .fab-stack .toc-fab, .fab-stack .top-fab { width: 40px; height: 40px; transform: none; }
+  .toc-fab::after { inset: -10px -8px -6px -8px; top: -10px; }
   .toc-pop { right: 12px; bottom: 60px; max-height: calc(100vh - 80px); max-height: calc(100dvh - 80px); }
   .sheet-bar { height: 44px; }
   .lightbox { padding: 44px 16px 10px; }
@@ -1439,7 +1434,6 @@ html body header.top .brand span { font-size: 15px; }
   .ds-note, .ds-body .note { padding: 12px 18px; }
 }
 /* 2026-10-21: boxes one step lighter still (user: the info table read too dark) */
-:root { --box: #edf3fa; --box-line: #cfdcec; }
 .ds-body tbody tr:nth-child(even) td, .ds-body tbody tr:nth-child(even) th { background: #f4f8fc; }
 .ds-body .heat-table tbody th { background: #f4f8fc; }
 @media (max-width: 680px) { .ds-body .issue-table.cols3 tbody tr:nth-child(even) { background: #f4f8fc; } }
@@ -1450,7 +1444,7 @@ html body header.top .brand span { font-size: 15px; }
 .ds-body table:not(.heat-table) tbody tr:nth-child(n) td { background: #fff; }
 .ds-body table:not(.heat-table) tbody tr:nth-child(n) th { background: #eaf1f8; }
 .ds-body table:not(.heat-table) tbody th, .ds-body table:not(.heat-table) td { border-bottom: 1px solid #cad8e6; }
-.ds-body table:not(.heat-table) tbody tr.highlight td, .ds-body table:not(.heat-table) tbody tr.highlight th { background: #eaf1f8 !important; color: var(--navy); font-weight: 700; }
+.ds-body table:not(.heat-table) tbody tr.highlight td, .ds-body table:not(.heat-table) tbody tr.highlight th { background: #eaf1f8; color: var(--navy); font-weight: 700; }
 .ds-body .heat-table thead th { background: #dde8f3; color: #18344d; font-weight: 700; }
 .ds-body .heat-table thead tr.grp th { background: #eaf1f8; color: #315b7d; border-left: 1px solid #cad8e6; }
 .ds-body .heat-table thead th.grp-f, .ds-body .heat-table thead th.grp-d { border-left: 1px solid #cad8e6; }
@@ -1531,7 +1525,6 @@ html body header.top .brand span { font-size: 15px; }
 .robot-study .study-pallet .study-pair { grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr); }
 .pallet-photo { display: block; }
 .robot-study .pallet-photo svg { display: block; width: 100%; max-height: 235px; margin-inline: auto; border-radius: 6px; }
-.robot-study .study-method-table thead th:nth-child(2), .robot-study .study-method-table td:nth-child(2) { text-align: left; }
 .robot-study .study-method-table td:nth-child(n+3) { white-space: nowrap; }
 .study-gui-layout { display: grid; grid-template-columns: minmax(0, 1.9fr) minmax(0, 1fr); gap: 24px; align-items: center; }
 .robot-study .study-gui .inline-demo { width: 100%; }
@@ -1833,8 +1826,8 @@ html body .pc-lead .pc-body .pc-more { font-size: 15px; }
 .robot-study .spec-pair + .spec-pair { margin-top: 2px; }
 .robot-study .spec-k { font-weight: 500; color: var(--muted); font-size: .9em; }
 @media (max-width: 680px) {
-  .robot-study .ds-first .overview-copy .specs { grid-template-columns: 1fr !important; }
-  .robot-study .ds-first .overview-copy .specs > div { grid-column: auto !important; border-right: 0 !important; }
+  .robot-study .ds-first .overview-copy .specs { grid-template-columns: 1fr; }
+  .robot-study .ds-first .overview-copy .specs > div { grid-column: auto; border-right: 0; }
   .robot-study .spec-pair { grid-template-columns: 6em minmax(0, 1fr); }
 }
 
@@ -1967,7 +1960,7 @@ a.mail { border-bottom: 0; text-decoration: underline; text-underline-offset: 3p
   .bar-nav .bar-next::before { transform: translate(-70%, -50%) rotate(-135deg); }
   .bar-nav button:disabled { opacity: .3; }
   .sheet-bar .pdf { padding: 5px 11px; font-size: 13px; }
-  .sheet-title { display: none !important; }
+  .sheet-title { display: none; }
   .top nav a.pdf { margin-left: 12px; padding: 5px 11px; }
   /* other projects: picture on top, text below at full width */
   .pc-small { display: flex; flex-direction: column; }
@@ -2000,7 +1993,7 @@ a.mail { border-bottom: 0; text-decoration: underline; text-underline-offset: 3p
   .sheet-bar .back { justify-self: start; min-height: 36px; height: 36px; padding: 0 12px 0 11px; border-radius: 6px; font-size: 14px; }
   .sheet-bar .bar-nav { justify-self: center; gap: 18px; }
   .sheet-bar .pdf { justify-self: end; min-height: 36px; height: 36px; padding: 0 12px; border-radius: 6px; border-color: rgba(255,255,255,.22); background: rgba(255,255,255,.12); font-size: 14px; }
-  .sheet-title { display: none !important; }
+  .sheet-title { display: none; }
   .ds.ds-wait { opacity: 0; }
 }
 /* phones: a clearer hand-off from the intro to the projects — headings and cards rise in a little further and a little slower */
@@ -2044,7 +2037,7 @@ a.mail { border-bottom: 0; text-decoration: underline; text-underline-offset: 3p
   .side-nav i { position: relative; display: block; width: 42px; height: 42px; border-radius: 50%; background: var(--card); box-shadow: var(--shadow-hi); }
   .side-nav i::before { content: ""; position: absolute; left: 50%; top: 50%; width: 10px; height: 10px; margin: -5px 0 0 -2px; border-left: 2.5px solid currentColor; border-bottom: 2.5px solid currentColor; transform: rotate(45deg); }
   .side-nav.next i::before { margin-left: -8px; transform: rotate(-135deg); }
-  .side-nav span { display: none !important; }
+  .side-nav span { display: none; }
   .side-nav:active i { background: var(--link); color: #fff; }
 }
 /* landscape phones: keep the slide width (buttons sit in a slim edge margin) and stop awkward word-by-word wraps */
@@ -2181,7 +2174,7 @@ html body figure > figcaption { text-align: center !important; }
 .robot-study .study-data .dsplit { margin-top: 22px; }
 /* 2026-10-30 · 제출용과 같은 강조: 핵심 수치는 남청, 오안착 기록만 차분한 빨강 */
 .robot-study .study-decision-result strong, .ds-body table:not(.heat-table) tbody tr.highlight td { color: #315b7d; }
-.robot-study .log-failure td, .robot-study .log-failure td time { background: #fbf1ef !important; color: #a5463c !important; font-weight: 700; }
+.robot-study .log-failure td, .robot-study .log-failure td time { background: #fbf1ef; color: #a5463c !important; font-weight: 700; }
 .robot-study .log-reason { border-left-color: #a5463c; }
 .robot-study .log-reason b { color: #a5463c; }
 /* 2026-10-30 · 팔레트 검출률: 표 대신 0–100% 막대 (13쪽 막대와 같은 상자) */
@@ -2226,14 +2219,14 @@ html body figure > figcaption { text-align: center !important; }
 @media (min-width: 681px) {
   html body .dv .study-decision-title, html body .dv .study-decision-detail { font-size: 16px !important; }
   html body .dv .method-note { font-size: 15px !important; }
-  html body .dv .method-cards dl dt { font-size: 15px !important; }
-  html body .dv .log-evidence figcaption, html body .dv .log-source { font-size: 16px !important; }
+  html body .dv .method-cards dl dt { font-size: 15px; }
+  html body .dv .log-evidence figcaption, html body .dv .log-source { font-size: 16px; }
   html body .dv .study-table caption { font-size: 16px; }
 }
 @media (min-width: 681px) { .study-locate .locate-row { grid-template-columns: 230px minmax(0, 1fr); } }
 /* 2026-10-30 · 가로 휴대폰·태블릿(681–1100px): 지그·팔레트 이름을 사진 위로 올려 사진 줄이 넘치지 않게 */
 @media (min-width: 681px) and (max-width: 1100px) {
-  .study-locate .locate-row { grid-template-columns: 1fr !important; gap: 10px; }
+  .study-locate .locate-row { grid-template-columns: 1fr; gap: 10px; }
   .study-locate .locate-label { display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; }
   .study-locate .locate-label h4 { margin: 0; font-size: 20px; }
   .study-locate .locate-label p br { display: none; }
