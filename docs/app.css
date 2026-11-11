@@ -2313,3 +2313,9 @@ html body figure > figcaption { text-align: center !important; }
   .ab-cert dd { font-size: 15.5px; }
 }
 @media (min-width: 761px) { .about-card { grid-template-columns: minmax(0,1.05fr) minmax(0,1.45fr) minmax(0,.95fr); } }
+@media (min-width: 761px) {
+  .ab-skill:not(.ab-cert) dl div + div { margin-top: 18px; }
+  .ab-skill dd.chips { flex-wrap: nowrap; gap: 6px; }
+  .ab-skill dd.chips span { flex: 1 1 0; min-width: 0; padding: 6px 4px; text-align: center; font-size: 14.5px; }
+}
+@media (min-width: 1100px) { .ab-skill dd.chips span { font-size: 15px; padding: 7px 4px; } }
