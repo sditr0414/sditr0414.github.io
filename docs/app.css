@@ -2263,3 +2263,11 @@ html body figure > figcaption { text-align: center !important; }
   .js .reveal, .js .reveal.above, .js .pc.reveal, .js .pc.reveal.above, .js .sec-head.reveal, .js .sec-head.reveal.above { transform: none !important; transition: opacity .3s ease-out !important; }
   .sheet-bar { transition: none; }
 }
+
+/* Match the case-study type and align protocol text for easier scanning. */
+#opencv-12 .study-pair figcaption,
+#opencv-12 .flow { font-family: var(--font); }
+#opencv-12 .study-pair figcaption { font-size: 0.9375rem; line-height: 1.5; font-weight: 500; }
+#opencv-12 .flow { margin-top: 1.25rem; }
+#opencv-12 .flow p { text-align: start; line-height: 1.6; }
+#opencv-12 .flow code { font: 600 0.94em/1.4 ui-monospace, Consolas, monospace; white-space: nowrap; }

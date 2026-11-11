@@ -9,7 +9,7 @@
 <meta name="twitter:card" content="summary_large_image"/>
 <link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
-<link href="app.css?v=20261030i-a11y" rel="stylesheet"/></head>
+<link href="app.css?v=20261111-watch-type" rel="stylesheet"/></head>
 <body>
 <a class="skip" href="#about">본문으로 이동</a>
 <header class="top" id="top">
@@ -248,8 +248,8 @@
 <div class="ds-head"><p class="ds-no">12<span>WPF 관제·액션 프로토콜</span></p><h3>관제에서 작업을 요청하고 실행 기록으로 진행 확인</h3></div>
 <div class="ds-body">
 <div class="study-pair">
-<figure><a class="image-open" href="assets/images/so101-wpf-demo.png" aria-label="WPF 관제 데모 화면 크게 보기"><img src="assets/images/so101-wpf-demo.png" width="1920" height="1080" loading="lazy" alt="조립·적재 명령 버튼과 팔별 운전 상태, 최근 명령의 완료·실패 이력"></a><figcaption>WPF 관제 · 작업 선택과 팔별 결과 확인 (데모)</figcaption></figure>
-<figure><a class="image-open" href="assets/images/so101-work-monitor.webp" aria-label="실시간 작업 모니터 화면 크게 보기"><img src="assets/images/so101-work-monitor.webp" width="1920" height="1080" loading="lazy" alt="상단 카메라 영상, 팔2의 초기화 완료 결과와 시간순 Pi 작업 기록을 함께 보여주는 실시간 작업 화면"></a><figcaption>실시간 작업 모니터 · 카메라 영상과 work_watch 작업 기록</figcaption></figure>
+<figure><a class="image-open" href="assets/images/so101-wpf-demo.png" aria-label="WPF 관제 데모 화면 크게 보기"><img src="assets/images/so101-wpf-demo.png" width="1920" height="1080" loading="lazy" alt="조립·적재 명령 버튼과 팔별 운전 상태, 최근 명령의 완료·실패 이력"></a><figcaption>WPF 관제 · 작업 요청과 팔별 결과 확인 (데모)</figcaption></figure>
+<figure><a class="image-open" href="assets/images/so101-work-watch.png" aria-label="work_watch 터미널 로그 크게 보기"><img src="assets/images/so101-work-watch.png" width="960" height="540" loading="lazy" alt="팔2의 B 부품 안착 검사 실패. 슬롯 중심 이탈 4.3 mm로 허용치 3 mm를 초과한 터미널 로그"></a><figcaption>work_watch 터미널 · Pi에 저장된 안착 검사 로그 발췌</figcaption></figure>
 </div>
 <ol class="flow row3">
 <li><span>01</span><h4>작업 요청 · Goal</h4><p>‘A 조립 → 적재’를 선택하면 WPF가 HTTPS로 Ubuntu 중계에 요청. 중계가 ROS 2 액션으로 Pi에 <code>BUILD_LOAD_A</code> 전달</p></li>
