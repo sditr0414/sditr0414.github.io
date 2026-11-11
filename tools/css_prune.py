@@ -117,7 +117,10 @@ PAGE_JS = r"""
   const sig = (e, ps) => { const c = getComputedStyle(e, ps); let s = ''; for (let i = 0; i < c.length; i++) s += c.getPropertyValue(c[i]) + '|'; return s; };
   const base = new Map();
   const get = e => { let b = base.get(e); if (!b) { b = [sig(e, null), sig(e, '::before'), sig(e, '::after')]; base.set(e, b); } return b; };
-  const same = e => { const b = get(e); return b[0] === sig(e, null) && b[1] === sig(e, '::before') && b[2] === sig(e, '::after'); };
+
+  const near = (a, b) => { if (a === b) return true; const ra = a.split(/(-?\d*\.?\d+)/), rb = b.split(/(-?\d*\.?\d+)/); if (ra.length !== rb.length) return false;
+    for (let i = 0; i < ra.length; i++) { if (ra[i] === rb[i]) continue; if (i % 2 === 0) return false; if (Math.abs(parseFloat(ra[i]) - parseFloat(rb[i])) > 0.15) return false; } return true; };
+  const same = e => { const b = get(e); return near(b[0], sig(e, null)) && near(b[1], sig(e, '::before')) && near(b[2], sig(e, '::after')); };
   const STATE = /:(hover|focus|active|target|checked|disabled|focus-visible|focus-within|visited|placeholder-shown)|::(selection|placeholder|-webkit|-moz|marker)/;
   const INH = /^(color|font|line-height|letter-spacing|word-|white-space|text-|visibility|list-style|cursor|direction|quotes|tab-size|hyphens|overflow-wrap|border-collapse|border-spacing|caption-side|pointer-events|-webkit-font|-webkit-text|font-variant|font-feature|writing-mode)/;
   const SKIP = /^(--|transition|animation|scroll-behavior|will-change|-webkit-tap|-webkit-overflow|touch-action|scroll-|overscroll|content-visibility|contain)/;
@@ -148,7 +151,22 @@ PAGE_JS = r"""
   return {dead, applicable};
 }
 """
-FULL_JS = r"""() => { let s=''; for (const e of document.querySelectorAll('html, body, body *')) for (const ps of [null,'::before','::after']) { const c=getComputedStyle(e,ps); for (let i=0;i<c.length;i++) s+=c.getPropertyValue(c[i])+'|'; } return s; }"""
+VERIFY_JS = r"""
+async (css) => {
+  const near = (a, b) => { if (a === b) return true; const ra = a.split(/(-?\d*\.?\d+)/), rb = b.split(/(-?\d*\.?\d+)/); if (ra.length !== rb.length) return false;
+    for (let i = 0; i < ra.length; i++) { if (ra[i] === rb[i]) continue; if (i % 2 === 0) return false; if (Math.abs(parseFloat(ra[i]) - parseFloat(rb[i])) > 0.15) return false; } return true; };
+
+  const sig = (e, ps) => { const c = getComputedStyle(e, ps); let s = ''; for (let i = 0; i < c.length; i++) s += c.getPropertyValue(c[i]) + '|'; return s; };
+  const els = [...document.querySelectorAll('html, body, body *')];
+  const base = els.map(e => [sig(e, null), sig(e, '::before'), sig(e, '::after')]);
+  const link = [...document.querySelectorAll('link[rel=stylesheet]')].find(l => l.href.includes('app.css'));
+  const st = document.createElement('style'); st.textContent = css; link.after(st); link.remove();
+  await new Promise(r => requestAnimationFrame(() => requestAnimationFrame(r)));
+  let n = 0; const ex = [];
+  els.forEach((e, i) => { const b = base[i]; if (!(near(b[0], sig(e, null)) && near(b[1], sig(e, '::before')) && near(b[2], sig(e, '::after')))) { n++; if (ex.length < 3) ex.push(e.tagName + '.' + String(e.className).slice(0, 40)); } });
+  return {n, ex};
+}
+"""
 FREEZE = "*,*::before,*::after{transition:none!important;animation:none!important;scroll-behavior:auto!important}"
 
 def open_page(b, port, w, h, state):
@@ -157,105 +175,77 @@ def open_page(b, port, w, h, state):
     pg.wait_for_timeout(1500); pg.add_style_tag(content=FREEZE); pg.wait_for_timeout(200)
     return pg
 
-def fingerprint(b, port):
-    out = {}
-    for (w, h) in VIEWS:
-        for st in STATES:
-            pg = open_page(b, port, w, h, st)
-            out[(w, h, st)] = hashlib.sha1(pg.evaluate(FULL_JS).encode()).hexdigest(); pg.close()
-    return out
+CTX = [(w, h, '') for (w, h) in VIEWS] + [(w, h, '#opencv') for (w, h) in [(400,850),(720,900),(950,900),(1200,900),(1450,900),(1700,950)]]
+
+def verify(b, port, css, ctxs=None):
+    """Contexts where swapping in `css` changes any computed style (the file on disk must be the original)."""
+    bad = []
+    for (w, h, st) in (ctxs or CTX):
+        pg = open_page(b, port, w, h, st)
+        r = pg.evaluate(VERIFY_JS, css); pg.close()
+        if r['n']: bad.append((w, h, st)); print('   differs', (w, h, st), r, flush=True)
+    return bad
 
 def main():
     port = 8771
     srv = subprocess.Popen(['python3', '-m', 'http.server', str(port), '-d', str(ROOT / 'docs')], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL); time.sleep(1)
     original = CSS.read_text()
+    out_path = ROOT / 'docs' / 'app.pruned.css'
     try:
         with sync_playwright() as p:
             b = p.chromium.launch()
             tree = parse(strip_comments(original))
-            base = fingerprint(b, port)
-            CSS.write_text(emit(tree) + '\n')
-            chk = fingerprint(b, port); assert all(base[k] == chk[k] for k in base), 're-emitting the stylesheet changed output'
-            print('contexts', len(base), flush=True)
+            assert not verify(b, port, emit(tree)), 're-emitting the stylesheet changed output'
+            print('re-emit ok', flush=True)
+            rules = flat_rules(tree); rin = [list(r[2]) for r in rules]
+            status = {}
+            for n, (w, h, st) in enumerate(CTX):
+                t0 = time.time(); pg = open_page(b, port, w, h, st)
+                res = pg.evaluate(PAGE_JS, rin); pg.close()
+                if 'error' in res: raise SystemExit(res['error'])
+                d = {tuple(x) for x in res['dead']}
+                for k in map(tuple, res['applicable']): status[k] = status.get(k, True) and (k in d)
+                print(' ctx', n + 1, '/', len(CTX), (w, h, st), 'dead so far', sum(status.values()), round(time.time() - t0), 's', flush=True)
+            kill = {k for k, v in status.items() if v}
+            def build(kset):
+                for ri, r in enumerate(rules): r[2][:] = [d for di, d in enumerate(rin[ri]) if (ri, di) not in kset]
+                return emit(tree)
+            bad = verify(b, port, build(kill))
+            print('candidates', len(kill), 'of', sum(len(x) for x in rin), 'mismatching contexts', len(bad), flush=True)
+            if bad:
+                by_rule = {}
+                for (ri, di) in sorted(kill): by_rule.setdefault(ri, set()).add((ri, di))
+                groups = [v for _, v in sorted(by_rule.items())]
+                keep = set()
+                def bis(gs):
+                    cur = set().union(*gs) if gs else set()
+                    if not cur: return
+                    if not verify(b, port, build(keep | cur), bad): keep.update(cur); return
+                    if len(gs) == 1: return
+                    m = len(gs) // 2; bis(gs[:m]); bis(gs[m:])
+                bis(groups); kill = keep
+                assert not verify(b, port, build(kill)), 'still differs after bisect'
+                print('after bisect', len(kill), flush=True)
+            css = build(kill)
             html = (ROOT / 'docs' / 'index.html').read_text() + (ROOT / 'docs' / 'app.js').read_text()
-            for rnd in range(2):
-                rules = flat_rules(tree); rin = [r[2] for r in rules]
-                dead_all, appl_all = None, set()
-                for (w, h) in VIEWS:
-                    for st in STATES:
-                        pg = open_page(b, port, w, h, st)
-                        res = pg.evaluate(PAGE_JS, rin); pg.close()
-                        if 'error' in res: raise SystemExit(res['error'])
-                        d = {tuple(x) for x in res['dead']}; a = {tuple(x) for x in res['applicable']}
-                        # dead everywhere it applies: track survivors
-                        if dead_all is None: dead_all = {}
-                        for k in a: dead_all[k] = dead_all.get(k, True) and (k in d)
-                        appl_all |= a
-                    print(' view', w, h, 'dead so far', sum(dead_all.values()), flush=True)
-                kill = {k for k, v in dead_all.items() if v}
-                # apply, then verify; restore offenders per failing context by re-testing
-                def apply(kset):
-                    for ri, r in enumerate(rules):
-                        keep = [d for di, d in enumerate(rin[ri]) if (ri, di) not in kset]
-                        r[2][:] = keep
-                saved = [list(x) for x in rin]
-                apply(kill); CSS.write_text(emit(tree) + '\n')
-                now = fingerprint(b, port)
-                bad = [k for k in base if base[k] != now[k]]
-                print('round', rnd, 'removed', len(kill), 'mismatching contexts', len(bad), flush=True)
-                if bad:
-                    # conservative: restore everything removed this round, then re-remove one rule-group at a time
-                    for ri, r in enumerate(rules): r[2][:] = saved[ri]
-                    by_rule = {}
-                    for (ri, di) in sorted(kill): by_rule.setdefault(ri, set()).add(di)
-                    accepted = 0
-                    items = sorted(by_rule.items())
-                    def test(group):
-                        snap = {ri: list(rules[ri][2]) for ri, _ in group}
-                        for ri, dis in group: rules[ri][2][:] = [d for di, d in enumerate(saved[ri]) if di not in dis and d in rules[ri][2]]
-                        CSS.write_text(emit(tree) + '\n')
-                        ok = all(base[k] == v for k, v in fingerprint_subset(b, port, bad).items())
-                        if not ok:
-                            for ri, _ in group: rules[ri][2][:] = snap[ri]
-                        return ok
-                    def bisect(group):
-                        nonlocal accepted
-                        if not group: return
-                        if test(group): accepted += sum(len(d) for _, d in group); return
-                        if len(group) == 1: return
-                        m = len(group) // 2; bisect(group[:m]); bisect(group[m:])
-                    bisect(items)
-                    CSS.write_text(emit(tree) + '\n')
-                    now = fingerprint(b, port); assert all(base[k] == now[k] for k in base), 'still differs'
-                    print('  recovered by bisect, removed', accepted, flush=True)
-                    if accepted == 0: break
-                elif not kill: break
-            # rules whose classes appear nowhere in the page or script
             def unused(sel):
-                cls = re.findall(r'\.(-?[A-Za-z_][\w-]*)', sel)
-                return any(not re.search(r'(?<![\w-])' + re.escape(c) + r'(?![\w-])', html) for c in cls)
+                return any(not re.search(r'(?<![\w-])' + re.escape(c) + r'(?![\w-])', html) for c in re.findall(r'\.(-?[A-Za-z_][\w-]*)', sel))
             n_unused = 0
             for r in flat_rules(tree):
-                parts = [s.strip() for s in split_top(r[1], ',')]
-                keep = [s for s in parts if not unused(s)]
-                if len(keep) != len(parts):
-                    n_unused += len(parts) - len(keep)
-                    if keep: tree_replace(tree, r, ('rule', ', '.join(keep), r[2]))
+                parts = [x.strip() for x in split_top(r[1], ',')]
+                kp = [x for x in parts if not unused(x)]
+                if len(kp) != len(parts):
+                    n_unused += len(parts) - len(kp)
+                    if kp: tree_replace(tree, r, ('rule', ', '.join(kp), r[2]))
                     else: r[2][:] = []
-            CSS.write_text(emit(tree) + '\n')
-            now = fingerprint(b, port); assert all(base[k] == now[k] for k in base), 'unused-rule removal changed output'
-            print('unused selectors removed', n_unused)
+            css2 = emit(tree)
+            if verify(b, port, css2): print('unused-selector removal changed output; skipped', flush=True)
+            else: css = css2; print('unused selectors removed', n_unused, flush=True)
+            out_path.write_text(css + '\n')
+            print('written', out_path, len(original), '->', len(css), flush=True)
             b.close()
-    except BaseException:
-        CSS.write_text(original); raise
     finally:
         srv.kill()
-
-def fingerprint_subset(b, port, keys):
-    out = {}
-    for (w, h, st) in keys:
-        pg = open_page(b, port, w, h, st); out[(w, h, st)] = hashlib.sha1(pg.evaluate(FULL_JS).encode()).hexdigest(); pg.close()
-    return out
 
 def tree_replace(tree, old, new):
     for i, it in enumerate(tree):
