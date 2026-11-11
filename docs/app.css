@@ -2321,3 +2321,9 @@ html body figure > figcaption { text-align: center !important; }
 @media (min-width: 1100px) { .ab-skill dd.chips span { font-size: 15px; padding: 7px 4px; } }
 .ab-edu time { display: flex; align-items: center; }
 .ab-edu time .edu-state { display: inline; padding-right: 9px; margin-right: 9px; border-right: 1px solid #b9c6d3; line-height: 1.1; font-size: inherit; color: inherit; }
+/* Squarer corners on small boxes. */
+.top .pdf, .top nav .pdf { border-radius: 4px; }
+.ab-skill dd.chips span { border-radius: 3px; }
+.ab-cert dt { border-radius: 3px; }
+.pc-tags span, .ds-first .overview-copy .tags span { border-radius: 3px; }
+.top nav a.pdf { border-radius: 4px; }
