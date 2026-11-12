@@ -70,12 +70,21 @@ const onScroll = () => top.classList.toggle('solid', scrollY > hero.offsetHeight
 addEventListener('scroll', onScroll, { passive: true }); onScroll();
 
 /* cover fills the first screen on tall desktops: measure how much of the about card sits below the cover */
-const aboutCard = $('.about-card'), cue = $('.scroll-cue');
+const aboutCard = $('.about-card'), cue = $('.scroll-cue'), wideMQ = matchMedia('(min-width: 1100px)');
 const fit = () => {
   document.documentElement.classList.add('fill');
   const overlap = -parseFloat(getComputedStyle($('.about')).marginTop) || 0;
   const cueH = cue && cue.offsetHeight ? cue.offsetHeight : 0;
   document.documentElement.style.setProperty('--ab-rest', (aboutCard.offsetHeight - overlap + cueH) + 'px');
+  /* contact links sit halfway between the tagline and the about card */
+  const tag = $('.h-tag'), links = $('.h-links');
+  if (tag && links) {
+    const docTop = el => { let y = 0; for (let e = el; e; e = e.offsetParent) y += e.offsetTop; return y; };
+    links.style.top = '';
+    const room = docTop(aboutCard) - (docTop(tag) + tag.offsetHeight);
+    const shift = wideMQ.matches ? docTop(tag) + tag.offsetHeight + (room - links.offsetHeight) / 2 - docTop(links) : 0;
+    links.style.top = shift > 0 ? Math.round(shift) + 'px' : '';
+  }
 };
 fit(); addEventListener('resize', fit, { passive: true });
 if (document.fonts && document.fonts.ready) document.fonts.ready.then(fit);
