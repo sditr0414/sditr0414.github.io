@@ -1051,12 +1051,12 @@ html body header.top .brand span { font-size: 15px; }
   html body .dv figure figcaption { line-height: 1.5; }
 }
 .ds.page-media-fit img, .ds.page-media-fit video, .ds.page-media-fit svg { max-height: var(--page-media-max); object-fit: contain; }
-.ds.page-media-fit .inline-demo { max-width: 100%; }
-.ds.page-media-fit .inline-demo video { max-height: var(--page-video-max); }
+.ds.page-media-fit .inline-demo { width: fit-content; max-width: 100%; margin-inline: auto; aspect-ratio: auto; }
+.ds.page-media-fit .inline-demo video { position: static; width: auto; max-width: 100%; height: auto; max-height: var(--page-video-max); aspect-ratio: auto; }
 .ds.page-media-fit .app-screen img { width: auto; max-width: 100%; height: auto; max-height: min(var(--page-media-max), 220px); margin-inline: auto; }
 .ds.page-fragment { position: relative; padding: 18px 24px; }
 .page-fragment .ds-body { margin-top: 14px; }
-.page-fragment .page-unit { display: block; margin-top: 0; }
+.page-fragment .page-unit { display: block; width: 100%; margin-top: 0; }
 .page-fragment .page-unit > * + * { margin-top: 10px; }
 .page-fragment table.page-unit { display: table; }
 .page-part-count { position: absolute; right: 18px; top: 14px; font-size: 13px; color: var(--muted); line-height: 1.4; }
@@ -1148,7 +1148,7 @@ html body header.top .brand span { font-size: 15px; }
 @media (max-width: 680px) {
   .robot-study .ds { padding: 18px 16px; }
   .robot-study .ds-body { margin-top: 14px; }
-  .robot-study .study-pair { grid-template-columns: 1fr; }
+  .robot-study .study-pair { grid-template-columns: 1fr; gap: 18px; }
   .robot-study .study-data .study-pair { grid-template-columns: 1fr 1fr; gap: 12px; }
   .robot-study .ds-body figure img, .robot-study .ds-body .inline-demo video { max-height: 190px; }
   .robot-study .ds-body .study-chart img, .robot-study .study-charts img { max-height: none; }
@@ -1852,7 +1852,7 @@ html body figure > figcaption { text-align: center !important; }
 .dv-toc .toc-note i { width: 6px; height: 6px; border-radius: 50%; background: var(--link); }
 @media (min-width: 1100px) and (min-height: 680px) {
   .scroll-cue { position: sticky; bottom: 0; z-index: 3; }
-  .scroll-cue::before { content: ""; position: absolute; z-index: -1; top: 0; bottom: 0; left: 50%; width: 100vw; transform: translateX(-50%); background: linear-gradient(to bottom, transparent, var(--bg) 55%); pointer-events: none; }
+  .scroll-cue::before { content: ""; position: absolute; z-index: -1; top: 0; bottom: 0; left: 50%; width: 100vw; transform: translateX(-50%); background: linear-gradient(to bottom, transparent, var(--bg) 30%); pointer-events: none; }
 }
 .h-links { position: relative; }
 .dv .method-rows { display: grid; gap: 10px; margin: 16px 0 0; padding-top: 14px; border-top: 1px solid var(--box-line); }
@@ -1885,3 +1885,6 @@ html body figure > figcaption { text-align: center !important; }
 .sheet-bar .pdf { transition: background .2s var(--ease), border-color .2s var(--ease); }
 @media (hover: hover) { .sheet-bar .pdf:hover { background: rgba(255,255,255,.22); border-color: rgba(255,255,255,.6); } }
 .sheet-bar .pdf:active { background: rgba(255,255,255,.3); }
+
+/* phones: the per-item lines in 과제·담당·결과 may wrap instead of running past the box */
+@media (max-width: 760px) { .brief dd x-nw { white-space: normal; } }
