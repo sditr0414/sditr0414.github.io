@@ -2341,27 +2341,36 @@ html body figure > figcaption { text-align: center !important; }
 /* contact links are nudged by app.js to sit halfway between the tagline and the about card */
 .h-links { position: relative; }
 
-/* grouped bar chart (thesis results): bars start at 0, value on every bar, colour = input feature */
+/* grouped bar chart (thesis results): bars start at 0, value on every bar; the best input feature is navy, the rest step lighter */
 .barchart { margin: 0; }
-.bc-legend { list-style: none; display: flex; flex-wrap: wrap; gap: 6px 18px; margin: 0 0 14px; padding: 0; font-size: 14px; color: var(--ink); }
+.bc-legend { list-style: none; display: flex; flex-wrap: wrap; gap: 6px 18px; margin: 0 0 14px; padding: 0; font-size: 14px; color: var(--muted); }
 .bc-legend li { display: inline-flex; align-items: center; gap: 7px; }
 .bc-legend li::before { content: ""; width: 12px; height: 12px; border-radius: 3px; background: var(--c); }
-.bc-plot { position: relative; display: flex; gap: 4%; height: 260px; padding: 22px 0 30px 34px;
+.bc-legend li.bc-top { color: var(--navy); font-weight: 700; }
+.bc-plot { position: relative; display: flex; gap: 3%; height: 280px; padding: 24px 0 50px 34px;
   background: repeating-linear-gradient(to top, var(--line) 0 1px, transparent 1px 25%) content-box; }
-.bc-y { position: absolute; left: 0; top: 22px; bottom: 30px; width: 26px; display: flex; flex-direction: column; justify-content: space-between;
+.bc-2 .bc-plot { padding-bottom: 30px; height: 260px; }
+.bc-y { position: absolute; left: 0; top: 24px; bottom: 50px; width: 26px; display: flex; flex-direction: column; justify-content: space-between;
   font-size: 12px; color: var(--muted); text-align: right; font-variant-numeric: tabular-nums; }
+.bc-2 .bc-y { bottom: 30px; }
 .bc-y span { line-height: 0; }
 .bc-group { position: relative; flex: 1; display: flex; justify-content: center; min-width: 0; }
-.bc-bars { display: flex; align-items: flex-end; justify-content: center; gap: 2px; width: 100%; max-width: 230px; height: 100%; }
-.bc-bars i { position: relative; flex: 1; max-width: 62px; height: calc(var(--v) * 1%); background: var(--c); border-radius: 4px 4px 0 0; }
-.bc-bars b { position: absolute; left: 50%; bottom: 100%; transform: translateX(-50%); padding-bottom: 4px; font-style: normal; font-size: 13px; font-weight: 600;
-  color: var(--ink); font-variant-numeric: tabular-nums; white-space: nowrap; }
-.bc-x { position: absolute; left: 0; right: 0; top: 100%; padding-top: 8px; text-align: center; font-size: 14px; font-weight: 600; color: var(--ink); }
+.bc-group.pick::before { content: ""; position: absolute; left: 0; right: 0; top: -24px; bottom: -50px; background: #eaf1f8; border-radius: 3px; z-index: 0; }
+.bc-bars { position: relative; display: flex; align-items: flex-end; justify-content: center; gap: 2px; width: 100%; max-width: 230px; height: 100%; }
+.bc-bars i { position: relative; flex: 1; max-width: 62px; height: calc(var(--v) * 1%); background: var(--c); border-radius: 3px 3px 0 0; }
+.bc-bars b { position: absolute; left: 50%; bottom: 100%; transform: translateX(-50%); padding-bottom: 4px; font-style: normal; font-size: 13px; font-weight: 500;
+  color: var(--muted); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.bc-bars i.bc-top b { font-weight: 700; color: var(--navy); }
+.bc-x { position: absolute; left: 0; right: 0; top: 100%; padding-top: 8px; text-align: center; font-size: 14px; font-weight: 600; color: var(--ink); line-height: 1.3; }
+.bc-x small { display: block; font-size: 13px; font-weight: 500; color: var(--muted); font-variant-numeric: tabular-nums; }
+.bc-group.pick .bc-x, .bc-group.pick .bc-x small { color: var(--navy); font-weight: 700; }
 .barchart figcaption { margin-top: 6px; }
 .barchart + .ds-note { margin-top: 16px; }
 @media (max-width: 680px) {
-  .bc-plot { height: 220px; gap: 2%; padding-left: 26px; }
+  .bc-plot { height: 240px; gap: 2%; padding-left: 26px; }
+  .bc-2 .bc-plot { height: 220px; }
   .bc-y { width: 20px; font-size: 11px; }
   .bc-bars b { font-size: 10.5px; letter-spacing: -.02em; }
   .bc-legend, .bc-x { font-size: 13px; }
+  .bc-x small { font-size: 12px; }
 }
