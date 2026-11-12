@@ -2330,3 +2330,10 @@ html body figure > figcaption { text-align: center !important; }
 .dv-toc a.key.cur::after { background: var(--sky); }
 .dv-toc .toc-note { display: flex; align-items: center; gap: 6px; margin: 8px 0 0 4px; font-size: 13px; color: var(--muted); }
 .dv-toc .toc-note i { width: 6px; height: 6px; border-radius: 50%; background: var(--link); }
+
+/* the "프로젝트 보기" cue stays at the bottom edge of the window when the first screen is taller than the window */
+@media (min-width: 1100px) and (min-height: 680px) {
+  .scroll-cue { position: sticky; bottom: 0; z-index: 3; }
+  .scroll-cue::before { content: ""; position: absolute; z-index: -1; top: 0; bottom: 0; left: 50%; width: 100vw; transform: translateX(-50%);
+    background: linear-gradient(to bottom, transparent, var(--bg) 55%); pointer-events: none; }
+}
