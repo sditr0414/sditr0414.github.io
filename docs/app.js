@@ -672,6 +672,8 @@ function route() {
     slidePages.prepare(art);
     openAnim(id, prevId);
     sheet.scrollTop = 0; sheet.classList.remove('scrolled', 'bar-off'); lastTop = 0;
+    { const tc = $('.dv-toc', art); if (tc && tc._mark) { tc._mark($('a', tc).dataset.to); tc.scrollLeft = 0; } }
+    cancelAim();
     armSlideReveal(art);
     const h = art.querySelector('h2');
     sheetTitle.textContent = h.textContent; document.title = h.textContent.replace(/\u2060/g, '') + ' · 정승호 포트폴리오';
@@ -695,6 +697,26 @@ function route() {
     closeAnim(was);
   }
 }
+/* A tab jump aims at a section, not at a fixed offset: media that loads on the way can make the page taller,
+   so once scrolling has stopped the position is checked again and corrected. Any input from the reader cancels it. */
+let aimEl = null, aimTimer = 0;
+function cancelAim() { aimEl = null; clearTimeout(aimTimer); }
+function settleOn(t) {
+  cancelAim(); aimEl = t;
+  let seen = -1, still = 0, fixes = 0;
+  const started = performance.now();
+  const check = () => {
+    if (aimEl !== t || sheet.hidden || !t.isConnected || performance.now() - started > 4000) { if (aimEl === t) aimEl = null; return; }
+    const now = sheet.scrollTop;
+    if (now !== seen) { seen = now; still = 0; aimTimer = setTimeout(check, 120); return; }
+    const y = Math.max(0, Math.min(sheet.scrollHeight - sheet.clientHeight, Math.round(slidePosition(t))));
+    if (Math.abs(now - y) > 6 && fixes < 5) { fixes++; still = 0; sheetGl.stop(); sheet.scrollTo({ top: y, behavior: 'instant' }); seen = sheet.scrollTop; }
+    else if (++still >= 4) { aimEl = null; return; }
+    aimTimer = setTimeout(check, 150);
+  };
+  aimTimer = setTimeout(check, 200);
+}
+['wheel', 'touchstart', 'pointerdown', 'keydown'].forEach(type => addEventListener(type, cancelAim, { passive: true, capture: true }));
 /* detail table of contents: jump inside the sheet, mark the section being read */
 $$('.dv-toc').forEach(toc => {
   const links = $$('a', toc);
@@ -717,6 +739,7 @@ $$('.dv-toc').forEach(toc => {
       const y = slidePosition(t);
       if (typeof sheetGlide === 'function') { kbAim = y; sheetGlide(y); } else t.scrollIntoView({ block: 'start' });
       mark(a.dataset.to);
+      settleOn(t);
     }
   }));
   if (hasIO) {
@@ -724,6 +747,7 @@ $$('.dv-toc').forEach(toc => {
     const observePages = () => { io.disconnect(); $$('section.ds[id]', toc.closest('.dv')).forEach(t => io.observe(t)); };
     observePages(); sheet.addEventListener('detailpageschange', observePages);
   }
+  toc._mark = mark;
   mark(links[0].dataset.to);
 });
 /* while reading downwards the bar slides away; any upward scroll brings it back */

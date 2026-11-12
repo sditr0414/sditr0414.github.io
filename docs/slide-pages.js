@@ -73,8 +73,11 @@ function createSlidePages(sheet) {
     const size = `${sheet.clientWidth}:${sheet.clientHeight}`;
     if (state.size === size && !force) return;
     state.size = size;
+    // Re-splitting moves nodes around, which drops keyboard focus: remember the focused element and give focus back afterwards.
+    const focused = sheet.contains(document.activeElement) ? document.activeElement : null;
+    const refocus = () => { if (focused && focused.isConnected && document.activeElement !== focused) focused.focus({ preventScroll: true }); };
     // Short landscape phone screens: keep every slide whole and let it scroll naturally instead of cutting it into tiny parts.
-    if (sheet.clientHeight < 470) { state.originals.forEach(restore); sheet.dispatchEvent(new CustomEvent('detailpageschange', { detail: { article: art } })); return; }
+    if (sheet.clientHeight < 470) { state.originals.forEach(restore); refocus(); sheet.dispatchEvent(new CustomEvent('detailpageschange', { detail: { article: art } })); return; }
     const bar = sheet.querySelector('.sheet-bar').offsetHeight;
     const limit = Math.max(180, sheet.clientHeight - bar - 32);
     for (const r of state.originals) {
@@ -121,6 +124,7 @@ function createSlidePages(sheet) {
         page.prepend(count);
       });
     }
+    refocus();
     sheet.dispatchEvent(new CustomEvent('detailpageschange', { detail: { article: art } }));
   }
   let refresh = 0;

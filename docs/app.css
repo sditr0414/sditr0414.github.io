@@ -1888,3 +1888,10 @@ html body figure > figcaption { text-align: center !important; }
 
 /* phones: the per-item lines in 과제·담당·결과 may wrap instead of running past the box */
 @media (max-width: 760px) { .brief dd x-nw { white-space: normal; } }
+/* 과제·담당·결과 rows written as one item per line: each item is its own line and may wrap when the column is narrow */
+.brief dd.lines x-nw { display: block; white-space: normal; }
+/* print: skill chips keep their full text */
+@media print { .ab-skill dd.chips { flex-wrap: wrap; } .ab-skill dd.chips span { flex: 0 0 auto; min-width: auto; padding: 3px 8px; } }
+/* narrow screens: long spec values wrap inside their cell; under 360px the robot-arm spec list is one column */
+@media (max-width: 900px) { .robot-study .spec-unit { white-space: normal; } }
+@media (max-width: 359px) { html body .robot-study .overview dl.specs { grid-template-columns: 1fr; } html body .robot-study .overview dl.specs > div { grid-column: auto; border-left: 0; } }
