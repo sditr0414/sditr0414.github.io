@@ -1889,28 +1889,28 @@ html body .pc-lead .pc-body .pc-more { font-size: 15px; }
 }
 
 /* project 01 slide 10: one card per training method, the weakest-class IoU as the headline number */
-.robot-study .method-cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
-.robot-study .method-card { position: relative; padding: 18px 22px 16px; background: #fff; border: 1px solid var(--box-line); border-top: 4px solid #a9bdd2; border-radius: 0 0 6px 6px; }
-.robot-study .method-card.is-picked { background: var(--box); border-top-color: var(--navy); box-shadow: 0 6px 16px rgba(20,41,61,.08); }
-.robot-study .method-card h4 { display: flex; align-items: center; gap: 8px; margin: 0; font-size: 20px; color: var(--ink); }
-.robot-study .method-card h4 em { font-style: normal; font-size: 13px; font-weight: 700; color: #fff; background: var(--navy); padding: 2px 8px; border-radius: 3px; }
-.robot-study .ds-body .method-sub { margin: 4px 0 14px; font-size: 15px; color: var(--muted); }
-.robot-study .ds-body .method-label { margin: 0; font-size: 14px; font-weight: 600; color: var(--muted); }
-.robot-study .ds-body .method-hero { margin: 2px 0 8px; font-size: 38px; line-height: 1.1; font-weight: 750; color: var(--ink); font-variant-numeric: tabular-nums; }
-.robot-study .method-card:not(.is-picked) .method-hero { color: #4e6378; }
-.robot-study .method-hero small { font-size: 17px; margin-left: 2px; font-weight: 600; }
-.robot-study .method-bar { height: 8px; background: #e6edf4; border-radius: 3px; overflow: hidden; }
-.robot-study .method-bar i { display: block; height: 100%; background: #9fb6cc; border-radius: 3px; }
-.robot-study .method-card.is-picked .method-bar i { background: var(--navy); }
-.robot-study .method-card dl { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 14px 0 0; padding-top: 12px; border-top: 1px solid var(--box-line); }
-.robot-study .method-card dt { font-size: 14px; color: var(--muted); }
-.robot-study .method-card dd { margin: 2px 0 0; font-size: 17px; font-weight: 600; color: var(--ink); font-variant-numeric: tabular-nums; }
+.dv .method-cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
+.dv .method-card { position: relative; padding: 18px 22px 16px; background: #fff; border: 1px solid var(--box-line); border-top: 4px solid #a9bdd2; border-radius: 0 0 6px 6px; }
+.dv .method-card.is-picked { background: var(--box); border-top-color: var(--navy); box-shadow: 0 6px 16px rgba(20,41,61,.08); }
+.dv .method-card h4 { display: flex; align-items: center; gap: 8px; margin: 0; font-size: 20px; color: var(--ink); }
+.dv .method-card h4 em { font-style: normal; font-size: 13px; font-weight: 700; color: #fff; background: var(--navy); padding: 2px 8px; border-radius: 3px; }
+.dv .ds-body .method-sub { margin: 4px 0 14px; font-size: 15px; color: var(--muted); }
+.dv .ds-body .method-label { margin: 0; font-size: 14px; font-weight: 600; color: var(--muted); }
+.dv .ds-body .method-hero { margin: 2px 0 8px; font-size: 38px; line-height: 1.1; font-weight: 750; color: var(--ink); font-variant-numeric: tabular-nums; }
+.dv .method-card:not(.is-picked) .method-hero { color: #4e6378; }
+.dv .method-hero small { font-size: 17px; margin-left: 2px; font-weight: 600; }
+.dv .method-bar { height: 8px; background: #e6edf4; border-radius: 3px; overflow: hidden; }
+.dv .method-bar i { display: block; height: 100%; background: #9fb6cc; border-radius: 3px; }
+.dv .method-card.is-picked .method-bar i { background: var(--navy); }
+.dv .method-card dl { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 14px 0 0; padding-top: 12px; border-top: 1px solid var(--box-line); }
+.dv .method-card dt { font-size: 14px; color: var(--muted); }
+.dv .method-card dd { margin: 2px 0 0; font-size: 17px; font-weight: 600; color: var(--ink); font-variant-numeric: tabular-nums; }
 .robot-study #opencv-9 .study-takeaway { margin-top: 20px; }
-.robot-study .ds-body .method-note { margin: 10px 0 0; font-size: 14px; color: var(--muted); }
+.dv .ds-body .method-note { margin: 10px 0 0; font-size: 14px; color: var(--muted); }
 @media (max-width: 680px) {
-  .robot-study .method-cards { grid-template-columns: 1fr; gap: 12px; }
-  .robot-study .method-card { padding: 14px 16px; }
-  .robot-study .ds-body .method-hero { font-size: 32px; }
+  .dv .method-cards { grid-template-columns: 1fr; gap: 12px; }
+  .dv .method-card { padding: 14px 16px; }
+  .dv .ds-body .method-hero { font-size: 32px; }
 }
 /* slide 11: tables with the same row height and type as the other slides, decisions as takeaway boxes under each table */
 .robot-study #opencv-10 .study-opt .study-table th, .robot-study #opencv-10 .study-opt .study-table td { padding-top: 12px; padding-bottom: 12px; }
@@ -1920,13 +1920,13 @@ html body .pc-lead .pc-body .pc-more { font-size: 15px; }
 .robot-study #opencv-10 .ds-body .study-decision-result { font-size: 22px; margin: 2px 0 2px; }
 .robot-study #opencv-10 .study-opt-take { gap: 28px; margin-top: 20px; }
 @media (max-width: 680px) {
-  .robot-study .method-card { display: grid; grid-template-columns: minmax(0, 1fr) auto; column-gap: 14px; align-items: end; }
-  .robot-study .method-card h4, .robot-study .ds-body .method-sub, .robot-study .method-bar { grid-column: 1 / -1; }
-  .robot-study .ds-body .method-sub { margin-bottom: 8px; font-size: 14px; }
-  .robot-study .ds-body .method-label { grid-column: 1; }
-  .robot-study .ds-body .method-hero { grid-column: 1; font-size: 28px; margin-bottom: 6px; }
-  .robot-study .method-card dl { grid-column: 2; grid-row: 3 / span 2; grid-template-columns: auto auto; gap: 4px 12px; margin: 0 0 6px; padding: 0; border: 0; }
-  .robot-study .method-card dt { font-size: 13px; } .robot-study .method-card dd { font-size: 15px; }
+  .dv .method-card { display: grid; grid-template-columns: minmax(0, 1fr) auto; column-gap: 14px; align-items: end; }
+  .dv .method-card h4, .dv .ds-body .method-sub, .dv .method-bar { grid-column: 1 / -1; }
+  .dv .ds-body .method-sub { margin-bottom: 8px; font-size: 14px; }
+  .dv .ds-body .method-label { grid-column: 1; }
+  .dv .ds-body .method-hero { grid-column: 1; font-size: 28px; margin-bottom: 6px; }
+  .dv .method-card dl { grid-column: 2; grid-row: 3 / span 2; grid-template-columns: auto auto; gap: 4px 12px; margin: 0 0 6px; padding: 0; border: 0; }
+  .dv .method-card dt { font-size: 13px; } .dv .method-card dd { font-size: 15px; }
 }
 
 /* adopted option: a badge next to its name and a navy bar on the row, so the choice reads at a glance */
@@ -2057,11 +2057,11 @@ a.mail { border-bottom: 0; text-decoration: underline; text-underline-offset: 3p
   .robot-study .process-step h4 { font-size: 15px; white-space: nowrap; }
   .robot-study .process-step figcaption { font-size: 14px; }
   /* method cards: compact labels */
-  .robot-study .method-cards { gap: 12px; }
-  .robot-study .method-card { padding: 14px 16px 12px; }
-  .robot-study .method-card dt { font-size: 13px; white-space: nowrap; }
-  .robot-study .method-card dd { font-size: 15px; }
-  .robot-study .method-card .method-hero { font-size: 34px; }
+  .dv .method-cards { gap: 12px; }
+  .dv .method-card { padding: 14px 16px 12px; }
+  .dv .method-card dt { font-size: 13px; white-space: nowrap; }
+  .dv .method-card dd { font-size: 15px; }
+  .dv .method-card .method-hero { font-size: 34px; }
   /* tables: tighter cells so every column fits */
   .robot-study .ds-body .study-table { font-size: 14px; }
   .robot-study .study-table th, .robot-study .study-table td { padding: 7px 7px; }
@@ -2178,7 +2178,7 @@ html body figure > figcaption { text-align: center !important; }
 .robot-study .log-reason { border-left-color: #a5463c; }
 .robot-study .log-reason b { color: #a5463c; }
 /* 2026-10-30 · 팔레트 검출률: 표 대신 0–100% 막대 (13쪽 막대와 같은 상자) */
-.robot-study .ds-body figure.prate { width: 100% !important; max-width: none !important; margin: 0 !important; padding: 18px 22px; background: var(--box); border: 1px solid var(--box-line); border-radius: 6px; display: grid; gap: 14px; }
+.dv .ds-body figure.prate { width: 100% !important; max-width: none !important; margin: 0 !important; padding: 18px 22px; background: var(--box); border: 1px solid var(--box-line); border-radius: 6px; display: grid; gap: 14px; }
 .prate figcaption { margin: 0; font-size: 16px; font-weight: 600; color: var(--navy); text-align: left !important; }
 .prate-row { display: grid; grid-template-columns: minmax(0, 1fr) 150px; grid-template-areas: "label val" "bar bar"; column-gap: 12px; row-gap: 6px; align-items: baseline; }
 .prate-label { grid-area: label; font-size: 16px; color: var(--ink); }
@@ -2189,7 +2189,7 @@ html body figure > figcaption { text-align: center !important; }
 .prate-row.sel .prate-label { font-weight: 700; }
 .prate-row.sel strong { color: #315b7d; }
 .prate-row.sel .prate-track i { background: var(--navy); }
-@media (max-width: 680px) { .robot-study .ds-body figure.prate { padding: 14px; } .prate-row { grid-template-columns: minmax(0,1fr) auto; } .prate-row strong small { display: block; margin: 0; text-align: right; } }
+@media (max-width: 680px) { .dv .ds-body figure.prate { padding: 14px; } .prate-row { grid-template-columns: minmax(0,1fr) auto; } .prate-row strong small { display: block; margin: 0; text-align: right; } }
 .prate .prate-label .pick { display: inline-block; margin-left: 8px; padding: 1px 7px; border-radius: 3px; background: var(--navy); color: #fff; font-size: 13px; font-weight: 700; line-height: 1.5; vertical-align: 2px; }
 /* 2026-10-30 · 가독성: 작은 보조 글자를 한 단계 키움 (PC) */
 @media (min-width: 681px) {
@@ -2341,36 +2341,20 @@ html body figure > figcaption { text-align: center !important; }
 /* contact links are nudged by app.js to sit halfway between the tagline and the about card */
 .h-links { position: relative; }
 
-/* grouped bar chart (thesis results): bars start at 0, value on every bar; the best input feature is navy, the rest step lighter */
-.barchart { margin: 0; }
-.bc-legend { list-style: none; display: flex; flex-wrap: wrap; gap: 6px 18px; margin: 0 0 14px; padding: 0; font-size: 14px; color: var(--muted); }
-.bc-legend li { display: inline-flex; align-items: center; gap: 7px; }
-.bc-legend li::before { content: ""; width: 12px; height: 12px; border-radius: 3px; background: var(--c); }
-.bc-legend li.bc-top { color: var(--navy); font-weight: 700; }
-.bc-plot { position: relative; display: flex; gap: 3%; height: 280px; padding: 24px 0 50px 34px;
-  background: repeating-linear-gradient(to top, var(--line) 0 1px, transparent 1px 25%) content-box; }
-.bc-2 .bc-plot { padding-bottom: 30px; height: 260px; }
-.bc-y { position: absolute; left: 0; top: 24px; bottom: 50px; width: 26px; display: flex; flex-direction: column; justify-content: space-between;
-  font-size: 12px; color: var(--muted); text-align: right; font-variant-numeric: tabular-nums; }
-.bc-2 .bc-y { bottom: 30px; }
-.bc-y span { line-height: 0; }
-.bc-group { position: relative; flex: 1; display: flex; justify-content: center; min-width: 0; }
-.bc-group.pick::before { content: ""; position: absolute; left: 0; right: 0; top: -24px; bottom: -50px; background: #eaf1f8; border-radius: 3px; z-index: 0; }
-.bc-bars { position: relative; display: flex; align-items: flex-end; justify-content: center; gap: 2px; width: 100%; max-width: 230px; height: 100%; }
-.bc-bars i { position: relative; flex: 1; max-width: 62px; height: calc(var(--v) * 1%); background: var(--c); border-radius: 3px 3px 0 0; }
-.bc-bars b { position: absolute; left: 50%; bottom: 100%; transform: translateX(-50%); padding-bottom: 4px; font-style: normal; font-size: 13px; font-weight: 500;
-  color: var(--muted); font-variant-numeric: tabular-nums; white-space: nowrap; }
-.bc-bars i.bc-top b { font-weight: 700; color: var(--navy); }
-.bc-x { position: absolute; left: 0; right: 0; top: 100%; padding-top: 8px; text-align: center; font-size: 14px; font-weight: 600; color: var(--ink); line-height: 1.3; }
-.bc-x small { display: block; font-size: 13px; font-weight: 500; color: var(--muted); font-variant-numeric: tabular-nums; }
-.bc-group.pick .bc-x, .bc-group.pick .bc-x small { color: var(--navy); font-weight: 700; }
-.barchart figcaption { margin-top: 6px; }
-.barchart + .ds-note { margin-top: 16px; }
-@media (max-width: 680px) {
-  .bc-plot { height: 240px; gap: 2%; padding-left: 26px; }
-  .bc-2 .bc-plot { height: 220px; }
-  .bc-y { width: 20px; font-size: 11px; }
-  .bc-bars b { font-size: 10.5px; letter-spacing: -.02em; }
-  .bc-legend, .bc-x { font-size: 13px; }
-  .bc-x small { font-size: 12px; }
-}
+/* thesis results reuse the robot-arm study's method cards and rate rows; these are the per-feature rows inside a card */
+.dv .method-rows { display: grid; gap: 10px; margin: 16px 0 0; padding-top: 14px; border-top: 1px solid var(--box-line); }
+.dv .method-row { display: grid; grid-template-columns: minmax(0, 1fr) auto; column-gap: 12px; row-gap: 5px; align-items: baseline; }
+.dv .method-row span { font-size: 15px; color: var(--muted); }
+.dv .method-row strong { font-size: 17px; font-weight: 600; color: var(--ink); font-variant-numeric: tabular-nums; }
+.dv .method-row .method-bar { grid-column: 1 / -1; }
+.dv .method-row.sel span { color: var(--ink); font-weight: 700; }
+.dv .method-row.sel strong { font-weight: 750; }
+.dv .method-row.sel .method-bar i { background: var(--navy); }
+.dv .method-cards + .ds-note { margin-top: 20px; }
+.dv .method-rows { grid-column: 1 / -1; }
+.dv .ds-body .method-card h4 + .method-label { margin-top: 12px; }
+.dv .method-card.is-picked .method-row:not(.sel) .method-bar i { background: #7f9ab5; }
+.prate-group { margin: 0; font-size: 15px; font-weight: 700; color: var(--muted); }
+.prate-group ~ .prate-group { margin-top: 6px; padding-top: 14px; border-top: 1px solid var(--box-line); }
+.dv .split > .col > figure.prate + .ds-note { margin-top: 14px; }
+@media (min-width: 681px) { html body .dv .method-row span { font-size: 16px; } }
